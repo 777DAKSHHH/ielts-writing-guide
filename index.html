@@ -85,13 +85,34 @@
         <!-- Step 1: Audio/Video Overview -->
         <div id="step-1" class="wizard-step active">
             <h2>Step 1: Task Overview</h2>
-            <p>Listen to the audio or watch the video below for a brief overview of how to approach this type of task.</p>
-            <!-- === EDIT THIS SECTION === -->
-            <audio controls class="w-100">
-                <source src="materials/week19-task1-audio.mp3" type="audio/mpeg">
-                Your browser does not support the audio element.
-            </audio>
-            <!-- ======================== -->
+            <p>Choose your preferred format for a brief overview of how to approach this type of task.</p>
+            
+            <!-- Tab Navigation for Audio/Video -->
+            <ul class="nav nav-tabs" id="overviewTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="audio-tab" data-bs-toggle="tab" data-bs-target="#audio-pane" type="button" role="tab" aria-controls="audio-pane" aria-selected="true">Audio Overview</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="video-tab" data-bs-toggle="tab" data-bs-target="#video-pane" type="button" role="tab" aria-controls="video-pane" aria-selected="false">Video Overview</button>
+                </li>
+            </ul>
+
+            <!-- Tab Content -->
+            <div class="tab-content" id="overviewTabContent">
+                <div class="tab-pane fade show active p-3 border border-top-0 rounded-bottom" id="audio-pane" role="tabpanel" aria-labelledby="audio-tab" tabindex="0">
+                    <audio controls class="w-100">
+                        <source src="materials/week19-task1-audio.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                <div class="tab-pane fade p-3 border border-top-0 rounded-bottom" id="video-pane" role="tabpanel" aria-labelledby="video-tab" tabindex="0">
+                    <video controls class="w-100" style="border-radius: 4px;">
+                        <source src="materials/week-19-fri-wt-1(video).mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+
             <div class="navigation-buttons">
                 <span></span> <!-- Empty span for spacing -->
                 <button class="btn btn-primary next-btn">Next: Brainstorm &rarr;</button>
