@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IELTS Guided Writing Task</title>
+    <!-- Switched to the "Flatly" Bootswatch theme for a more attractive look -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/zephyr/bootstrap.min.css">
+    <style>
+        /* Using "Inter" as a high-quality, free alternative to Aptos */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+        /* 
+          To use the real Aptos font, you would need the .woff2 font files.
+          You would place them in your project and use a rule like this:
+          @font-face {
+            font-family: 'Aptos';
+            src: url('./path/to/Aptos.woff2') format('woff2');
+          }
+        */
+
+        body {
+            font-family: 'Inter', 'Aptos', sans-serif; /* Browser will use Inter as a fallback */
+            background-color: #f8f9fa;
+        }
+        .wizard-container {
+            max-width: 900px;
+            margin: 2rem auto;
+        }
+        .wizard-step {
+            display: none; /* Hidden by default */
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            padding: 2rem;
+            min-height: 500px;
+            /* Animation properties */
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+            pointer-events: none;
+        }
+        .wizard-step.active {
+            display: block; /* Show active step */
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        .wizard-step h2 {
+            color: #9b59b6; /* Adjusted for Zephyr theme's primary color */
+            border-bottom: 2px solid #9b59b6; /* Adjusted for Zephyr theme */
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .navigation-buttons {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+        }
+        .task-image {
+            max-width: 100%;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }
+        .timer-display {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #9b59b6; /* Adjusted for Zephyr theme */
+        }
+        textarea {
+            min-height: 150px;
+        }
+        .progress-bar {
+            transition: width 0.4s ease-out; /* Smooth transition for progress bar */
+        }
+    </style>
+</head>
+<body>
+    <div class="container wizard-container">
+        <!-- Progress Bar for an eye-pleasing touch -->
+        <div class="progress mb-4" style="height: 10px;">
+            <div id="progressBar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+
+        <!-- Step 1: Audio/Video Overview -->
+        <div id="step-1" class="wizard-step active">
+            <h2>Step 1: Task Overview</h2>
+            <p>Listen to the audio or watch the video below for a brief overview of how to approach this type of task.</p>
+            <!-- === EDIT THIS SECTION === -->
+            <audio controls class="w-100">
+                <source src="materials/week19-task1-audio.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <!-- ======================== -->
+            <div class="navigation-buttons">
+                <span></span> <!-- Empty span for spacing -->
+                <button class="btn btn-primary next-btn">Next: Brainstorm &rarr;</button>
+            </div>
+        </div>
+
+        <!-- Step 2: Brainstorming -->
+        <div id="step-2" class="wizard-step">
+            <h2>Step 2: Brainstorm (3-Minute Timer)</h2>
+            <p>Look at the task and the image. Use the next 3 minutes to paraphrase the prompt and note the main features you will describe.</p>
+            <div class="text-center my-3">
+                <button id="startTimerBtn" class="btn btn-success">Start 3-Min Timer</button>
+                <div id="timer" class="timer-display mt-2">03:00</div>
+            </div>
+            <hr>
+            <!-- === EDIT THIS SECTION === -->
+            <div class="task-content">
+                <h5>The Task</h5>
+                <p>The chart below shows the changes in the proportion of the population aged 65 and over in three countries between 1980 and 2020, with projections for 2040. <strong>Summarise the information by selecting and reporting the main features, and make comparisons where relevant.</strong></p>
+                <img src="https://i.imgur.com/YVfQ1Lz.png" alt="Sample chart for IELTS Task 1" class="task-image">
+            </div>
+            <!-- ======================== -->
+            <div class="navigation-buttons">
+                <button class="btn btn-secondary prev-btn">&larr; Previous</button>
+                <button class="btn btn-primary next-btn">Next: Synonyms &rarr;</button>
+            </div>
+        </div>
+
+        <!-- Step 3: Synonyms -->
+        <div id="step-3" class="wizard-step">
+            <h2>Step 3: Vocabulary & Synonyms</h2>
+            <p>List keywords from the prompt and find synonyms to use in your writing. This helps you avoid repetition.</p>
+            <!-- === EDIT THIS SECTION === -->
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="synonyms1" class="form-label">Keywords for Trends (e.g., increase, decrease)</label>
+                    <textarea id="synonyms1" class="form-control">rise, go up, surge, climb, fall, drop, decline, plummet</textarea>
+                </div>
+                <div class="col-md-6">
+                    <label for="synonyms2" class="form-label">Keywords for Proportions (e.g., the proportion of)</label>
+                    <textarea id="synonyms2" class="form-control">the percentage of, the figure for, the share of</textarea>
+                </div>
+            </div>
+            <!-- ======================== -->
+            <div class="navigation-buttons">
+                <button class="btn btn-secondary prev-btn">&larr; Previous</button>
+                <button class="btn btn-primary next-btn">Next: Introduction &rarr;</button>
+            </div>
+        </div>
+
+        <!-- Step 4: Introduction & Overview -->
+        <div id="step-4" class="wizard-step">
+            <h2>Step 4: Sample Introduction & Overview</h2>
+            <p>Here is a sample structure. You can edit it to match your own style.</p>
+            <!-- === EDIT THIS SECTION === -->
+            <div class="mb-3">
+                <label for="intro" class="form-label"><strong>Introduction (Paraphrase the prompt)</strong></label>
+                <textarea id="intro" class="form-control">The line graph illustrates changes in the percentage of people aged 65 and above in Japan, Sweden, and the USA from 1980 to 2020, and provides projections until 2040.</textarea>
+            </div>
+            <div class="mb-3">
+                <label for="overview" class="form-label"><strong>Overview (Summarize the main trends)</strong></label>
+                <textarea id="overview" class="form-control">Overall, the proportion of the elderly population is expected to increase in all three countries over the entire period. Japan is projected to see the most dramatic rise, becoming the country with the highest percentage of seniors.</textarea>
+            </div>
+            <!-- ======================== -->
+            <div class="navigation-buttons">
+                <button class="btn btn-secondary prev-btn">&larr; Previous</button>
+                <button class="btn btn-primary next-btn">Next: Body Paragraph 1 &rarr;</button>
+            </div>
+        </div>
+
+        <!-- Step 5: Body Paragraph 1 -->
+        <div id="step-5" class="wizard-step">
+            <h2>Step 5: Body Paragraph 1 Points</h2>
+            <p>Plan the key features for your first body paragraph. Focus on one or two main points, like the starting figures and the trends for USA and Sweden.</p>
+            <!-- === EDIT THIS SECTION === -->
+            <div class="mb-3">
+                <label for="bp1" class="form-label"><strong>Main Points for BP1</strong></label>
+                <textarea id="bp1" class="form-control">- Start with USA and Sweden, which had higher figures than Japan in 1980.
+- Describe the gradual increase for both the USA and Sweden over the period.
+- Mention specific figures, for example, Sweden's peak around 2030.</textarea>
+            </div>
+            <!-- ======================== -->
+            <div class="navigation-buttons">
+                <button class="btn btn-secondary prev-btn">&larr; Previous</button>
+                <button class="btn btn-primary next-btn">Next: Body Paragraph 2 &rarr;</button>
+            </div>
+        </div>
+
+        <!-- Step 6: Body Paragraph 2 -->
+        <div id="step-6" class="wizard-step">
+            <h2>Step 6: Body Paragraph 2 Points</h2>
+            <p>Plan the key features for your second body paragraph. Focus on the most significant trend, which is Japan.</p>
+            <!-- === EDIT THIS SECTION === -->
+            <div class="mb-3">
+                <label for="bp2" class="form-label"><strong>Main Points for BP2</strong></label>
+                <textarea id="bp2" class="form-control">- Focus on Japan, which started at the lowest point.
+- Describe its slow initial growth, followed by a very sharp increase after 2020.
+- Highlight that Japan overtakes both the USA and Sweden and is projected to reach the highest point by 2040.</textarea>
+            </div>
+            <!-- ======================== -->
+            <div class="navigation-buttons">
+                <button class="btn btn-secondary prev-btn">&larr; Previous</button>
+                <a href="#" class="btn btn-success">Finish & Return Home</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const steps = document.querySelectorAll('.wizard-step');
+            const nextButtons = document.querySelectorAll('.next-btn');
+            const prevButtons = document.querySelectorAll('.prev-btn');
+            const startTimerBtn = document.getElementById('startTimerBtn');
+            const timerEl = document.getElementById('timer');
+            const progressBar = document.getElementById('progressBar');
+
+            let currentStep = 0;
+            let timerInterval = null;
+            let timeRemaining = 180; // 3 minutes in seconds
+
+            function showStep(stepIndex) {
+                // Hide current step before showing the next one to ensure animation triggers
+                steps.forEach((step, index) => {
+                    step.classList.remove('active');
+                });
+                // Show new step
+                steps[stepIndex].classList.add('active');
+
+                // Update progress bar
+                const progressPercentage = ((stepIndex + 1) / steps.length) * 100;
+                progressBar.style.width = `${progressPercentage}%`;
+            }
+
+            nextButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    if (currentStep < steps.length - 1) {
+                        currentStep++;
+                        showStep(currentStep);
+                    }
+                });
+            });
+
+            prevButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    if (currentStep > 0) {
+                        currentStep--;
+                        showStep(currentStep);
+                    }
+                });
+            });
+
+            // --- Timer Logic ---
+            function formatTime(seconds) {
+                const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+                const s = (seconds % 60).toString().padStart(2, '0');
+                return `${m}:${s}`;
+            }
+
+            function startTimer() {
+                if (timerInterval) clearInterval(timerInterval);
+                startTimerBtn.disabled = true;
+
+                timerInterval = setInterval(() => {
+                    timeRemaining--;
+                    timerEl.textContent = formatTime(timeRemaining);
+
+                    if (timeRemaining <= 0) {
+                        clearInterval(timerInterval);
+                        timerEl.textContent = "Time's Up!";
+                        alert("Brainstorming time is over!");
+                    }
+                }, 1000);
+            }
+
+            startTimerBtn.addEventListener('click', startTimer);
+
+            // Initialize first step
+            showStep(currentStep);
+        });
+    </script>
+</body>
+</html>
