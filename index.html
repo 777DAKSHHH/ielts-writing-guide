@@ -59,7 +59,7 @@
           opacity: 1;
           transform: scale(1) translateY(0);
           pointer-events: auto;
-          animation: glassFadeIn 1s ease-out forwards;
+          animation: glassFadeIn 1.2s ease-out forwards;
         }
         .wizard-step h2 {
           color: #ffffff;
@@ -119,7 +119,7 @@
           background-image: url(https://img.daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.webp);
           background-size: 110%;
           background-position: center;
-          animation: slowZoom 40s ease-in-out infinite alternate;
+          animation: slowZoom 30s ease-in-out infinite alternate;
           transition: background-position 0.2s ease;
           display: none; /* Hidden until login */
         }
@@ -201,20 +201,6 @@
         #login-section fieldset:hover {
           transform: scale(1.02) translateY(-5px);
           box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
-        }
-        /* Optional polish — Add subtle fade-up effect to footer */
-        footer {
-          animation: fadeUp 1s ease-out 0.8s both;
-        }
-        @keyframes fadeUp {
-          0% {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
         }
     </style>
 </head>
@@ -299,8 +285,8 @@
               <!-- TASK 3: Countdown Timer -->
               <div class="text-center my-3">
                   <button id="startTimerBtn" class="btn btn-success">Start 6-Min Timer</button>
-                  <div id="timer-container" class="flex justify-center mt-2">
-                      <span class="countdown font-mono text-4xl countdown-visible">
+                  <div id="timer-container" class="mt-4 p-4 inline-block bg-black/30 rounded-2xl shadow-lg">
+                      <span class="countdown font-mono text-5xl text-white" style="text-shadow: 0 0 8px rgba(0,0,0,0.7);">
                         <span id="countdown-min" style="--value:6;"></span>
                         :
                         <span id="countdown-sec" style="--value:0;"></span>
@@ -469,10 +455,9 @@
     </div>
 
     <!-- TASK 6: Footer -->
-    <footer
-      class="w-full py-4 mt-10 flex justify-center items-center gap-3 backdrop-blur-md bg-white/10 border-t border-white/20 shadow-lg text-white text-sm tracking-wide">
-      <img src="materials/eagle(face).jpg" alt="Logo" class="w-6 h-6 opacity-80" />
-      <span class="opacity-90">CREATED BY DAKSH</span>
+    <footer class="w-full py-4 mt-10 flex justify-center items-center gap-3 text-white text-sm tracking-wide">
+        <img src="materials/eagle(face).jpg" alt="Logo" class="w-8 h-8 opacity-90 rounded-full" />
+        <span class="opacity-90 font-semibold">--created by DAKSH</span>
     </footer>
 
     <!-- Bootstrap JS Bundle (needed for interactive components like tabs) -->
