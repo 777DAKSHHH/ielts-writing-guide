@@ -145,13 +145,13 @@
             <div class="tab-content" id="overviewTabContent">
                 <div class="tab-pane fade show active p-3 border border-top-0 rounded-bottom" id="audio-pane" role="tabpanel" aria-labelledby="audio-tab" tabindex="0">
                     <audio controls class="w-100">
-                        <source src="materials/week19-task1-audio.mp3" type="audio/mpeg">
+                        <source src="materials/task2-audio.mp3" type="audio/mpeg">
                         Your browser does not support the audio element.
                     </audio>
                 </div>
                 <div class="tab-pane fade p-3 border border-top-0 rounded-bottom" id="video-pane" role="tabpanel" aria-labelledby="video-tab" tabindex="0">
                     <video controls class="w-100" style="border-radius: 4px;">
-                        <source src="materials/week-19-fri-wt-1(video).mp4" type="video/mp4">
+                        <source src="materials/task2-video.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
@@ -159,7 +159,7 @@
 
             <div class="navigation-buttons">
                 <span></span> <!-- Empty span for spacing -->
-                <button class="btn btn-primary next-btn">Next: Brainstorm &rarr;</button>
+                <button class="btn btn-primary next-btn">Next: Understand the Topic &rarr;</button>
             </div>
         </div>
 
@@ -179,79 +179,73 @@
                 </div>
             </div>
             <hr>
-            <!-- === EDIT THIS SECTION === -->
-            <div class="task-content">
-                <h5>The Task</h5>
-                <p>The graphs show figures relating to hours worked and stress levels amongst professionals in eight groups. <strong>Summarise the information by selecting and reporting the main features, and make comparisons where relevant.</strong></p>
-                <img src="materials/week-19-wt-1-fri-image.png" alt="Chart showing hours worked and stress levels" class="task-image">
+            <div class="task-content p-3 bg-light rounded">
+                <h5>Essay Question</h5>
+                <p><strong>Some people believe that unpaid community service should be a compulsory part of high school programmes. To what extent do you agree or disagree?</strong></p>
             </div>
             <!-- ======================== -->
             <div class="navigation-buttons">
                 <button class="btn btn-secondary prev-btn">&larr; Previous</button>
-                <button class="btn btn-primary next-btn">Next: Synonyms &rarr;</button>
+                <button class="btn btn-primary next-btn">Next: Vocabulary &rarr;</button>
             </div>
         </div>
 
         <!-- Step 3: Synonyms -->
         <div id="step-3" class="wizard-step">
-            <h2>Step 3: Vocabulary & Synonyms</h2>
-            <p>List keywords from the prompt and find synonyms to use in your writing. This helps you avoid repetition.</p>
-            <!-- === EDIT THIS SECTION === -->
-            <div class="row">
-                <div class="col-md-6">
-                    <label for="synonyms1" class="form-label">General Keywords</label>
-                    <textarea id="synonyms1" class="form-control" rows="8">show - illustrate / demonstrate / present
-highest - greatest / dominant / peak / leading
-lowest - minimal / smallest / least / reduced
-percentage - proportion / share / fraction / ratio
-around - approximately / nearly / roughly / about</textarea>
-                </div>
-                <div class="col-md-6">
-                    <label for="synonyms2" class="form-label">Trend & Rate Keywords</label>
-                    <textarea id="synonyms2" class="form-control" rows="8">increase - rise / grow / escalate / climb
-decrease - decline / drop / diminish / fall
-highest rate - greatest proportion / most significant share
-lowest rate - least proportion / smallest fraction</textarea>
-                </div>
+            <h2>Step 3: Vocabulary Table</h2>
+            <p>Review the key vocabulary for this task. Using a range of words is essential for a high score.</p>
+            <div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Job</th>
+                            <th>Favorite Color</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover"><th>1</th><td>Cy Ganderton</td><td>Quality Control Specialist</td><td>Blue</td></tr>
+                        <tr class="hover"><th>2</th><td>Hart Hagerty</td><td>Desktop Support Technician</td><td>Purple</td></tr>
+                        <tr class="hover"><th>3</th><td>Brice Swyre</td><td>Tax Accountant</td><td>Red</td></tr>
+                    </tbody>
+                </table>
             </div>
             <!-- ======================== -->
             <div class="navigation-buttons">
                 <button class="btn btn-secondary prev-btn">&larr; Previous</button>
-                <button class="btn btn-primary next-btn">Next: Introduction &rarr;</button>
+                <button class="btn btn-primary next-btn">Next: Structure &rarr;</button>
             </div>
         </div>
 
         <!-- Step 4: Introduction & Overview -->
         <div id="step-4" class="wizard-step">
-            <h2>Step 4: Sample Introduction & Overview</h2>
-            <p>Here is a sample structure. You can edit it to match your own style.</p>
-            <!-- === EDIT THIS SECTION === -->
+            <h2>Step 4: Plan Introduction & Conclusion</h2>
+            <p>Draft your introduction by paraphrasing the question and stating your position. Outline your conclusion by summarizing your main points.</p>
             <div class="mb-3">
-                <label for="intro" class="form-label"><strong>Introduction (Paraphrase the prompt)</strong></label>
-                <textarea id="intro" class="form-control" rows="5">The two charts present a comparison between the average weekly working hours and the percentage of stress-related illnesses among professionals from eight different career fields. The bar chart illustrates the range of weekly workloads, extending from 0 to 70 hours, while the pie chart depicts the proportion of individuals in each occupation affected by work-induced stress.</textarea>
+                <label for="intro" class="form-label"><strong>Introduction (Paraphrase + Thesis Statement)</strong></label>
+                <textarea id="intro" class="form-control" rows="4">e.g., It is often argued that high school students should be required to perform unpaid work in their communities. From my perspective, I completely agree that this is a beneficial policy because...</textarea>
             </div>
             <div class="mb-3">
-                <label for="overview" class="form-label"><strong>Overview (Summarize the main trends)</strong></label>
-                <textarea id="overview" class="form-control" rows="4">Overall, businessmen and movie producers recorded the longest working hours, yet they did not experience the highest rate of stress-related illness. In contrast, lecturers, despite working significantly fewer hours, exhibited the greatest level of stress-induced health issues.</textarea>
+                <label for="overview" class="form-label"><strong>Conclusion (Summarize + Final Thought)</strong></label>
+                <textarea id="overview" class="form-control" rows="4">e.g., In conclusion, while some may object to its mandatory nature, the benefits of compulsory community service for students' personal and professional growth are undeniable. Therefore, it should be a core component of the curriculum.</textarea>
             </div>
             <!-- ======================== -->
             <div class="navigation-buttons">
                 <button class="btn btn-secondary prev-btn">&larr; Previous</button>
-                <button class="btn btn-primary next-btn">Next: Body Paragraph 1 &rarr;</button>
+                <button class="btn btn-primary next-btn">Next: Body Paragraphs &rarr;</button>
             </div>
         </div>
 
         <!-- Step 5: Body Paragraph 1 -->
         <div id="step-5" class="wizard-step">
-            <h2>Step 5: Body Paragraph 1 Points</h2>
-            <p>Plan the key features for your first body paragraph. Focus on one or two main points, like the starting figures and the trends for USA and Sweden.</p>
-            <!-- === EDIT THIS SECTION === -->
+            <h2>Step 5: Plan Body Paragraph 1</h2>
+            <p>Outline your first main argument. State your point, provide a specific example, and explain how it supports your thesis.</p>
             <div class="mb-3">
-                <label for="bp1" class="form-label"><strong>Main Points for BP1 (Average Hours Worked per Week)</strong></label>
-                <textarea id="bp1" class="form-control" rows="6">- Businessmen worked the most, averaging around 70 hours per week.
-- Movie producers followed closely at approximately 60 hours, while doctors worked slightly above 50 hours weekly.
-- Writers averaged about 45 hours, marginally higher than programmers, who worked around 40 hours per week.
-- Lecturers and chefs recorded the fewest working hours, both ranging between 25 and 30 hours weekly.</textarea>
+                <label for="bp1" class="form-label"><strong>Main Points for BP1 (e.g., Argument FOR)</strong></label>
+                <textarea id="bp1" class="form-control" rows="6">- Point: Develops practical skills and empathy.
+- Example: Students volunteering at a nursing home learn patience and communication.
+- Explanation: These "soft skills" are not taught in classrooms but are vital for future employment and life.</textarea>
             </div>
             <!-- ======================== -->
             <div class="navigation-buttons">
@@ -262,15 +256,13 @@ lowest rate - least proportion / smallest fraction</textarea>
 
         <!-- Step 6: Body Paragraph 2 -->
         <div id="step-6" class="wizard-step">
-            <h2>Step 6: Body Paragraph 2 Points</h2>
-            <p>Plan the key features for your second body paragraph. Focus on the most significant trend, which is Japan.</p>
-            <!-- === EDIT THIS SECTION === -->
+            <h2>Step 6: Plan Body Paragraph 2</h2>
+            <p>Outline your second main argument (or a counter-argument if applicable). Follow the Point, Example, Explanation structure.</p>
             <div class="mb-3">
-                <label for="bp2" class="form-label"><strong>Main Points for BP2 (Stress-Related Illness)</strong></label>
-                <textarea id="bp2" class="form-control" rows="6">- Lecturers suffered the highest incidence of stress-related illness, accounting for 25%, followed by movie producers at 18%.
-- Doctors reported 15%, whereas programmers and writers registered comparatively lower figures of 5% and 8%, respectively.
-- Chefs made up 10%, representing a moderate share despite their shorter working hours.
-- Lawyers stood at 8%, and businessmen recorded 11%, indicating that longer hours did not always correspond with higher stress levels.</textarea>
+                <label for="bp2" class="form-label"><strong>Main Points for BP2 (e.g., Argument AGAINST, to be refuted)</strong></label>
+                <textarea id="bp2" class="form-control" rows="6">- Point: Takes time away from academic studies.
+- Example: Students may have less time for homework or exam preparation.
+- Explanation: However, this view is short-sighted. The time management skills learned during service often lead to more efficient studying. The benefits outweigh the time cost.</textarea>
             </div>
             <!-- ======================== -->
             <div class="navigation-buttons">
