@@ -98,36 +98,47 @@
         .footer:hover .footer-logo {
             transform: scale(1.1);
         }
+        /* From new suggestions */
+        .countdown-visible {
+            color: #1a1a1a; /* Dark color for visibility on light background */
+            text-shadow: 0 1px 2px rgba(255,255,255,0.5);
+            font-weight: 700;
+        }
+        #login-btn:hover {
+            box-shadow: 0 0 10px rgba(155,89,182,0.5); /* Adjusted to Zephyr primary color */
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+        }
+        fieldset {
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
     <!-- TASK 1 & 2: Hero Section with Login Form -->
-    <div id="login-section" class="hero min-h-screen" style="background-image: url(https://img.daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.webp);">
-        <div class="hero-overlay bg-opacity-60"></div>
-        <div class="hero-content text-center text-neutral-content">
-            <!-- Login Form from Task 2, made more compact with w-80 -->
-            <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-80 border p-4">
-                <legend class="legend text-base-content font-bold">Please Login</legend>
-                <div class="form-control text-left">
-                    <label class="label">
-                        <span class="label-text text-base-content">Username</span>
-                    </label>
-                    <input id="username-input" type="text" placeholder="Enter any username" class="input input-bordered" />
-                </div>
-                <div class="form-control text-left">
-                    <label class="label">
-                        <span class="label-text text-base-content">Password</span>
-                    </label>
-                    <input id="password-input" type="password" placeholder="Enter password" class="input input-bordered" />
-                </div>
-                <button id="login-btn" class="btn btn-neutral mt-4 w-full">Login</button>
-                <!-- Error Alert -->
-                <div id="error-alert" role="alert" class="alert alert-error mt-4" style="display: none;">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                    <span>Error: Incorrect password.</span>
-                </div>
-            </fieldset>
-        </div>
+    <div id="login-section" class="min-h-screen bg-cover bg-center flex items-center justify-center" style="background-image: url(https://img.daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.webp);">
+        <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+        <fieldset class="relative z-10 bg-white/90 backdrop-blur-md border border-gray-300 rounded-2xl p-6 w-80 shadow-2xl">
+            <legend class="text-lg font-semibold text-gray-700 text-center">Please Login</legend>
+
+            <div class="form-control text-left">
+              <label class="label"><span class="label-text text-gray-700">Username</span></label>
+              <input id="username-input" type="text" placeholder="Enter any username" class="input input-bordered w-full" />
+            </div>
+            <div class="form-control text-left mt-2">
+              <label class="label"><span class="label-text text-gray-700">Password</span></label>
+              <input id="password-input" type="password" placeholder="Enter password" class="input input-bordered w-full" />
+            </div>
+            <button id="login-btn" class="btn btn-primary mt-4 w-full">Login</button>
+
+            <div id="error-alert" role="alert" class="alert alert-error mt-4" style="display: none;">
+              <span>Error: Incorrect password.</span>
+            </div>
+        </fieldset>
     </div>
 
     <div id="main-content" class="container wizard-container" style="display: none;">
@@ -181,7 +192,7 @@
             <div class="text-center my-3">
                 <button id="startTimerBtn" class="btn btn-success">Start 6-Min Timer</button>
                 <div id="timer-container" class="flex justify-center mt-2">
-                    <span class="countdown font-mono text-4xl countdown-black">
+                    <span class="countdown font-mono text-4xl countdown-visible">
                       <span id="countdown-min" style="--value:6;"></span>
                       :
                       <span id="countdown-sec" style="--value:0;"></span>
@@ -308,13 +319,12 @@
     </div>
 
     <!-- TASK 6: Footer -->
-    <footer class="footer footer-center p-10 bg-white text-base-content">
-        <aside>
-            <div class="footer-logo transition-transform duration-300">
-                <img src="materials/eagle(face).jpg" alt="Daksh Logo" class="w-24 h-24 rounded-full border-2 border-base-300">
-            </div>
-            <p class="font-bold text-lg footer-content">-- compiled by DAKSH</p>
-        </aside> 
+    <footer class="footer footer-center p-10 bg-gradient-to-r from-white via-gray-50 to-white text-gray-700">
+        <aside class="flex flex-col items-center space-y-3">
+            <img src="materials/eagle(face).jpg" alt="Daksh Logo"
+                 class="w-24 h-24 rounded-full border-2 border-gray-300 transition-transform duration-300 hover:scale-110 shadow-md">
+            <p class="font-semibold text-lg text-gray-600">— Compiled by <span class="text-blue-600 font-bold">DAKSH</span></p>
+        </aside>
     </footer>
 
     <!-- Bootstrap JS Bundle (needed for interactive components like tabs) -->
@@ -358,13 +368,7 @@
 
             // --- Login Button Color Change Logic ---
             passwordInput.addEventListener('input', () => {
-                if (passwordInput.value.length > 0) {
-                    loginBtn.classList.remove('btn-neutral');
-                    loginBtn.classList.add('btn-primary'); // A more visible color
-                } else {
-                    loginBtn.classList.remove('btn-primary');
-                    loginBtn.classList.add('btn-neutral');
-                }
+                // The button is now always btn-primary, so this logic is no longer needed.
             });
 
             // --- Loading Animation Logic ---
