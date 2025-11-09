@@ -86,6 +86,10 @@
         .progress-bar {
             transition: width 0.4s ease-out; /* Smooth transition for progress bar */
         }
+        /* Custom style to make countdown timer black */
+        .countdown-black {
+            color: black;
+        }
     </style>
 </head>
 <body>
@@ -93,30 +97,28 @@
     <div id="login-section" class="hero min-h-screen" style="background-image: url(https://img.daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.webp);">
         <div class="hero-overlay bg-opacity-60"></div>
         <div class="hero-content text-center text-neutral-content">
-            <div class="max-w-md">
-                <!-- Login Form from Task 2 -->
-                <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
-                    <legend class="legend text-base-content font-bold">Please Login</legend>
-                    <div class="form-control text-left">
-                        <label class="label">
-                            <span class="label-text text-base-content">Username</span>
-                        </label>
-                        <input id="username-input" type="text" placeholder="Enter any username" class="input input-bordered" />
-                    </div>
-                    <div class="form-control text-left">
-                        <label class="label">
-                            <span class="label-text text-base-content">Password</span>
-                        </label>
-                        <input id="password-input" type="password" placeholder="Enter password" class="input input-bordered" />
-                    </div>
-                    <button id="login-btn" class="btn btn-neutral mt-4 w-full">Login</button>
-                    <!-- Error Alert -->
-                    <div id="error-alert" role="alert" class="alert alert-error mt-4" style="display: none;">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                        <span>Error: Incorrect password.</span>
-                    </div>
-                </fieldset>
-            </div>
+            <!-- Login Form from Task 2 -->
+            <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
+                <legend class="legend text-base-content font-bold">Please Login</legend>
+                <div class="form-control text-left">
+                    <label class="label">
+                        <span class="label-text text-base-content">Username</span>
+                    </label>
+                    <input id="username-input" type="text" placeholder="Enter any username" class="input input-bordered" />
+                </div>
+                <div class="form-control text-left">
+                    <label class="label">
+                        <span class="label-text text-base-content">Password</span>
+                    </label>
+                    <input id="password-input" type="password" placeholder="Enter password" class="input input-bordered" />
+                </div>
+                <button id="login-btn" class="btn btn-neutral mt-4 w-full">Login</button>
+                <!-- Error Alert -->
+                <div id="error-alert" role="alert" class="alert alert-error mt-4" style="display: none;">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    <span>Error: Incorrect password.</span>
+                </div>
+            </fieldset>
         </div>
     </div>
 
@@ -171,7 +173,7 @@
             <div class="text-center my-3">
                 <button id="startTimerBtn" class="btn btn-success">Start 6-Min Timer</button>
                 <div id="timer-container" class="flex justify-center mt-2">
-                    <span class="countdown font-mono text-4xl">
+                    <span class="countdown font-mono text-4xl countdown-black">
                       <span id="countdown-min" style="--value:6;"></span>
                       :
                       <span id="countdown-sec" style="--value:0;"></span>
@@ -298,10 +300,10 @@
     </div>
 
     <!-- TASK 6: Footer -->
-    <footer class="footer footer-center p-10 bg-primary text-primary-content">
+    <footer class="footer footer-center p-10 bg-black/30 text-white">
         <aside>
-            <svg width="50" height="50" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" class="inline-block fill-current"><path d="M22.672 15.226l-2.432.811.841 2.515c.33 1.019-.209 2.127-1.23 2.456-1.15.325-2.148-.831-2.443-1.804a1.01 1.01 0 00-.983-1.564c-.573 0-1.059.445-1.135 1.007-.113.864-.64 1.612-1.446 1.861-1.003.324-2.082-.262-2.542-1.156a.998.998 0 00-.928-1.426c-.56 0-1.029.445-1.11.989-.107.864-.653 1.612-1.47 1.86-1.004.325-2.083-.262-2.542-1.156a.998.998 0 00-.928-1.426c-.562 0-1.029.445-1.11.989-.106.864-.652 1.612-1.47 1.86-1.003.325-2.082-.262-2.542-1.156a.998.998 0 00-.928-1.426c-.56 0-1.029.445-1.11.989-.107.864-.653 1.612-1.47 1.86-1.004.325-2.083-.262-2.542-1.156L.648 14.736a.998.998 0 00.928 1.426c.56 0 1.029-.445 1.11-.989.107-.864.653-1.612 1.47-1.86 1.003-.325 2.082.262 2.542 1.156.043.137.114.255.203.354.224.24.562.374.928.374.367 0 .705-.134.928-.374.224-.24.353-.563.353-.928 0-.365-.129-.688-.353-.928a.998.998 0 00-.928-.374c-.366 0-.704.134-.928.374a.998.998 0 00-.203.354c-.46-.894-1.539-1.48-2.542-1.156-.817.248-1.364.995-1.47 1.86-.106.544-.55.989-1.11.989-.366 0-.704-.134-.928-.374a.998.998 0 00-.353-.928c-.46-.894-1.539-1.48-2.542-1.156-.817.248-1.364.995-1.47 1.86-.106.544-.55.989-1.11.989-.366 0-.704-.134-.928-.374a.998.998 0 00-.353-.928c-.46-.894-1.539-1.48-2.542-1.156L.648 4.932a.998.998 0 00.928 1.426c.56 0 1.029-.445 1.11-.989.107-.864.653-1.612 1.47-1.86 1.003-.325 2.082.262 2.542 1.156.043.137.114.255.203.354.224.24.562.374.928.374.367 0 .705-.134.928-.374.224-.24.353-.563.353-.928 0-.365-.129-.688-.353-.928a.998.998 0 00-.928-.374c-.366 0-.704.134-.928.374a.998.998 0 00-.203.354c-.46-.894-1.539-1.48-2.542-1.156-.817.248-1.364.995-1.47 1.86-.106.544-.55.989-1.11.989-.366 0-.704-.134-.928-.374a.998.998 0 00-.353-.928c-.46-.894-1.539-1.48-2.542-1.156L1.11 1.186a.998.998 0 00-.928-1.426C.014-.378-.333.02.132.992l2.432 8.11-.84 2.515c-.33 1.019.209 2.127 1.23 2.456 1.15.325 2.148-.831 2.443-1.804a1.01 1.01 0 00.983-1.564c.573 0 1.059.445 1.135 1.007.113.864.64 1.612 1.446 1.861 1.003.324 2.082-.262 2.542-1.156a.998.998 0 00.928-1.426c.56 0 1.029.445 1.11.989.107.864.653 1.612 1.47 1.86 1.004.325 2.083-.262 2.542-1.156a.998.998 0 00.928-1.426c.562 0 1.029.445 1.11.989.106.864.652 1.612 1.47 1.86 1.003.325 2.082-.262 2.542-1.156a.998.998 0 00.928-1.426c.56 0 1.029.445 1.11.989.107.864.653 1.612 1.47 1.86 1.004.325 2.083-.262 2.542-1.156l2.432-8.11.841-2.515c.33-1.019-.209-2.127-1.23-2.456-1.15-.325-2.148-.831-2.443-1.804a1.01 1.01 0 00-.983-1.564c-.573 0-1.059.445-1.135 1.007-.113.864-.64 1.612-1.446 1.861-1.003.324-2.082-.262-2.542-1.156a.998.998 0 00-.928-1.426c-.56 0-1.029.445-1.11.989-.107.864-.653 1.612-1.47 1.86-1.004.325-2.083-.262-2.542-1.156a.998.998 0 00-.928-1.426c-.562 0-1.029.445-1.11.989-.106.864-.652 1.612-1.47 1.86-1.003.325-2.082-.262-2.542-1.156a.998.998 0 00-.928-1.426c-.56 0-1.029.445-1.11.989-.107.864-.653 1.612-1.47 1.86-1.004.325-2.083-.262-2.542-1.156L19.352 1.186a.998.998 0 00.928-1.426c1.172-.378 1.519.02 1.184.992z"></path></svg>
-            <p>ACME Industries Ltd.<br/>Providing reliable tech since 1992</p>
+            <img src="materials/eagle(face).jpg" alt="Daksh Logo" class="w-24 h-24 rounded-full border-2 border-white/50">
+            <p class="font-bold text-xl">DAKSH</p>
         </aside> 
         <nav>
             <div class="grid grid-flow-col gap-4">
