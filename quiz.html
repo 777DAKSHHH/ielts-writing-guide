@@ -50,8 +50,24 @@
             width: 100%;
             transition: background-color 0.3s;
         }
-        button:hover {
+        button, .btn-download {
+            font-family: inherit;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        button:hover, .btn-download:hover {
             background: #0056b3;
+        }
+        .btn-download {
+            display: none; /* Hidden by default */
+            text-decoration: none;
+            text-align: center;
+            padding: 12px 20px;
+            background: #28a745;
+            color: white;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-top: 20px;
         }
         #resultBox {
             margin-top: 25px;
@@ -61,14 +77,8 @@
             font-size: 1.2em;
             font-weight: bold;
             display: none;
-        }
-        #downloadBtn {
-            margin-top: 20px;
-            display: none;
-            background: #28a745;
-        }
-        #downloadBtn:hover {
-            background: #218838;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         /* Styles for correct and incorrect answers */
         .correct {
@@ -85,8 +95,17 @@
 </head>
 
 <body>
-    <h2>IELTS Writing Task 2 – Grammar Quiz</h2>
+    <header style="text-align:center; margin-bottom:30px;">
+      <img src="materials/eagle(face).jpg" alt="IELTS Logo" style="height:80px;">
+      <h1 style="color:#007bff;">IELTS Guided Writing Task</h1>
+      <p style="font-size:1.1em;">Grammar Quiz – Task 2 Preparation</p>
+    </header>
 
+    <h2 style="color:#007bff;">Step 1: Attempt the Quiz</h2>
+    <p style="background:#e9f5ff; padding:15px; border-left:4px solid #007bff;">
+      Please read each question carefully and select the best answer. This quiz is designed to reinforce grammar skills for IELTS Writing Task 2.
+    </p>
+    
     <form id="quizForm">
 
         <div class="question">
@@ -162,13 +181,18 @@
         <button type="button" onclick="checkQuiz()">Submit Quiz</button>
     </form>
 
+    <h2 style="color:#007bff; margin-top: 40px;">Step 2: Review Your Score</h2>
     <div id="resultBox"></div>
 
-    <button id="downloadBtn" onclick="window.location.href='materials/task2_guide.pdf'" download>
+    <h2 style="color:#007bff; margin-top: 40px;">Step 3: Download the PDF Guide</h2>
+    <a href="materials/WEEK-20_MON_WT-2.pdf" id="downloadBtn" class="btn-download" download="WEEK-20_MON_WT-2.pdf">
         Download PDF
-    </button>
+    </a>
 
-<script src="quiz.js"></script>
+    <footer style="text-align:center; margin-top:40px;">
+      <a href="/#" style="color:#007bff; text-decoration:underline;">← Back to Home</a>
+    </footer>
 
+    <script src="quiz.js"></script>
 </body>
 </html>
