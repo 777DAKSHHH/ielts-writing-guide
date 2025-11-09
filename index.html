@@ -357,7 +357,7 @@ Sample 2: To conclude, although studying abroad can be financially demanding and
             <p>Outline your first main argument. State your point, provide a specific example, and explain how it supports your thesis.</p>
             <div class="mb-3">
                 <label for="bp1" class="form-label"><strong>Main Points for BP1 (e.g., Argument FOR)</strong></label>
-                <textarea id="bp1" class="form-control" rows="12">Advantages of Studying Abroad
+                <textarea id="bp1" class="form-control" rows="16">Advantages of Studying Abroad
 
 • (MR 1) Access to superior academic infrastructure
 (SR): Prestigious universities abroad often provide state-of-the-art research facilities, diverse curricula, and innovative teaching methods that are rarely available domestically.
@@ -369,7 +369,11 @@ Sample 2: To conclude, although studying abroad can be financially demanding and
 
 • (MR 3) Broader worldview and personal growth
 (SR): Living abroad instills independence, problem-solving ability, and resilience while alleviating cultural narrow-mindedness.
-(EX): Exposure to diverse perspectives often transforms students into more open-minded global citizens who can operate effectively across cultural boundaries.</textarea>
+(EX): Exposure to diverse perspectives often transforms students into more open-minded global citizens who can operate effectively across cultural boundaries.
+
+• (MR 4) Stronger employability and career prospects
+(SR): Graduates with international degrees are highly sought after for their adaptability and global insight.
+(EX): According to a QS Global Employability Survey, multinational companies prefer candidates who have studied abroad due to their cross-border experience and leadership potential.</textarea>
             </div>
             <!-- ======================== -->
             <div class="navigation-buttons">
@@ -384,7 +388,7 @@ Sample 2: To conclude, although studying abroad can be financially demanding and
             <p>Outline your second main argument (or a counter-argument if applicable). Follow the Point, Example, Explanation structure.</p>
             <div class="mb-3">
                 <label for="bp2" class="form-label"><strong>Main Points for BP2 (e.g., Argument AGAINST, to be refuted)</strong></label>
-                <textarea id="bp2" class="form-control" rows="12">Disadvantages of Studying Abroad
+                <textarea id="bp2" class="form-control" rows="16">Disadvantages of Studying Abroad
 
 • (MR 1) Financial predicament
 (SR): The cost of tuition, accommodation, and living expenses can be adverse and stymie students from lower-income backgrounds.
@@ -394,7 +398,11 @@ Sample 2: To conclude, although studying abroad can be financially demanding and
 (SR): Adjusting to a new lifestyle can be daunting, as unfamiliar customs and climates often trigger homesickness and stress.
 (EX): A UNESCO survey indicates that nearly 40% of first-year international students struggle with psychological well-being due to cultural differences.
 
-• (MR 3) Brain drain and national talent loss
+• (MR 3) Recognition and requalification barriers
+(SR): Degrees earned abroad are not always recognised in home countries, especially in professional fields like medicine or law.
+(EX): Many foreign-trained professionals must undergo additional exams before practising in their native nations, curtailing their career progress.
+
+• (MR 4) Brain drain and national talent loss
 (SR): A large proportion of students settle abroad permanently, causing a far-reaching depletion of skilled human capital in their home countries.
 (EX): India, for instance, faces an annual exodus of qualified graduates who contribute to the economies of Western nations instead of their homeland.</textarea>
             </div>
@@ -568,26 +576,6 @@ Sample 2: To conclude, although studying abroad can be financially demanding and
                 timerInterval = setInterval(() => {
                     timeRemaining--;
 
-                    const minutes = Math.floor(timeRemaining / 60);
-                    const seconds = timeRemaining % 60;
-
-                    minEl.style.setProperty('--value', minutes);
-                    secEl.style.setProperty('--value', seconds);
-
-                    if (timeRemaining <= 0) {
-                        clearInterval(timerInterval);
-                        minEl.style.setProperty('--value', 0);
-                        secEl.style.setProperty('--value', 0);
-                        alert("Brainstorming time is over!");
-                    }
-                }, 1000);
-            }
-
-            startTimerBtn.addEventListener('click', startTimer);
-        });
-    </script>
-</body>
-</html>
                     const minutes = Math.floor(timeRemaining / 60);
                     const seconds = timeRemaining % 60;
 
