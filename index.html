@@ -103,13 +103,6 @@
             transform: translateY(-2px);
             transition: all 0.3s ease;
         }
-        fieldset {
-            animation: fadeIn 1s ease-in-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
         /* --- FORCE Countdown Style --- */
         #timer-container .countdown-visible,
         #timer-container .countdown-visible * {
@@ -176,16 +169,39 @@
           backdrop-filter: blur(12px);
           border: 1px solid rgba(255, 255, 255, 0.2);
           box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+          transition: all 0.4s ease;
+        }
+        /* --- Fancy glass box entrance --- */
+        @keyframes glassFadeIn {
+          0% { opacity: 0; transform: scale(0.9) translateY(20px); filter: blur(6px); }
+          60% { opacity: 1; transform: scale(1.02) translateY(0); filter: blur(0); }
+          100% { opacity: 1; transform: scale(1); filter: none; }
+        }
+        /* subtle shimmer effect that runs once after fade-in */
+        @keyframes glassShimmer {
+          0% { background-color: rgba(255, 255, 255, 0.25); }
+          50% { background-color: rgba(255, 255, 255, 0.35); }
+          100% { background-color: rgba(255, 255, 255, 0.25); }
+        }
+        /* apply it to your login box */
+        #login-section fieldset {
+          animation: glassFadeIn 1.2s ease-out forwards, glassShimmer 3s ease-out 1.2s;
+          transform-origin: center center;
+        }
+        /* Floating hover effect */
+        #login-section fieldset:hover {
+          transform: scale(1.02) translateY(-5px);
+          box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
         }
     </style>
 </head>
 <body>
     <!-- TASK 1 & 2: Hero Section with Login Form -->
-    <div id="login-section" class="min-h-screen bg-cover bg-center flex items-center justify-center relative">
+    <div id="login-section" class="min-h-screen bg-cover bg-center flex items-center justify-center relative" style="opacity: 1;">
         <!-- Background dim -->
         <div class="absolute inset-0 bg-black/40"></div>
         <!-- Login box with hover effect -->
-        <fieldset class="relative z-10 rounded-2xl p-8 w-80 transition-all duration-400 ease-in-out hover:bg-white/35 hover:shadow-2xl">
+        <fieldset class="relative z-10 rounded-2xl p-8 w-80">
             <legend class="text-lg font-semibold text-gray-100 text-center drop-shadow-lg">Please Login</legend>
             <!-- Username -->
             <div class="form-control text-left mt-4">
@@ -206,7 +222,7 @@
         </fieldset>
     </div>
 
-    <div id="main-content" class="container wizard-container" style="display: none;">
+    <div id="main-content" class="container wizard-container" style="display: none; opacity: 0;">
         <!-- The existing wizard will go here after successful login -->
         <div class="progress mb-4" style="height: 10px;">
             <div id="progressBar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
@@ -231,13 +247,13 @@
             <div class="tab-content" id="overviewTabContent">
                 <div class="tab-pane fade show active p-3 border border-top-0 rounded-bottom" id="audio-pane" role="tabpanel" aria-labelledby="audio-tab" tabindex="0">
                     <audio controls class="w-100">
-                        <source src="materials/task2-audio.mp3" type="audio/mpeg">
+                        <source src="materials/week-20-task2-audio.mp3" type="audio/mpeg">
                         Your browser does not support the audio element.
                     </audio>
                 </div>
                 <div class="tab-pane fade p-3 border border-top-0 rounded-bottom" id="video-pane" role="tabpanel" aria-labelledby="video-tab" tabindex="0">
                     <video controls class="w-100" style="border-radius: 4px;">
-                        <source src="materials/task2-video.mp4" type="video/mp4">
+                        <source src="materials/week-20-mon-wt-2(video).mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
@@ -251,8 +267,8 @@
 
         <!-- Step 2: Brainstorming -->
         <div id="step-2" class="wizard-step">
-            <h2>Step 2: Brainstorm (3-Minute Timer)</h2>
-            <p>Look at the task. Use the next 6 minutes to brainstorm ideas and structure your essay.</p>
+            <h2>Step 2: Brainstorm (6-Minute Timer)</h2>
+            <p>Look at the task. Use the next 6 minutes to brainstorm ideas and structure your essay. The timer is a guide to help you practice time management.</p>
             <!-- TASK 3: Countdown Timer -->
             <div class="text-center my-3">
                 <button id="startTimerBtn" class="btn btn-success">Start 6-Min Timer</button>
@@ -266,8 +282,9 @@
             </div>
             <hr>
             <div class="task-content p-3 bg-light rounded">
-                <h5>Essay Question</h5>
-                <p><strong>Some people believe that unpaid community service should be a compulsory part of high school programmes. To what extent do you agree or disagree?</strong></p>
+                <h5>ESSAY QUESTION:-</h5>
+                <p><strong>In the past, when students did a university degree they tended to study in their own country. Nowadays, they have more opportunities to study abroad.</strong></p>
+                <p><strong>Do you think the advantages of this development outweigh the disadvantages?</strong></p>
             </div>
             <!-- ======================== -->
             <div class="navigation-buttons">
@@ -283,17 +300,24 @@
             <div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
                 <table class="table">
                     <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Job</th>
-                            <th>Favorite Color</th>
+                        <tr class="bg-base-200">
+                            <th class="w-1/4">Word/Phrase</th>
+                            <th class="w-1/4">Meaning</th>
+                            <th>Example Sentence</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="hover"><th>1</th><td>Cy Ganderton</td><td>Quality Control Specialist</td><td>Blue</td></tr>
-                        <tr class="hover"><th>2</th><td>Hart Hagerty</td><td>Desktop Support Technician</td><td>Purple</td></tr>
-                        <tr class="hover"><th>3</th><td>Brice Swyre</td><td>Tax Accountant</td><td>Red</td></tr>
+                        <tr class="hover"><td>Burgeoning</td><td>Growing rapidly</td><td>The burgeoning interest in foreign education reflects global academic integration.</td></tr>
+                        <tr class="hover"><td>Far-reaching</td><td>Having extensive impact</td><td>The far-reaching effects of international study influence economies and cultures alike.</td></tr>
+                        <tr class="hover"><td>Augment</td><td>Enhance or increase</td><td>Studying abroad can augment one’s academic and interpersonal capabilities.</td></tr>
+                        <tr class="hover"><td>Cross-cultural competence</td><td>Ability to interact effectively with diverse groups</td><td>Employers highly value graduates who demonstrate cross-cultural competence.</td></tr>
+                        <tr class="hover"><td>Alleviate</td><td>Ease or lessen</td><td>Exposure to diverse societies can alleviate prejudice and narrowmindedness.</td></tr>
+                        <tr class="hover"><td>Predicament</td><td>Problem or difficult situation</td><td>Many families face a financial predicament while funding education overseas.</td></tr>
+                        <tr class="hover"><td>Adverse</td><td>Negative or harmful</td><td>Students might face adverse mental effects due to homesickness and cultural stress.</td></tr>
+                        <tr class="hover"><td>Stymies</td><td>Hinders or obstructs</td><td>The high cost often stymies underprivileged students from pursuing international degrees.</td></tr>
+                        <tr class="hover"><td>Curtailing</td><td>Reducing or limiting</td><td>Requalification requirements can end up curtailing career momentum.</td></tr>
+                        <tr class="hover"><td>Repercussions</td><td>Consequences or effects</td><td>The positive repercussions of studying abroad extend far beyond academia.</td></tr>
+                        <tr class="hover"><td>Brain drain</td><td>Migration of skilled professionals</td><td>Excessive brain drain can weaken a nation’s developmental progress.</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -310,11 +334,15 @@
             <p>Draft your introduction by paraphrasing the question and stating your position. Outline your conclusion by summarizing your main points.</p>
             <div class="mb-3">
                 <label for="intro" class="form-label"><strong>Introduction (Paraphrase + Thesis Statement)</strong></label>
-                <textarea id="intro" class="form-control" rows="4">e.g., It is often argued that high school students should be required to perform unpaid work in their communities. From my perspective, I completely agree that this is a beneficial policy because...</textarea>
+                <textarea id="intro" class="form-control" rows="5">Sample 1: In an increasingly globalised world, pursuing higher education beyond national borders has become a burgeoning trend. While studying abroad offers students unparalleled exposure and opportunities, it also presents certain far-reaching challenges. In my view, the advantages of international education decidedly outweigh its drawbacks, primarily because it broadens intellectual horizons and enhances global competitiveness.
+
+Sample 2: In recent decades, an increasing number of students have chosen to pursue higher education abroad rather than in their home countries. While this trend has opened global doors for learners, it has also introduced certain drawbacks. In my opinion, the advantages of studying abroad outweigh the disadvantages, primarily because it broadens academic, cultural, and professional horizons.</textarea>
             </div>
             <div class="mb-3">
                 <label for="overview" class="form-label"><strong>Conclusion (Summarize + Final Thought)</strong></label>
-                <textarea id="overview" class="form-control" rows="4">e.g., In conclusion, while some may object to its mandatory nature, the benefits of compulsory community service for students' personal and professional growth are undeniable. Therefore, it should be a core component of the curriculum.</textarea>
+                <textarea id="overview" class="form-control" rows="5">Sample 1: To sum up, although studying overseas may create financial burdens and cultural challenges, its repercussions are largely constructive — fostering intellectual advancement, global awareness, and professional excellence. Therefore, I opine that the advantages of pursuing education abroad overwhelmingly outweigh its adverse consequences.
+
+Sample 2: To conclude, although studying abroad can be financially demanding and emotionally challenging, its academic benefits, cultural exposure, and career prospects make it a highly valuable experience. Therefore, I firmly believe that the advantages of international education clearly outweigh its disadvantages.</textarea>
             </div>
             <!-- ======================== -->
             <div class="navigation-buttons">
@@ -329,9 +357,19 @@
             <p>Outline your first main argument. State your point, provide a specific example, and explain how it supports your thesis.</p>
             <div class="mb-3">
                 <label for="bp1" class="form-label"><strong>Main Points for BP1 (e.g., Argument FOR)</strong></label>
-                <textarea id="bp1" class="form-control" rows="6">- Point: Develops practical skills and empathy.
-- Example: Students volunteering at a nursing home learn patience and communication.
-- Explanation: These "soft skills" are not taught in classrooms but are vital for future employment and life.</textarea>
+                <textarea id="bp1" class="form-control" rows="12">Advantages of Studying Abroad
+
+• (MR 1) Access to superior academic infrastructure
+(SR): Prestigious universities abroad often provide state-of-the-art research facilities, diverse curricula, and innovative teaching methods that are rarely available domestically.
+(EX): For instance, institutions such as MIT and Oxford offer interdisciplinary learning environments that augment students’ creativity and analytical thinking.
+
+• (MR 2) Enhanced linguistic and cultural competence
+(SR): Immersion in a foreign environment allows students to master new languages and develop cross-cultural competence, crucial in today’s interconnected job market.
+(EX): A recent British Council report revealed that over 80% of international students experienced significant improvements in communication and adaptability skills.
+
+• (MR 3) Broader worldview and personal growth
+(SR): Living abroad instills independence, problem-solving ability, and resilience while alleviating cultural narrow-mindedness.
+(EX): Exposure to diverse perspectives often transforms students into more open-minded global citizens who can operate effectively across cultural boundaries.</textarea>
             </div>
             <!-- ======================== -->
             <div class="navigation-buttons">
@@ -346,9 +384,19 @@
             <p>Outline your second main argument (or a counter-argument if applicable). Follow the Point, Example, Explanation structure.</p>
             <div class="mb-3">
                 <label for="bp2" class="form-label"><strong>Main Points for BP2 (e.g., Argument AGAINST, to be refuted)</strong></label>
-                <textarea id="bp2" class="form-control" rows="6">- Point: Takes time away from academic studies.
-- Example: Students may have less time for homework or exam preparation.
-- Explanation: However, this view is short-sighted. The time management skills learned during service often lead to more efficient studying. The benefits outweigh the time cost.</textarea>
+                <textarea id="bp2" class="form-control" rows="12">Disadvantages of Studying Abroad
+
+• (MR 1) Financial predicament
+(SR): The cost of tuition, accommodation, and living expenses can be adverse and stymie students from lower-income backgrounds.
+(EX): For example, pursuing a degree in the United States may cost upwards of $40,000 annually, placing enormous strain on families’ financial stability.
+
+• (MR 2) Cultural shock and emotional isolation
+(SR): Adjusting to a new lifestyle can be daunting, as unfamiliar customs and climates often trigger homesickness and stress.
+(EX): A UNESCO survey indicates that nearly 40% of first-year international students struggle with psychological well-being due to cultural differences.
+
+• (MR 3) Brain drain and national talent loss
+(SR): A large proportion of students settle abroad permanently, causing a far-reaching depletion of skilled human capital in their home countries.
+(EX): India, for instance, faces an annual exodus of qualified graduates who contribute to the economies of Western nations instead of their homeland.</textarea>
             </div>
             <!-- ======================== -->
             <div class="navigation-buttons">
@@ -424,10 +472,17 @@
             loginBtn.addEventListener('click', () => {
                 // Password must be "VII I MMVI"
                 if (passwordInput.value === 'VII I MMVI') {
-                    // Hide login and show main content
-                    loginSection.style.display = 'none';
+                    // Smooth fade-out/fade-in transition
                     mainContent.style.display = 'block';
-                    // Initialize first step of the wizard
+                    mainContent.style.transition = 'opacity 0.8s ease';
+                    loginSection.style.transition = 'opacity 0.6s ease';
+                    loginSection.style.opacity = '0';
+
+                    setTimeout(() => {
+                      loginSection.style.display = 'none';
+                      mainContent.style.opacity = '1';
+                    }, 600);
+
                     showStep(currentStep);
                 } else {
                     // Show error alert
