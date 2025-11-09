@@ -98,12 +98,6 @@
         .footer:hover .footer-logo {
             transform: scale(1.1);
         }
-        /* From new suggestions */
-        .countdown-visible {
-            color: #1a1a1a; /* Dark color for visibility on light background */
-            text-shadow: 0 1px 2px rgba(255,255,255,0.5);
-            font-weight: 700;
-        }
         #login-btn:hover {
             box-shadow: 0 0 10px rgba(155,89,182,0.5); /* Adjusted to Zephyr primary color */
             transform: translateY(-2px);
@@ -116,25 +110,89 @@
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        /* --- FORCE Countdown Style --- */
+        #timer-container .countdown-visible,
+        #timer-container .countdown-visible * {
+          color: #ffffff !important;              /* pure white */
+          text-shadow: 0 0 8px rgba(0, 0, 0, 0.9),
+                       0 0 15px rgba(255, 255, 255, 0.4); /* inner + glow */
+          font-weight: 800 !important;
+          letter-spacing: 2px;
+          filter: drop-shadow(0 0 4px rgba(0,0,0,0.6));  /* extra punch */
+        }
+        #timer-container {
+          background: rgba(0, 0, 0, 0.4);
+          border-radius: 1rem;
+          display: inline-block;
+          padding: 0.75rem 1.25rem;
+          box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        }
+        /* --- Subtle background motion for premium look --- */
+        #login-section {
+          background-image: url(https://img.daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.webp);
+          background-size: 110%;
+          background-position: center;
+          animation: slowZoom 30s ease-in-out infinite alternate;
+        }
+        @keyframes slowZoom {
+          0% { background-size: 110%; background-position: center; }
+          50% { background-size: 120%; background-position: center top; }
+          100% { background-size: 110%; background-position: center; }
+        }
+        /* --- Premium glowing interaction for form elements --- */
+        input.input {
+          background-color: rgba(255, 255, 255, 0.65);
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          transition: all 0.3s ease;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        input.input:focus {
+          background-color: rgba(255, 255, 255, 0.85);
+          box-shadow: 0 0 12px rgba(0, 123, 255, 0.6);
+          border-color: rgba(0, 123, 255, 0.6);
+          transform: translateY(-2px);
+        }
+        #login-btn {
+          background-color: rgba(0, 123, 255, 0.8);
+          color: white;
+          font-weight: 600;
+          border: none;
+          border-radius: 8px;
+          transition: all 0.3s ease;
+          backdrop-filter: blur(3px);
+        }
+        #login-btn:hover:not(:disabled) {
+          background-color: rgba(0, 123, 255, 1);
+          box-shadow: 0 0 15px rgba(0, 123, 255, 0.7);
+          transform: translateY(-2px);
+        }
+        #login-btn:active:not(:disabled) {
+          transform: translateY(0);
+          box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+        }
     </style>
 </head>
 <body>
     <!-- TASK 1 & 2: Hero Section with Login Form -->
-    <div id="login-section" class="min-h-screen bg-cover bg-center flex items-center justify-center" style="background-image: url(https://img.daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.webp);">
-        <div class="absolute inset-0 bg-black bg-opacity-50"></div>
-        <fieldset class="relative z-10 bg-white/90 backdrop-blur-md border border-gray-300 rounded-2xl p-6 w-80 shadow-2xl">
-            <legend class="text-lg font-semibold text-gray-700 text-center">Please Login</legend>
-
-            <div class="form-control text-left">
-              <label class="label"><span class="label-text text-gray-700">Username</span></label>
-              <input id="username-input" type="text" placeholder="Enter any username" class="input input-bordered w-full" />
+    <div id="login-section" class="min-h-screen bg-cover bg-center flex items-center justify-center relative">
+        <!-- Background dim -->
+        <div class="absolute inset-0 bg-black/40"></div>
+        <!-- Login box -->
+        <fieldset class="relative z-10 bg-white/25 backdrop-blur-lg border border-white/30 rounded-2xl p-8 w-80 shadow-2xl transition-all duration-300 hover:bg-white/35">
+            <legend class="text-lg font-semibold text-gray-100 text-center drop-shadow-lg">Please Login</legend>
+            <!-- Username -->
+            <div class="form-control text-left mt-4">
+                <label class="label"><span class="label-text text-gray-100">Username</span></label>
+                <input id="username-input" type="text" placeholder="Enter any username" class="input input-bordered w-full bg-white/30 placeholder-gray-200 text-gray-100 border-gray-300/40 focus:bg-white/40 focus:text-white transition" />
             </div>
+            <!-- Password -->
             <div class="form-control text-left mt-2">
-              <label class="label"><span class="label-text text-gray-700">Password</span></label>
-              <input id="password-input" type="password" placeholder="Enter password" class="input input-bordered w-full" />
+                <label class="label"><span class="label-text text-gray-100">Password</span></label>
+                <input id="password-input" type="password" placeholder="Enter password" class="input input-bordered w-full bg-white/30 placeholder-gray-200 text-gray-100 border-gray-300/40 focus:bg-white/40 focus:text-white transition" />
             </div>
-            <button id="login-btn" class="btn btn-primary mt-4 w-full">Login</button>
-
+            <!-- Button -->
+            <button id="login-btn" disabled class="btn w-full mt-6 bg-blue-500/50 text-white font-semibold backdrop-blur-sm border-none shadow-lg hover:bg-blue-500/80 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">Login</button>
+            <!-- Error message -->
             <div id="error-alert" role="alert" class="alert alert-error mt-4" style="display: none;">
               <span>Error: Incorrect password.</span>
             </div>
@@ -192,7 +250,7 @@
             <div class="text-center my-3">
                 <button id="startTimerBtn" class="btn btn-success">Start 6-Min Timer</button>
                 <div id="timer-container" class="flex justify-center mt-2">
-                    <span class="countdown font-mono text-4xl countdown-visible">
+                    <span class="countdown font-mono text-4xl countdown-visible" style="color: #1a1a1a; text-shadow: rgba(255, 255, 255, 0.5) 0px 1px 2px; font-weight: 700;">
                       <span id="countdown-min" style="--value:6;"></span>
                       :
                       <span id="countdown-sec" style="--value:0;"></span>
@@ -368,7 +426,27 @@
 
             // --- Login Button Color Change Logic ---
             passwordInput.addEventListener('input', () => {
-                // The button is now always btn-primary, so this logic is no longer needed.
+                if (passwordInput.value.trim() !== "") {
+                    loginBtn.disabled = false;
+                    loginBtn.style.boxShadow = '0 0 15px rgba(0, 123, 255, 0.8)';
+                    loginBtn.style.backgroundColor = 'rgba(0, 123, 255, 1)';
+                } else {
+                    loginBtn.disabled = true;
+                    loginBtn.style.boxShadow = 'none';
+                    loginBtn.style.backgroundColor = 'rgba(0, 123, 255, 0.8)';
+                }
+            });
+
+            // Parallax mouse movement effect
+            const loginSection = document.getElementById("login-section");
+            loginSection.addEventListener("mousemove", (e) => {
+                // A subtle effect is better
+                const x = (e.clientX / window.innerWidth - 0.5) * 4; // max 4% shift
+                const y = (e.clientY / window.innerHeight - 0.5) * 4;
+                // Check if the element exists before trying to set style
+                if(loginSection) {
+                    loginSection.style.backgroundPosition = `${50 + x}% ${50 + y}%`;
+                }
             });
 
             // --- Loading Animation Logic ---
