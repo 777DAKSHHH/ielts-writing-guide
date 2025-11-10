@@ -1,556 +1,334 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>IELTS Guided Writing Task</title>
-    <!-- Switched to the "Flatly" Bootswatch theme for a more attractive look -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/zephyr/bootstrap.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IELTS Guided Writing Task</title>
+  <!-- Fonts and icons -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <!-- Material Dashboard 3 CSS -->
+  <link id="pagestyle" href="https://demos.creative-tim.com/material-dashboard/assets/css/material-dashboard.min.css?v=3.1.0" rel="stylesheet" />
 
-    <!-- Add DaisyUI via CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        plugins: [daisyui],
-        daisyui: {
-          themes: ["light", "cupcake", "corporate"],
-        },
-      };
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.js"></script>
-
-    <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
-
-  body {
-    font-family: 'Inter', sans-serif;
-    color: #f8f9fa;
-    background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #007bff);
-    background-size: 400% 400%;
-    animation: gradientFloat 15s ease infinite;
-    min-height: 100vh;
-  }
-
-  @keyframes gradientFloat {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
-  #login-section, #wizard-bg {
-    background: linear-gradient(-45deg, #141e30, #243b55, #0f2027, #007bff);
-    background-size: 400% 400%;
-    animation: gradientFloat 18s ease infinite;
-  }
-
-  .wizard-step {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 1.5rem;
-    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(10px);
-    padding: 2rem 2.5rem;
-    color: #fff;
-    transition: all 0.4s ease;
-  }
-  .wizard-step.active {
-    animation: glassFadeIn 1s ease-out forwards;
-  }
-  @keyframes glassFadeIn {
-    0% { opacity: 0; transform: translateY(30px); }
-    100% { opacity: 1; transform: translateY(0); }
-  }
-
-  /* --- Button glow and hover --- */
-  button, .btn {
-    transition: all 0.3s ease;
-    border: none;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,123,255,0.4);
-  }
-  button:hover, .btn:hover {
-    box-shadow: 0 0 20px rgba(0,123,255,0.6);
-    transform: translateY(-2px);
-  }
-
-  /* --- Form field polish --- */
-  input.input {
-    background: rgba(255,255,255,0.6);
-    border: 1px solid rgba(255,255,255,0.3);
-    transition: all 0.3s ease;
-  }
-  input.input:focus {
-    background: rgba(255,255,255,0.8);
-    box-shadow: 0 0 10px rgba(0,123,255,0.5);
-  }
-
-  /* --- Footer unified with quiz.html --- */
-  footer {
-    width: 100%;
-    padding: 20px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    background: rgba(255,255,255,0.1);
-    border-top: 1px solid rgba(255,255,255,0.2);
-    border-radius: 12px 12px 0 0;
-    backdrop-filter: blur(8px);
-    color: #fff;
-    font-size: 0.95em;
-    margin-top: 60px;
-    animation: fadeUp 1s ease-out both;
-  }
-  footer img {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-    object-fit: cover;
-    box-shadow: 0 2px 10px rgba(0,123,255,0.5);
-  }
-  @keyframes fadeUp {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
-  }
-
-  /* === Floating Glass Glow for Login Box === */
-  #login-section fieldset {
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 1.5rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4),
-                0 0 25px rgba(0, 123, 255, 0.25);
-    backdrop-filter: blur(12px);
-    transition: all 0.6s ease;
-    animation: floatPulse 5s ease-in-out infinite alternate;
-  }
-
-  #login-section fieldset:hover {
-    transform: translateY(-6px) scale(1.02);
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5),
-                0 0 40px rgba(0, 123, 255, 0.5);
-  }
-
-  /* Gentle floating motion */
-  @keyframes floatPulse {
-    0% {
-      transform: translateY(0px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4),
-                  0 0 20px rgba(0, 123, 255, 0.25);
+  <style>
+    body {
+      background-color: #f0f2f5;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
     }
-    100% {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45),
-                  0 0 30px rgba(0, 123, 255, 0.4);
+
+    .wizard-step {
+      display: none;
+      animation: fadeInScale 0.5s ease-out forwards;
     }
-  }
-    </style>
+
+    .wizard-step.active {
+      display: block;
+    }
+
+    @keyframes fadeInScale {
+      from {
+        opacity: 0;
+        transform: scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .table-responsive {
+      max-height: 400px;
+    }
+
+    .card .card-body {
+      padding: 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .card .card-body {
+        padding: 2rem;
+      }
+    }
+
+    .timer-display {
+      font-size: 3rem;
+      font-weight: 700;
+    }
+  </style>
 </head>
-<body>
-    <!-- TASK 1 & 2: Hero Section with Login Form -->
-    <div id="login-section" class="min-h-screen bg-cover bg-center flex items-center justify-center relative">
-        <!-- Background dim -->
-        <div class="absolute inset-0 bg-black/40"></div>
-        <!-- Login box with hover effect -->
-        <fieldset class="relative z-10 rounded-2xl p-8 w-80">
-            <legend class="text-lg font-semibold text-gray-100 text-center drop-shadow-lg">Please Login</legend>
-            <!-- Username -->
-            <div class="form-control text-left mt-4">
-                <label class="label"><span class="label-text text-gray-100">Username</span></label>
-                <input id="username-input" type="text" placeholder="Enter any username" class="input input-bordered w-full bg-white/30 placeholder-gray-200 text-gray-100 border-gray-300/40 focus:bg-white/40 focus:text-white transition" />
-            </div>
-            <!-- Password -->
-            <div class="form-control text-left mt-2">
-                <label class="label"><span class="label-text text-gray-100">Password</span></label>
-                <input id="password-input" type="password" placeholder="Enter password" class="input input-bordered w-full bg-white/30 placeholder-gray-200 text-gray-100 border-gray-300/40 focus:bg-white/40 focus:text-white transition" />
-            </div>
-            <!-- Button -->
-            <button id="login-btn" disabled class="btn w-full mt-6 bg-blue-500/50 text-white font-semibold backdrop-blur-sm border-none shadow-lg hover:bg-blue-500/80 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">Login</button>
-            <!-- Error message -->
-            <div id="error-alert" role="alert" class="alert alert-error mt-4" style="display: none;">
-              <span>Error: Incorrect password.</span>
-            </div>
-        </fieldset>
-    </div>
+<body class="g-sidenav-show bg-gray-200">
 
-    <!-- New background wrapper for the wizard -->
-    <div id="wizard-bg" class="min-h-screen bg-cover bg-center flex items-center justify-center relative" style="display: none;">
-      <div class="absolute inset-0 bg-black/40"></div>
-      <div id="wizard-wrapper" class="relative z-10 w-full px-4 py-8">
-        <div id="main-content" class="container wizard-container">
-          <!-- The wizard content now lives inside the new wrappers -->
-          <div class="progress mb-4" style="height: 10px;">
-              <div id="progressBar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <!-- All wizard steps go here -->
-          <!-- Step 1: Audio/Video Overview -->
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
+    <div class="container-fluid py-4">
+      <div class="row min-vh-80 d-flex justify-content-center align-items-center">
+        <div class="col-lg-8 col-md-10 col-12">
+
+          <!-- Step 1: Task Overview -->
           <div id="step-1" class="wizard-step active">
-              <h2>Step 1: Task Overview</h2>
-              <p>Choose your preferred format for a brief overview of how to approach this type of task.</p>
-              
-              <!-- Tab Navigation for Audio/Video -->
-              <ul class="nav nav-tabs" id="overviewTab" role="tablist">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="font-weight-bolder">Step 1: Task Overview</h4>
+                <p>Choose your preferred format for a brief overview of how to approach this type of task.</p>
+                <ul class="nav nav-tabs" id="overviewTab" role="tablist">
                   <li class="nav-item" role="presentation">
-                      <button class="nav-link active" id="audio-tab" data-bs-toggle="tab" data-bs-target="#audio-pane" type="button" role="tab" aria-controls="audio-pane" aria-selected="true">Audio Overview</button>
+                    <button class="nav-link active" id="audio-tab" data-bs-toggle="tab" data-bs-target="#audio-pane" type="button" role="tab" aria-controls="audio-pane" aria-selected="true">Audio</button>
                   </li>
                   <li class="nav-item" role="presentation">
-                      <button class="nav-link" id="video-tab" data-bs-toggle="tab" data-bs-target="#video-pane" type="button" role="tab" aria-controls="video-pane" aria-selected="false">Video Overview</button>
+                    <button class="nav-link" id="video-tab" data-bs-toggle="tab" data-bs-target="#video-pane" type="button" role="tab" aria-controls="video-pane" aria-selected="false">Video</button>
                   </li>
-              </ul>
-  
-              <!-- Tab Content -->
-              <div class="tab-content" id="overviewTabContent">
-                  <div class="tab-pane fade show active p-3 border border-top-0 rounded-bottom" id="audio-pane" role="tabpanel" aria-labelledby="audio-tab" tabindex="0">
-                      <audio controls class="w-100">
-                          <source src="materials/week-20-task2-audio.mp3" type="audio/mpeg">
-                          Your browser does not support the audio element.
-                      </audio>
+                </ul>
+                <div class="tab-content" id="overviewTabContent">
+                  <div class="tab-pane fade show active p-3 border border-top-0 rounded-bottom" id="audio-pane" role="tabpanel">
+                    <audio controls class="w-100">
+                      <source src="materials/week-20-task2-audio.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
                   </div>
-                  <div class="tab-pane fade p-3 border border-top-0 rounded-bottom" id="video-pane" role="tabpanel" aria-labelledby="video-tab" tabindex="0">
-                      <video controls class="w-100" style="border-radius: 4px;">
-                          <source src="materials/week-20-mon-wt-2(video).mp4" type="video/mp4">
-                          Your browser does not support the video tag.
-                      </video>
+                  <div class="tab-pane fade p-3 border border-top-0 rounded-bottom" id="video-pane" role="tabpanel">
+                    <div class="ratio ratio-16x9">
+                      <video controls class="w-100 rounded">
+                        <source src="materials/week-20-mon-wt-2(video).mp4" type="video/mp4">Your browser does not support the video tag.</video>
+                    </div>
                   </div>
+                </div>
+                <div class="d-flex justify-content-end mt-4">
+                  <button class="btn btn-primary mb-0 next-btn">Next <i class="material-icons-round text-sm">arrow_forward</i></button>
+                </div>
               </div>
-  
-              <div class="navigation-buttons">
-                  <span></span> <!-- Empty span for spacing -->
-                  <button class="btn btn-primary next-btn">Next: Understand the Topic &rarr;</button>
-              </div>
+            </div>
           </div>
-  
-          <!-- Step 2: Brainstorming -->
+
+          <!-- Step 2: Brainstorm -->
           <div id="step-2" class="wizard-step">
-              <h2>Step 2: Brainstorm (6-Minute Timer)</h2>
-              <p>Look at the task. Use the next 6 minutes to brainstorm ideas and structure your essay. The timer is a guide to help you practice time management.</p>
-              <!-- TASK 3: Countdown Timer -->
-              <div class="text-center my-3">
-                  <button id="startTimerBtn" class="btn btn-success">Start 6-Min Timer</button>
-                  <div id="timer-container" class="mt-4 p-4 inline-block bg-black/30 rounded-2xl shadow-lg">
-                      <span class="countdown font-mono text-5xl text-white" style="text-shadow: 0 0 8px rgba(0,0,0,0.7);">
-                        <span id="countdown-min" style="--value:6;"></span>
-                        :
-                        <span id="countdown-sec" style="--value:0;"></span>
-                      </span>
-                  </div>
+            <div class="card">
+              <div class="card-body">
+                <h4 class="font-weight-bolder">Step 2: Brainstorm (6-Minute Timer)</h4>
+                <p>Use the next 6 minutes to brainstorm ideas and structure your essay. This is a guide to help you practice time management.</p>
+                <div class="text-center my-4">
+                  <div id="timer-display" class="timer-display text-dark">6:00</div>
+                  <button id="startTimerBtn" class="btn btn-success mt-3">Start Timer</button>
+                </div>
+                <div class="alert alert-secondary text-dark" role="alert">
+                  <h6 class="alert-heading font-weight-bold">Essay Question</h6>
+                  <p class="mb-0"><strong>In the past, when students did a university degree they tended to study in their own country. Nowadays, they have more opportunities to study abroad.</strong> Do you think the advantages of this development outweigh the disadvantages?</p>
+                </div>
+                <div class="d-flex justify-content-between mt-4">
+                  <button class="btn btn-white mb-0 prev-btn"><i class="material-icons-round text-sm">arrow_back</i> Previous</button>
+                  <button class="btn btn-primary mb-0 next-btn">Next <i class="material-icons-round text-sm">arrow_forward</i></button>
+                </div>
               </div>
-              <hr>
-              <div class="task-content p-3 bg-light rounded">
-                  <h5>ESSAY QUESTION:-</h5>
-                  <p><strong>In the past, when students did a university degree they tended to study in their own country. Nowadays, they have more opportunities to study abroad.</strong></p>
-                  <p><strong>Do you think the advantages of this development outweigh the disadvantages?</strong></p>
-              </div>
-              <!-- ======================== -->
-              <div class="navigation-buttons">
-                  <button class="btn btn-secondary prev-btn">&larr; Previous</button>
-                  <button class="btn btn-primary next-btn">Next: Vocabulary &rarr;</button>
-              </div>
+            </div>
           </div>
-  
-          <!-- Step 3: Synonyms -->
+
+          <!-- Step 3: Vocabulary Table -->
           <div id="step-3" class="wizard-step">
-              <h2>Step 3: Vocabulary Table</h2>
-              <p>Review the key vocabulary for this task. Using a range of words is essential for a high score.</p>
-              <div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
-                  <table class="table">
-                      <thead>
-                          <tr class="bg-base-200">
-                              <th class="w-1/4">Word/Phrase</th>
-                              <th class="w-1/4">Meaning</th>
-                              <th>Example Sentence</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          <tr class="hover"><td>Burgeoning</td><td>Growing rapidly</td><td>The burgeoning interest in foreign education reflects global academic integration.</td></tr>
-                          <tr class="hover"><td>Far-reaching</td><td>Having extensive impact</td><td>The far-reaching effects of international study influence economies and cultures alike.</td></tr>
-                          <tr class="hover"><td>Augment</td><td>Enhance or increase</td><td>Studying abroad can augment one’s academic and interpersonal capabilities.</td></tr>
-                          <tr class="hover"><td>Cross-cultural competence</td><td>Ability to interact effectively with diverse groups</td><td>Employers highly value graduates who demonstrate cross-cultural competence.</td></tr>
-                          <tr class="hover"><td>Alleviate</td><td>Ease or lessen</td><td>Exposure to diverse societies can alleviate prejudice and narrowmindedness.</td></tr>
-                          <tr class="hover"><td>Predicament</td><td>Problem or difficult situation</td><td>Many families face a financial predicament while funding education overseas.</td></tr>
-                          <tr class="hover"><td>Adverse</td><td>Negative or harmful</td><td>Students might face adverse mental effects due to homesickness and cultural stress.</td></tr>
-                          <tr class="hover"><td>Stymies</td><td>Hinders or obstructs</td><td>The high cost often stymies underprivileged students from pursuing international degrees.</td></tr>
-                          <tr class="hover"><td>Curtailing</td><td>Reducing or limiting</td><td>Requalification requirements can end up curtailing career momentum.</td></tr>
-                          <tr class="hover"><td>Repercussions</td><td>Consequences or effects</td><td>The positive repercussions of studying abroad extend far beyond academia.</td></tr>
-                          <tr class="hover"><td>Brain drain</td><td>Migration of skilled professionals</td><td>Excessive brain drain can weaken a nation’s developmental progress.</td></tr>
-                      </tbody>
+            <div class="card">
+              <div class="card-body">
+                <h4 class="font-weight-bolder">Step 3: Vocabulary Table</h4>
+                <p>Review the key vocabulary for this task. Using a range of words is essential for a high score.</p>
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead class="table-light">
+                      <tr>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Word/Phrase</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Example Sentence</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>Burgeoning</td><td>The burgeoning interest in foreign education reflects global academic integration.</td></tr>
+                      <tr><td>Far-reaching</td><td>The far-reaching effects of international study influence economies and cultures alike.</td></tr>
+                      <tr><td>Augment</td><td>Studying abroad can augment one’s academic and interpersonal capabilities.</td></tr>
+                      <tr><td>Cross-cultural competence</td><td>Employers highly value graduates who demonstrate cross-cultural competence.</td></tr>
+                      <tr><td>Alleviate</td><td>Exposure to diverse societies can alleviate prejudice and narrowmindedness.</td></tr>
+                      <tr><td>Predicament</td><td>Many families face a financial predicament while funding education overseas.</td></tr>
+                      <tr><td>Adverse</td><td>Students might face adverse mental effects due to homesickness and cultural stress.</td></tr>
+                      <tr><td>Stymies</td><td>The high cost often stymies underprivileged students from pursuing international degrees.</td></tr>
+                      <tr><td>Curtailing</td><td>Requalification requirements can end up curtailing career momentum.</td></tr>
+                      <tr><td>Repercussions</td><td>The positive repercussions of studying abroad extend far beyond academia.</td></tr>
+                      <tr><td>Brain drain</td><td>Excessive brain drain can weaken a nation’s developmental progress.</td></tr>
+                    </tbody>
                   </table>
+                </div>
+                <div class="d-flex justify-content-between mt-4">
+                  <button class="btn btn-white mb-0 prev-btn"><i class="material-icons-round text-sm">arrow_back</i> Previous</button>
+                  <button class="btn btn-primary mb-0 next-btn">Next <i class="material-icons-round text-sm">arrow_forward</i></button>
+                </div>
               </div>
-              <!-- ======================== -->
-              <div class="navigation-buttons">
-                  <button class="btn btn-secondary prev-btn">&larr; Previous</button>
-                  <button class="btn btn-primary next-btn">Next: Structure &rarr;</button>
-              </div>
+            </div>
           </div>
-  
-          <!-- Step 4: Introduction & Overview -->
+
+          <!-- Step 4: Plan Introduction & Conclusion -->
           <div id="step-4" class="wizard-step">
-              <h2>Step 4: Plan Introduction & Conclusion</h2>
-              <p>Draft your introduction by paraphrasing the question and stating your position. Outline your conclusion by summarizing your main points.</p>
-              <div class="mb-3">
-                  <label for="intro" class="form-label"><strong>Introduction (Paraphrase + Thesis Statement)</strong></label>
-                  <textarea id="intro" class="form-control" rows="5">Sample 1: In an increasingly globalised world, pursuing higher education beyond national borders has become a burgeoning trend. While studying abroad offers students unparalleled exposure and opportunities, it also presents certain far-reaching challenges. In my view, the advantages of international education decidedly outweigh its drawbacks, primarily because it broadens intellectual horizons and enhances global competitiveness.
-  
-  Sample 2: In recent decades, an increasing number of students have chosen to pursue higher education abroad rather than in their home countries. While this trend has opened global doors for learners, it has also introduced certain drawbacks. In my opinion, the advantages of studying abroad outweigh the disadvantages, primarily because it broadens academic, cultural, and professional horizons.</textarea>
+            <div class="card">
+              <div class="card-body">
+                <h4 class="font-weight-bolder">Step 4: Plan Introduction & Conclusion</h4>
+                <p>Draft your introduction by paraphrasing the question and stating your position. Outline your conclusion by summarizing your main points.</p>
+                <div class="input-group input-group-dynamic mb-4">
+                  <textarea class="form-control" rows="6" placeholder="Introduction (Paraphrase + Thesis Statement)">Sample: In an increasingly globalised world, pursuing higher education beyond national borders has become a burgeoning trend. While studying abroad offers students unparalleled exposure and opportunities, it also presents certain far-reaching challenges. In my view, the advantages of international education decidedly outweigh its drawbacks, primarily because it broadens intellectual horizons and enhances global competitiveness.</textarea>
+                </div>
+                <div class="input-group input-group-dynamic">
+                  <textarea class="form-control" rows="6" placeholder="Conclusion (Summarize + Final Thought)">Sample: To sum up, although studying overseas may create financial burdens and cultural challenges, its repercussions are largely constructive — fostering intellectual advancement, global awareness, and professional excellence. Therefore, I opine that the advantages of pursuing education abroad overwhelmingly outweigh its adverse consequences.</textarea>
+                </div>
+                <div class="d-flex justify-content-between mt-4">
+                  <button class="btn btn-white mb-0 prev-btn"><i class="material-icons-round text-sm">arrow_back</i> Previous</button>
+                  <button class="btn btn-primary mb-0 next-btn">Next <i class="material-icons-round text-sm">arrow_forward</i></button>
+                </div>
               </div>
-              <div class="mb-3">
-                  <label for="overview" class="form-label"><strong>Conclusion (Summarize + Final Thought)</strong></label>
-                  <textarea id="overview" class="form-control" rows="5">Sample 1: To sum up, although studying overseas may create financial burdens and cultural challenges, its repercussions are largely constructive — fostering intellectual advancement, global awareness, and professional excellence. Therefore, I opine that the advantages of pursuing education abroad overwhelmingly outweigh its adverse consequences.
-  
-  Sample 2: To conclude, although studying abroad can be financially demanding and emotionally challenging, its academic benefits, cultural exposure, and career prospects make it a highly valuable experience. Therefore, I firmly believe that the advantages of international education clearly outweigh its disadvantages.</textarea>
-              </div>
-              <!-- ======================== -->
-              <div class="navigation-buttons">
-                  <button class="btn btn-secondary prev-btn">&larr; Previous</button>
-                  <button class="btn btn-primary next-btn">Next: Body Paragraphs &rarr;</button>
-              </div>
+            </div>
           </div>
-  
-          <!-- Step 5: Body Paragraph 1 -->
+
+          <!-- Step 5: Plan Body Paragraph 1 -->
           <div id="step-5" class="wizard-step">
-              <h2>Step 5: Plan Body Paragraph 1</h2>
-              <p>Outline your first main argument. State your point, provide a specific example, and explain how it supports your thesis.</p>
-              <div class="mb-3">
-                  <label for="bp1" class="form-label"><strong>Main Points for BP1 (e.g., Argument FOR)</strong></label>
-                  <textarea id="bp1" class="form-control" rows="16">Advantages of Studying Abroad
-  
-  • (MR 1) Access to superior academic infrastructure
-  (SR): Prestigious universities abroad often provide state-of-the-art research facilities, diverse curricula, and innovative teaching methods that are rarely available domestically.
-  (EX): For instance, institutions such as MIT and Oxford offer interdisciplinary learning environments that augment students’ creativity and analytical thinking.
-  
-  • (MR 2) Enhanced linguistic and cultural competence
-  (SR): Immersion in a foreign environment allows students to master new languages and develop cross-cultural competence, crucial in today’s interconnected job market.
-  (EX): A recent British Council report revealed that over 80% of international students experienced significant improvements in communication and adaptability skills.
-  
-  • (MR 3) Broader worldview and personal growth
-  (SR): Living abroad instills independence, problem-solving ability, and resilience while alleviating cultural narrow-mindedness.
-  (EX): Exposure to diverse perspectives often transforms students into more open-minded global citizens who can operate effectively across cultural boundaries.
-  
-  • (MR 4) Stronger employability and career prospects
-  (SR): Graduates with international degrees are highly sought after for their adaptability and global insight.
-  (EX): According to a QS Global Employability Survey, multinational companies prefer candidates who have studied abroad due to their cross-border experience and leadership potential.</textarea>
+            <div class="card">
+              <div class="card-body">
+                <h4 class="font-weight-bolder">Step 5: Plan Body Paragraph 1 (Advantages)</h4>
+                <p>Outline your first main argument. State your point, provide a specific example, and explain how it supports your thesis.</p>
+                <div class="input-group input-group-dynamic">
+                  <textarea class="form-control" rows="12" placeholder="Main Points for BP1 (e.g., Argument FOR)">• (MR 1) Access to superior academic infrastructure
+(SR): Prestigious universities abroad often provide state-of-the-art research facilities and diverse curricula.
+(EX): For instance, institutions such as MIT and Oxford offer interdisciplinary learning environments.
+
+• (MR 2) Enhanced linguistic and cultural competence
+(SR): Immersion in a foreign environment allows students to master new languages and develop cross-cultural competence.
+(EX): A recent British Council report revealed over 80% of international students experienced significant improvements in communication skills.
+
+• (MR 3) Stronger employability and career prospects
+(SR): Graduates with international degrees are highly sought after for their adaptability and global insight.
+(EX): According to a QS Global Employability Survey, multinational companies prefer candidates who have studied abroad.</textarea>
+                </div>
+                <div class="d-flex justify-content-between mt-4">
+                  <button class="btn btn-white mb-0 prev-btn"><i class="material-icons-round text-sm">arrow_back</i> Previous</button>
+                  <button class="btn btn-primary mb-0 next-btn">Next <i class="material-icons-round text-sm">arrow_forward</i></button>
+                </div>
               </div>
-              <!-- ======================== -->
-              <div class="navigation-buttons">
-                  <button class="btn btn-secondary prev-btn">&larr; Previous</button>
-                  <button class="btn btn-primary next-btn">Next: Body Paragraph 2 &rarr;</button>
-              </div>
+            </div>
           </div>
-  
-          <!-- Step 6: Body Paragraph 2 -->
+
+          <!-- Step 6: Plan Body Paragraph 2 -->
           <div id="step-6" class="wizard-step">
-              <h2>Step 6: Plan Body Paragraph 2</h2>
-              <p>Outline your second main argument (or a counter-argument if applicable). Follow the Point, Example, Explanation structure.</p>
-              <div class="mb-3">
-                  <label for="bp2" class="form-label"><strong>Main Points for BP2 (e.g., Argument AGAINST, to be refuted)</strong></label>
-                  <textarea id="bp2" class="form-control" rows="16">Disadvantages of Studying Abroad
-  
-  • (MR 1) Financial predicament
-  (SR): The cost of tuition, accommodation, and living expenses can be adverse and stymie students from lower-income backgrounds.
-  (EX): For example, pursuing a degree in the United States may cost upwards of $40,000 annually, placing enormous strain on families’ financial stability.
-  
-  • (MR 2) Cultural shock and emotional isolation
-  (SR): Adjusting to a new lifestyle can be daunting, as unfamiliar customs and climates often trigger homesickness and stress.
-  (EX): A UNESCO survey indicates that nearly 40% of first-year international students struggle with psychological well-being due to cultural differences.
-  
-  • (MR 3) Recognition and requalification barriers
-  (SR): Degrees earned abroad are not always recognised in home countries, especially in professional fields like medicine or law.
-  (EX): Many foreign-trained professionals must undergo additional exams before practising in their native nations, curtailing their career progress.
-  
-  • (MR 4) Brain drain and national talent loss
-  (SR): A large proportion of students settle abroad permanently, causing a far-reaching depletion of skilled human capital in their home countries.
-  (EX): India, for instance, faces an annual exodus of qualified graduates who contribute to the economies of Western nations instead of their homeland.</textarea>
+            <div class="card">
+              <div class="card-body">
+                <h4 class="font-weight-bolder">Step 6: Plan Body Paragraph 2 (Disadvantages)</h4>
+                <p>Outline your second main argument (or a counter-argument). Follow the Point, Example, Explanation structure.</p>
+                <div class="input-group input-group-dynamic">
+                  <textarea class="form-control" rows="12" placeholder="Main Points for BP2 (e.g., Argument AGAINST)">• (MR 1) Financial predicament
+(SR): The cost of tuition, accommodation, and living expenses can be adverse and stymie students from lower-income backgrounds.
+(EX): For example, pursuing a degree in the United States may cost upwards of $40,000 annually.
+
+• (MR 2) Cultural shock and emotional isolation
+(SR): Adjusting to a new lifestyle can be daunting, as unfamiliar customs and climates often trigger homesickness.
+(EX): A UNESCO survey indicates that nearly 40% of first-year international students struggle with psychological well-being.
+
+• (MR 3) Brain drain and national talent loss
+(SR): A large proportion of students settle abroad permanently, causing a depletion of skilled human capital.
+(EX): India, for instance, faces an annual exodus of qualified graduates.</textarea>
+                </div>
+                <div class="d-flex justify-content-between mt-4">
+                  <button class="btn btn-white mb-0 prev-btn"><i class="material-icons-round text-sm">arrow_back</i> Previous</button>
+                  <button class="btn btn-primary mb-0 next-btn">Next <i class="material-icons-round text-sm">arrow_forward</i></button>
+                </div>
               </div>
-              <!-- ======================== -->
-              <div class="navigation-buttons">
-                  <button class="btn btn-secondary prev-btn">&larr; Previous</button>
-                  <button class="btn btn-primary next-btn">Next: Download & Quiz &rarr;</button>
-              </div>
+            </div>
           </div>
-  
-          <!-- Step 7: QR Code & Download -->
+
+          <!-- Step 7: Download PDF & Quiz -->
           <div id="step-7" class="wizard-step">
-              <h2>Step 7: Download PDF & Quiz</h2>
-              <p>Scan the QR to attempt the quiz before reading the PDF. After submitting the quiz, you will get a button to download the materials.</p>
-              <div class="flex flex-col md:flex-row items-center justify-center gap-8 my-8">
-                  <div class="text-center">
-                      <h5 class="font-bold mb-2">Scan for Quiz</h5>
-                      <img src="materials/qrcode_todayieltstask.onrender.com.png" alt="QR Code for quiz" class="w-48 h-48 rounded-box border border-base-300 p-1" onerror="this.style.display='none'">
-                  </div>
-                  <div class="text-center">
-                      <h5 class="font-bold mb-2">Download Materials</h5>
-                      <button id="download-btn" class="btn btn-accent w-48">Download PDF</button>
-                  </div>
+            <div class="card">
+              <div class="card-body text-center">
+                <h4 class="font-weight-bolder">Step 7: Download PDF & Quiz</h4>
+                <p>Scan the QR code to attempt the quiz on your mobile device. After the quiz, you can download the related PDF guide.</p>
+                <img src="materials/qrcode_todayieltstask.onrender.com.png" alt="QR Code for quiz" class="img-fluid border rounded-lg shadow-sm my-4" style="max-width: 200px;" onerror="this.style.display='none'">
+                <div class="d-flex justify-content-between mt-4">
+                  <button class="btn btn-white mb-0 prev-btn"><i class="material-icons-round text-sm">arrow_back</i> Previous</button>
+                  <button class="btn btn-success mb-0" id="return-home-btn"><i class="material-icons-round text-sm">home</i> Return to Home</button>
+                </div>
               </div>
-              <div class="navigation-buttons">
-                  <button class="btn btn-secondary prev-btn">&larr; Previous</button>
-                  <a href="#" class="btn btn-success">Return Home</a>
-              </div>
+            </div>
           </div>
+
         </div>
       </div>
     </div>
+  </main>
 
-    <!-- TASK 4: Loading Animation -->
-    <div id="loading-overlay" class="fixed inset-0 bg-base-100 bg-opacity-90 flex justify-center items-center" style="display: none; z-index: 9999;">
-        <span class="loading loading-infinity loading-xl"></span>
-    </div>
+  <!-- Core JS Files -->
+  <script src="https://demos.creative-tim.com/material-dashboard/assets/js/core/popper.min.js"></script>
+  <script src="https://demos.creative-tim.com/material-dashboard/assets/js/core/bootstrap.min.js"></script>
 
-    <!-- TASK 6: Footer -->
-    <footer>
-      <img src="materials/eagle(face).jpg" alt="Logo">
-      <span>CREATED BY DAKSH</span>
-    </footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Fade in body on load
+      document.body.style.opacity = 1;
 
-    <!-- Bootstrap JS Bundle (needed for interactive components like tabs) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+      const steps = document.querySelectorAll('.wizard-step');
+      const nextButtons = document.querySelectorAll('.next-btn');
+      const prevButtons = document.querySelectorAll('.prev-btn');
+      const returnHomeBtn = document.getElementById('return-home-btn');
+      let currentStep = 0;
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // --- Element Declarations ---
-            const wizardBg = document.getElementById('wizard-bg');
-            const errorAlert = document.getElementById('error-alert');
-            
-            // Login-specific elements
-            const loginSection = document.getElementById('login-section');
-            const loginBtn = document.getElementById('login-btn');
-            const passwordInput = document.getElementById('password-input');
-            
-            // Wizard-specific elements
-            const downloadBtn = document.getElementById('download-btn');
-            const loadingOverlay = document.getElementById('loading-overlay');
-
-            const steps = document.querySelectorAll('.wizard-step');
-            const nextButtons = document.querySelectorAll('.next-btn');
-            const prevButtons = document.querySelectorAll('.prev-btn');
-            const startTimerBtn = document.getElementById('startTimerBtn');
-            const progressBar = document.getElementById('progressBar');
-
-            let currentStep = 0;
-            let timerInterval = null;
-            let timeRemaining = 360; // 6 minutes in seconds
-
-            // --- Login Logic ---
-            loginBtn.addEventListener('click', () => {
-                // Password must be "VII I MMVI"
-                if (passwordInput.value === 'VII I MMVI') {
-                    // Smooth fade-out/fade-in transition
-                    wizardBg.style.display = 'flex'; // Show the wizard background
-                    loginSection.style.transition = 'opacity 0.6s ease';
-                    loginSection.style.opacity = '0';
-
-                    setTimeout(() => {
-                      loginSection.style.display = 'none';
-                    }, 600);
-
-                    showStep(currentStep);
-                } else {
-                    // Show error alert
-                    errorAlert.style.display = 'flex';
-                }
-            });
-
-            // --- Login Button Dynamic Style Logic ---
-            passwordInput.addEventListener('input', () => {
-                if (passwordInput.value.trim() !== "") {
-                    loginBtn.disabled = false;
-                    loginBtn.style.boxShadow = '0 0 15px rgba(0, 123, 255, 0.8)';
-                    loginBtn.style.backgroundColor = 'rgba(0, 123, 255, 1)';
-                } else {
-                    loginBtn.disabled = true;
-                    loginBtn.style.boxShadow = 'none';
-                    loginBtn.style.backgroundColor = 'rgba(0, 123, 255, 0.8)';
-                }
-            });
-
-            // --- Parallax Mouse Movement Effect ---
-            loginSection.addEventListener("mousemove", (e) => {
-                const x = (e.clientX / window.innerWidth - 0.5) * 4;
-                const y = (e.clientY / window.innerHeight - 0.5) * 4;
-                if(loginSection) {
-                    loginSection.style.backgroundPosition = `${50 + x}% ${50 + y}%`;
-                }
-            });
-            if (wizardBg) {
-              wizardBg.addEventListener("mousemove", (e) => {
-                const x = (e.clientX / window.innerWidth - 0.5) * 4;
-                const y = (e.clientY / window.innerHeight - 0.5) * 4;
-                wizardBg.style.backgroundPosition = `${50 + x}% ${50 + y}%`;
-              });
-            }
-
-            // --- Loading Animation Logic ---
-            downloadBtn.addEventListener('click', () => {
-                // Show loading animation
-                loadingOverlay.style.display = 'flex';
-
-                // Hide it after 5 seconds
-                setTimeout(() => {
-                    loadingOverlay.style.display = 'none';
-                }, 5000);
-            });
-
-            // --- Wizard Logic ---
-            function showStep(stepIndex) {
-              steps.forEach((step, index) => {
-                if (index === stepIndex) {
-                  step.classList.add("active");
-                  step.style.zIndex = 10;
-                } else {
-                  step.classList.remove("active");
-                  step.style.zIndex = 1;
-                }
-              });
-              const progressPercentage = ((stepIndex + 1) / steps.length) * 100;
-              progressBar.style.width = `${progressPercentage}%`;
-            }
-
-            nextButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    if (currentStep < steps.length - 1) {
-                        currentStep++;
-                        showStep(currentStep);
-                    }
-                });
-            });
-
-            prevButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    if (currentStep > 0) {
-                        currentStep--;
-                        showStep(currentStep);
-                    }
-                });
-            });
-
-            // --- Timer Logic ---
-            function startTimer() {
-                if (timerInterval) clearInterval(timerInterval);
-                startTimerBtn.disabled = true;
-
-                const minEl = document.getElementById('countdown-min');
-                const secEl = document.getElementById('countdown-sec');
-
-                timerInterval = setInterval(() => {
-                    timeRemaining--;
-
-                    const minutes = Math.floor(timeRemaining / 60);
-                    const seconds = timeRemaining % 60;
-
-                    minEl.style.setProperty('--value', minutes);
-                    secEl.style.setProperty('--value', seconds);
-
-                    if (timeRemaining <= 0) {
-                        clearInterval(timerInterval);
-                        minEl.style.setProperty('--value', 0);
-                        secEl.style.setProperty('--value', 0);
-                        alert("Brainstorming time is over!");
-                    }
-                }, 1000);
-            }
-
-            startTimerBtn.addEventListener('click', startTimer);
+      function showStep(stepIndex) {
+        steps.forEach((step, index) => {
+          step.classList.toggle('active', index === stepIndex);
         });
-    </script>
+        window.scrollTo(0, 0);
+      }
+
+      nextButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          if (currentStep < steps.length - 1) {
+            currentStep++;
+            showStep(currentStep);
+          }
+        });
+      });
+
+      prevButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          if (currentStep > 0) {
+            currentStep--;
+            showStep(currentStep);
+          }
+        });
+      });
+
+      returnHomeBtn.addEventListener('click', () => {
+        currentStep = 0;
+        showStep(currentStep);
+      });
+
+      // --- Timer Logic ---
+      const startTimerBtn = document.getElementById('startTimerBtn');
+      const timerDisplay = document.getElementById('timer-display');
+      let timerInterval = null;
+      let timeRemaining = 360; // 6 minutes
+
+      function updateTimerDisplay() {
+        const minutes = Math.floor(timeRemaining / 60).toString().padStart(2, '0');
+        const seconds = (timeRemaining % 60).toString().padStart(2, '0');
+        timerDisplay.textContent = `${minutes}:${seconds}`;
+      }
+
+      function startTimer() {
+        if (timerInterval) clearInterval(timerInterval); // Prevent multiple intervals
+        startTimerBtn.disabled = true;
+
+        timerInterval = setInterval(() => {
+          timeRemaining--;
+          updateTimerDisplay();
+
+          if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            timerDisplay.textContent = "Time's Up!";
+            alert("Brainstorming time is over!");
+          }
+        }, 1000);
+      }
+
+      startTimerBtn.addEventListener('click', startTimer);
+
+      // Initialize first step
+      showStep(currentStep);
+    });
+  </script>
+
 </body>
 </html>
