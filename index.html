@@ -4,18 +4,57 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>IELTS Guided Writing Task</title>
+
   <!-- Bootswatch Cerulean Theme -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/cerulean/bootstrap.min.css">
 
   <style>
+    /* ===== GLOBAL THEME ===== */
     body {
-      background-color: #f8f9fa;
-      transition: background-color 0.5s ease-in-out;
+      background: linear-gradient(135deg, #e9f2ff, #ffffff);
+      min-height: 100vh;
+      transition: background-color 0.6s ease;
+      font-family: "Inter", "Segoe UI", Roboto, sans-serif;
     }
 
+    h4, h5 {
+      font-weight: 600;
+      color: #0d47a1;
+    }
+
+    p {
+      color: #333;
+    }
+
+    /* ===== LOGIN CARD ===== */
+    #login-section .card {
+      border: none;
+      border-radius: 1rem;
+      background: #ffffff;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    #login-section .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #007bff, #0069d9);
+      border: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #0069d9, #0056b3);
+      box-shadow: 0 0 10px rgba(0, 123, 255, 0.4);
+    }
+
+    /* ===== WIZARD SECTION ===== */
     .wizard-step {
       display: none;
-      animation: fadeIn 0.5s ease-out forwards;
+      animation: fadeIn 0.5s ease forwards;
     }
 
     .wizard-step.active {
@@ -23,51 +62,113 @@
     }
 
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .table-responsive {
-      max-height: 400px;
+    /* ===== CARD STYLING ===== */
+    .card {
+      border: none;
+      border-radius: 1rem;
+      background: #ffffff;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
     }
 
+    .card:hover {
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+    }
+
+    .card-body {
+      color: #2c3e50;
+    }
+
+    .table thead {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    .table-hover tbody tr:hover {
+      background-color: rgba(0, 123, 255, 0.05);
+    }
+
+    /* ===== TIMER ===== */
     .timer-display {
       font-size: 3rem;
       font-weight: 700;
+      color: #007bff;
     }
 
-    #wizard-section {
-      display: none;
+    #startTimerBtn {
+      background: linear-gradient(135deg, #28a745, #1e7e34);
+      border: none;
+    }
+
+    #startTimerBtn:hover {
+      background: linear-gradient(135deg, #34ce57, #28a745);
+      box-shadow: 0 0 10px rgba(40, 167, 69, 0.4);
+    }
+
+    /* ===== NAV TABS ===== */
+    .nav-tabs .nav-link.active {
+      background: #007bff;
+      color: #fff;
+      border: none;
+    }
+
+    .nav-tabs .nav-link {
+      font-weight: 500;
+    }
+
+    /* ===== FOOTER STYLE ===== */
+    footer {
+      text-align: center;
+      margin-top: 60px;
+      padding: 20px;
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    footer a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive spacing */
+    @media (max-width: 768px) {
+      .card-body {
+        padding: 1.5rem !important;
+      }
     }
   </style>
 </head>
 <body>
 
+  <!-- LOGIN SECTION -->
   <div id="login-section" class="container">
     <div class="row min-vh-100 d-flex justify-content-center align-items-center">
       <div class="col-lg-5 col-md-7 col-10">
-        <div class="card border-primary shadow">
+        <div class="card shadow-lg">
           <div class="card-body p-4 text-center">
-            <h4 class="card-title text-primary">PASSWORD PROTECTED</h4>
-            <p class="card-text">ENTER PASSWORD</p>
-            <div class="form-group mb-3">
-              <input type="password" class="form-control" id="password-input" placeholder="Password">
-            </div>
+            <h4 class="text-primary mb-3">🔒 Password Protected</h4>
+            <p class="text-muted mb-4">Enter the password to begin your guided IELTS writing practice.</p>
+            <input type="password" class="form-control mb-3" id="password-input" placeholder="Enter password">
             <button id="login-btn" class="btn btn-primary w-100">Login</button>
-            <div id="error-alert" class="alert alert-danger mt-3" style="display: none;">Incorrect password.</div>
+            <div id="error-alert" class="alert alert-danger mt-3" style="display: none;">Incorrect password. Try again.</div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <main id="wizard-section">
-    <div class="container-fluid py-4">
-      <div class="row min-vh-80 d-flex justify-content-center align-items-center">
+  <!-- MAIN CONTENT -->
+  <main id="wizard-section" style="display:none;">
+    <div class="container py-5">
+      <div class="row d-flex justify-content-center">
         <div class="col-lg-8 col-md-10 col-12">
 
           <!-- Step 1: Task Overview -->
@@ -135,22 +236,23 @@
                   <table class="table table-hover">
                     <thead>
                       <tr>
-                        <th>Word/Phrase</th>
+                        <th class="w-25">Word/Phrase</th>
+                        <th class="w-25">Meaning</th>
                         <th>Example Sentence</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr><td>Burgeoning</td><td>The burgeoning interest in foreign education reflects global academic integration.</td></tr>
-                      <tr><td>Far-reaching</td><td>The far-reaching effects of international study influence economies and cultures alike.</td></tr>
-                      <tr><td>Augment</td><td>Studying abroad can augment one’s academic and interpersonal capabilities.</td></tr>
-                      <tr><td>Cross-cultural competence</td><td>Employers highly value graduates who demonstrate cross-cultural competence.</td></tr>
-                      <tr><td>Alleviate</td><td>Exposure to diverse societies can alleviate prejudice and narrowmindedness.</td></tr>
-                      <tr><td>Predicament</td><td>Many families face a financial predicament while funding education overseas.</td></tr>
-                      <tr><td>Adverse</td><td>Students might face adverse mental effects due to homesickness and cultural stress.</td></tr>
-                      <tr><td>Stymies</td><td>The high cost often stymies underprivileged students from pursuing international degrees.</td></tr>
-                      <tr><td>Curtailing</td><td>Requalification requirements can end up curtailing career momentum.</td></tr>
-                      <tr><td>Repercussions</td><td>The positive repercussions of studying abroad extend far beyond academia.</td></tr>
-                      <tr><td>Brain drain</td><td>Excessive brain drain can weaken a nation’s developmental progress.</td></tr>
+                      <tr><td>Burgeoning</td><td>Growing rapidly</td><td>The burgeoning interest in foreign education reflects global academic integration.</td></tr>
+                      <tr><td>Far-reaching</td><td>Having extensive impact</td><td>The far-reaching effects of international study influence economies and cultures alike.</td></tr>
+                      <tr><td>Augment</td><td>Enhance or increase</td><td>Studying abroad can augment one’s academic and interpersonal capabilities.</td></tr>
+                      <tr><td>Cross-cultural competence</td><td>Ability to interact effectively with diverse groups</td><td>Employers highly value graduates who demonstrate cross-cultural competence.</td></tr>
+                      <tr><td>Alleviate</td><td>Ease or lessen</td><td>Exposure to diverse societies can alleviate prejudice and narrowmindedness.</td></tr>
+                      <tr><td>Predicament</td><td>Problem or difficult situation</td><td>Many families face a financial predicament while funding education overseas.</td></tr>
+                      <tr><td>Adverse</td><td>Negative or harmful</td><td>Students might face adverse mental effects due to homesickness and cultural stress.</td></tr>
+                      <tr><td>Stymies</td><td>Hinders or obstructs</td><td>The high cost often stymies underprivileged students from pursuing international degrees.</td></tr>
+                      <tr><td>Curtailing</td><td>Reducing or limiting</td><td>Requalification requirements can end up curtailing career momentum.</td></tr>
+                      <tr><td>Repercussions</td><td>Consequences or effects</td><td>The positive repercussions of studying abroad extend far beyond academia.</td></tr>
+                      <tr><td>Brain drain</td><td>Migration of skilled professionals</td><td>Excessive brain drain can weaken a nation’s developmental progress.</td></tr>
                     </tbody>
                   </table>
                 </div>
@@ -169,10 +271,14 @@
                 <h4>Step 4: Plan Introduction & Conclusion</h4>
                 <p>Draft your introduction by paraphrasing the question and stating your position. Outline your conclusion by summarizing your main points.</p>
                 <div class="form-group mb-4">
-                  <textarea class="form-control" rows="6" placeholder="Introduction (Paraphrase + Thesis Statement)">Sample: In an increasingly globalised world, pursuing higher education beyond national borders has become a burgeoning trend. While studying abroad offers students unparalleled exposure and opportunities, it also presents certain far-reaching challenges. In my view, the advantages of international education decidedly outweigh its drawbacks, primarily because it broadens intellectual horizons and enhances global competitiveness.</textarea>
+                  <textarea class="form-control" rows="10" placeholder="Introduction (Paraphrase + Thesis Statement)">Sample 1: In an increasingly globalised world, pursuing higher education beyond national borders has become a burgeoning trend. While studying abroad offers students unparalleled exposure and opportunities, it also presents certain far-reaching challenges. In my view, the advantages of international education decidedly outweigh its drawbacks, primarily because it broadens intellectual horizons and enhances global competitiveness.
+
+Sample 2: In recent decades, an increasing number of students have chosen to pursue higher education abroad rather than in their home countries. While this trend has opened global doors for learners, it has also introduced certain drawbacks. In my opinion, the advantages of studying abroad outweigh the disadvantages, primarily because it broadens academic, cultural, and professional horizons.</textarea>
                 </div>
                 <div class="form-group">
-                  <textarea class="form-control" rows="6" placeholder="Conclusion (Summarize + Final Thought)">Sample: To sum up, although studying overseas may create financial burdens and cultural challenges, its repercussions are largely constructive — fostering intellectual advancement, global awareness, and professional excellence. Therefore, I opine that the advantages of pursuing education abroad overwhelmingly outweigh its adverse consequences.</textarea>
+                  <textarea class="form-control" rows="8" placeholder="Conclusion (Summarize + Final Thought)">Sample 1: To sum up, although studying overseas may create financial burdens and cultural challenges, its repercussions are largely constructive — fostering intellectual advancement, global awareness, and professional excellence. Therefore, I opine that the advantages of pursuing education abroad overwhelmingly outweigh its adverse consequences.
+
+Sample 2: To conclude, although studying abroad can be financially demanding and emotionally challenging, its academic benefits, cultural exposure, and career prospects make it a highly valuable experience. Therefore, I firmly believe that the advantages of international education clearly outweigh its disadvantages.</textarea>
                 </div>
                 <div class="d-flex justify-content-between mt-4">
                   <button class="btn btn-secondary prev-btn">&larr; Previous</button>
@@ -189,13 +295,17 @@
                 <h4>Step 5: Plan Body Paragraph 1 (Advantages)</h4>
                 <p>Outline your first main argument. State your point, provide a specific example, and explain how it supports your thesis.</p>
                 <div class="form-group">
-                  <textarea class="form-control" rows="12" placeholder="Main Points for BP1 (e.g., Argument FOR)">• (MR 1) Access to superior academic infrastructure
+                  <textarea class="form-control" rows="16" placeholder="Main Points for BP1 (e.g., Argument FOR)">• (MR 1) Access to superior academic infrastructure
 (SR): Prestigious universities abroad often provide state-of-the-art research facilities and diverse curricula.
 (EX): For instance, institutions such as MIT and Oxford offer interdisciplinary learning environments.
 
 • (MR 2) Enhanced linguistic and cultural competence
 (SR): Immersion in a foreign environment allows students to master new languages and develop cross-cultural competence.
 (EX): A recent British Council report revealed over 80% of international students experienced significant improvements in communication skills.
+
+• (MR 3) Broader worldview and personal growth
+(SR): Living abroad instills independence, problem-solving ability, and resilience while alleviating cultural narrow-mindedness.
+(EX): Exposure to diverse perspectives often transforms students into more open-minded global citizens who can operate effectively across cultural boundaries.
 
 • (MR 3) Stronger employability and career prospects
 (SR): Graduates with international degrees are highly sought after for their adaptability and global insight.
@@ -216,7 +326,7 @@
                 <h4>Step 6: Plan Body Paragraph 2 (Disadvantages)</h4>
                 <p>Outline your second main argument (or a counter-argument). Follow the Point, Example, Explanation structure.</p>
                 <div class="form-group">
-                  <textarea class="form-control" rows="12" placeholder="Main Points for BP2 (e.g., Argument AGAINST)">• (MR 1) Financial predicament
+                  <textarea class="form-control" rows="16" placeholder="Main Points for BP2 (e.g., Argument AGAINST)">• (MR 1) Financial predicament
 (SR): The cost of tuition, accommodation, and living expenses can be adverse and stymie students from lower-income backgrounds.
 (EX): For example, pursuing a degree in the United States may cost upwards of $40,000 annually.
 
@@ -224,9 +334,13 @@
 (SR): Adjusting to a new lifestyle can be daunting, as unfamiliar customs and climates often trigger homesickness.
 (EX): A UNESCO survey indicates that nearly 40% of first-year international students struggle with psychological well-being.
 
+• (MR 3) Recognition and requalification barriers
+(SR): Degrees earned abroad are not always recognised in home countries, especially in professional fields like medicine or law.
+(EX): Many foreign-trained professionals must undergo additional exams before practising in their native nations, curtailing their career progress.
+
 • (MR 3) Brain drain and national talent loss
 (SR): A large proportion of students settle abroad permanently, causing a depletion of skilled human capital.
-(EX): India, for instance, faces an annual exodus of qualified graduates.</textarea>
+(EX): India, for instance, faces an annual exodus of qualified graduates who contribute to the economies of Western nations instead of their homeland.</textarea>
                 </div>
                 <div class="d-flex justify-content-between mt-4">
                   <button class="btn btn-secondary prev-btn">&larr; Previous</button>
@@ -256,12 +370,15 @@
     </div>
   </main>
 
+  <footer>
+    <p>Created by <strong>DAKSH</strong> | <a href="#">Back to Home</a></p>
+  </footer>
+
   <!-- Core JS Files -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // --- Element Declarations ---
       const loginSection = document.getElementById('login-section');
       const wizardSection = document.getElementById('wizard-section');
       const loginBtn = document.getElementById('login-btn');
@@ -274,7 +391,6 @@
       const returnHomeBtn = document.getElementById('return-home-btn');
       let currentStep = 0;
 
-      // --- Login Logic ---
       loginBtn.addEventListener('click', () => {
         if (passwordInput.value === 'VII I MMVI') {
           loginSection.style.display = 'none';
@@ -285,57 +401,43 @@
         }
       });
 
-      // --- Wizard Logic ---
-      function showStep(stepIndex) {
-        steps.forEach((step, index) => {
-          step.classList.toggle('active', index === stepIndex);
-        });
+      function showStep(i) {
+        steps.forEach((s, idx) => s.classList.toggle('active', idx === i));
         window.scrollTo(0, 0);
       }
 
-      nextButtons.forEach(button => {
-        button.addEventListener('click', () => {
-          if (currentStep < steps.length - 1) {
-            currentStep++;
-            showStep(currentStep);
-          }
-        });
-      });
+      nextButtons.forEach(b => b.addEventListener('click', () => {
+        if (currentStep < steps.length - 1) currentStep++;
+        showStep(currentStep);
+      }));
 
-      prevButtons.forEach(button => {
-        button.addEventListener('click', () => {
-          if (currentStep > 0) {
-            currentStep--;
-            showStep(currentStep);
-          }
-        });
-      });
+      prevButtons.forEach(b => b.addEventListener('click', () => {
+        if (currentStep > 0) currentStep--;
+        showStep(currentStep);
+      }));
 
-      returnHomeBtn.addEventListener('click', () => {
+      returnHomeBtn?.addEventListener('click', () => {
         currentStep = 0;
         showStep(currentStep);
       });
 
-      // --- Timer Logic ---
       const startTimerBtn = document.getElementById('startTimerBtn');
       const timerDisplay = document.getElementById('timer-display');
       let timerInterval = null;
-      let timeRemaining = 360; // 6 minutes
+      let timeRemaining = 360;
 
-      function updateTimerDisplay() {
-        const minutes = Math.floor(timeRemaining / 60).toString().padStart(2, '0');
-        const seconds = (timeRemaining % 60).toString().padStart(2, '0');
-        timerDisplay.textContent = `${minutes}:${seconds}`;
+      function updateTimer() {
+        const m = Math.floor(timeRemaining / 60).toString().padStart(2, '0');
+        const s = (timeRemaining % 60).toString().padStart(2, '0');
+        timerDisplay.textContent = `${m}:${s}`;
       }
 
       function startTimer() {
-        if (timerInterval) clearInterval(timerInterval); // Prevent multiple intervals
+        if (timerInterval) clearInterval(timerInterval);
         startTimerBtn.disabled = true;
-
         timerInterval = setInterval(() => {
           timeRemaining--;
-          updateTimerDisplay();
-
+          updateTimer();
           if (timeRemaining <= 0) {
             clearInterval(timerInterval);
             timerDisplay.textContent = "Time's Up!";
@@ -344,7 +446,7 @@
         }, 1000);
       }
 
-      startTimerBtn.addEventListener('click', startTimer);
+      startTimerBtn?.addEventListener('click', startTimer);
     });
   </script>
 
