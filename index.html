@@ -4,36 +4,30 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>IELTS Guided Writing Task</title>
-  <!-- Fonts and icons -->
-  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-  <!-- Material Dashboard 3 CSS -->
-  <link id="pagestyle" href="https://demos.creative-tim.com/material-dashboard/assets/css/material-dashboard.min.css?v=3.1.0" rel="stylesheet" />
+  <!-- Bootswatch Cerulean Theme -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/cerulean/bootstrap.min.css">
 
   <style>
     body {
-      background-color: #f0f2f5;
-      opacity: 0;
-      transition: opacity 0.5s ease-in-out;
+      background-color: #f8f9fa;
+      transition: background-color 0.5s ease-in-out;
     }
 
     .wizard-step {
       display: none;
-      animation: fadeInScale 0.5s ease-out forwards;
+      animation: fadeIn 0.5s ease-out forwards;
     }
 
     .wizard-step.active {
       display: block;
     }
 
-    @keyframes fadeInScale {
+    @keyframes fadeIn {
       from {
         opacity: 0;
-        transform: scale(0.98);
       }
       to {
         opacity: 1;
-        transform: scale(1);
       }
     }
 
@@ -41,25 +35,37 @@
       max-height: 400px;
     }
 
-    .card .card-body {
-      padding: 1.5rem;
-    }
-
-    @media (min-width: 768px) {
-      .card .card-body {
-        padding: 2rem;
-      }
-    }
-
     .timer-display {
       font-size: 3rem;
       font-weight: 700;
     }
+
+    #wizard-section {
+      display: none;
+    }
   </style>
 </head>
-<body class="g-sidenav-show bg-gray-200">
+<body>
 
-  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
+  <div id="login-section" class="container">
+    <div class="row min-vh-100 d-flex justify-content-center align-items-center">
+      <div class="col-lg-5 col-md-7 col-10">
+        <div class="card border-primary shadow">
+          <div class="card-body p-4 text-center">
+            <h4 class="card-title text-primary">PASSWORD PROTECTED</h4>
+            <p class="card-text">ENTER PASSWORD</p>
+            <div class="form-group mb-3">
+              <input type="password" class="form-control" id="password-input" placeholder="Password">
+            </div>
+            <button id="login-btn" class="btn btn-primary w-100">Login</button>
+            <div id="error-alert" class="alert alert-danger mt-3" style="display: none;">Incorrect password.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main id="wizard-section">
     <div class="container-fluid py-4">
       <div class="row min-vh-80 d-flex justify-content-center align-items-center">
         <div class="col-lg-8 col-md-10 col-12">
@@ -67,8 +73,8 @@
           <!-- Step 1: Task Overview -->
           <div id="step-1" class="wizard-step active">
             <div class="card">
-              <div class="card-body">
-                <h4 class="font-weight-bolder">Step 1: Task Overview</h4>
+              <div class="card-body p-4">
+                <h4>Step 1: Task Overview</h4>
                 <p>Choose your preferred format for a brief overview of how to approach this type of task.</p>
                 <ul class="nav nav-tabs" id="overviewTab" role="tablist">
                   <li class="nav-item" role="presentation">
@@ -91,7 +97,7 @@
                   </div>
                 </div>
                 <div class="d-flex justify-content-end mt-4">
-                  <button class="btn btn-primary mb-0 next-btn">Next <i class="material-icons-round text-sm">arrow_forward</i></button>
+                  <button class="btn btn-primary next-btn">Next &rarr;</button>
                 </div>
               </div>
             </div>
@@ -100,20 +106,20 @@
           <!-- Step 2: Brainstorm -->
           <div id="step-2" class="wizard-step">
             <div class="card">
-              <div class="card-body">
-                <h4 class="font-weight-bolder">Step 2: Brainstorm (6-Minute Timer)</h4>
+              <div class="card-body p-4">
+                <h4>Step 2: Brainstorm (6-Minute Timer)</h4>
                 <p>Use the next 6 minutes to brainstorm ideas and structure your essay. This is a guide to help you practice time management.</p>
                 <div class="text-center my-4">
-                  <div id="timer-display" class="timer-display text-dark">6:00</div>
+                  <div id="timer-display" class="timer-display">6:00</div>
                   <button id="startTimerBtn" class="btn btn-success mt-3">Start Timer</button>
                 </div>
-                <div class="alert alert-secondary text-dark" role="alert">
-                  <h6 class="alert-heading font-weight-bold">Essay Question</h6>
+                <div class="alert alert-light" role="alert">
+                  <h6 class="alert-heading">Essay Question</h6>
                   <p class="mb-0"><strong>In the past, when students did a university degree they tended to study in their own country. Nowadays, they have more opportunities to study abroad.</strong> Do you think the advantages of this development outweigh the disadvantages?</p>
                 </div>
                 <div class="d-flex justify-content-between mt-4">
-                  <button class="btn btn-white mb-0 prev-btn"><i class="material-icons-round text-sm">arrow_back</i> Previous</button>
-                  <button class="btn btn-primary mb-0 next-btn">Next <i class="material-icons-round text-sm">arrow_forward</i></button>
+                  <button class="btn btn-secondary prev-btn">&larr; Previous</button>
+                  <button class="btn btn-primary next-btn">Next &rarr;</button>
                 </div>
               </div>
             </div>
@@ -122,15 +128,15 @@
           <!-- Step 3: Vocabulary Table -->
           <div id="step-3" class="wizard-step">
             <div class="card">
-              <div class="card-body">
-                <h4 class="font-weight-bolder">Step 3: Vocabulary Table</h4>
+              <div class="card-body p-4">
+                <h4>Step 3: Vocabulary Table</h4>
                 <p>Review the key vocabulary for this task. Using a range of words is essential for a high score.</p>
                 <div class="table-responsive">
                   <table class="table table-hover">
-                    <thead class="table-light">
+                    <thead>
                       <tr>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Word/Phrase</th>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Example Sentence</th>
+                        <th>Word/Phrase</th>
+                        <th>Example Sentence</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -149,8 +155,8 @@
                   </table>
                 </div>
                 <div class="d-flex justify-content-between mt-4">
-                  <button class="btn btn-white mb-0 prev-btn"><i class="material-icons-round text-sm">arrow_back</i> Previous</button>
-                  <button class="btn btn-primary mb-0 next-btn">Next <i class="material-icons-round text-sm">arrow_forward</i></button>
+                  <button class="btn btn-secondary prev-btn">&larr; Previous</button>
+                  <button class="btn btn-primary next-btn">Next &rarr;</button>
                 </div>
               </div>
             </div>
@@ -159,18 +165,18 @@
           <!-- Step 4: Plan Introduction & Conclusion -->
           <div id="step-4" class="wizard-step">
             <div class="card">
-              <div class="card-body">
-                <h4 class="font-weight-bolder">Step 4: Plan Introduction & Conclusion</h4>
+              <div class="card-body p-4">
+                <h4>Step 4: Plan Introduction & Conclusion</h4>
                 <p>Draft your introduction by paraphrasing the question and stating your position. Outline your conclusion by summarizing your main points.</p>
-                <div class="input-group input-group-dynamic mb-4">
+                <div class="form-group mb-4">
                   <textarea class="form-control" rows="6" placeholder="Introduction (Paraphrase + Thesis Statement)">Sample: In an increasingly globalised world, pursuing higher education beyond national borders has become a burgeoning trend. While studying abroad offers students unparalleled exposure and opportunities, it also presents certain far-reaching challenges. In my view, the advantages of international education decidedly outweigh its drawbacks, primarily because it broadens intellectual horizons and enhances global competitiveness.</textarea>
                 </div>
-                <div class="input-group input-group-dynamic">
+                <div class="form-group">
                   <textarea class="form-control" rows="6" placeholder="Conclusion (Summarize + Final Thought)">Sample: To sum up, although studying overseas may create financial burdens and cultural challenges, its repercussions are largely constructive — fostering intellectual advancement, global awareness, and professional excellence. Therefore, I opine that the advantages of pursuing education abroad overwhelmingly outweigh its adverse consequences.</textarea>
                 </div>
                 <div class="d-flex justify-content-between mt-4">
-                  <button class="btn btn-white mb-0 prev-btn"><i class="material-icons-round text-sm">arrow_back</i> Previous</button>
-                  <button class="btn btn-primary mb-0 next-btn">Next <i class="material-icons-round text-sm">arrow_forward</i></button>
+                  <button class="btn btn-secondary prev-btn">&larr; Previous</button>
+                  <button class="btn btn-primary next-btn">Next &rarr;</button>
                 </div>
               </div>
             </div>
@@ -179,10 +185,10 @@
           <!-- Step 5: Plan Body Paragraph 1 -->
           <div id="step-5" class="wizard-step">
             <div class="card">
-              <div class="card-body">
-                <h4 class="font-weight-bolder">Step 5: Plan Body Paragraph 1 (Advantages)</h4>
+              <div class="card-body p-4">
+                <h4>Step 5: Plan Body Paragraph 1 (Advantages)</h4>
                 <p>Outline your first main argument. State your point, provide a specific example, and explain how it supports your thesis.</p>
-                <div class="input-group input-group-dynamic">
+                <div class="form-group">
                   <textarea class="form-control" rows="12" placeholder="Main Points for BP1 (e.g., Argument FOR)">• (MR 1) Access to superior academic infrastructure
 (SR): Prestigious universities abroad often provide state-of-the-art research facilities and diverse curricula.
 (EX): For instance, institutions such as MIT and Oxford offer interdisciplinary learning environments.
@@ -196,8 +202,8 @@
 (EX): According to a QS Global Employability Survey, multinational companies prefer candidates who have studied abroad.</textarea>
                 </div>
                 <div class="d-flex justify-content-between mt-4">
-                  <button class="btn btn-white mb-0 prev-btn"><i class="material-icons-round text-sm">arrow_back</i> Previous</button>
-                  <button class="btn btn-primary mb-0 next-btn">Next <i class="material-icons-round text-sm">arrow_forward</i></button>
+                  <button class="btn btn-secondary prev-btn">&larr; Previous</button>
+                  <button class="btn btn-primary next-btn">Next &rarr;</button>
                 </div>
               </div>
             </div>
@@ -206,10 +212,10 @@
           <!-- Step 6: Plan Body Paragraph 2 -->
           <div id="step-6" class="wizard-step">
             <div class="card">
-              <div class="card-body">
-                <h4 class="font-weight-bolder">Step 6: Plan Body Paragraph 2 (Disadvantages)</h4>
+              <div class="card-body p-4">
+                <h4>Step 6: Plan Body Paragraph 2 (Disadvantages)</h4>
                 <p>Outline your second main argument (or a counter-argument). Follow the Point, Example, Explanation structure.</p>
-                <div class="input-group input-group-dynamic">
+                <div class="form-group">
                   <textarea class="form-control" rows="12" placeholder="Main Points for BP2 (e.g., Argument AGAINST)">• (MR 1) Financial predicament
 (SR): The cost of tuition, accommodation, and living expenses can be adverse and stymie students from lower-income backgrounds.
 (EX): For example, pursuing a degree in the United States may cost upwards of $40,000 annually.
@@ -223,8 +229,8 @@
 (EX): India, for instance, faces an annual exodus of qualified graduates.</textarea>
                 </div>
                 <div class="d-flex justify-content-between mt-4">
-                  <button class="btn btn-white mb-0 prev-btn"><i class="material-icons-round text-sm">arrow_back</i> Previous</button>
-                  <button class="btn btn-primary mb-0 next-btn">Next <i class="material-icons-round text-sm">arrow_forward</i></button>
+                  <button class="btn btn-secondary prev-btn">&larr; Previous</button>
+                  <button class="btn btn-primary next-btn">Next &rarr;</button>
                 </div>
               </div>
             </div>
@@ -233,13 +239,13 @@
           <!-- Step 7: Download PDF & Quiz -->
           <div id="step-7" class="wizard-step">
             <div class="card">
-              <div class="card-body text-center">
-                <h4 class="font-weight-bolder">Step 7: Download PDF & Quiz</h4>
+              <div class="card-body p-4 text-center">
+                <h4>Step 7: Download PDF & Quiz</h4>
                 <p>Scan the QR code to attempt the quiz on your mobile device. After the quiz, you can download the related PDF guide.</p>
-                <img src="materials/qrcode_todayieltstask.onrender.com.png" alt="QR Code for quiz" class="img-fluid border rounded-lg shadow-sm my-4" style="max-width: 200px;" onerror="this.style.display='none'">
+                <img src="materials/qrcode_todayieltstask.onrender.com.png" alt="QR Code for quiz" class="img-fluid border rounded shadow-sm my-4" style="max-width: 200px;" onerror="this.style.display='none'">
                 <div class="d-flex justify-content-between mt-4">
-                  <button class="btn btn-white mb-0 prev-btn"><i class="material-icons-round text-sm">arrow_back</i> Previous</button>
-                  <button class="btn btn-success mb-0" id="return-home-btn"><i class="material-icons-round text-sm">home</i> Return to Home</button>
+                  <button class="btn btn-secondary prev-btn">&larr; Previous</button>
+                  <button class="btn btn-success" id="return-home-btn">Return to Home</button>
                 </div>
               </div>
             </div>
@@ -251,20 +257,35 @@
   </main>
 
   <!-- Core JS Files -->
-  <script src="https://demos.creative-tim.com/material-dashboard/assets/js/core/popper.min.js"></script>
-  <script src="https://demos.creative-tim.com/material-dashboard/assets/js/core/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Fade in body on load
-      document.body.style.opacity = 1;
-
+      // --- Element Declarations ---
+      const loginSection = document.getElementById('login-section');
+      const wizardSection = document.getElementById('wizard-section');
+      const loginBtn = document.getElementById('login-btn');
+      const passwordInput = document.getElementById('password-input');
+      const errorAlert = document.getElementById('error-alert');
+      
       const steps = document.querySelectorAll('.wizard-step');
       const nextButtons = document.querySelectorAll('.next-btn');
       const prevButtons = document.querySelectorAll('.prev-btn');
       const returnHomeBtn = document.getElementById('return-home-btn');
       let currentStep = 0;
 
+      // --- Login Logic ---
+      loginBtn.addEventListener('click', () => {
+        if (passwordInput.value === 'VII I MMVI') {
+          loginSection.style.display = 'none';
+          wizardSection.style.display = 'block';
+          showStep(currentStep);
+        } else {
+          errorAlert.style.display = 'block';
+        }
+      });
+
+      // --- Wizard Logic ---
       function showStep(stepIndex) {
         steps.forEach((step, index) => {
           step.classList.toggle('active', index === stepIndex);
@@ -324,9 +345,6 @@
       }
 
       startTimerBtn.addEventListener('click', startTimer);
-
-      // Initialize first step
-      showStep(currentStep);
     });
   </script>
 
