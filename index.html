@@ -186,6 +186,16 @@
       border-radius: 8px;
       margin-bottom: 1rem;
     }
+    /* Ensure Bootstrap tabs are visible when active, overriding potential conflicts */
+    .tab-pane.show.active {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+    .alert-light {
+      color: #343a40; /* Darker text for better readability */
+      background-color: #f8f9fa;
+    }
 
     /* ===== FOOTER ===== */
     footer {
@@ -204,11 +214,11 @@
   <div id="login-section">
     <div
       class="hero min-h-screen"
-      style="background-image: url(materials/eagle-landscape.jpg);"
+      style="background-image: url('materials/eagle-landscape.jpg');"
     >
       <div class="hero-overlay bg-opacity-60"></div>
       <div class="hero-content text-center text-neutral-content">
-        <fieldset class="glass rounded-box border p-6">
+        <fieldset class="glass rounded-box border p-6" style="transition: all 0.5s ease;">
           <legend class="fieldset-legend text-2xl font-bold p-2">Login</legend>
 
           <label class="label">
