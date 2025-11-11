@@ -12,6 +12,10 @@
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- DaisyUI & Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
     :root {
@@ -197,20 +201,28 @@
 <body>
 
   <!-- LOGIN SECTION -->
-  <div id="login-section" class="container">
-    <div class="row min-vh-100 d-flex justify-content-center align-items-center">
-      <div class="col-lg-5 col-md-7 col-10">
-        <div class="card text-center">
-          <h4>🔒 Password Protected</h4>
-          <p class="text-muted mb-4">Enter the password to begin your guided IELTS writing practice.</p>
-          <input type="password" class="form-control mb-3" id="password-input" placeholder="Enter password">
-          <button id="login-btn" class="btn btn-primary w-100">Login</button>
-          <div id="error-alert" class="alert alert-danger mt-3" style="display: none;">Incorrect password. Try again.</div>
-        </div>
+  <div id="login-section">
+    <div
+      class="hero min-h-screen"
+      style="background-image: url(materials/eagle-landscape.jpg);"
+    >
+      <div class="hero-overlay bg-opacity-60"></div>
+      <div class="hero-content text-center text-neutral-content">
+        <fieldset class="glass rounded-box border p-6">
+          <legend class="fieldset-legend text-2xl font-bold p-2">Login</legend>
+
+          <label class="label">
+            <span class="label-text text-neutral-content">Password</span>
+          </label>
+          <input type="password" id="password-input" class="input input-bordered w-full max-w-xs" placeholder="Password" />
+
+          <button id="login-btn" class="btn btn-primary mt-4 w-full">Login</button>
+          <div id="error-alert" class="alert alert-error mt-3" style="display: none;">Incorrect password. Try again.</div>
+        </fieldset>
       </div>
     </div>
   </div>
-
+  
   <!-- MAIN CONTENT -->
   <main id="wizard-section" style="display:none;">
     <header class="sticky-header">
@@ -266,8 +278,13 @@
               <h4>Step 2: Brainstorm (6-Minute Timer)</h4>
               <p>Use the next 6 minutes to brainstorm ideas and structure your essay. This is a guide to help you practice time management.</p>
               <div class="text-center my-4">
-                <div id="timer-display" class="timer-display">6:00</div>
-                <button id="startTimerBtn" class="btn btn-success mt-3">Start Timer</button>
+                <div class="timer-display">
+                  <span class="countdown font-mono text-5xl">
+                    <span id="countdown-min" style="--value:6;"></span>:
+                    <span id="countdown-sec" style="--value:0;"></span>
+                  </span>
+                </div>
+                <button id="startTimerBtn" class="btn btn-success mt-4">Start Timer</button>
               </div>
               <div class="alert alert-light" role="alert">
                 <h6 class="alert-heading">Essay Question</h6>
@@ -489,21 +506,25 @@
 
       // --- Timer Logic ---
       const startTimerBtn = document.getElementById('startTimerBtn');
-      const timerDisplay = document.getElementById('timer-display');
       let timerInterval = null;
       let timeRemaining = 360;
 
       function startTimer() {
         if (timerInterval) clearInterval(timerInterval);
         startTimerBtn.disabled = true;
+        const minEl = document.getElementById('countdown-min');
+        const secEl = document.getElementById('countdown-sec');
+
         timerInterval = setInterval(() => {
           timeRemaining--;
-          const m = Math.floor(timeRemaining / 60).toString().padStart(2, '0');
-          const s = (timeRemaining % 60).toString().padStart(2, '0');
-          timerDisplay.textContent = `${m}:${s}`;
+          const minutes = Math.floor(timeRemaining / 60);
+          const seconds = timeRemaining % 60;
+
+          minEl.style.setProperty('--value', minutes);
+          secEl.style.setProperty('--value', seconds);
+
           if (timeRemaining <= 0) {
             clearInterval(timerInterval);
-            timerDisplay.textContent = "Time's Up!";
             alert("Brainstorming time is over!");
           }
         }, 1000);
