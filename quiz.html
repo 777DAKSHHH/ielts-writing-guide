@@ -5,12 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>IELTS Grammar Quiz</title>
 
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js"></script>
+  <!-- Firebase SDKs (Modular v9+ syntax) -->
+  <script type="module">
+    // Import the Firebase SDK functions
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
 
-  <script>
-    // Your Firebase configuration
+    // Firebase Config
     const firebaseConfig = {
       apiKey: "AIzaSy***Q",
       authDomain: "ielts-live-dashboard.firebaseapp.com",
@@ -22,9 +23,14 @@
       measurementId: "G-R9G2YGSBM9"
     };
 
-    // Initialize Firebase
-    const app = firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
+    // Initialize Firebase App + DB
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // Make db and functions available globally for quiz.js
+    window.db = db;
+    window.firebaseSet = set;
+    window.firebaseRef = ref;
   </script>
   <style>
     /* ======= GLOBAL THEME (Liquid / Gradient UI) ======= */

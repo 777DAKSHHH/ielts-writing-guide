@@ -71,13 +71,15 @@ function checkQuiz() {
             return;
         }
 
-        firebase.database().ref("quizResults/" + taskId).set({
+        window.firebaseSet(window.firebaseRef(window.db, "quizResults/" + taskId), {
             taskId: taskId,
             correct: ((score / total) * 100).toFixed(1) + "%",
             incorrect: (((total - score - missedCount) / total) * 100).toFixed(1) + "%",
             missed: ((missedCount / total) * 100).toFixed(1) + "%",
             wrongQuestions: wrongQs.join(", ") || "None"
-        });
+        })
+        .then(() => console.log("✅ Successfully pushed task:", taskId))
+        .catch(err => console.error("❌ Firebase error:", err.message));
     }
 
     submitQuizResults(score, totalQuestions, wrongQuestions, unansweredCount);
