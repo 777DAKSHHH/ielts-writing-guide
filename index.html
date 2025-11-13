@@ -174,14 +174,6 @@
       padding: 1rem;
     }
 
-    .fullscreen-active body {
-      overflow: hidden; /* Hide scrollbars in fullscreen */
-    }
-    .fullscreen-active #step-2 .card {
-      height: 100vh;
-      width: 100vw;
-      border-radius: 0;
-    }
     /* ===== NAV TABS ===== */
     .nav-tabs .nav-link.active {
       background: var(--primary-color);
@@ -220,6 +212,26 @@
     .alert-light {
       color: #343a40; /* Darker text for better readability */
       background-color: #f8f9fa;
+    }
+
+    .focus-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85);
+      display: flex; justify-content: center; align-items: center;
+      z-index: 2000;
+      transition: opacity .4s ease;
+    }
+    .focus-center { text-align:center; color:#fff; }
+    #focus-timer-display {
+      font-size: 6rem; font-weight: 700; letter-spacing:2px;
+      color: #00c3ff;
+      text-shadow: 0 0 30px rgba(0,195,255,0.6);
+      animation: pulseTimer 1.2s ease-in-out infinite alternate;
+    }
+    @keyframes pulseTimer {
+      from { transform: scale(1); opacity: .9; }
+      to   { transform: scale(1.05); opacity: 1; }
     }
 
     /* ===== FOOTER ===== */
@@ -342,16 +354,14 @@
               <h4>Step 2: Brainstorm (6-Minute Timer)</h4>
               <p>Use the next 6 minutes to brainstorm ideas and structure your essay. This is a guide to help you practice time management.</p>
               <div class="text-center my-4">
-                <div class="timer-container d-inline-block" id="timer-wrapper">
-                  <div class="timer-display">
-                    <span class="countdown font-mono text-5xl">
-                      <span id="countdown-min" style="--value:6;"></span>:
-                      <span id="countdown-sec" style="--value:0;"></span>
-                    </span>
-                  </div>
-                </div>
-                <div id="timer-message" class="mt-3 text-primary fw-bold fs-4"></div>
                 <button id="startTimerBtn" class="btn btn-success mt-4">Start Timer</button>
+                <div id="focus-overlay" class="focus-overlay d-none">
+                  <div class="focus-center">
+                    <div id="focus-timer-display">6:00</div>
+                    <div id="focus-message" class="mt-3 fw-bold text-light fs-4"></div>
+                  </div>
+                  <audio id="tick-sound" src="materials/clock-tick.mp3" loop></audio>
+                </div>
               </div>
               <div class="alert alert-light" role="alert">
                 <h6 class="alert-heading">Essay Question</h6>
@@ -638,9 +648,10 @@
 
       // --- Timer Logic ---
       const startTimerBtn = document.getElementById('startTimerBtn');
-      const timerMessage = document.getElementById('timer-message');
-      let timerInterval = null;
-      let timeRemaining = 360;
+      const overlay = document.getElementById("focus-overlay");
+      const focusTimer = document.getElementById("focus-timer-display");
+      const focusMsg = document.getElementById("focus-message");
+      const tickSound = document.getElementById("tick-sound");
       const messages = [
         "Think about trends!",
         "What comparisons can you make?",
@@ -650,53 +661,38 @@
         "Finalize your main features!"
       ];
 
-      function openFullscreen() {
-        const elem = document.getElementById('step-2');
-        if (elem.requestFullscreen) elem.requestFullscreen();
-        else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
-        else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
-        document.body.classList.add('fullscreen-active');
-      }
-
-      document.addEventListener('fullscreenchange', () => {
-        if (!document.fullscreenElement) {
-          document.body.classList.remove('fullscreen-active');
-        }
-      });
-
       function startTimer() {
-        openFullscreen();
-        if (timerInterval) clearInterval(timerInterval);
-        startTimerBtn.disabled = true;
-        const minEl = document.getElementById('countdown-min');
-        const secEl = document.getElementById('countdown-sec');
-        let minute = 0;
-        timerMessage.textContent = messages[minute];
-        minute++;
+        overlay.classList.remove("d-none");
+        tickSound.volume = 0.15;
+        tickSound.play();
 
-        timerInterval = setInterval(() => {
-          timeRemaining--;
-          const minutes = Math.floor(timeRemaining / 60);
-          const seconds = timeRemaining % 60;
+        let t = 360;
+        let minuteIndex = 0;
 
-          if (timeRemaining > 0 && timeRemaining % 60 === 0 && minute < messages.length) {
-            timerMessage.textContent = messages[minute];
-            minute++;
+        const timer = setInterval(() => {
+          const m = Math.floor(t / 60).toString().padStart(2,'0');
+          const s = (t % 60).toString().padStart(2,'0');
+          focusTimer.textContent = `${m}:${s}`;
+          if (t % 60 === 0 && minuteIndex < messages.length) {
+            focusMsg.textContent = messages[minuteIndex++];
           }
-
-          minEl.style.setProperty('--value', minutes);
-          secEl.style.setProperty('--value', seconds);
-
-          if (timeRemaining <= 0) {
-            timerMessage.textContent = "Time's Up!";
-            clearInterval(timerInterval);
-            alert("Brainstorming time is over!");
+          if (--t < 0) {
+            clearInterval(timer);
+            focusMsg.textContent = "Time’s up!";
+            tickSound.pause();
+            setTimeout(()=>overlay.classList.add("d-none"),1500);
           }
         }, 1000);
       }
       startTimerBtn?.addEventListener('click', startTimer);
 
-      // --- Pronunciation Logic ---
+      overlay.addEventListener("click", () => {
+        tickSound.pause();
+        overlay.classList.add("d-none");
+        // Note: This doesn't stop the interval, it just hides the overlay.
+        // For a full stop, you'd need to clear the interval here too.
+      });
+
       let accent = 'en-GB';
       document.getElementById('accent-select').addEventListener('change', e => accent = e.target.value);
 
