@@ -25,17 +25,21 @@
     if (pin === "D2025") {
       document.getElementById('login-section').style.display = "none";
       document.getElementById('teacher-data').style.display = "block";
-      // In a real app, you would fetch this data.
-      // For now, we use a sample. A new QR scan could add to this list in localStorage.
-      const sample = [
-        {id:'77:77:77:77:01:D', correct:'80%', incorrect:'15%', missed:'5%', common:'Q2, Q6'},
-        {id:'77:77:77:77:02:A', correct:'90%', incorrect:'5%', missed:'5%', common:'Q7'}
-      ];
+      
+      // Fetch data from localStorage instead of using a static sample
+      const reports = JSON.parse(localStorage.getItem('quizReports')) || [];
+
       const tbody = document.getElementById('data-body');
       tbody.innerHTML = ''; // Clear previous data
-      sample.forEach(r => {
-        tbody.innerHTML += `<tr><td>${r.id}</td><td>${r.correct}</td><td>${r.incorrect}</td><td>${r.missed}</td><td>${r.common}</td></tr>`;
-      });
+
+      if (reports.length > 0) {
+        // Display reports in reverse chronological order (newest first)
+        reports.slice().reverse().forEach(r => {
+          tbody.innerHTML += `<tr><td>${r.id}</td><td>${r.correct}</td><td>${r.incorrect}</td><td>${r.missed}</td><td>${r.common}</td></tr>`;
+        });
+      } else {
+        tbody.innerHTML = '<tr><td colspan="5" class="text-center">No quiz data available yet.</td></tr>';
+      }
     } else alert("Invalid PIN.");
   });
   </script>

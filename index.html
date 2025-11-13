@@ -496,8 +496,7 @@
                   <div class="col-md-6">
                     <p>Scan the QR code to attempt the quiz, or download your worksheet.</p>
                     <img src="materials/qrcode_todayieltstask.onrender.com.png" alt="QR Code for quiz" class="img-fluid border rounded shadow-sm my-4" style="max-width: 150px;" onerror="this.style.display='none'">
-                    <br>
-                    <button id="download-pdf" class="btn btn-info text-white mb-3">Download PDF Worksheet</button>
+                    <a href="teacher-report.html" target="_blank" class="btn btn-info text-white mb-3">Tutor Report</a>
                     <button id="confetti-btn" class="btn btn-warning text-dark mb-3">👏 Great Job!</button>
                   </div>
                   <div class="col-md-6">
@@ -696,11 +695,6 @@
         }, 1000);
       }
       startTimerBtn?.addEventListener('click', startTimer);
-
-      // PDF Download Placeholder
-      document.getElementById('download-pdf')?.addEventListener('click', () => {
-        alert('PDF download functionality will be implemented here using jsPDF.');
-      });
 
       // --- Pronunciation Logic ---
       let accent = 'en-GB';
