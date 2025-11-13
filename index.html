@@ -174,6 +174,14 @@
       padding: 1rem;
     }
 
+    .fullscreen-active body {
+      overflow: hidden; /* Hide scrollbars in fullscreen */
+    }
+    .fullscreen-active #step-2 .card {
+      height: 100vh;
+      width: 100vw;
+      border-radius: 0;
+    }
     /* ===== NAV TABS ===== */
     .nav-tabs .nav-link.active {
       background: var(--primary-color);
@@ -334,7 +342,7 @@
               <h4>Step 2: Brainstorm (6-Minute Timer)</h4>
               <p>Use the next 6 minutes to brainstorm ideas and structure your essay. This is a guide to help you practice time management.</p>
               <div class="text-center my-4">
-                <div class="timer-container d-inline-block">
+                <div class="timer-container d-inline-block" id="timer-wrapper">
                   <div class="timer-display">
                     <span class="countdown font-mono text-5xl">
                       <span id="countdown-min" style="--value:6;"></span>:
@@ -342,7 +350,7 @@
                     </span>
                   </div>
                 </div>
-                <p id="timer-prompt" class="mt-3 text-lg font-semibold text-info">Let's begin! Focus on the question.</p>
+                <div id="timer-message" class="mt-3 text-primary fw-bold fs-4"></div>
                 <button id="startTimerBtn" class="btn btn-success mt-4">Start Timer</button>
               </div>
               <div class="alert alert-light" role="alert">
@@ -359,29 +367,35 @@
           <!-- Step 3: Vocabulary Table -->
           <div id="step-3" class="wizard-step">
             <div class="card">
-              <h4>Step 3: Vocabulary Table</h4>
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4>Step 3: Vocabulary Table</h4>
+                <select id="accent-select" class="form-select form-select-sm" style="width:140px;">
+                  <option value="en-GB">UK Accent 🇬🇧</option>
+                  <option value="en-IN">Indian Accent 🇮🇳</option>
+                </select>
+              </div>
               <p>Review the key vocabulary for this task. Using a range of words is essential for a high score.</p>
               <div class="table-responsive">
                 <table class="table table-hover">
                   <thead>
                     <tr>
-                      <th class="w-25">Word/Phrase</th>
+                      <th class="w-30">Word/Phrase</th>
                       <th class="w-25">Meaning</th>
                       <th>Example Sentence</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr><td>Burgeoning <span class="tag tag-adj">adj</span><button class="pronounce-btn" data-word="Burgeoning"><i class="fas fa-volume-up"></i></button></td><td>Growing rapidly</td><td>The burgeoning interest in foreign education reflects global academic integration.</td></tr>
-                    <tr><td>Far-reaching <span class="tag tag-adj">adj</span><button class="pronounce-btn" data-word="Far-reaching"><i class="fas fa-volume-up"></i></button></td><td>Having extensive impact</td><td>The far-reaching effects of international study influence economies and cultures alike.</td></tr>
-                    <tr><td>Augment <span class="tag tag-verb">verb</span><button class="pronounce-btn" data-word="Augment"><i class="fas fa-volume-up"></i></button></td><td>Enhance or increase</td><td>Studying abroad can augment one’s academic and interpersonal capabilities.</td></tr>
-                    <tr><td>Cross-cultural competence <span class="tag tag-noun">noun</span><button class="pronounce-btn" data-word="Cross-cultural competence"><i class="fas fa-volume-up"></i></button></td><td>Ability to interact effectively with diverse groups</td><td>Employers highly value graduates who demonstrate cross-cultural competence.</td></tr>
-                    <tr><td>Alleviate <span class="tag tag-verb">verb</span><button class="pronounce-btn" data-word="Alleviate"><i class="fas fa-volume-up"></i></button></td><td>Ease or lessen</td><td>Exposure to diverse societies can alleviate prejudice and narrowmindedness.</td></tr>
-                    <tr><td>Predicament <span class="tag tag-noun">noun</span><button class="pronounce-btn" data-word="Predicament"><i class="fas fa-volume-up"></i></button></td><td>Problem or difficult situation</td><td>Many families face a financial predicament while funding education overseas.</td></tr>
-                    <tr><td>Adverse <span class="tag tag-adj">adj</span><button class="pronounce-btn" data-word="Adverse"><i class="fas fa-volume-up"></i></button></td><td>Negative or harmful</td><td>Students might face adverse mental effects due to homesickness and cultural stress.</td></tr>
-                    <tr><td>Stymies <span class="tag tag-verb">verb</span><button class="pronounce-btn" data-word="Stymies"><i class="fas fa-volume-up"></i></button></td><td>Hinders or obstructs</td><td>The high cost often stymies underprivileged students from pursuing international degrees.</td></tr>
-                    <tr><td>Curtailing <span class="tag tag-verb">verb</span><button class="pronounce-btn" data-word="Curtailing"><i class="fas fa-volume-up"></i></button></td><td>Reducing or limiting</td><td>Requalification requirements can end up curtailing career momentum.</td></tr>
-                    <tr><td>Repercussions <span class="tag tag-noun">noun</span><button class="pronounce-btn" data-word="Repercussions"><i class="fas fa-volume-up"></i></button></td><td>Consequences or effects</td><td>The positive repercussions of studying abroad extend far beyond academia.</td></tr>
-                    <tr><td>Brain drain <span class="tag tag-noun">noun</span><button class="pronounce-btn" data-word="Brain drain"><i class="fas fa-volume-up"></i></button></td><td>Migration of skilled professionals</td><td>Excessive brain drain can weaken a nation’s developmental progress.</td></tr>
+                    <tr><td class="d-flex align-items-center gap-2"><span class="fw-semibold">Burgeoning</span><span class="tag tag-adj">adj</span><button class="btn btn-outline-secondary btn-sm speak-btn">🔊</button></td><td>Growing rapidly</td><td>The burgeoning interest in foreign education reflects global academic integration.</td></tr>
+                    <tr><td class="d-flex align-items-center gap-2"><span class="fw-semibold">Far-reaching</span><span class="tag tag-adj">adj</span><button class="btn btn-outline-secondary btn-sm speak-btn">🔊</button></td><td>Having extensive impact</td><td>The far-reaching effects of international study influence economies and cultures alike.</td></tr>
+                    <tr><td class="d-flex align-items-center gap-2"><span class="fw-semibold">Augment</span><span class="tag tag-verb">verb</span><button class="btn btn-outline-secondary btn-sm speak-btn">🔊</button></td><td>Enhance or increase</td><td>Studying abroad can augment one’s academic and interpersonal capabilities.</td></tr>
+                    <tr><td class="d-flex align-items-center gap-2"><span class="fw-semibold">Cross-cultural competence</span><span class="tag tag-noun">noun</span><button class="btn btn-outline-secondary btn-sm speak-btn">🔊</button></td><td>Ability to interact effectively with diverse groups</td><td>Employers highly value graduates who demonstrate cross-cultural competence.</td></tr>
+                    <tr><td class="d-flex align-items-center gap-2"><span class="fw-semibold">Alleviate</span><span class="tag tag-verb">verb</span><button class="btn btn-outline-secondary btn-sm speak-btn">🔊</button></td><td>Ease or lessen</td><td>Exposure to diverse societies can alleviate prejudice and narrowmindedness.</td></tr>
+                    <tr><td class="d-flex align-items-center gap-2"><span class="fw-semibold">Predicament</span><span class="tag tag-noun">noun</span><button class="btn btn-outline-secondary btn-sm speak-btn">🔊</button></td><td>Problem or difficult situation</td><td>Many families face a financial predicament while funding education overseas.</td></tr>
+                    <tr><td class="d-flex align-items-center gap-2"><span class="fw-semibold">Adverse</span><span class="tag tag-adj">adj</span><button class="btn btn-outline-secondary btn-sm speak-btn">🔊</button></td><td>Negative or harmful</td><td>Students might face adverse mental effects due to homesickness and cultural stress.</td></tr>
+                    <tr><td class="d-flex align-items-center gap-2"><span class="fw-semibold">Stymies</span><span class="tag tag-verb">verb</span><button class="btn btn-outline-secondary btn-sm speak-btn">🔊</button></td><td>Hinders or obstructs</td><td>The high cost often stymies underprivileged students from pursuing international degrees.</td></tr>
+                    <tr><td class="d-flex align-items-center gap-2"><span class="fw-semibold">Curtailing</span><span class="tag tag-verb">verb</span><button class="btn btn-outline-secondary btn-sm speak-btn">🔊</button></td><td>Reducing or limiting</td><td>Requalification requirements can end up curtailing career momentum.</td></tr>
+                    <tr><td class="d-flex align-items-center gap-2"><span class="fw-semibold">Repercussions</span><span class="tag tag-noun">noun</span><button class="btn btn-outline-secondary btn-sm speak-btn">🔊</button></td><td>Consequences or effects</td><td>The positive repercussions of studying abroad extend far beyond academia.</td></tr>
+                    <tr><td class="d-flex align-items-center gap-2"><span class="fw-semibold">Brain drain</span><span class="tag tag-noun">noun</span><button class="btn btn-outline-secondary btn-sm speak-btn">🔊</button></td><td>Migration of skilled professionals</td><td>Excessive brain drain can weaken a nation’s developmental progress.</td></tr>
                   </tbody>
                 </table>
               </div>
@@ -487,9 +501,11 @@
                     <button id="confetti-btn" class="btn btn-warning text-dark mb-3">👏 Great Job!</button>
                   </div>
                   <div class="col-md-6">
-                    <h6>Live Quiz Dashboard (Teacher View)</h6>
-                    <div class="alert alert-info">Submissions: <strong>5 / 20</strong></div>
-                    <div class="alert alert-success">Average Score: <strong>85%</strong></div>
+                    <div id="teacher-dashboard" class="alert alert-info mt-4">
+                      <strong>Live Quiz Dashboard</strong><br>
+                      Submissions: <span id="submission-count">0</span><br>
+                      Avg Score: <span id="avg-score">--</span>%
+                    </div>
                   </div>
                 </div>
               </div>
@@ -507,6 +523,7 @@
 
   <!-- Hidden Teacher Report Section -->
   <div class="container mt-5" id="teacher-report-section" style="display: none;">
+    <a href="teacher-report.html" target="_blank" class="btn btn-link">Open Full Report</a>
     <div class="card">
       <h4>Teacher Report</h4>
       <p>Weekly trends and analysis of student performance.</p>
@@ -622,37 +639,57 @@
 
       // --- Timer Logic ---
       const startTimerBtn = document.getElementById('startTimerBtn');
-      const timerPrompt = document.getElementById('timer-prompt');
+      const timerMessage = document.getElementById('timer-message');
       let timerInterval = null;
       let timeRemaining = 360;
-      const prompts = {
-        300: "Think about trends!",
-        240: "What comparisons can you make?",
-        180: "Note high & low points.",
-        120: "Structure your paragraphs.",
-        60: "Finalize your main features!",
-        0: "Time's Up!"
-      };
+      const messages = [
+        "Think about trends!",
+        "What comparisons can you make?",
+        "Note high & low points.",
+        "Focus on data contrast!",
+        "Link features logically.",
+        "Finalize your main features!"
+      ];
+
+      function openFullscreen() {
+        const elem = document.getElementById('step-2');
+        if (elem.requestFullscreen) elem.requestFullscreen();
+        else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
+        else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
+        document.body.classList.add('fullscreen-active');
+      }
+
+      document.addEventListener('fullscreenchange', () => {
+        if (!document.fullscreenElement) {
+          document.body.classList.remove('fullscreen-active');
+        }
+      });
 
       function startTimer() {
+        openFullscreen();
         if (timerInterval) clearInterval(timerInterval);
         startTimerBtn.disabled = true;
         const minEl = document.getElementById('countdown-min');
         const secEl = document.getElementById('countdown-sec');
-        
+        let minute = 0;
+        timerMessage.textContent = messages[minute];
+        minute++;
+
         timerInterval = setInterval(() => {
           timeRemaining--;
           const minutes = Math.floor(timeRemaining / 60);
           const seconds = timeRemaining % 60;
 
-          if (prompts[timeRemaining]) {
-            timerPrompt.textContent = prompts[timeRemaining];
+          if (timeRemaining > 0 && timeRemaining % 60 === 0 && minute < messages.length) {
+            timerMessage.textContent = messages[minute];
+            minute++;
           }
 
           minEl.style.setProperty('--value', minutes);
           secEl.style.setProperty('--value', seconds);
 
           if (timeRemaining <= 0) {
+            timerMessage.textContent = "Time's Up!";
             clearInterval(timerInterval);
             alert("Brainstorming time is over!");
           }
@@ -660,24 +697,20 @@
       }
       startTimerBtn?.addEventListener('click', startTimer);
 
-      // --- Media Completion Logic ---
-      const mediaPlayers = document.querySelectorAll('.media-player');
-      mediaPlayers.forEach(player => {
-        player.addEventListener('ended', () => {
-          document.getElementById('media-completed').style.display = 'block';
-        });
-      });
-
       // PDF Download Placeholder
       document.getElementById('download-pdf')?.addEventListener('click', () => {
         alert('PDF download functionality will be implemented here using jsPDF.');
       });
 
       // --- Pronunciation Logic ---
-      document.querySelectorAll('.pronounce-btn').forEach(button => {
+      let accent = 'en-GB';
+      document.getElementById('accent-select').addEventListener('change', e => accent = e.target.value);
+
+      document.querySelectorAll('.speak-btn').forEach(button => {
         button.addEventListener('click', () => {
-          const wordToSpeak = button.getAttribute('data-word');
+          const wordToSpeak = button.parentElement.querySelector('span.fw-semibold').textContent;
           const utterance = new SpeechSynthesisUtterance(wordToSpeak);
+          utterance.lang = accent;
           speechSynthesis.speak(utterance);
         });
       });
@@ -689,6 +722,27 @@
           spread: 90,
           origin: { y: 0.6 }
         });
+      });
+
+      // --- Teacher Dashboard Simulation ---
+      function showTeacherDashboard(subs, avg) {
+        const dash = document.getElementById('teacher-dashboard');
+        dash.style.display = 'block';
+        document.getElementById('submission-count').textContent = subs;
+        document.getElementById('avg-score').textContent = avg;
+      }
+
+      // Example trigger (you can call this after your quiz logic)
+      // For demonstration, let's trigger it when moving to the last step.
+      nextButtons.forEach(b => b.addEventListener('click', () => {
+        if(currentStep === totalSteps - 1) { // When we arrive at the final step
+          setTimeout(() => showTeacherDashboard(12, 84), 1000); // Simulate delay
+        }
+      }));
+
+      // --- Media Completion Logic ---
+      document.querySelectorAll('.media-player').forEach(player => {
+        player.addEventListener('ended', () => document.getElementById('media-completed').style.display = 'block');
       });
     });
   </script>
