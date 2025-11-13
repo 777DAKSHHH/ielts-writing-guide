@@ -187,10 +187,8 @@
       margin-bottom: 1rem;
     }
     /* Ensure Bootstrap tabs are visible when active, overriding potential conflicts */
-    .tab-pane.show.active {
+    .tab-content > .tab-pane.active {
       display: block !important;
-      visibility: visible !important;
-      opacity: 1 !important;
     }
     .alert-light {
       color: #343a40; /* Darker text for better readability */
@@ -206,6 +204,9 @@
       color: var(--text-color);
       opacity: 0.8;
     }
+    .hero-bg {
+      background-image: url('materials/eagle-landscape.jpg');
+    }
   </style>
 </head>
 <body>
@@ -213,8 +214,8 @@
   <!-- LOGIN SECTION -->
   <div id="login-section">
     <div
-      class="hero min-h-screen"
-      style="background-image: url('materials/eagle-landscape.jpg');"
+      class="hero min-h-screen hero-bg"
+      
     >
       <div class="hero-overlay bg-opacity-60"></div>
       <div class="hero-content text-center text-neutral-content">
