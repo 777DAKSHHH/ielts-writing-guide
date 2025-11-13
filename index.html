@@ -16,6 +16,10 @@
   <!-- DaisyUI & Tailwind CSS -->
   <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Confetti.js -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 
   <style>
     :root {
@@ -155,6 +159,21 @@
       color: var(--primary-color);
     }
 
+    @keyframes pulse-glow {
+      0%, 100% {
+        box-shadow: 0 0 20px rgba(0, 87, 183, 0.2);
+      }
+      50% {
+        box-shadow: 0 0 35px rgba(0, 87, 183, 0.5);
+      }
+    }
+
+    .timer-container {
+      animation: pulse-glow 3s infinite ease-in-out;
+      border-radius: 50%;
+      padding: 1rem;
+    }
+
     /* ===== NAV TABS ===== */
     .nav-tabs .nav-link.active {
       background: var(--primary-color);
@@ -206,6 +225,32 @@
     }
     .hero-bg {
       background-image: url('materials/eagle-landscape.jpg');
+    }
+
+    /* Vocabulary Tags */
+    .tag {
+      display: inline-block;
+      padding: 0.2em 0.6em;
+      font-size: 0.75em;
+      font-weight: 700;
+      line-height: 1;
+      color: #fff;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: baseline;
+      border-radius: 0.25rem;
+      margin-left: 8px;
+    }
+    .tag-noun { background-color: #0057B7; } /* Blue */
+    .tag-verb { background-color: #28a745; } /* Green */
+    .tag-adj { background-color: #FFC107; color: #1E293B;} /* Gold */
+
+    .pronounce-btn {
+      background: none;
+      border: none;
+      color: var(--primary-color);
+      cursor: pointer;
+      font-size: 1.2rem;
     }
   </style>
 </head>
@@ -289,12 +334,15 @@
               <h4>Step 2: Brainstorm (6-Minute Timer)</h4>
               <p>Use the next 6 minutes to brainstorm ideas and structure your essay. This is a guide to help you practice time management.</p>
               <div class="text-center my-4">
-                <div class="timer-display">
-                  <span class="countdown font-mono text-5xl">
-                    <span id="countdown-min" style="--value:6;"></span>:
-                    <span id="countdown-sec" style="--value:0;"></span>
-                  </span>
+                <div class="timer-container d-inline-block">
+                  <div class="timer-display">
+                    <span class="countdown font-mono text-5xl">
+                      <span id="countdown-min" style="--value:6;"></span>:
+                      <span id="countdown-sec" style="--value:0;"></span>
+                    </span>
+                  </div>
                 </div>
+                <p id="timer-prompt" class="mt-3 text-lg font-semibold text-info">Let's begin! Focus on the question.</p>
                 <button id="startTimerBtn" class="btn btn-success mt-4">Start Timer</button>
               </div>
               <div class="alert alert-light" role="alert">
@@ -323,17 +371,17 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr><td>Burgeoning</td><td>Growing rapidly</td><td>The burgeoning interest in foreign education reflects global academic integration.</td></tr>
-                    <tr><td>Far-reaching</td><td>Having extensive impact</td><td>The far-reaching effects of international study influence economies and cultures alike.</td></tr>
-                    <tr><td>Augment</td><td>Enhance or increase</td><td>Studying abroad can augment one’s academic and interpersonal capabilities.</td></tr>
-                    <tr><td>Cross-cultural competence</td><td>Ability to interact effectively with diverse groups</td><td>Employers highly value graduates who demonstrate cross-cultural competence.</td></tr>
-                    <tr><td>Alleviate</td><td>Ease or lessen</td><td>Exposure to diverse societies can alleviate prejudice and narrowmindedness.</td></tr>
-                    <tr><td>Predicament</td><td>Problem or difficult situation</td><td>Many families face a financial predicament while funding education overseas.</td></tr>
-                    <tr><td>Adverse</td><td>Negative or harmful</td><td>Students might face adverse mental effects due to homesickness and cultural stress.</td></tr>
-                    <tr><td>Stymies</td><td>Hinders or obstructs</td><td>The high cost often stymies underprivileged students from pursuing international degrees.</td></tr>
-                    <tr><td>Curtailing</td><td>Reducing or limiting</td><td>Requalification requirements can end up curtailing career momentum.</td></tr>
-                    <tr><td>Repercussions</td><td>Consequences or effects</td><td>The positive repercussions of studying abroad extend far beyond academia.</td></tr>
-                    <tr><td>Brain drain</td><td>Migration of skilled professionals</td><td>Excessive brain drain can weaken a nation’s developmental progress.</td></tr>
+                    <tr><td>Burgeoning <span class="tag tag-adj">adj</span><button class="pronounce-btn" data-word="Burgeoning"><i class="fas fa-volume-up"></i></button></td><td>Growing rapidly</td><td>The burgeoning interest in foreign education reflects global academic integration.</td></tr>
+                    <tr><td>Far-reaching <span class="tag tag-adj">adj</span><button class="pronounce-btn" data-word="Far-reaching"><i class="fas fa-volume-up"></i></button></td><td>Having extensive impact</td><td>The far-reaching effects of international study influence economies and cultures alike.</td></tr>
+                    <tr><td>Augment <span class="tag tag-verb">verb</span><button class="pronounce-btn" data-word="Augment"><i class="fas fa-volume-up"></i></button></td><td>Enhance or increase</td><td>Studying abroad can augment one’s academic and interpersonal capabilities.</td></tr>
+                    <tr><td>Cross-cultural competence <span class="tag tag-noun">noun</span><button class="pronounce-btn" data-word="Cross-cultural competence"><i class="fas fa-volume-up"></i></button></td><td>Ability to interact effectively with diverse groups</td><td>Employers highly value graduates who demonstrate cross-cultural competence.</td></tr>
+                    <tr><td>Alleviate <span class="tag tag-verb">verb</span><button class="pronounce-btn" data-word="Alleviate"><i class="fas fa-volume-up"></i></button></td><td>Ease or lessen</td><td>Exposure to diverse societies can alleviate prejudice and narrowmindedness.</td></tr>
+                    <tr><td>Predicament <span class="tag tag-noun">noun</span><button class="pronounce-btn" data-word="Predicament"><i class="fas fa-volume-up"></i></button></td><td>Problem or difficult situation</td><td>Many families face a financial predicament while funding education overseas.</td></tr>
+                    <tr><td>Adverse <span class="tag tag-adj">adj</span><button class="pronounce-btn" data-word="Adverse"><i class="fas fa-volume-up"></i></button></td><td>Negative or harmful</td><td>Students might face adverse mental effects due to homesickness and cultural stress.</td></tr>
+                    <tr><td>Stymies <span class="tag tag-verb">verb</span><button class="pronounce-btn" data-word="Stymies"><i class="fas fa-volume-up"></i></button></td><td>Hinders or obstructs</td><td>The high cost often stymies underprivileged students from pursuing international degrees.</td></tr>
+                    <tr><td>Curtailing <span class="tag tag-verb">verb</span><button class="pronounce-btn" data-word="Curtailing"><i class="fas fa-volume-up"></i></button></td><td>Reducing or limiting</td><td>Requalification requirements can end up curtailing career momentum.</td></tr>
+                    <tr><td>Repercussions <span class="tag tag-noun">noun</span><button class="pronounce-btn" data-word="Repercussions"><i class="fas fa-volume-up"></i></button></td><td>Consequences or effects</td><td>The positive repercussions of studying abroad extend far beyond academia.</td></tr>
+                    <tr><td>Brain drain <span class="tag tag-noun">noun</span><button class="pronounce-btn" data-word="Brain drain"><i class="fas fa-volume-up"></i></button></td><td>Migration of skilled professionals</td><td>Excessive brain drain can weaken a nation’s developmental progress.</td></tr>
                   </tbody>
                 </table>
               </div>
@@ -368,9 +416,17 @@
           <div id="step-5" class="wizard-step">
             <div class="card">
               <h4>Step 5: Plan Body Paragraph 1</h4>
-              <p>Use the space below to draft your ideas for the first body paragraph. Focus on the advantages.</p>
-              <div class="form-group">
-                <textarea class="form-control" rows="10" placeholder="Draft your first body paragraph here..."></textarea>
+              <div class="row">
+                <div class="col-md-6">
+                  <h5>Essay Question</h5>
+                  <div class="alert alert-secondary">In the past, when students did a university degree they tended to study in their own country. Nowadays, they have more opportunities to study abroad. Do you think the advantages of this development outweigh the disadvantages?</div>
+                </div>
+                <div class="col-md-6">
+                  <h5>Guided Thinking Board (Advantages)</h5>
+                  <div class="sample-text-card"><strong>Main Idea 1:</strong> ___________________</div>
+                  <div class="sample-text-card"><strong>Supporting Reason:</strong> ______________</div>
+                  <div class="sample-text-card"><strong>Example:</strong> ______________________</div>
+                </div>
               </div>
               <div class="d-flex justify-content-between mt-4">
                 <button class="btn btn-secondary prev-btn">&larr; Previous</button>
@@ -383,9 +439,17 @@
           <div id="step-6" class="wizard-step">
             <div class="card">
               <h4>Step 6: Plan Body Paragraph 2</h4>
-              <p>Now, draft your ideas for the second body paragraph. Focus on the disadvantages.</p>
-              <div class="form-group">
-                <textarea class="form-control" rows="10" placeholder="Draft your second body paragraph here..."></textarea>
+              <div class="row">
+                <div class="col-md-6">
+                  <h5>Essay Question</h5>
+                  <div class="alert alert-secondary">In the past, when students did a university degree they tended to study in their own country. Nowadays, they have more opportunities to study abroad. Do you think the advantages of this development outweigh the disadvantages?</div>
+                </div>
+                <div class="col-md-6">
+                  <h5>Guided Thinking Board (Disadvantages)</h5>
+                  <div class="sample-text-card"><strong>Main Idea 2:</strong> ___________________</div>
+                  <div class="sample-text-card"><strong>Supporting Reason:</strong> ______________</div>
+                  <div class="sample-text-card"><strong>Example:</strong> ______________________</div>
+                </div>
               </div>
               <div class="d-flex justify-content-between mt-4">
                 <button class="btn btn-secondary prev-btn">&larr; Previous</button>
@@ -414,10 +478,20 @@
                     <label class="form-check-label" for="check3">Did you use correct tenses?</label>
                   </div>
                 </div>
-                <p>Scan the QR code to attempt the quiz, or download your worksheet.</p>
-                <img src="materials/qrcode_todayieltstask.onrender.com.png" alt="QR Code for quiz" class="img-fluid border rounded shadow-sm my-4" style="max-width: 150px;" onerror="this.style.display='none'">
-                <br>
-                <button id="download-pdf" class="btn btn-info text-white mb-3">Download PDF Worksheet</button>
+                <div class="row align-items-center">
+                  <div class="col-md-6">
+                    <p>Scan the QR code to attempt the quiz, or download your worksheet.</p>
+                    <img src="materials/qrcode_todayieltstask.onrender.com.png" alt="QR Code for quiz" class="img-fluid border rounded shadow-sm my-4" style="max-width: 150px;" onerror="this.style.display='none'">
+                    <br>
+                    <button id="download-pdf" class="btn btn-info text-white mb-3">Download PDF Worksheet</button>
+                    <button id="confetti-btn" class="btn btn-warning text-dark mb-3">👏 Great Job!</button>
+                  </div>
+                  <div class="col-md-6">
+                    <h6>Live Quiz Dashboard (Teacher View)</h6>
+                    <div class="alert alert-info">Submissions: <strong>5 / 20</strong></div>
+                    <div class="alert alert-success">Average Score: <strong>85%</strong></div>
+                  </div>
+                </div>
               </div>
               <div class="d-flex justify-content-between mt-4">
                 <button class="btn btn-secondary prev-btn">&larr; Previous</button>
@@ -430,6 +504,37 @@
       </div>
     </div>
   </main>
+
+  <!-- Hidden Teacher Report Section -->
+  <div class="container mt-5" id="teacher-report-section" style="display: none;">
+    <div class="card">
+      <h4>Teacher Report</h4>
+      <p>Weekly trends and analysis of student performance.</p>
+      <div class="alert alert-primary">Average accuracy this week: <strong>84% (+5% vs last week)</strong></div>
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead class="table-dark">
+            <tr>
+              <th>TASK ID</th>
+              <th>CORRECT ANSWER</th>
+              <th>INCORRECT ANSWER</th>
+              <th>MISSED OPTION</th>
+              <th>Commonly missed questions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>77:77:77:77:01:D</td>
+              <td>15</td>
+              <td>5</td>
+              <td>B</td>
+              <td>Q2 (Concessive Clauses)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 
   <footer>
     <p>© 2025 Today IELTS Task | Made by DAKSH | All Rights Reserved</p>
@@ -517,19 +622,32 @@
 
       // --- Timer Logic ---
       const startTimerBtn = document.getElementById('startTimerBtn');
+      const timerPrompt = document.getElementById('timer-prompt');
       let timerInterval = null;
       let timeRemaining = 360;
+      const prompts = {
+        300: "Think about trends!",
+        240: "What comparisons can you make?",
+        180: "Note high & low points.",
+        120: "Structure your paragraphs.",
+        60: "Finalize your main features!",
+        0: "Time's Up!"
+      };
 
       function startTimer() {
         if (timerInterval) clearInterval(timerInterval);
         startTimerBtn.disabled = true;
         const minEl = document.getElementById('countdown-min');
         const secEl = document.getElementById('countdown-sec');
-
+        
         timerInterval = setInterval(() => {
           timeRemaining--;
           const minutes = Math.floor(timeRemaining / 60);
           const seconds = timeRemaining % 60;
+
+          if (prompts[timeRemaining]) {
+            timerPrompt.textContent = prompts[timeRemaining];
+          }
 
           minEl.style.setProperty('--value', minutes);
           secEl.style.setProperty('--value', seconds);
@@ -553,6 +671,24 @@
       // PDF Download Placeholder
       document.getElementById('download-pdf')?.addEventListener('click', () => {
         alert('PDF download functionality will be implemented here using jsPDF.');
+      });
+
+      // --- Pronunciation Logic ---
+      document.querySelectorAll('.pronounce-btn').forEach(button => {
+        button.addEventListener('click', () => {
+          const wordToSpeak = button.getAttribute('data-word');
+          const utterance = new SpeechSynthesisUtterance(wordToSpeak);
+          speechSynthesis.speak(utterance);
+        });
+      });
+
+      // --- Confetti Logic ---
+      document.getElementById('confetti-btn')?.addEventListener('click', () => {
+        confetti({
+          particleCount: 150,
+          spread: 90,
+          origin: { y: 0.6 }
+        });
       });
     });
   </script>
