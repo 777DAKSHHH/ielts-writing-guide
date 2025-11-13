@@ -1,47 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Teacher Analytics</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teacher Live Report</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSy***Q",
+      authDomain: "ielts-live-dashboard.firebaseapp.com",
+      databaseURL: "https://ielts-live-dashboard-default-rtdb.firebaseio.com",
+      projectId: "ielts-live-dashboard",
+      storageBucket: "ielts-live-dashboard.firebasestorage.app",
+      messagingSenderId: "1044694021318",
+      appId: "1:1044694021318:web:70f1ac1ba0787d37da93c7",
+      measurementId: "G-R9G2YGSBM9"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+  </script>
+  <style>
+    body { background: #111; color: #fff; font-family: 'Segoe UI', sans-serif; }
+    table { background: #1a1a1a; border-radius: 8px; }
+    th, td { color: #eee; vertical-align: middle; }
+    th { background-color: #007bff; }
+    h2 { color: #00c2ff; }
+  </style>
 </head>
 <body class="p-4">
-  <div id="login-section" class="text-center">
-    <h4>🔒 Teacher Access</h4>
-    <button id="access-btn" class="btn btn-primary mt-3">Enter PIN</button>
-  </div>
-
-  <div id="teacher-data" style="display:none;">
-    <h3>📊 Weekly Analytics</h3>
-    <table class="table table-bordered mt-4">
-      <thead><tr><th>TASK ID</th><th>CORRECT</th><th>INCORRECT</th><th>MISSED</th><th>COMMONLY MISSED</th></tr></thead>
-      <tbody id="data-body"></tbody>
-    </table>
-  </div>
+  <h2 class="mb-4">📊 Live Teacher Dashboard</h2>
+  <table class="table table-bordered table-striped text-center">
+    <thead>
+      <tr>
+        <th>TASK ID</th>
+        <th>CORRECT</th>
+        <th>INCORRECT</th>
+        <th>MISSED</th>
+        <th>COMMONLY MISSED</th>
+      </tr>
+    </thead>
+    <tbody id="reportTableBody"></tbody>
+  </table>
 
   <script>
-  document.getElementById('access-btn').addEventListener('click', () => {
-    const pin = prompt("Enter Teacher PIN:");
-    if (pin === "D2025") {
-      document.getElementById('login-section').style.display = "none";
-      document.getElementById('teacher-data').style.display = "block";
-      
-      // Fetch data from localStorage instead of using a static sample
-      const reports = JSON.parse(localStorage.getItem('quizReports')) || [];
+    const tableBody = document.getElementById("reportTableBody");
 
-      const tbody = document.getElementById('data-body');
-      tbody.innerHTML = ''; // Clear previous data
-
-      if (reports.length > 0) {
-        // Display reports in reverse chronological order (newest first)
-        reports.slice().reverse().forEach(r => {
-          tbody.innerHTML += `<tr><td>${r.id}</td><td>${r.correct}</td><td>${r.incorrect}</td><td>${r.missed}</td><td>${r.common}</td></tr>`;
+    firebase.database().ref("quizResults").on("value", (snapshot) => {
+      const data = snapshot.val();
+      tableBody.innerHTML = "";
+      if (data) {
+        Object.values(data).reverse().forEach((record) => { // .reverse() to show newest first
+          const row = `
+            <tr>
+              <td>${record.taskId}</td>
+              <td>${record.correct}</td>
+              <td>${record.incorrect}</td>
+              <td>${record.missed}</td>
+              <td>${record.wrongQuestions || "-"}</td
+            </tr>`;
+          tableBody.insertAdjacentHTML("beforeend", row);
         });
-      } else {
-        tbody.innerHTML = '<tr><td colspan="5" class="text-center">No quiz data available yet.</td></tr>';
       }
-    } else alert("Invalid PIN.");
-  });
+    });
   </script>
 </body>
 </html>

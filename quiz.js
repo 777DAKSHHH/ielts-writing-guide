@@ -1,3 +1,18 @@
+document.addEventListener('DOMContentLoaded', () => {
+    // Generate and display Task ID on page load
+    function generateTaskId() {
+        const prefix = "77:77:77:77:";
+        const storedId = localStorage.getItem("taskCounter") || "00";
+        let next = String(Number(storedId) + 1).padStart(2, "0");
+        localStorage.setItem("taskCounter", next);
+        return `${prefix}${next}:D`;
+    }
+
+    const taskId = generateTaskId();
+    const taskIdDisplay = document.getElementById("taskIdDisplay");
+    if(taskIdDisplay) taskIdDisplay.textContent = taskId;
+});
+
 function checkQuiz() {
     const answers = {
         q1: 'B',
@@ -11,6 +26,8 @@ function checkQuiz() {
 
     let score = 0;
     const totalQuestions = Object.keys(answers).length;
+    const wrongQuestions = [];
+    let unansweredCount = 0;
 
     // Reset styles from previous submissions
     document.querySelectorAll('.options label').forEach(label => {
@@ -35,11 +52,35 @@ function checkQuiz() {
             if (selectedRadio.value === correctAnswerValue) {
                 score++;
             } else {
+                wrongQuestions.push(`Q${i}`);
                 // If a wrong answer was selected, highlight it in red
                 selectedRadio.parentElement.classList.add('wrong');
             }
+        } else {
+            // If no answer was selected for a question
+            unansweredCount++;
+            wrongQuestions.push(`Q${i} (missed)`);
         }
     }
+
+    // --- Push results to Firebase ---
+    function submitQuizResults(score, total, wrongQs, missedCount) {
+        const taskId = document.getElementById("taskIdDisplay").textContent;
+        if (!taskId) {
+            console.error("Task ID not found. Cannot submit results.");
+            return;
+        }
+
+        firebase.database().ref("quizResults/" + taskId).set({
+            taskId: taskId,
+            correct: ((score / total) * 100).toFixed(1) + "%",
+            incorrect: (((total - score - missedCount) / total) * 100).toFixed(1) + "%",
+            missed: ((missedCount / total) * 100).toFixed(1) + "%",
+            wrongQuestions: wrongQs.join(", ") || "None"
+        });
+    }
+
+    submitQuizResults(score, totalQuestions, wrongQuestions, unansweredCount);
 
     document.getElementById("resultBox").style.display = "block";
     document.getElementById("resultBox").innerHTML = `You scored ${score} out of ${totalQuestions}.`;

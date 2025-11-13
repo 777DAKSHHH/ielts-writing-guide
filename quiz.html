@@ -5,6 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>IELTS Grammar Quiz</title>
 
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js"></script>
+
+  <script>
+    // Your Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSy***Q",
+      authDomain: "ielts-live-dashboard.firebaseapp.com",
+      databaseURL: "https://ielts-live-dashboard-default-rtdb.firebaseio.com",
+      projectId: "ielts-live-dashboard",
+      storageBucket: "ielts-live-dashboard.firebasestorage.app",
+      messagingSenderId: "1044694021318",
+      appId: "1:1044694021318:web:70f1ac1ba0787d37da93c7",
+      measurementId: "G-R9G2YGSBM9"
+    };
+
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+  </script>
   <style>
     /* ======= GLOBAL THEME (Liquid / Gradient UI) ======= */
     body {
@@ -206,6 +227,10 @@
     <h1>IELTS Guided Writing Task</h1>
     <p style="font-size:1.1em; opacity:0.9;">Grammar Quiz – Task 2 Preparation</p>
   </header>
+
+  <div id="taskIdDisplay"
+     style="position: fixed; top: 10px; right: 20px; font-weight: bold; color: #fff; background-color: rgba(0,0,0,0.5); padding: 5px 10px; border-radius: 8px;">
+  </div>
 
   <h2>Step 1: Attempt the Quiz</h2>
   <p style="background:rgba(0,123,255,0.15); padding:15px; border-left:4px solid #007bff; border-radius:10px;">
