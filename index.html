@@ -134,13 +134,23 @@
       transform: scale(1.03);
       box-shadow: 0 4px 15px rgba(0,0,0,0.15);
     }
-    .btn-primary {
-      background-color: var(--primary-color);
-      border-color: var(--primary-color);
+    .btn-primary, .next-btn {
+      background-color: #5c9ded; /* Professional Light Blue */
+      border-color: #5c9ded;
+      color: #fff;
+    }
+    .btn-primary:hover, .next-btn:hover {
+      background-color: #4a8ad9;
+      border-color: #4a8ad9;
     }
     .btn-success {
       background-color: #198754;
       border-color: #198754;
+    }
+    .prev-btn {
+      background-color: #d2b48c; /* Elegant Beige */
+      border-color: #d2b48c;
+      color: #fff;
     }
 
     /* ===== TABLE ===== */
@@ -150,6 +160,10 @@
     }
     .table-hover tbody tr:hover {
       background-color: rgba(0, 87, 183, 0.05);
+    }
+    #step-3 .table td {
+      vertical-align: middle;
+      padding: 0.9rem 0.75rem;
     }
 
     /* ===== TIMER ===== */
@@ -243,9 +257,6 @@
       color: var(--text-color);
       opacity: 0.8;
     }
-    .hero-bg {
-      background-image: url('materials/eagle-landscape.jpg');
-    }
 
     /* Vocabulary Tags */
     .tag {
@@ -279,12 +290,13 @@
   <!-- LOGIN SECTION -->
   <div id="login-section">
     <div
-      class="hero min-h-screen hero-bg"
-      
+      class="hero min-h-screen"
+      style="background-color: #000;"
     >
-      <div class="hero-overlay bg-opacity-60"></div>
+      <!-- No overlay needed for a solid background -->
       <div class="hero-content text-center text-neutral-content">
-        <fieldset class="glass rounded-box border p-6" style="transition: all 0.5s ease;">
+        <!-- Enhanced glass effect -->
+        <fieldset class="rounded-box border border-white/20 p-6" style="transition: all 0.5s ease; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);">
           <legend class="fieldset-legend text-2xl font-bold p-2">Login</legend>
 
           <label class="label">
@@ -443,18 +455,18 @@
               <div class="row">
                 <div class="col-md-6">
                   <h5>Essay Question</h5>
-                  <div class="alert alert-secondary">In the past, when students did a university degree they tended to study in their own country. Nowadays, they have more opportunities to study abroad. Do you think the advantages of this development outweigh the disadvantages?</div>
+                  <div class="alert alert-secondary" style="font-size: 0.9rem;">In the past, when students did a university degree they tended to study in their own country. Nowadays, they have more opportunities to study abroad. Do you think the advantages of this development outweigh the disadvantages?</div>
                 </div>
                 <div class="col-md-6">
-                  <h5>Guided Thinking Board (Advantages)</h5>
-                  <div class="sample-text-card"><strong>Main Idea 1:</strong> ___________________</div>
-                  <div class="sample-text-card"><strong>Supporting Reason:</strong> ______________</div>
-                  <div class="sample-text-card"><strong>Example:</strong> ______________________</div>
+                  <h5>Example Plan (Advantages)</h5>
+                  <div class="sample-text-card"><strong>Main Idea:</strong> Access to superior academic infrastructure.</div>
+                  <div class="sample-text-card"><strong>Supporting Reason:</strong> Prestigious universities abroad offer state-of-the-art facilities and innovative teaching methods.</div>
+                  <div class="sample-text-card"><strong>Example:</strong> Institutions like MIT and Oxford provide interdisciplinary environments that augment creativity.</div>
                 </div>
               </div>
               <div class="d-flex justify-content-between mt-4">
-                <button class="btn btn-secondary prev-btn">&larr; Previous</button>
-                <button class="btn btn-primary next-btn">Next &rarr;</button>
+                <button class="btn prev-btn">&larr; Previous</button>
+                <button class="btn next-btn">Next &rarr;</button>
               </div>
             </div>
           </div>
@@ -466,18 +478,18 @@
               <div class="row">
                 <div class="col-md-6">
                   <h5>Essay Question</h5>
-                  <div class="alert alert-secondary">In the past, when students did a university degree they tended to study in their own country. Nowadays, they have more opportunities to study abroad. Do you think the advantages of this development outweigh the disadvantages?</div>
+                  <div class="alert alert-secondary" style="font-size: 0.9rem;">In the past, when students did a university degree they tended to study in their own country. Nowadays, they have more opportunities to study abroad. Do you think the advantages of this development outweigh the disadvantages?</div>
                 </div>
                 <div class="col-md-6">
-                  <h5>Guided Thinking Board (Disadvantages)</h5>
-                  <div class="sample-text-card"><strong>Main Idea 2:</strong> ___________________</div>
-                  <div class="sample-text-card"><strong>Supporting Reason:</strong> ______________</div>
-                  <div class="sample-text-card"><strong>Example:</strong> ______________________</div>
+                  <h5>Example Plan (Disadvantages)</h5>
+                  <div class="sample-text-card"><strong>Main Idea:</strong> Financial predicament.</div>
+                  <div class="sample-text-card"><strong>Supporting Reason:</strong> High costs of tuition and living can be a major barrier for students from lower-income backgrounds.</div>
+                  <div class="sample-text-card"><strong>Example:</strong> A degree in the US can cost over $40,000 annually, creating significant financial strain.</div>
                 </div>
               </div>
               <div class="d-flex justify-content-between mt-4">
-                <button class="btn btn-secondary prev-btn">&larr; Previous</button>
-                <button class="btn btn-primary next-btn">Next &rarr;</button>
+                <button class="btn prev-btn">&larr; Previous</button>
+                <button class="btn next-btn">Next &rarr;</button>
               </div>
             </div>
           </div>
@@ -505,21 +517,13 @@
                 <div class="row align-items-center">
                   <div class="col-md-6">
                     <p>Scan the QR code to attempt the quiz, or download your worksheet.</p>
-                    <img src="materials/qrcode_todayieltstask.onrender.com.png" alt="QR Code for quiz" class="img-fluid border rounded shadow-sm my-4" style="max-width: 150px;" onerror="this.style.display='none'">
+                    <img src="materials/qrcode_todayieltstask.onrender.com.png" alt="QR Code for quiz" class="img-fluid border rounded shadow-sm my-4" style="max-width: 150px;" onerror="this.style.display='none'"><br>
                     <a href="teacher-report.html" target="_blank" class="btn btn-info text-white mb-3">Tutor Report</a>
-                    <button id="confetti-btn" class="btn btn-warning text-dark mb-3">👏 Great Job!</button>
-                  </div>
-                  <div class="col-md-6">
-                    <div id="teacher-dashboard" class="alert alert-info mt-4">
-                      <strong>Live Quiz Dashboard</strong><br>
-                      Submissions: <span id="submission-count">0</span><br>
-                      Avg Score: <span id="avg-score">--</span>%
-                    </div>
                   </div>
                 </div>
               </div>
               <div class="d-flex justify-content-between mt-4">
-                <button class="btn btn-secondary prev-btn">&larr; Previous</button>
+                <button class="btn prev-btn">&larr; Previous</button>
                 <button class="btn btn-success" id="return-home-btn">Return to Home</button>
               </div>
             </div>
@@ -704,31 +708,6 @@
           speechSynthesis.speak(utterance);
         });
       });
-
-      // --- Confetti Logic ---
-      document.getElementById('confetti-btn')?.addEventListener('click', () => {
-        confetti({
-          particleCount: 150,
-          spread: 90,
-          origin: { y: 0.6 }
-        });
-      });
-
-      // --- Teacher Dashboard Simulation ---
-      function showTeacherDashboard(subs, avg) {
-        const dash = document.getElementById('teacher-dashboard');
-        dash.style.display = 'block';
-        document.getElementById('submission-count').textContent = subs;
-        document.getElementById('avg-score').textContent = avg;
-      }
-
-      // Example trigger (you can call this after your quiz logic)
-      // For demonstration, let's trigger it when moving to the last step.
-      nextButtons.forEach(b => b.addEventListener('click', () => {
-        if(currentStep === totalSteps - 1) { // When we arrive at the final step
-          setTimeout(() => showTeacherDashboard(12, 84), 1000); // Simulate delay
-        }
-      }));
 
       // --- Media Completion Logic ---
       document.querySelectorAll('.media-player').forEach(player => {
