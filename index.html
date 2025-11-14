@@ -343,12 +343,12 @@
               <div class="tab-content p-3 border border-top-0 rounded-bottom mb-3" id="overviewTabContent">
                 <div class="tab-pane fade show active" id="audio-pane" role="tabpanel">
                   <audio controls class="w-100 media-player">
-                    <source src="materials/week-20-task2-audio.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
+                    <source src="materials/week-20-fri-task1-audio.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
                 </div>
                 <div class="tab-pane fade" id="video-pane" role="tabpanel">
                   <div class="ratio ratio-16x9">
                     <video controls class="w-100 rounded media-player">
-                      <source src="materials/week-20-mon-wt-2(video).mp4" type="video/mp4">Your browser does not support the video tag.</video>
+                      <source src="materials/week-20-fri-task1-video.mp4" type="video/mp4">Your browser does not support the video tag.</video>
                   </div>
                 </div>
               </div>
@@ -369,15 +369,16 @@
                 <button id="startTimerBtn" class="btn btn-success mt-4">Start Timer</button>
                 <div id="focus-overlay" class="focus-overlay d-none">
                   <div class="focus-center">
-                    <div id="focus-timer-display">6:00</div>
+                    <div id="focus-timer-display">3:00</div>
                     <div id="focus-message" class="mt-3 fw-bold text-light fs-4"></div>
                   </div>
                   <audio id="tick-sound" src="materials/clock-tick.mp3" loop></audio>
                 </div>
               </div>
               <div class="alert alert-light" role="alert">
-                <h6 class="alert-heading">Essay Question</h6>
-                <p class="mb-0"><strong>In the past, when students did a university degree they tended to study in their own country. Nowadays, they have more opportunities to study abroad.</strong><br><br>Do you think the advantages of this development outweigh the disadvantages?</p>
+                <h6 class="alert-heading">Task 1 Question</h6>
+                <p>The charts below give information about the way in which water was used in different countries in 2000.</p><p><strong>Summarize the information by selecting and reporting the main features and make relevant comparisons.</strong></p>
+                <img src="materials/week-20-fri-wt-1-image.png" alt="Water usage charts" class="img-fluid rounded mt-3">
               </div>
               <div class="d-flex justify-content-between mt-4">
                 <button class="btn btn-secondary prev-btn">&larr; Previous</button>
@@ -431,15 +432,23 @@
           <!-- Step 4: Plan Introduction & Conclusion -->
           <div id="step-4" class="wizard-step">
             <div class="card">
-              <h4>Step 4: Plan Introduction & Conclusion</h4>
-              <p>Review these sample introductions and conclusions. Notice how they paraphrase the prompt and state a clear position.</p>
+              <h4>Step 4: Plan Introduction & Overview</h4>
+              <p>Review these sample introductions and overviews. Notice how they paraphrase the prompt and state the main trends.</p>
               <div class="sample-text-card">
                 <h6>Sample Introduction 1</h6>
-                <p class="small">In an increasingly globalised world, pursuing higher education beyond national borders has become a burgeoning trend. While studying abroad offers students unparalleled exposure and opportunities, it also presents certain far-reaching challenges. In my view, the advantages of international education decidedly outweigh its drawbacks, primarily because it broadens intellectual horizons and enhances global competitiveness.</p>
+                <p class="small">The pie chart illustrates the global distribution of water consumption across three sectors — agriculture, domestic use, and industry, while the bar chart compares how these same categories of water were utilised in China, India, New Zealand, and Canada in the year 2000, measured in percentages.</p>
               </div>
               <div class="sample-text-card">
-                <h6>Sample Conclusion 1</h6>
-                <p class="small">To sum up, although studying overseas may create financial burdens and cultural challenges, its repercussions are largely constructive — fostering intellectual advancement, global awareness, and professional excellence. Therefore, I opine that the advantages of pursuing education abroad overwhelmingly outweigh its adverse consequences.</p>
+                <h6>Sample Introduction 2</h6>
+                <p class="small">The pie chart details the global distribution of water consumption across three sectors—agriculture, domestic use and industry—whereas the accompanying bar chart contrasts the proportional use of water within the same categories across China, India, New Zealand and Canada in 2000, scaled in percentages.</p>
+              </div>
+              <div class="sample-text-card">
+                <h6>Sample Overview 1</h6>
+                <p class="small">Overall, agriculture dominated global water use, and the same pattern was evident in China and India, whereas Canada and New Zealand allocated a significantly larger proportion of water to industrial and domestic purposes. Industries consumed the lowest share globally, but domestic use was the least significant sector in both China and India.</p>
+              </div>
+              <div class="sample-text-card">
+                <h6>Sample Overview 2</h6>
+                <p class="small">Overall, water usage at the global level was heavily skewed towards agricultural activities, and a similar pattern was evident in China and India. In sharp contrast, Canada and New Zealand indicated more diversified consumption, with significantly greater emphasis on domestic and industrial utilisation. Notably, industry accounted for the smallest global share, while agriculture dominated national patterns in two of the four countries.</p>
               </div>
               <div class="d-flex justify-content-between mt-4">
                 <button class="btn btn-secondary prev-btn">&larr; Previous</button>
@@ -452,17 +461,16 @@
           <div id="step-5" class="wizard-step">
             <div class="card">
               <h4>Step 5: Plan Body Paragraph 1</h4>
-              <div class="row">
-                <div class="col-md-6">
-                  <h5>Essay Question</h5>
-                  <div class="alert alert-secondary" style="font-size: 0.9rem;">In the past, when students did a university degree they tended to study in their own country. Nowadays, they have more opportunities to study abroad. Do you think the advantages of this development outweigh the disadvantages?</div>
-                </div>
-                <div class="col-md-6">
-                  <h5>Example Plan (Advantages)</h5>
-                  <div class="sample-text-card"><strong>Main Idea:</strong> Access to superior academic infrastructure.</div>
-                  <div class="sample-text-card"><strong>Supporting Reason:</strong> Prestigious universities abroad offer state-of-the-art facilities and innovative teaching methods.</div>
-                  <div class="sample-text-card"><strong>Example:</strong> Institutions like MIT and Oxford provide interdisciplinary environments that augment creativity.</div>
-                </div>
+              <p>Focus on agriculture and the major contrasts between the countries.</p>
+              <div class="sample-text-card">
+                <h5>Body Paragraph 1 — Bullet Points (Agriculture Focus & Major Contrasts)</h5>
+                <ul class="list-unstyled">
+                  <li>• Worldwide, agriculture constituted a dominant 70%, far surpassing domestic (8%) and industrial usage (22%).</li>
+                  <li>• India showed an extreme agricultural reliance, with 92% of its water directed to farming — the highest among all countries.</li>
+                  <li>• China, while less pronounced, still allocated a substantial 69% to agriculture, reflecting similar regional dependency.</li>
+                  <li>• New Zealand used 44% for agriculture, indicating a far more balanced distribution than either Asian nation.</li>
+                  <li>• Canada, at just 8%, recorded the lowest agricultural allocation, representing a complete reversal of India’s pattern.</li>
+                </ul>
               </div>
               <div class="d-flex justify-content-between mt-4">
                 <button class="btn prev-btn">&larr; Previous</button>
@@ -475,17 +483,14 @@
           <div id="step-6" class="wizard-step">
             <div class="card">
               <h4>Step 6: Plan Body Paragraph 2</h4>
-              <div class="row">
-                <div class="col-md-6">
-                  <h5>Essay Question</h5>
-                  <div class="alert alert-secondary" style="font-size: 0.9rem;">In the past, when students did a university degree they tended to study in their own country. Nowadays, they have more opportunities to study abroad. Do you think the advantages of this development outweigh the disadvantages?</div>
-                </div>
-                <div class="col-md-6">
-                  <h5>Example Plan (Disadvantages)</h5>
-                  <div class="sample-text-card"><strong>Main Idea:</strong> Financial predicament.</div>
-                  <div class="sample-text-card"><strong>Supporting Reason:</strong> High costs of tuition and living can be a major barrier for students from lower-income backgrounds.</div>
-                  <div class="sample-text-card"><strong>Example:</strong> A degree in the US can cost over $40,000 annually, creating significant financial strain.</div>
-                </div>
+              <p>Detail the industrial and domestic usage, highlighting the remaining contrasts.</p>
+              <div class="sample-text-card">
+                <h5>Body Paragraph 2 — Bullet Points (Industry + Domestic + Remaining Contrasts)</h5>
+                <ul class="list-unstyled">
+                  <li>• Industry, which represented 22% globally, was exceptionally dominant in Canada (80%), making it the most industrial-focused country in the dataset.</li>
+                  <li>• China mirrored the global industrial average, also at 22%, whereas New Zealand (10%) and India (3%) showed minimal industrial utilisation.</li>
+                  <li>• For domestic usage, New Zealand (46%) allocated the largest share, more than quadruple India’s 5%, and substantially above Canada’s 12% and China’s 9%.</li>
+                </ul>
               </div>
               <div class="d-flex justify-content-between mt-4">
                 <button class="btn prev-btn">&larr; Previous</button>
@@ -499,21 +504,6 @@
             <div class="card">
               <div class="text-center">
                 <h4>Step 7: Final Review & Download</h4>
-                <p>Before you finish, use this reflection checklist to review your plan.</p>
-                <div class="reflection-checklist text-start my-4">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="check1">
-                    <label class="form-check-label" for="check1">Did you mention the main trends?</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="check2">
-                    <label class="form-check-label" for="check2">Did you compare data logically?</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="check3">
-                    <label class="form-check-label" for="check3">Did you use correct tenses?</label>
-                  </div>
-                </div>
                 <div class="row align-items-center">
                   <div class="col-md-6">
                     <p>Scan the QR code to attempt the quiz, or download your worksheet.</p>
@@ -669,10 +659,10 @@
         overlay.classList.remove("d-none");
         tickSound.volume = 0.15;
         tickSound.play();
-
-        let t = 360;
+        
+        let t = 180; // 3 minutes
         let minuteIndex = 0;
-
+        
         const timer = setInterval(() => {
           const m = Math.floor(t / 60).toString().padStart(2,'0');
           const s = (t % 60).toString().padStart(2,'0');
