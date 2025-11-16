@@ -8,7 +8,7 @@
   <!-- Google Fonts: Poppins & Lato -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Lato:wght@400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Inter:wght@400;500&family=Source+Sans+Pro:wght@400;700&display=swap" rel="stylesheet">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text x='0' y='14'>📝</text></svg>" type="image/svg+xml" />
 
   <!-- Bootstrap CSS -->
@@ -24,28 +24,33 @@
 
   <style>
     :root {
-      --primary-color: #0057B7;
-      --accent-color: #FFC107;
-      --bg-color: #F8FAFC;
-      --text-color: #1E293B;
+      /* New Color Palette */
+      --primary-color: #1A73E8; /* Royal Blue */
+      --secondary-color: #0D1B2A; /* Deep Navy */
+      --accent-green: #00A884; /* Emerald Green */
+      --accent-orange: #FF6B3C; /* Sunset Orange */
+      --accent-gold: #F2C94C; /* Gold */
+      --bg-color: #F7F9FC; /* Cool Grey */
+      --text-color: #303030; /* Charcoal */
       --card-bg: #FFFFFF;
-      --gradient-bg: linear-gradient(135deg, #FFFFFF 0%, #F1F5F9 100%);
+      --soft-sky-blue: #E3F0FF;
     }
 
     body {
-      background: var(--gradient-bg);
+      background: var(--bg-color);
       min-height: 100vh;
-      font-family: 'Lato', sans-serif;
+      font-family: 'Inter', sans-serif;
       color: var(--text-color);
       line-height: 1.6;
+      font-size: 18px; /* Base font size for readability */
     }
 
     h1, h2, h3, h4, h5, h6 {
       font-family: 'Poppins', sans-serif;
       font-weight: 700;
-      color: var(--primary-color);
+      color: var(--secondary-color); /* Deep Navy for headings */
     }
-
+    h1 { font-size: 42px; } h2 { font-size: 38px; } h4 { font-size: 28px; }
     p {
       color: var(--text-color);
     }
@@ -54,7 +59,7 @@
     .sticky-header {
       position: sticky;
       top: 0;
-      z-index: 1020;
+      z-index: 1030;
       background-color: rgba(255, 255, 255, 0.9);
       backdrop-filter: blur(10px);
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
@@ -63,7 +68,7 @@
     .logo {
       font-family: 'Poppins', sans-serif;
       font-weight: 700;
-      color: var(--primary-color);
+      color: var(--secondary-color);
       font-size: 1.25rem;
     }
     .step-indicator {
@@ -89,13 +94,13 @@
     #login-section .card {
       border: none;
       border-radius: 16px;
-      background: var(--card-bg);
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
       box-shadow: 0 8px 25px rgba(0,0,0,0.1);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     #login-section .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
     }
 
     /* ===== WIZARD SECTION ===== */
@@ -117,7 +122,7 @@
       border: none;
       border-radius: 16px;
       background: var(--card-bg);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.07);
       transition: all 0.3s ease;
       padding: 24px;
     }
@@ -135,22 +140,22 @@
       transform: scale(1.03);
       box-shadow: 0 4px 15px rgba(0,0,0,0.15);
     }
-    .btn-primary, .next-btn {
-      background-color: #5c9ded; /* Professional Light Blue */
-      border-color: #5c9ded;
+    .btn-primary, .next-btn, #login-btn {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
       color: #fff;
     }
-    .btn-primary:hover, .next-btn:hover {
-      background-color: #4a8ad9;
-      border-color: #4a8ad9;
+    .btn-primary:hover, .next-btn:hover, #login-btn:hover {
+      background-color: #1465cc; /* Darker Royal Blue */
+      border-color: #1465cc;
     }
     .btn-success {
-      background-color: #198754;
-      border-color: #198754;
+      background-color: var(--accent-green);
+      border-color: var(--accent-green);
     }
     .prev-btn {
-      background-color: #d2b48c; /* Elegant Beige */
-      border-color: #d2b48c;
+      background-color: #6c757d; /* Standard secondary color */
+      border-color: #6c757d;
       color: #fff;
     }
 
@@ -160,7 +165,7 @@
       color: #fff;
     }
     .table-hover tbody tr:hover {
-      background-color: rgba(0, 87, 183, 0.05);
+      background-color: var(--soft-sky-blue);
     }
     #step-3 .table td {
       vertical-align: middle;
@@ -171,15 +176,15 @@
     .timer-display {
       font-size: 3rem;
       font-weight: 700;
-      color: var(--primary-color);
+      color: var(--secondary-color);
     }
 
     @keyframes pulse-glow {
       0%, 100% {
-        box-shadow: 0 0 20px rgba(0, 87, 183, 0.2);
+        box-shadow: 0 0 20px rgba(26, 115, 232, 0.2);
       }
       50% {
-        box-shadow: 0 0 35px rgba(0, 87, 183, 0.5);
+        box-shadow: 0 0 35px rgba(26, 115, 232, 0.4);
       }
     }
 
@@ -214,7 +219,7 @@
       background-color: #e9ecef;
     }
     .sample-text-card {
-      border-left: 4px solid var(--primary-color);
+      border-left: 4px solid var(--accent-gold);
       background-color: #f8f9fa;
       padding: 1rem;
       border-radius: 8px;
@@ -225,8 +230,8 @@
       display: block !important;
     }
     .alert-light {
-      color: #343a40; /* Darker text for better readability */
-      background-color: #f8f9fa;
+      color: var(--text-color);
+      background-color: var(--soft-sky-blue);
     }
     /* Ensure media players are visible */
     .media-player {
@@ -250,8 +255,8 @@
     .focus-center { text-align:center; color:#fff; }
     #focus-timer-display {
       font-size: 6rem; font-weight: 700; letter-spacing:2px;
-      color: #00c3ff;
-      text-shadow: 0 0 30px rgba(0,195,255,0.6);
+      color: var(--primary-color);
+      text-shadow: 0 0 30px rgba(26, 115, 232, 0.6);
       animation: pulseTimer 1.2s ease-in-out infinite alternate;
     }
     @keyframes pulseTimer {
@@ -282,10 +287,10 @@
       vertical-align: baseline;
       border-radius: 0.25rem;
       margin-left: 8px;
-    }
-    .tag-noun { background-color: #0057B7; } /* Blue */
-    .tag-verb { background-color: #28a745; } /* Green */
-    .tag-adj { background-color: #FFC107; color: #1E293B;} /* Gold */
+    } /* Mapped to new color palette */
+    .tag-noun { background-color: var(--primary-color); } /* Royal Blue */
+    .tag-verb { background-color: var(--accent-green); } /* Emerald Green */
+    .tag-adj { background-color: var(--accent-gold); color: var(--text-color);} /* Gold */
 
     .pronounce-btn {
       background: none;
@@ -294,30 +299,51 @@
       cursor: pointer;
       font-size: 1.2rem;
     }
+
+    /* Vocabulary Card Grid */
+    .vocab-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--soft-sky-blue);
+      border-radius: 12px;
+      padding: 1.25rem;
+      height: 100%;
+      transition: all 0.3s ease;
+    }
+    .vocab-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(26, 115, 232, 0.1);
+      border-color: var(--primary-color);
+    }
+    .vocab-word {
+      font-family: 'Poppins', sans-serif;
+      font-size: 22px;
+      color: var(--secondary-color);
+    }
+    .vocab-definition {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      color: var(--primary-color);
+      margin: 0.5rem 0;
+    }
   </style>
 </head>
 <body>
 
   <!-- LOGIN SECTION -->
   <div id="login-section">
-    <div
-      class="hero min-h-screen"
-      style="background-color: #000;"
-    >
-      <!-- No overlay needed for a solid background -->
-      <div class="hero-content text-center text-neutral-content">
-        <!-- Enhanced glass effect -->
-        <fieldset class="rounded-box border border-white/20 p-6" style="transition: all 0.5s ease; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);">
-          <legend class="fieldset-legend text-2xl font-bold p-2">Login</legend>
-
-          <label class="label">
-            <span class="label-text text-neutral-content">Password</span>
-          </label>
-          <input type="password" id="password-input" class="input input-bordered w-full max-w-xs" placeholder="Password" />
-
-          <button id="login-btn" class="btn btn-primary mt-4 w-full">Login</button>
-          <div id="error-alert" class="alert alert-error mt-3" style="display: none;">Incorrect password. Try again.</div>
-        </fieldset>
+    <div class="d-flex align-items-center justify-content-center min-vh-100" style="background: var(--secondary-color);">
+      <div class="card text-center p-4 p-md-5" style="max-width: 450px;">
+        <h1 class="mb-2">IELTS Guided Task</h1>
+        <p class="text-muted mb-4">Enter the classroom password to begin.</p>
+        <div class="form-floating mb-3">
+          <input type="password" class="form-control" id="password-input" placeholder="Password">
+          <label for="password-input">Password</label>
+        </div>
+        <button id="login-btn" class="btn btn-primary btn-lg w-100">Login</button>
+        <div id="error-alert" class="alert alert-danger mt-3" style="display: none;">
+          <i class="fas fa-exclamation-triangle me-2"></i>
+          Incorrect password. Please try again.
+        </div>
       </div>
     </div>
   </div>
@@ -326,7 +352,7 @@
   <main id="wizard-section" style="display:none;">
     <header class="sticky-header">
       <div class="d-flex justify-content-between align-items-center mb-2">
-        <span class="logo">Today IELTS Task</span>
+        <span class="logo">IELTS Guided Task</span>
         <span id="step-indicator" class="step-indicator">Step 1 of 7 | Task Overview</span>
       </div>
       <div class="progress-bar-container">
@@ -341,7 +367,7 @@
           <!-- Step 1: Task Overview -->
           <div id="step-1" class="wizard-step active">
             <div class="card">
-              <h4>Step 1: Task Overview</h4>
+              <h2 class="mb-3" style="color: var(--primary-color);">Step 1: Task Overview</h2>
               <p>Choose your preferred format for a brief overview of how to approach this type of task.</p>
               <ul class="nav nav-tabs" id="overviewTab" role="tablist">
                 <li class="nav-item" role="presentation">
@@ -352,7 +378,7 @@
                 </li>
               </ul>
               <div class="tab-content p-3 border border-top-0 rounded-bottom mb-3" id="overviewTabContent">
-                <div class="tab-pane fade show active" id="audio-pane" role="tabpanel">
+                <div class="tab-pane fade show active p-2" id="audio-pane" role="tabpanel" style="background-color: var(--soft-sky-blue);">
                   <audio controls class="w-100 media-player">
                     <source src="materials/week-20-fri-task1-audio.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
                 </div>
@@ -363,7 +389,10 @@
                   </div>
                 </div>
               </div>
-              <p class="text-muted small">🎧 Listen to the overview carefully before starting your plan.</p>
+              <div class="d-flex align-items-center p-3 mt-3" style="border-left: 4px solid var(--accent-gold); background-color: #FFFBEB;">
+                <i class="fas fa-lightbulb fa-lg me-3" style="color: var(--accent-gold);"></i>
+                <p class="mb-0" style="font-family: 'Source Sans Pro', sans-serif;">Listen to the overview carefully before starting your plan.</p>
+              </div>
               <p class="completion-feedback" id="media-completed">✅ Completed! Move to the next step.</p>
               <div class="d-flex justify-content-end mt-4">
                 <button class="btn btn-primary next-btn">Next &rarr;</button>
@@ -374,27 +403,25 @@
           <!-- Step 2: Brainstorm -->
           <div id="step-2" class="wizard-step">
             <div class="card">
-              <h4>Step 2: Brainstorm (6-Minute Timer)</h4>
-              <p>Use the next 6 minutes to brainstorm ideas and structure your essay. This is a guide to help you practice time management.</p>
-              <div class="text-center my-4">
-                <button id="startTimerBtn" class="btn btn-success mt-4">Start Timer</button>
-                <div id="focus-overlay" class="focus-overlay d-none">
-                  <div class="focus-center">
-                    <div id="focus-timer-display">3:00</div>
-                    <div id="focus-message" class="mt-3 fw-bold text-light fs-4"></div>
-                  </div>
-                  <!-- Removed clock-tick audio element -->
-                </div>
-              </div>
-              <div class="alert alert-light" role="alert">
-                <div class="row">
-                  <div class="col-md-6">
-                    <img src="materials/week-20-fri-wt-1-image.jpg" alt="Water usage charts" class="img-fluid rounded">
-                  </div>
-                  <div class="col-md-6">
+              <h2 class="mb-3" style="color: var(--primary-color);">Step 2: Brainstorm</h2>
+              <div class="row g-4">
+                <div class="col-lg-5">
+                  <div class="p-3 rounded" style="background-color: var(--soft-sky-blue);">
                     <h6 class="alert-heading">Task 1 Question</h6>
-                    <p>The charts below give information about the way in which water was used in different countries in 2000.</p>
-                    <p><strong>Summarize the information by selecting and reporting the main features and make relevant comparisons.</strong></p>
+                    <img src="materials/week-20-fri-wt-1-image.jpg" alt="Water usage charts" class="img-fluid rounded">
+                    <p class="mt-2 small"><strong>Summarize the information by selecting and reporting the main features and make relevant comparisons.</strong></p>
+                  </div>
+                </div>
+                <div class="col-lg-7 d-flex flex-column justify-content-center align-items-center text-center">
+                  <h4 class="mb-3">6-Minute Focus Timer</h4>
+                  <p>Use the timer to brainstorm ideas and structure your response. This helps practice time management.</p>
+                  <button id="startTimerBtn" class="btn btn-success btn-lg mt-3">Start Timer</button>
+                  <div id="focus-overlay" class="focus-overlay d-none">
+                    <div class="focus-center">
+                      <div id="focus-timer-display">6:00</div>
+                      <div id="focus-message" class="mt-3 fw-bold text-light fs-4"></div>
+                    </div>
+                    <!-- Removed clock-tick audio element -->
                   </div>
                 </div>
               </div>
@@ -409,36 +436,76 @@
           <div id="step-3" class="wizard-step">
             <div class="card">
               <div class="d-flex justify-content-between align-items-center mb-3">
-                <h4>Step 3: Vocabulary Table</h4>
+                <h2 class="mb-0" style="color: var(--primary-color);">Step 3: Key Vocabulary</h2>
                 <select id="accent-select" class="form-select form-select-sm" style="width:140px;">
                   <option value="en-GB">UK Accent 🇬🇧</option>
                   <option value="en-IN">Indian Accent 🇮🇳</option>
                 </select>
               </div>
               <p>Review the key vocabulary for this task. Using a range of words is essential for a high score.</p>
-              <div class="table-responsive">
-                <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th class="w-30">Word/Phrase</th>
-                      <th class="w-25">Meaning</th>
-                      <th>Example Sentence</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr><td class="d-flex align-items-center gap-2"><span class="fw-semibold">Burgeoning</span><span class="tag tag-adj">adj</span><button class="btn btn-outline-secondary btn-sm speak-btn">🔊</button></td><td>Growing rapidly</td><td>The burgeoning interest in foreign education reflects global academic integration.</td></tr>
-                    <tr><td class="d-flex align-items-center gap-2"><span class="fw-semibold">Far-reaching</span><span class="tag tag-adj">adj</span><button class="btn btn-outline-secondary btn-sm speak-btn">🔊</button></td><td>Having extensive impact</td><td>The far-reaching effects of international study influence economies and cultures alike.</td></tr>
-                    <tr><td class="d-flex align-items-center gap-2"><span class="fw-semibold">Augment</span><span class="tag tag-verb">verb</span><button class="btn btn-outline-secondary btn-sm speak-btn">🔊</button></td><td>Enhance or increase</td><td>Studying abroad can augment one’s academic and interpersonal capabilities.</td></tr>
-                    <tr><td class="d-flex align-items-center gap-2"><span class="fw-semibold">Cross-cultural competence</span><span class="tag tag-noun">noun</span><button class="btn btn-outline-secondary btn-sm speak-btn">🔊</button></td><td>Ability to interact effectively with diverse groups</td><td>Employers highly value graduates who demonstrate cross-cultural competence.</td></tr>
-                    <tr><td class="d-flex align-items-center gap-2"><span class="fw-semibold">Alleviate</span><span class="tag tag-verb">verb</span><button class="btn btn-outline-secondary btn-sm speak-btn">🔊</button></td><td>Ease or lessen</td><td>Exposure to diverse societies can alleviate prejudice and narrowmindedness.</td></tr>
-                    <tr><td class="d-flex align-items-center gap-2"><span class="fw-semibold">Predicament</span><span class="tag tag-noun">noun</span><button class="btn btn-outline-secondary btn-sm speak-btn">🔊</button></td><td>Problem or difficult situation</td><td>Many families face a financial predicament while funding education overseas.</td></tr>
-                    <tr><td class="d-flex align-items-center gap-2"><span class="fw-semibold">Adverse</span><span class="tag tag-adj">adj</span><button class="btn btn-outline-secondary btn-sm speak-btn">🔊</button></td><td>Negative or harmful</td><td>Students might face adverse mental effects due to homesickness and cultural stress.</td></tr>
-                    <tr><td class="d-flex align-items-center gap-2"><span class="fw-semibold">Stymies</span><span class="tag tag-verb">verb</span><button class="btn btn-outline-secondary btn-sm speak-btn">🔊</button></td><td>Hinders or obstructs</td><td>The high cost often stymies underprivileged students from pursuing international degrees.</td></tr>
-                    <tr><td class="d-flex align-items-center gap-2"><span class="fw-semibold">Curtailing</span><span class="tag tag-verb">verb</span><button class="btn btn-outline-secondary btn-sm speak-btn">🔊</button></td><td>Reducing or limiting</td><td>Requalification requirements can end up curtailing career momentum.</td></tr>
-                    <tr><td class="d-flex align-items-center gap-2"><span class="fw-semibold">Repercussions</span><span class="tag tag-noun">noun</span><button class="btn btn-outline-secondary btn-sm speak-btn">🔊</button></td><td>Consequences or effects</td><td>The positive repercussions of studying abroad extend far beyond academia.</td></tr>
-                    <tr><td class="d-flex align-items-center gap-2"><span class="fw-semibold">Brain drain</span><span class="tag tag-noun">noun</span><button class="btn btn-outline-secondary btn-sm speak-btn">🔊</button></td><td>Migration of skilled professionals</td><td>Excessive brain drain can weaken a nation’s developmental progress.</td></tr>
-                  </tbody>
-                </table>
+              <div class="row mt-4">
+                <!-- Vocabulary Card Template -->
+                <div class="col-lg-6 mb-4">
+                  <div class="vocab-card">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <h5 class="vocab-word mb-0">Burgeoning <span class="tag tag-adj">adj</span></h5>
+                      <button class="pronounce-btn speak-btn">🔊</button>
+                    </div>
+                    <p class="vocab-definition">Growing rapidly</p>
+                    <p class="small text-muted" style="font-family: 'Source Sans Pro', sans-serif;"><em>The burgeoning interest in foreign education reflects global academic integration.</em></p>
+                  </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                  <div class="vocab-card">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <h5 class="vocab-word mb-0">Far-reaching <span class="tag tag-adj">adj</span></h5>
+                      <button class="pronounce-btn speak-btn">🔊</button>
+                    </div>
+                    <p class="vocab-definition">Having extensive impact</p>
+                    <p class="small text-muted" style="font-family: 'Source Sans Pro', sans-serif;"><em>The far-reaching effects of international study influence economies and cultures alike.</em></p>
+                  </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                  <div class="vocab-card">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <h5 class="vocab-word mb-0">Augment <span class="tag tag-verb">verb</span></h5>
+                      <button class="pronounce-btn speak-btn">🔊</button>
+                    </div>
+                    <p class="vocab-definition">Enhance or increase</p>
+                    <p class="small text-muted" style="font-family: 'Source Sans Pro', sans-serif;"><em>Studying abroad can augment one’s academic and interpersonal capabilities.</em></p>
+                  </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                  <div class="vocab-card">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <h5 class="vocab-word mb-0">Alleviate <span class="tag tag-verb">verb</span></h5>
+                      <button class="pronounce-btn speak-btn">🔊</button>
+                    </div>
+                    <p class="vocab-definition">Ease or lessen</p>
+                    <p class="small text-muted" style="font-family: 'Source Sans Pro', sans-serif;"><em>Exposure to diverse societies can alleviate prejudice and narrowmindedness.</em></p>
+                  </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                  <div class="vocab-card">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <h5 class="vocab-word mb-0">Adverse <span class="tag tag-adj">adj</span></h5>
+                      <button class="pronounce-btn speak-btn">🔊</button>
+                    </div>
+                    <p class="vocab-definition">Negative or harmful</p>
+                    <p class="small text-muted" style="font-family: 'Source Sans Pro', sans-serif;"><em>Students might face adverse mental effects due to homesickness and cultural stress.</em></p>
+                  </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                  <div class="vocab-card">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <h5 class="vocab-word mb-0">Brain drain <span class="tag tag-noun">noun</span></h5>
+                      <button class="pronounce-btn speak-btn">🔊</button>
+                    </div>
+                    <p class="vocab-definition">Migration of skilled professionals</p>
+                    <p class="small text-muted" style="font-family: 'Source Sans Pro', sans-serif;"><em>Excessive brain drain can weaken a nation’s developmental progress.</em></p>
+                  </div>
+                </div>
+                <!-- Add more cards as needed -->
               </div>
               <div class="d-flex justify-content-between mt-4">
                 <button class="btn btn-secondary prev-btn">&larr; Previous</button>
@@ -450,23 +517,31 @@
           <!-- Step 4: Plan Introduction & Conclusion -->
           <div id="step-4" class="wizard-step">
             <div class="card">
-              <h4>Step 4: Plan Introduction & Overview</h4>
+              <h2 class="mb-3" style="color: var(--primary-color);">Step 4: Plan Introduction & Overview</h2>
               <p>Review these sample introductions and overviews. Notice how they paraphrase the prompt and state the main trends.</p>
-              <div class="sample-text-card">
-                <h6>Sample Introduction 1</h6>
-                <p class="small">The pie chart illustrates the global distribution of water consumption across three sectors — agriculture, domestic use, and industry, while the bar chart compares how these same categories of water were utilised in China, India, New Zealand, and Canada in the year 2000, measured in percentages.</p>
-              </div>
-              <div class="sample-text-card">
-                <h6>Sample Introduction 2</h6>
-                <p class="small">The pie chart details the global distribution of water consumption across three sectors—agriculture, domestic use and industry—whereas the accompanying bar chart contrasts the proportional use of water within the same categories across China, India, New Zealand and Canada in 2000, scaled in percentages.</p>
-              </div>
-              <div class="sample-text-card">
-                <h6>Sample Overview 1</h6>
-                <p class="small">Overall, agriculture dominated global water use, and the same pattern was evident in China and India, whereas Canada and New Zealand allocated a significantly larger proportion of water to industrial and domestic purposes. Industries consumed the lowest share globally, but domestic use was the least significant sector in both China and India.</p>
-              </div>
-              <div class="sample-text-card">
-                <h6>Sample Overview 2</h6>
-                <p class="small">Overall, water usage at the global level was heavily skewed towards agricultural activities, and a similar pattern was evident in China and India. In sharp contrast, Canada and New Zealand indicated more diversified consumption, with significantly greater emphasis on domestic and industrial utilisation. Notably, industry accounted for the smallest global share, while agriculture dominated national patterns in two of the four countries.</p>
+              <div class="row g-4 mt-2">
+                <div class="col-lg-6">
+                  <h5 class="mb-3">Sample Introductions</h5>
+                  <div class="sample-text-card">
+                    <h6>Sample 1</h6>
+                    <p class="small">The pie chart illustrates the global distribution of water consumption across three sectors — agriculture, domestic use, and industry, while the bar chart compares how these same categories of water were utilised in China, India, New Zealand, and Canada in the year 2000, measured in percentages.</p>
+                  </div>
+                  <div class="sample-text-card">
+                    <h6>Sample 2</h6>
+                    <p class="small">The pie chart details the global distribution of water consumption across three sectors—agriculture, domestic use and industry—whereas the accompanying bar chart contrasts the proportional use of water within the same categories across China, India, New Zealand and Canada in 2000, scaled in percentages.</p>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <h5 class="mb-3">Sample Overviews</h5>
+                  <div class="sample-text-card">
+                    <h6>Sample 1</h6>
+                    <p class="small">Overall, agriculture dominated global water use, and the same pattern was evident in China and India, whereas Canada and New Zealand allocated a significantly larger proportion of water to industrial and domestic purposes. Industries consumed the lowest share globally, but domestic use was the least significant sector in both China and India.</p>
+                  </div>
+                  <div class="sample-text-card">
+                    <h6>Sample 2</h6>
+                    <p class="small">Overall, water usage at the global level was heavily skewed towards agricultural activities, and a similar pattern was evident in China and India. In sharp contrast, Canada and New Zealand indicated more diversified consumption, with significantly greater emphasis on domestic and industrial utilisation. Notably, industry accounted for the smallest global share, while agriculture dominated national patterns in two of the four countries.</p>
+                  </div>
+                </div>
               </div>
               <div class="d-flex justify-content-between mt-4">
                 <button class="btn btn-secondary prev-btn">&larr; Previous</button>
@@ -478,7 +553,7 @@
           <!-- Step 5: Plan Body Paragraph 1 -->
           <div id="step-5" class="wizard-step">
             <div class="card">
-              <h4>Step 5: Plan Body Paragraph 1</h4>
+              <h2 class="mb-3" style="color: var(--primary-color);">Step 5: Plan Body Paragraph 1</h2>
               <p>Focus on agriculture and the major contrasts between the countries.</p>
               <div class="sample-text-card">
                 <h5>Body Paragraph 1 — Bullet Points (Agriculture Focus & Major Contrasts)</h5>
@@ -491,8 +566,8 @@
                 </ul>
               </div>
               <div class="d-flex justify-content-between mt-4">
-                <button class="btn prev-btn">&larr; Previous</button>
-                <button class="btn next-btn">Next &rarr;</button>
+                <button class="btn btn-secondary prev-btn">&larr; Previous</button>
+                <button class="btn btn-primary next-btn">Next &rarr;</button>
               </div>
             </div>
           </div>
@@ -500,7 +575,7 @@
           <!-- Step 6: Plan Body Paragraph 2 -->
           <div id="step-6" class="wizard-step">
             <div class="card">
-              <h4>Step 6: Plan Body Paragraph 2</h4>
+              <h2 class="mb-3" style="color: var(--primary-color);">Step 6: Plan Body Paragraph 2</h2>
               <p>Detail the industrial and domestic usage, highlighting the remaining contrasts.</p>
               <div class="sample-text-card">
                 <h5>Body Paragraph 2 — Bullet Points (Industry + Domestic + Remaining Contrasts)</h5>
@@ -511,8 +586,8 @@
                 </ul>
               </div>
               <div class="d-flex justify-content-between mt-4">
-                <button class="btn prev-btn">&larr; Previous</button>
-                <button class="btn next-btn">Next &rarr;</button>
+                <button class="btn btn-secondary prev-btn">&larr; Previous</button>
+                <button class="btn btn-primary next-btn">Next &rarr;</button>
               </div>
             </div>
           </div>
@@ -520,19 +595,16 @@
           <!-- Step 7: Download PDF & Quiz -->
           <div id="step-7" class="wizard-step">
             <div class="card">
-              <div class="text-center">
-                <h4>Step 7: Final Review & Download</h4>
-                <div class="row align-items-center">
-                  <div class="col-md-6">
-                    <p>Scan the QR code to attempt the quiz, or download your worksheet.</p>
-                    <img src="materials/qrcode_todayieltstask.onrender.com.png" alt="QR Code for quiz" class="img-fluid border rounded shadow-sm my-4" style="max-width: 150px;" onerror="this.style.display='none'"><br>
-                    <a href="teacher-report.html" target="_blank" class="btn btn-info text-white mb-3">Tutor Report</a>
-                  </div>
-                </div>
+              <div class="text-center p-lg-5">
+                <i class="fas fa-check-circle fa-5x mb-4" style="color: var(--accent-green);"></i>
+                <h1 class="display-4" style="color: var(--secondary-color);">Task Complete!</h1>
+                <p class="lead text-muted">You have successfully finished the guided writing task.</p>
+                <p>You can now take the quiz or review your work.</p>
+                <a href="quiz.html" class="btn btn-primary btn-lg mt-4">Take the Quiz</a>
               </div>
               <div class="d-flex justify-content-between mt-4">
-                <button class="btn prev-btn">&larr; Previous</button>
-                <button class="btn btn-success" id="return-home-btn">Return to Home</button>
+                <button class="btn btn-secondary prev-btn">&larr; Previous</button>
+                <button class="btn btn-success" id="finish-btn">Return to Home</button>
               </div>
             </div>
           </div>
@@ -596,8 +668,8 @@
       const stepIndicator = document.getElementById('step-indicator');
       const progressFill = document.getElementById('progress-fill');
       const nextButtons = document.querySelectorAll('.next-btn');
-      const prevButtons = document.querySelectorAll('.prev-btn');
-      const returnHomeBtn = document.getElementById('return-home-btn');
+      const prevButtons = document.querySelectorAll('.prev-btn'); 
+      const finishBtn = document.getElementById('finish-btn');
       let currentStep = 0;
       const totalSteps = steps.length;
 
@@ -615,6 +687,7 @@
         if (passwordInput.value === 'VII I MMVI') {
           loginSection.style.display = 'none';
           wizardSection.style.display = 'block';
+          errorAlert.style.display = 'none';
           showStep(currentStep);
         } else {
           errorAlert.style.display = 'block';
@@ -635,6 +708,10 @@
         });
         currentStep = stepIndex;
         updateUI();
+        // Trigger confetti on the last step
+        if (currentStep === totalSteps - 1) {
+          confetti({ particleCount: 150, spread: 90, origin: { y: 0.6 } });
+        }
         window.scrollTo(0, 0);
       }
 
@@ -654,7 +731,7 @@
         });
       });
 
-      returnHomeBtn?.addEventListener('click', () => {
+      finishBtn?.addEventListener('click', () => {
         showStep(0);
       });
 
@@ -675,7 +752,7 @@
       function startTimer() {
         overlay.classList.remove("d-none");
         
-        let t = 180; // 3 minutes
+        let t = 360; // 6 minutes
         let minuteIndex = 0;
         
         const timer = setInterval(() => {
@@ -705,7 +782,7 @@
 
       document.querySelectorAll('.speak-btn').forEach(button => {
         button.addEventListener('click', () => {
-          const wordToSpeak = button.parentElement.querySelector('span.fw-semibold').textContent;
+          const wordToSpeak = button.parentElement.querySelector('.vocab-word').textContent.split(" ")[0];
           const utterance = new SpeechSynthesisUtterance(wordToSpeak);
           utterance.lang = accent;
           speechSynthesis.speak(utterance);
