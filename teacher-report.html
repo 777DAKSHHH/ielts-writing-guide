@@ -12,15 +12,18 @@
   <!-- Firebase SDKs (Modular v9+ syntax) -->
   <style>
     :root {
-      --primary-color: #0057B7;
-      --text-color: #1E293B;
+      --primary-color: #1A73E8; /* Royal Blue */
+      --secondary-color: #0D1B2A; /* Deep Navy */
+      --text-color: #303030; /* Charcoal */
       --success-color: #198754;
       --danger-color: #dc3545;
       --warning-color: #ffc107;
+      --bg-color: #F7F9FC; /* Cool Grey */
+      --card-bg: #FFFFFF;
     }
     body {
       font-family: 'Lato', sans-serif;
-      background: linear-gradient(135deg, #F1F5F9 0%, #FFFFFF 100%);
+      background-color: var(--bg-color);
       color: var(--text-color);
       min-height: 100vh;
     }
@@ -51,8 +54,26 @@
     .text-warning { color: var(--warning-color) !important; }
   </style>
 </head>
-<body class="p-4">
-  <div class="container-fluid">
+<body class="p-4" style="background-color: var(--bg-color);">
+  <!-- LOGIN SECTION -->
+  <div id="login-section">
+    <div class="d-flex align-items-center justify-content-center min-vh-100" style="background: var(--secondary-color);">
+      <div class="card text-center p-4 p-md-5" style="max-width: 450px; border:none; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px);">
+        <h1 class="mb-2 text-white">Tutor Report</h1>
+        <p class="text-white-50 mb-4">Enter the password to view the live dashboard.</p>
+        <div class="form-floating mb-3">
+          <input type="password" class="form-control" id="password-input" placeholder="Password">
+          <label for="password-input">Password</label>
+        </div>
+        <button id="login-btn" class="btn btn-primary btn-lg w-100">View Report</button>
+        <div id="error-alert" class="alert alert-danger mt-3" style="display: none;">
+          Incorrect password. Please try again.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="report-section" class="container-fluid" style="display: none;">
     <header class="text-center mb-5">
       <h2>📊 Live Teacher Dashboard</h2>
       <p class="text-muted">Real-time results from student quiz submissions</p>
@@ -95,6 +116,24 @@
     // --- Initialize Firebase ---
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
+
+    // --- Login Logic ---
+    const loginSection = document.getElementById('login-section');
+    const reportSection = document.getElementById('report-section');
+    const loginBtn = document.getElementById('login-btn');
+    const passwordInput = document.getElementById('password-input');
+    const errorAlert = document.getElementById('error-alert');
+
+    loginBtn.addEventListener('click', () => {
+      if (passwordInput.value === '3753') {
+        loginSection.style.display = 'none';
+        document.body.style.backgroundColor = 'var(--bg-color)'; // Reset body background
+        reportSection.style.display = 'block';
+        errorAlert.style.display = 'none';
+      } else {
+        errorAlert.style.display = 'block';
+      }
+    });
 
     // --- Table Element ---
     const tableBody = document.getElementById("reportTableBody");
