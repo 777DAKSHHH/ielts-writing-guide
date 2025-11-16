@@ -92,8 +92,13 @@ function checkQuiz() {
 
     submitQuizResults(score, totalQuestions, wrongQuestions, unansweredCount);
 
-    document.getElementById("resultBox").style.display = "block";
-    document.getElementById("resultBox").innerHTML = `You scored ${score} out of ${totalQuestions}.`;
+    const resultBox = document.getElementById("resultBox");
+    resultBox.style.display = "block";
+    resultBox.innerHTML = `
+      <h2>Your Score: ${score} / ${totalQuestions}</h2>
+      <p>Great job! Review your answers above.</p>
+    `;
 
     document.getElementById("downloadBtn").style.display = "inline-block";
+    resultBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
