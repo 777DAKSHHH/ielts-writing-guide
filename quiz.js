@@ -15,21 +15,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function checkQuiz() {
     const answers = {
-        q1: 'b',
-        q2: 'c',
+        q1: 'a',
+        q2: 'b',
         q3: 'b',
-        q4: 'a',
-        q5: 'b',
-        q6: 'b',
-        q7: 'a',
-        q8: 'b',
-        q9: 'a',
-        q10: 'a',
-        q11: 'c',
+        q4: 'b',
+        q5: 'a',
+        q6: 'a',
+        q7: 'c',
+        q8: 'a',
+        q9: 'b',
+        q10: 'b',
+        q11: 'a',
         q12: 'b',
-        q13: 'c',
+        q13: 'b',
         q14: 'b',
-        q15: 'b'
+        q15: 'b',
     };
 
     let score = 0;
