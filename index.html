@@ -368,32 +368,11 @@
           <div id="step-1" class="wizard-step active">
             <div class="card">
               <h2 class="mb-3" style="color: var(--primary-color);">Step 1: Task Overview</h2>
-              <p>Choose your preferred format for a brief overview of how to approach this type of task.</p>
-              <ul class="nav nav-tabs" id="overviewTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link active" id="audio-tab" data-bs-toggle="tab" data-bs-target="#audio-pane" type="button" role="tab" aria-controls="audio-pane" aria-selected="true">Audio</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="video-tab" data-bs-toggle="tab" data-bs-target="#video-pane" type="button" role="tab" aria-controls="video-pane" aria-selected="false">Video</button>
-                </li>
-              </ul>
-              <div class="tab-content p-3 border border-top-0 rounded-bottom mb-3" id="overviewTabContent">
-                <div class="tab-pane fade show active p-2" id="audio-pane" role="tabpanel" style="background-color: var(--soft-sky-blue);">
-                  <audio controls class="w-100 media-player">
-                    <source src="materials/week-20-fri[task1-audio].mp3" type="audio/mpeg">Your browser does not support the audio element.</source></audio>
-                </div>
-                <div class="tab-pane fade" id="video-pane" role="tabpanel">
-                  <div class="ratio ratio-16x9">
-                    <video controls class="w-100 rounded media-player">
-                      <source src="materials/week-20-fri[task1-video].mp4" type="video/mp4">Your browser does not support the video tag.</source></video>
-                  </div>
-                </div>
-              </div>
-              <div class="d-flex align-items-center p-3 mt-3" style="border-left: 4px solid var(--accent-gold); background-color: #FFFBEB;">
-                <i class="fas fa-lightbulb fa-lg me-3" style="color: var(--accent-gold);"></i>
-                <p class="mb-0" style="font-family: 'Source Sans Pro', sans-serif;">Listen to the overview carefully before starting your plan.</p>
-              </div>
-              <p class="completion-feedback" id="media-completed">✅ Completed! Move to the next step.</p>
+              <p>Welcome! This guided task will walk you through the process of planning and structuring an IELTS Writing Task 1 response.</p>
+              <p>Follow each step carefully to build a strong foundation for your answer. Click 'Next' to begin.</p>
+              
+              <!-- Media section has been removed as requested. -->
+
               <div class="d-flex justify-content-end mt-4">
                 <button class="btn btn-primary next-btn">Next &rarr;</button>
               </div>
@@ -796,16 +775,6 @@
         });
       });
 
-      // --- Media Completion Logic ---
-      document.querySelectorAll('.media-player').forEach(player => {
-        player.addEventListener('ended', () => {
-          console.log(`Media player ${player.tagName} ended.`); // Log when media ends
-          document.getElementById('media-completed').style.display = 'block';
-        });
-        player.addEventListener('error', (e) => {
-          console.error(`Error loading media: ${player.currentSrc}`, e); // Log any media loading errors
-        });
-      });
     });
   </script>
 
