@@ -101,20 +101,20 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
     import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
 
-    // --- Firebase Config ---
+    // My Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSy***Q",
       authDomain: "ielts-live-dashboard.firebaseapp.com",
       databaseURL: "https://ielts-live-dashboard-default-rtdb.firebaseio.com",
       projectId: "ielts-live-dashboard",
-      storageBucket: "ielts-live-dashboard.firebasestorage.app",
+      storageBucket: "ielts-live-dashboard.appspot.com",
       messagingSenderId: "1044694021318",
       appId: "1:1044694021318:web:70f1ac1ba0787d37da93c7",
       measurementId: "G-R9G2YGSBM9"
     };
 
-    // --- Initialize Firebase ---
-    const app = initializeApp(firebaseConfig);
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig); // Connect to my firebase project
     const db = getDatabase(app);
 
     // --- Login Logic ---
@@ -135,17 +135,17 @@
       }
     });
 
-    // --- Table Element ---
+    // Get the table body to insert rows later
     const tableBody = document.getElementById("reportTableBody");
 
-    // --- Real-time Listener ---
+    // Listen for new results from the database in real-time
     const resultsRef = ref(db, "quizResults");
     onValue(resultsRef, (snapshot) => {
       const data = snapshot.val();
       tableBody.innerHTML = "";
 
       if (data) {
-        // convert to array so we can reverse order (newest first)
+        // convert to array(i.e reverse order (newest first))
         const records = Object.values(data).reverse();
         records.forEach(record => {
           const row = `
@@ -162,7 +162,7 @@
         tableBody.innerHTML = `<tr><td colspan="5" class="text-muted text-center p-4">No results found yet. Waiting for first submission...</td></tr>`;
       }
     }, (error) => {
-      console.error("❌ Firebase read error:", error.message);
+      console.error("Firebase read failed: ", error.message);
     });
   </script>
 </body>
