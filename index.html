@@ -417,16 +417,22 @@
                   </div>
                 </div>
                 <div class="col-lg-7 d-flex flex-column justify-content-center align-items-center text-center">
-                  <h4 class="mb-3">6-Minute Focus Timer</h4>
-                  <p>Use the timer to brainstorm ideas and structure your response. This helps practice time management.</p>
-                  <button id="startTimerBtn" class="btn btn-success btn-lg mt-3">Start Timer</button>
-                  <div id="focus-overlay" class="focus-overlay d-none">
-                    <div class="focus-center">
-                      <div id="focus-timer-display">6:00</div>
-                      <div id="focus-message" class="mt-3 fw-bold text-light fs-4"></div>
+                  <h4 class="mb-3">6-Minute Brainstorm Timer</h4>
+                  <div class="grid grid-flow-col gap-5 text-center auto-cols-max">
+                    <div class="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
+                      <span class="countdown font-mono text-5xl">
+                        <span id="timer-minutes" style="--value:6;"></span>
+                      </span>
+                      min
+                    </div> 
+                    <div class="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
+                      <span class="countdown font-mono text-5xl">
+                        <span id="timer-seconds" style="--value:0;"></span>
+                      </span>
+                      sec
                     </div>
-                    <!-- Removed clock-tick audio element -->
                   </div>
+                  <button id="startTimerBtn" class="btn btn-success btn-lg mt-4">Start Timer</button>
                 </div>
               </div>
               <div class="d-flex justify-content-between mt-4">
@@ -743,45 +749,31 @@
 
       // --- Timer Logic ---
       const startTimerBtn = document.getElementById('startTimerBtn');
-      const overlay = document.getElementById("focus-overlay");
-      const focusTimer = document.getElementById("focus-timer-display");
-      const focusMsg = document.getElementById("focus-message");
-      const messages = [
-        "Think about trends!",
-        "What comparisons can you make?",
-        "Note high & low points.",
-        "Focus on data contrast!",
-        "Link features logically.",
-        "Finalize your main features!"
-      ];
+      const timerMinutesEl = document.getElementById('timer-minutes');
+      const timerSecondsEl = document.getElementById('timer-seconds');
+      let timerInterval;
 
       function startTimer() {
-        overlay.classList.remove("d-none");
-        
+        startTimerBtn.disabled = true;
         let t = 360; // 6 minutes
-        let minuteIndex = 0;
-        
-        const timer = setInterval(() => {
-          const m = Math.floor(t / 60).toString().padStart(2,'0');
-          const s = (t % 60).toString().padStart(2,'0');
-          focusTimer.textContent = `${m}:${s}`;
-          if (t % 60 === 0 && minuteIndex < messages.length) {
-            focusMsg.textContent = messages[minuteIndex++];
-          }
+
+        timerInterval = setInterval(() => {
+          const m = Math.floor(t / 60);
+          const s = t % 60;
+
+          timerMinutesEl.style.setProperty('--value', m);
+          timerSecondsEl.style.setProperty('--value', s);
+
           if (--t < 0) {
-            clearInterval(timer);
-            focusMsg.textContent = "Time’s up!";
-            setTimeout(()=>overlay.classList.add("d-none"),1500);
+            clearInterval(timerInterval);
+            startTimerBtn.disabled = false;
+            // Optionally reset timer display
+            timerMinutesEl.style.setProperty('--value', 6);
+            timerSecondsEl.style.setProperty('--value', 0);
           }
         }, 1000);
       }
       startTimerBtn?.addEventListener('click', startTimer);
-
-      overlay.addEventListener("click", () => {
-        overlay.classList.add("d-none");
-        // Note: This doesn't stop the interval, it just hides the overlay.
-        // For a full stop, you'd need to clear the interval here too.
-      });
 
       let accent = 'en-GB';
       document.getElementById('accent-select').addEventListener('change', e => accent = e.target.value);

@@ -13,6 +13,17 @@
         .question { margin-bottom: 1.5rem; }
         .options .form-check { margin-bottom: 0.5rem; }
         .timer { font-size: 1.5rem; font-weight: bold; color: var(--primary-color); }
+        .correct .form-check-label {
+            font-weight: bold;
+        }
+        .correct {
+            background-color: #d1e7dd;
+            border-radius: .25rem;
+        }
+        .wrong {
+            background-color: #f8d7da;
+            border-radius: .25rem;
+        }
     </style>
 </head>
 <body>
@@ -45,11 +56,12 @@
     <button id="submit-quiz-btn" class="btn btn-success btn-lg w-100 mt-4">Submit Answers</button>
 </div>
 
-<!-- Thank You Section -->
-<div id="thank-you-section" class="d-flex align-items-center justify-content-center min-vh-100" style="display: none;">
-    <div class="text-center">
-        <h1>Thank You!</h1>
-        <p class="lead">Your results have been submitted.</p>
+<!-- Result Section -->
+<div id="result-section" class="quiz-container text-center" style="display: none;">
+    <h2 id="score-display"></h2>
+    <p class="lead">Your results have been submitted. Review your answers above.</p>
+    <div class="mt-4">
+        <a href="materials/week21-wt2pdf.pdf" id="downloadBtn" class="btn btn-info" download>Download Grammar PDF Guide</a>
     </div>
 </div>
 
@@ -76,7 +88,7 @@
     // --- DOM Elements ---
     const nameSection = document.getElementById('name-section');
     const quizSection = document.getElementById('quiz-section');
-    const thankYouSection = document.getElementById('thank-you-section');
+    const resultSection = document.getElementById('result-section');
     const studentNameInput = document.getElementById('student-name-input');
     const startQuizBtn = document.getElementById('start-quiz-btn');
     const nameError = document.getElementById('name-error');
@@ -256,8 +268,29 @@
 
         // TODO: Send to /analytics (This requires more complex transaction logic server-side or via cloud functions for aggregation)
 
-        quizSection.style.display = 'none';
-        thankYouSection.style.display = 'block';
+        // --- Show results to the student ---
+        document.getElementById('score-display').textContent = `Your Score: ${correct} / ${totalQuestions}`;
+        
+        quizData.questions.forEach((q, index) => {
+            const options = document.querySelectorAll(`input[name="q${index}"]`);
+            options.forEach(optionRadio => {
+                const label = optionRadio.closest('.form-check');
+                // Highlight the correct answer
+                if (optionRadio.value === q.a) {
+                    label.classList.add('correct');
+                }
+                // If an incorrect option was selected, highlight it as wrong
+                if (optionRadio.checked && optionRadio.value !== q.a) {
+                    label.classList.add('wrong');
+                }
+                // Disable all inputs
+                optionRadio.disabled = true;
+            });
+        });
+
+        resultSection.style.display = 'block';
+        submitQuizBtn.style.display = 'none'; // Hide submit button
+        resultSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
 </script>
