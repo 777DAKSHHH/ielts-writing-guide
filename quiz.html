@@ -4,33 +4,116 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IELTS Practice Quiz</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <style>
-        :root { --primary-color: #1A73E8; --bg-color: #F7F9FC; }
-        body { background-color: var(--bg-color); font-family: 'Inter', sans-serif; }
-        .quiz-container { max-width: 800px; margin: 2rem auto; background: #fff; padding: 2rem; border-radius: 16px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
-        .name-container { text-align: center; }
-        .question { margin-bottom: 1.5rem; }
-        .options .form-check { margin-bottom: 0.5rem; }
-        .timer { font-size: 1.5rem; font-weight: bold; color: var(--primary-color); }
-        .correct .form-check-label {
-            font-weight: bold;
+        :root {
+            --primary-color: #1A73E8;
+            --secondary-color: #0D1B2A;
+            --accent-green: #00A884;
+            --danger-color: #dc3545;
+            --bg-color: #F7F9FC;
+            --text-color: #303030;
+            --card-bg: #FFFFFF;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: 'Inter', sans-serif;
+            color: var(--text-color);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            color: var(--secondary-color);
+        }
+
+        .card {
+            border: none;
+            border-radius: 16px;
+            background: var(--card-bg);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.07);
+            padding: 2rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        /* Name Input Section */
+        #name-section .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+        }
+        #name-section h1 { color: #fff; }
+        #name-section p { color: rgba(255, 255, 255, 0.8); }
+
+        /* Quiz Container */
+        .quiz-container {
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+
+        .timer {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .question {
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .options .form-check-label {
+            display: block;
+            width: 100%;
+            padding: 0.75rem 1.25rem;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+        .options .form-check-label:hover {
+            background-color: #f8f9fa;
+            border-color: var(--primary-color);
+        }
+        .options .form-check-input {
+            display: none; /* Hide the actual radio button */
         }
         .correct {
-            background-color: #d1e7dd;
-            border-radius: .25rem;
+            background-color: #d1e7dd !important;
+            border-color: var(--accent-green) !important;
+            font-weight: bold;
         }
         .wrong {
-            background-color: #f8d7da;
-            border-radius: .25rem;
+            background-color: #f8d7da !important;
+            border-color: var(--danger-color) !important;
+        }
+        .correct::before { content: '✔ '; color: var(--accent-green); }
+        .wrong::before { content: '✖ '; color: var(--danger-color); }
+        .btn-info {
+            background-color: #0dcaf0;
+            border-color: #0dcaf0;
+            color: white;
+            font-weight: 700;
         }
     </style>
 </head>
 <body>
 
 <!-- Name Input Section -->
-<div id="name-section" class="d-flex align-items-center justify-content-center min-vh-100">
-    <div class="name-container card p-4 p-md-5 text-center">
+<div id="name-section" class="d-flex align-items-center justify-content-center min-vh-100" style="background: var(--secondary-color);">
+    <div class="card text-center p-4 p-md-5" style="max-width: 450px;">
         <h1 class="mb-3">IELTS Practice Quiz</h1>
         <p class="text-muted mb-4">Please enter your full name to begin.</p>
         <div class="form-floating mb-3">
@@ -43,7 +126,7 @@
 </div>
 
 <!-- Quiz Section -->
-<div id="quiz-section" class="quiz-container" style="display: none;">
+<div id="quiz-section" class="quiz-container card" style="display: none;">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 id="quiz-title">Writing Task 1 Quiz</h2>
         <div id="timer" class="timer">04:00</div>
@@ -57,7 +140,7 @@
 </div>
 
 <!-- Result Section -->
-<div id="result-section" class="quiz-container text-center" style="display: none;">
+<div id="result-section" class="quiz-container card text-center" style="display: none;">
     <h2 id="score-display"></h2>
     <p class="lead">Your results have been submitted. Review your answers above.</p>
     <div class="mt-4">
@@ -104,13 +187,18 @@
     // --- Dummy Quiz Data ---
     const quizData = {
         id: 'task1',
-        title: 'Writing Task 1 Quiz',
+        title: 'IELTS Grammar Quiz',
         questions: [
-            { q: "What is the primary purpose of an introduction in Task 1?", o: ["To give your opinion", "To paraphrase the question", "To list all key features"], a: "To paraphrase the question" },
-            { q: "Should you include a conclusion in Task 1?", o: ["Always", "Never", "Only for maps"], a: "Never" },
-            { q: "What is a 'trend'?", o: ["A single data point", "A general direction or movement", "A comparison between two charts"], a: "A general direction or movement" },
-            // Add 12 more questions to make it 15
-            ...Array.from({ length: 12 }, (_, i) => ({ q: `Sample Question ${i + 4}`, o: [`Option A${i}`, `Option B${i}`, `Option C${i}`], a: `Option A${i}` }))
+            { q: "If he ____ earlier, he wouldn’t have missed the train.", o: ["leaves", "had left", "left", "would leave"], a: "had left" },
+            { q: "I look forward to ____ from you soon.", o: ["hear", "hearing", "be hearing", "have heard"], a: "hearing" },
+            { q: "She didn’t mind ____ alone in the office.", o: ["to work", "work", "working", "worked"], a: "working" },
+            { q: "By the time we arrived, the meeting ____.", o: ["has already started", "already starts", "had already started", "already started"], a: "had already started" },
+            { q: "He is ____ honest man.", o: ["a", "the", "an", "no article needed"], a: "an" },
+            { q: "Neither of the answers ____ correct.", o: ["are", "were", "is", "be"], a: "is" },
+            { q: "The more you practise, the ____ you become.", o: ["confident", "more confident", "most confident", "confidently"], a: "more confident" },
+            { q: "She asked me ____ the door.", o: ["to close", "close", "closing", "to closing"], a: "to close" },
+            { q: "If it ____ tomorrow, we will cancel the trip.", o: ["rains", "will rain", "rained", "is raining"], a: "rains" },
+            { q: "The project ____ by the end of this month.", o: ["has completed", "will be completed", "is completing", "completed"], a: "will be completed" }
         ]
     };
 
@@ -158,8 +246,8 @@
                     <p class="fw-bold">${index + 1}. ${q.q}</p>
                     <div class="options">
                         ${q.o.map(option => `
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="q${index}" id="q${index}-${option}" value="${option}">
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="q${index}" id="q${index}-${option}" value="${option}" autocomplete="off">
                                 <label class="form-check-label" for="q${index}-${option}">${option}</label>
                             </div>
                         `).join('')}
@@ -275,13 +363,13 @@
             const options = document.querySelectorAll(`input[name="q${index}"]`);
             options.forEach(optionRadio => {
                 const label = optionRadio.closest('.form-check');
-                // Highlight the correct answer
-                if (optionRadio.value === q.a) {
-                    label.classList.add('correct');
-                }
                 // If an incorrect option was selected, highlight it as wrong
                 if (optionRadio.checked && optionRadio.value !== q.a) {
                     label.classList.add('wrong');
+                }
+                // Highlight the correct answer
+                if (optionRadio.value === q.a) {
+                    label.classList.add('correct');
                 }
                 // Disable all inputs
                 optionRadio.disabled = true;
