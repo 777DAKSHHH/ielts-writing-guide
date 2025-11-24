@@ -1,387 +1,322 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IELTS Practice Quiz</title>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    <style>
-        :root {
-            --primary-color: #1A73E8;
-            --secondary-color: #0D1B2A;
-            --accent-green: #00A884;
-            --danger-color: #dc3545;
-            --bg-color: #F7F9FC;
-            --text-color: #303030;
-            --card-bg: #FFFFFF;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IELTS Grammar Quiz</title>
 
-        body {
-            background-color: var(--bg-color);
-            font-family: 'Inter', sans-serif;
-            color: var(--text-color);
-        }
-
-        h1, h2, h3 {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 700;
-            color: var(--secondary-color);
-        }
-
-        .card {
-            border: none;
-            border-radius: 16px;
-            background: var(--card-bg);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.07);
-            padding: 2rem;
-        }
-
-        .btn-primary {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-            font-weight: 700;
-        }
-
-        /* Name Input Section */
-        #name-section .card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-        }
-        #name-section h1 { color: #fff; }
-        #name-section p { color: rgba(255, 255, 255, 0.8); }
-
-        /* Quiz Container */
-        .quiz-container {
-            max-width: 800px;
-            margin: 2rem auto;
-        }
-
-        .timer {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-color);
-        }
-
-        .question {
-            border: 1px solid #e9ecef;
-            border-radius: 12px;
-            padding: 1.25rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .options .form-check-label {
-            display: block;
-            width: 100%;
-            padding: 0.75rem 1.25rem;
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.2s, border-color 0.2s;
-        }
-        .options .form-check-label:hover {
-            background-color: #f8f9fa;
-            border-color: var(--primary-color);
-        }
-        .options .form-check-input {
-            display: none; /* Hide the actual radio button */
-        }
-        .correct {
-            background-color: #d1e7dd !important;
-            border-color: var(--accent-green) !important;
-            font-weight: bold;
-        }
-        .wrong {
-            background-color: #f8d7da !important;
-            border-color: var(--danger-color) !important;
-        }
-        .correct::before { content: '✔ '; color: var(--accent-green); }
-        .wrong::before { content: '✖ '; color: var(--danger-color); }
-        .btn-info {
-            background-color: #0dcaf0;
-            border-color: #0dcaf0;
-            color: white;
-            font-weight: 700;
-        }
-    </style>
-</head>
-<body>
-
-<!-- Name Input Section -->
-<div id="name-section" class="d-flex align-items-center justify-content-center min-vh-100" style="background: var(--secondary-color);">
-    <div class="card text-center p-4 p-md-5" style="max-width: 450px;">
-        <h1 class="mb-3">IELTS Practice Quiz</h1>
-        <p class="text-muted mb-4">Please enter your full name to begin.</p>
-        <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="student-name-input" placeholder="Your Name">
-            <label for="student-name-input">Name (CAPITAL LETTERS)</label>
-        </div>
-        <button id="start-quiz-btn" class="btn btn-primary btn-lg w-100">Start Quiz</button>
-        <div id="name-error" class="text-danger mt-2" style="display: none;">Name is required.</div>
-    </div>
-</div>
-
-<!-- Quiz Section -->
-<div id="quiz-section" class="quiz-container card" style="display: none;">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 id="quiz-title">Writing Task 1 Quiz</h2>
-        <div id="timer" class="timer">04:00</div>
-    </div>
-
-    <div id="quiz-questions">
-        <!-- Questions will be dynamically inserted here -->
-    </div>
-
-    <button id="submit-quiz-btn" class="btn btn-success btn-lg w-100 mt-4">Submit Answers</button>
-</div>
-
-<!-- Result Section -->
-<div id="result-section" class="quiz-container card text-center" style="display: none;">
-    <h2 id="score-display"></h2>
-    <p class="lead">Your results have been submitted. Review your answers above.</p>
-    <div class="mt-4">
-        <a href="materials/week21-wt2pdf.pdf" id="downloadBtn" class="btn btn-info" download>Download Grammar PDF Guide</a>
-    </div>
-</div>
-
-<script type="module">
+  <!-- Firebase SDKs (Modular v9+ syntax) -->
+  <script type="module">
+    // Import the Firebase SDK functions
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-    import { getDatabase, ref, set, push, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
 
-    // --- Firebase Config ---
+    // Firebase Config
     const firebaseConfig = {
-        apiKey: "AIzaSy***Q",
-        authDomain: "ielts-live-dashboard.firebaseapp.com",
-        databaseURL: "https://ielts-live-dashboard-default-rtdb.firebaseio.com",
-        projectId: "ielts-live-dashboard",
-        storageBucket: "ielts-live-dashboard.appspot.com",
-        messagingSenderId: "1044694021318",
-        appId: "1:1044694021318:web:70f1ac1ba0787d37da93c7",
-        measurementId: "G-R9G2YGSBM9"
+      apiKey: "AIzaSy***Q",
+      authDomain: "ielts-live-dashboard.firebaseapp.com",
+      databaseURL: "https://ielts-live-dashboard-default-rtdb.firebaseio.com",
+      projectId: "ielts-live-dashboard",
+      storageBucket: "ielts-live-dashboard.firebasestorage.app",
+      messagingSenderId: "1044694021318",
+      appId: "1:1044694021318:web:70f1ac1ba0787d37da93c7",
+      measurementId: "G-R9G2YGSBM9"
     };
 
-    // --- Initialize Firebase ---
+    // Initialize Firebase App + DB
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
-    
-    // --- DOM Elements ---
-    const nameSection = document.getElementById('name-section');
-    const quizSection = document.getElementById('quiz-section');
-    const resultSection = document.getElementById('result-section');
-    const studentNameInput = document.getElementById('student-name-input');
-    const startQuizBtn = document.getElementById('start-quiz-btn');
-    const nameError = document.getElementById('name-error');
-    const submitQuizBtn = document.getElementById('submit-quiz-btn');
-    const timerEl = document.getElementById('timer');
 
-    // --- State ---
-    let studentName = '';
-    let startTime;
-    let timerInterval;
-    const quizDuration = 4 * 60; // 4 minutes in seconds
-
-    // --- Dummy Quiz Data ---
-    const quizData = {
-        id: 'task1',
-        title: 'IELTS Grammar Quiz',
-        questions: [
-            { q: "If he ____ earlier, he wouldn’t have missed the train.", o: ["leaves", "had left", "left", "would leave"], a: "had left" },
-            { q: "I look forward to ____ from you soon.", o: ["hear", "hearing", "be hearing", "have heard"], a: "hearing" },
-            { q: "She didn’t mind ____ alone in the office.", o: ["to work", "work", "working", "worked"], a: "working" },
-            { q: "By the time we arrived, the meeting ____.", o: ["has already started", "already starts", "had already started", "already started"], a: "had already started" },
-            { q: "He is ____ honest man.", o: ["a", "the", "an", "no article needed"], a: "an" },
-            { q: "Neither of the answers ____ correct.", o: ["are", "were", "is", "be"], a: "is" },
-            { q: "The more you practise, the ____ you become.", o: ["confident", "more confident", "most confident", "confidently"], a: "more confident" },
-            { q: "She asked me ____ the door.", o: ["to close", "close", "closing", "to closing"], a: "to close" },
-            { q: "If it ____ tomorrow, we will cancel the trip.", o: ["rains", "will rain", "rained", "is raining"], a: "rains" },
-            { q: "The project ____ by the end of this month.", o: ["has completed", "will be completed", "is completing", "completed"], a: "will be completed" }
-        ]
-    };
-
-    // --- Event Listeners ---
-    studentNameInput.addEventListener('input', (e) => {
-        e.target.value = e.target.value.toUpperCase();
-    });
-
-    startQuizBtn.addEventListener('click', () => {
-        studentName = studentNameInput.value.trim();
-        if (studentName) {
-            nameError.style.display = 'none';
-            startQuiz();
-        } else {
-            nameError.style.display = 'block';
-        }
-    });
-
-    submitQuizBtn.addEventListener('click', () => {
-        submitQuiz();
-    });
-
-    // --- Functions ---
-    function startQuiz() {
-        nameSection.style.display = 'none';
-        quizSection.style.display = 'block';
-        startTime = Date.now();
-        // Set initial status in Firebase
-        const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
-        set(ref(db, `status/${studentName}`), {
-            status: 'attempting',
-            startTime: serverTimestamp()
-        });
-
-        loadQuestions();
-        startTimer();
+    // Make db and functions available globally for quiz.js
+    window.db = db;
+    window.firebaseSet = set;
+    window.firebaseRef = ref;
+  </script>
+  <style>
+    :root {
+      --primary-blue: #2563eb;
+      --highlight-blue: #1d4ed8;
+      --correct-green: #16a34a;
+      --incorrect-red: #dc2626;
+      --bg-white: #ffffff;
+      --bg-light-card: #f8fafc;
+      --text-dark: #0f172a;
+      --text-muted: #64748b;
     }
 
-    function loadQuestions() {
-        const questionsContainer = document.getElementById('quiz-questions');
-        let questionsHTML = '';
-        quizData.questions.forEach((q, index) => {
-            questionsHTML += `
-                <div class="question" id="q-${index}">
-                    <p class="fw-bold">${index + 1}. ${q.q}</p>
-                    <div class="options">
-                        ${q.o.map(option => `
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="radio" name="q${index}" id="q${index}-${option}" value="${option}" autocomplete="off">
-                                <label class="form-check-label" for="q${index}-${option}">${option}</label>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            `;
-        });
-        questionsContainer.innerHTML = questionsHTML;
+    body {
+      font-family: 'Inter', 'Lato', sans-serif;
+      background-color: var(--bg-white);
+      color: var(--text-dark);
+      line-height: 1.6;
+      max-width: 420px;
+      margin: auto;
+      padding: 2rem 1rem;
     }
 
-    function startTimer() {
-        let timeLeft = quizDuration;
-        timerInterval = setInterval(() => {
-            timeLeft--;
-            const minutes = Math.floor(timeLeft / 60).toString().padStart(2, '0');
-            const seconds = (timeLeft % 60).toString().padStart(2, '0');
-            timerEl.textContent = `${minutes}:${seconds}`;
-            if (timeLeft <= 0) {
-                clearInterval(timerInterval);
-                submitQuiz(); // Auto-submit when time is up
-            }
-        }, 1000);
+    h1, h2, h3 {
+      font-family: 'Inter', 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.5rem; margin-top: 2.5rem; }
+
+    /* ======= HEADER / TITLE SECTION ======= */
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    header p {
+      color: var(--text-muted);
+      margin-bottom: 0;
     }
 
-    function getDeviceInfo() {
-        const ua = navigator.userAgent;
-        let os = "Unknown OS";
-        if (ua.indexOf("Win") != -1) os = "Windows";
-        if (ua.indexOf("Mac") != -1) os = "MacOS";
-        if (ua.indexOf("Linux") != -1) os = "Linux";
-        if (ua.indexOf("Android") != -1) os = "Android";
-        if (ua.indexOf("like Mac") != -1) os = "iOS";
-
-        let browser = "Unknown Browser";
-        if (ua.indexOf("Firefox") > -1) browser = "Firefox";
-        if (ua.indexOf("Chrome") > -1) browser = "Chrome";
-        if (ua.indexOf("Safari") > -1 && ua.indexOf("Chrome") == -1) browser = "Safari";
-
-        const deviceType = /Mobi|Android/i.test(ua) ? "Mobile" : "Laptop/Desktop";
-        return { os, browser, deviceType };
+    /* ======= QUESTION CARDS ======= */
+    .question {
+      background: var(--bg-light-card);
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
     }
 
-    function submitQuiz() {
-        clearInterval(timerInterval);
-        const endTime = Date.now();
-        const timeTaken = Math.round((endTime - startTime) / 1000); // in seconds
-        const totalQuestions = quizData.questions.length;
-
-        let correct = 0;
-        let incorrect = 0;
-        let missed = 0;
-        const wrongAnswers = {}; // For analytics
-
-        quizData.questions.forEach((q, index) => {
-            const selectedOption = document.querySelector(`input[name="q${index}"]:checked`);
-            if (selectedOption) {
-                if (selectedOption.value === q.a) {
-                    correct++;
-                } else {
-                    incorrect++;
-                    wrongAnswers[index + 1] = selectedOption.value; // Store wrong answer
-                }
-            } else {
-                missed++;
-            }
-        });
-
-        const score = `${correct}/${totalQuestions}`;
-        const accuracy = totalQuestions > 0 ? (correct / totalQuestions) * 100 : 0;
-        const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
-
-        const submissionData = {
-            studentName,
-            taskId: quizData.id,
-            score,
-            correct,
-            incorrect,
-            missed,
-            accuracy: parseFloat(accuracy.toFixed(2)),
-            timeTaken, // seconds
-            submittedAt: serverTimestamp(),
-            deviceInfo: getDeviceInfo(),
-            wrongAnswers // e.g., { "1": "To give your opinion", "5": "Option C" }
-        };
-
-        // 1. Send to /liveSubmissions
-        const newSubmissionRef = push(ref(db, 'liveSubmissions'));
-        set(newSubmissionRef, submissionData);
-
-        // 2. Send to /status
-        set(ref(db, `status/${studentName}`), {
-            status: 'submitted',
-            score: score,
-            submittedAt: serverTimestamp()
-        });
-
-        // 3. Send to /timeline
-        const timelineEntry = {
-            message: `${studentName} submitted (${score})`,
-            timestamp: serverTimestamp()
-        };
-        push(ref(db, `timeline/${today}`), timelineEntry);
-
-        // 4. Send to /archive
-        push(ref(db, `archive/${today}/submissions`), submissionData);
-
-        // TODO: Send to /analytics (This requires more complex transaction logic server-side or via cloud functions for aggregation)
-
-        // --- Show results to the student ---
-        document.getElementById('score-display').textContent = `Your Score: ${correct} / ${totalQuestions}`;
-        
-        quizData.questions.forEach((q, index) => {
-            const options = document.querySelectorAll(`input[name="q${index}"]`);
-            options.forEach(optionRadio => {
-                const label = optionRadio.closest('.form-check');
-                // If an incorrect option was selected, highlight it as wrong
-                if (optionRadio.checked && optionRadio.value !== q.a) {
-                    label.classList.add('wrong');
-                }
-                // Highlight the correct answer
-                if (optionRadio.value === q.a) {
-                    label.classList.add('correct');
-                }
-                // Disable all inputs
-                optionRadio.disabled = true;
-            });
-        });
-
-        resultSection.style.display = 'block';
-        submitQuizBtn.style.display = 'none'; // Hide submit button
-        resultSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    .question p {
+      font-weight: 500;
+      font-size: 16px;
+      margin-top: 0;
+      color: var(--text-dark);
     }
 
-</script>
+    /* ======= OPTIONS ======= */
+    .options label {
+      display: block;
+      padding: 0.75rem;
+      border-radius: 12px;
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+    }
+    .options label:hover {
+      background-color: #eef2ff;
+    }
+    .options input {
+      margin-right: 10px;
+      accent-color: var(--primary-blue);
+    }
+
+    /* ======= BUTTONS ======= */
+    .btn-submit {
+      padding: 0.8rem 1.25rem;
+      background-color: var(--primary-blue);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      cursor: pointer;
+      width: 100%;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: background-color 0.2s ease;
+      margin-top: 1rem;
+    }
+    .btn-submit:hover {
+      background-color: var(--highlight-blue);
+    }
+
+    .btn-download {
+      display: none;
+      text-decoration: none;
+      text-align: center;
+      margin-top: 1.5rem;
+      padding: 0.8rem 1.25rem;
+      border: 2px solid var(--primary-blue);
+      background-color: var(--bg-white);
+      color: var(--primary-blue);
+      border-radius: 12px;
+      font-weight: 700;
+      transition: all 0.2s ease;
+    }
+    .btn-download:hover {
+      background-color: var(--primary-blue);
+      color: var(--bg-white);
+    }
+
+    /* ======= RESULT BOX ======= */
+    #resultBox {
+      margin-top: 2.5rem;
+      padding: 1.5rem;
+      background-color: var(--bg-light-card);
+      border-radius: 16px;
+      text-align: center;
+      display: none;
+      animation: slideInUp 0.5s ease forwards;
+    }
+
+    /* ======= CORRECT/WRONG ANSWERS ======= */
+    .correct {
+      background-color: #dcfce7;
+      border: 1px solid var(--correct-green);
+      font-weight: bold;
+    }
+    .wrong {
+      background-color: #fee2e2;
+      border: 1px solid var(--incorrect-red);
+    }
+
+    /* ======= FOOTER ======= */
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+    }
+    .back-link {
+      color: var(--primary-blue);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    @keyframes slideInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+  <!-- Add a specific style for the Task ID -->
+  <style>
+    #taskIdDisplay {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      font-family: monospace;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>IELTS Task 2 Grammar Quiz</h1>
+    <p>15 Questions • Auto-scored • Instant feedback</p>
+    <p class="small">Start the quiz immediately after scanning the QR code.</p>
+  </header>
+
+  <!-- QUIZ FORM -->
+  <div id="taskIdDisplay"></div>
+
+  <form id="quizForm">
+
+    <div class="question"><p>Q1. If the government ______ stricter laws earlier, pollution would not have increased so rapidly.</p><div class="options">
+        <label><input type="radio" name="q1" value="a"> a) had implemented</label>
+        <label><input type="radio" name="q1" value="b"> b) implemented</label>
+        <label><input type="radio" name="q1" value="c"> c) would implement</label>
+    </div></div>
+
+    <div class="question"><p>Q2. The number of people applying for online courses ______ risen dramatically.</p><div class="options">
+        <label><input type="radio" name="q2" value="a"> a) have</label>
+        <label><input type="radio" name="q2" value="b"> b) has</label>
+        <label><input type="radio" name="q2" value="c"> c) having</label>
+    </div></div>
+
+    <div class="question"><p>Q3. Many experts argue that remote work, ______ offers flexibility, also reduces team bonding.</p><div class="options">
+        <label><input type="radio" name="q3" value="a"> a) who</label>
+        <label><input type="radio" name="q3" value="b"> b) which</label>
+        <label><input type="radio" name="q3" value="c"> c) that</label>
+    </div></div>
+
+    <div class="question"><p>Q4. Public transport systems in major cities ______ upgraded to reduce traffic congestion.</p><div class="options">
+        <label><input type="radio" name="q4" value="a"> a) is being</label>
+        <label><input type="radio" name="q4" value="b"> b) are being</label>
+        <label><input type="radio" name="q4" value="c"> c) were</label>
+    </div></div>
+
+    <div class="question"><p>Q5. If young people exercised more regularly, they ______ better mental health.</p><div class="options">
+        <label><input type="radio" name="q5" value="a"> a) would have</label>
+        <label><input type="radio" name="q5" value="b"> b) have</label>
+        <label><input type="radio" name="q5" value="c"> c) will have</label>
+    </div></div>
+
+    <div class="question"><p>Q6. Hardly ______ the manager finished speaking when the staff began asking questions.</p><div class="options">
+        <label><input type="radio" name="q6" value="a"> a) had</label>
+        <label><input type="radio" name="q6" value="b"> b) have</label>
+        <label><input type="radio" name="q6" value="c"> c) did</label>
+    </div></div>
+
+    <div class="question"><p>Q7. Digital privacy is becoming ______ important for modern citizens.</p><div class="options">
+        <label><input type="radio" name="q7" value="a"> a) more</label>
+        <label><input type="radio" name="q7" value="b"> b) most</label>
+        <label><input type="radio" name="q7" value="c"> c) increasingly</label>
+    </div></div>
+
+    <div class="question"><p>Q8. Despite several warnings, he refused ______ the rules.</p><div class="options">
+        <label><input type="radio" name="q8" value="a"> a) to follow</label>
+        <label><input type="radio" name="q8" value="b"> b) follow</label>
+        <label><input type="radio" name="q8" value="c"> c) following</label>
+    </div></div>
+
+    <div class="question"><p>Q9. By the time the conference starts, all participants ______ the required documents.</p><div class="options">
+        <label><input type="radio" name="q9" value="a"> a) will submit</label>
+        <label><input type="radio" name="q9" value="b"> b) will have submitted</label>
+        <label><input type="radio" name="q9" value="c"> c) have been submitting</label>
+    </div></div>
+
+    <div class="question"><p>Q10. The proposal was rejected because it was not clearly explained, ______?</p><div class="options">
+        <label><input type="radio" name="q10" value="a"> a) wasn't it</label>
+        <label><input type="radio" name="q10" value="b"> b) was it</label>
+        <label><input type="radio" name="q10" value="c"> c) is it</label>
+    </div></div>
+
+    <div class="question"><p>Q11. "Pragmatic" most nearly means:</p><div class="options">
+        <label><input type="radio" name="q11" value="a"> a) based on practical considerations</label>
+        <label><input type="radio" name="q11" value="b"> b) extremely difficult to understand</label>
+        <label><input type="radio" name="q11" value="c"> c) related to emotions rather than logic</label>
+    </div></div>
+
+    <div class="question"><p>Q12. "Inevitable" is best used in which sentence?</p><div class="options">
+        <label><input type="radio" name="q12" value="a"> a) Pollution is inevitable prevented by technology.</label>
+        <label><input type="radio" name="q12" value="b"> b) Some degree of technological change is inevitable in modern society.</label>
+        <label><input type="radio" name="q12" value="c"> c) People are inevitable to work hard.</label>
+    </div></div>
+
+    <div class="question"><p>Q13. "Substantial" means:</p><div class="options">
+        <label><input type="radio" name="q13" value="a"> a) very small</label>
+        <label><input type="radio" name="q13" value="b"> b) large or significant</label>
+        <label><input type="radio" name="q13" value="c"> c) temporary</label>
+    </div></div>
+
+    <div class="question"><p>Q14. Choose the sentence that correctly uses "contemplate":</p><div class="options">
+        <label><input type="radio" name="q14" value="a"> a) He contemplated to join the team yesterday.</label>
+        <label><input type="radio" name="q14" value="b"> b) She is contemplating moving to another country for better opportunities.</label>
+        <label><input type="radio" name="q14" value="c"> c) They contemplate quickly the presentation.</label>
+    </div></div>
+
+    <div class="question"><p>Q15. "Impartial" refers to someone who is:</p><div class="options">
+        <label><input type="radio" name="q15" value="a"> a) unfair and biased</label>
+        <label><input type="radio" name="q15" value="b"> b) neutral and objective</label>
+        <label><input type="radio" name="q15" value="c"> c) confused and uncertain</label>
+      </div>
+    </div>
+
+    <button type="button" class="btn-submit" onclick="checkQuiz()">Submit Quiz</button>
+  </form>
+
+  <div id="resultBox">
+    <!-- Score will be injected here by JS -->
+  </div>
+
+  <a href="materials/week21-wt2pdf.pdf" id="downloadBtn" class="btn-download" download="week21-wt2pdf.pdf">Download Grammar PDF Guide</a>
+
+  <footer>
+    <a href="https://todayieltstask.onrender.com/" class="back-link">&larr; Back to Main IELTS Guided Task</a>
+  </footer>
+
+  <script src="quiz.js"></script>
 </body>
 </html>
     

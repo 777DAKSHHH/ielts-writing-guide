@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Teacher Dashboard</title>
+  <title>Teacher Live Report</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
   <!-- Google Fonts: Poppins & Lato -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Lato:wght@400&display=swap" rel="stylesheet">
   <!-- Firebase SDKs (Modular v9+ syntax) -->
   <style>
@@ -33,48 +32,6 @@
       font-weight: 700;
       color: var(--primary-color);
     }
-    .dashboard-container {
-      display: flex;
-      min-height: 100vh;
-    }
-    .sidebar {
-      width: 260px;
-      background-color: var(--secondary-color);
-      color: #fff;
-      padding: 1.5rem 1rem;
-      display: flex;
-      flex-direction: column;
-    }
-    .sidebar .nav-link {
-      color: #adb5bd;
-      border-radius: 8px;
-      margin-bottom: 0.5rem;
-      transition: background-color 0.2s, color 0.2s;
-    }
-    .sidebar .nav-link:hover {
-      background-color: rgba(255,255,255,0.1);
-      color: #fff;
-    }
-    .sidebar .nav-link.active {
-      background-color: var(--primary-color);
-      color: #fff;
-      font-weight: bold;
-    }
-    .main-content {
-      flex-grow: 1;
-      padding: 2rem;
-      background-color: var(--bg-color);
-    }
-    .dashboard-section {
-      display: none; /* Hidden by default */
-    }
-    .dashboard-section.active {
-      display: block; /* Shown when active */
-      animation: fadeIn 0.5s;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; } to { opacity: 1; }
-    }
     .table-container {
       background-color: #fff;
       border-radius: 16px;
@@ -95,33 +52,30 @@
     .text-success { color: var(--success-color) !important; }
     .text-danger { color: var(--danger-color) !important; }
     .text-warning { color: var(--warning-color) !important; }
-
-    .summary-card {
-      background-color: var(--card-bg);
-      border-radius: 12px;
-      padding: 1.5rem;
-      text-align: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.07);
-      transition: transform 0.2s;
-    }
-    .summary-card:hover {
-      transform: translateY(-5px);
-    }
-    .summary-card .value {
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: var(--primary-color);
-    }
-    .summary-card .label {
-      color: #6c757d;
-    }
   </style>
 </head>
-<body style="background-color: var(--bg-color);">
+<body class="p-4" style="background-color: var(--bg-color);">
+  <!-- LOGIN SECTION -->
+  <div id="login-section">
+    <div class="d-flex align-items-center justify-content-center min-vh-100" style="background: var(--secondary-color);">
+      <div class="card text-center p-4 p-md-5" style="max-width: 450px; border:none; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px);">
+        <h1 class="mb-2 text-white">Tutor Report</h1>
+        <p class="text-white-50 mb-4">Enter the password to view the live dashboard.</p>
+        <div class="form-floating mb-3">
+          <input type="password" class="form-control" id="password-input" placeholder="Password">
+          <label for="password-input">Password</label>
+        </div>
+        <button id="login-btn" class="btn btn-primary btn-lg w-100">View Report</button>
+        <div id="error-alert" class="alert alert-danger mt-3" style="display: none;">
+          Incorrect password. Please try again.
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <div id="report-section" class="dashboard-container">
+  <div id="report-section" class="container-fluid" style="display: none;">
     <header class="text-center mb-5">
-      <h2 style="display:none;">📊 Live Teacher Dashboard</h2>
+      <h2>📊 Live Teacher Dashboard</h2>
       <p class="text-muted">Real-time results from student quiz submissions</p>
     </header>
 
@@ -143,269 +97,73 @@
     </div>
   </div>
 
-  <!-- Analytics Modal -->
-  <div class="modal fade" id="questionDetailModal" tabindex="-1" aria-labelledby="questionDetailModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="questionDetailModalLabel">Question Details</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <p class="fw-bold" id="modal-question-text"></p>
-          <hr>
-          <p><strong>Correct Answer:</strong> <span id="modal-correct-answer" class="text-success"></span></p>
-          <p><strong>Most Common Wrong Answer:</strong> <span id="modal-common-wrong" class="text-danger"></span></p>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
     import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
 
-    // My Firebase config
+    // --- Firebase Config ---
     const firebaseConfig = {
       apiKey: "AIzaSy***Q",
       authDomain: "ielts-live-dashboard.firebaseapp.com",
       databaseURL: "https://ielts-live-dashboard-default-rtdb.firebaseio.com",
       projectId: "ielts-live-dashboard",
-      storageBucket: "ielts-live-dashboard.appspot.com",
+      storageBucket: "ielts-live-dashboard.firebasestorage.app",
       messagingSenderId: "1044694021318",
       appId: "1:1044694021318:web:70f1ac1ba0787d37da93c7",
       measurementId: "G-R9G2YGSBM9"
     };
 
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig); // Connect to my firebase project
+    // --- Initialize Firebase ---
+    const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
-    const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
 
-    // --- Quiz Data (for analytics) ---
-    const quizData = {
-        questions: [
-            { q: "What is the primary purpose of an introduction in Task 1?", a: "To paraphrase the question" },
-            { q: "Should you include a conclusion in Task 1?", a: "Never" },
-            { q: "What is a 'trend'?", a: "A general direction or movement" },
-            // Add 12 more questions to make it 15
-            ...Array.from({ length: 12 }, (_, i) => ({ q: `Sample Question ${i + 4}`, a: `Option A${i}` }))
-        ]
-    };
-    const questionDetailModal = new bootstrap.Modal(document.getElementById('questionDetailModal'));
+    // --- Login Logic ---
+    const loginSection = document.getElementById('login-section');
+    const reportSection = document.getElementById('report-section');
+    const loginBtn = document.getElementById('login-btn');
+    const passwordInput = document.getElementById('password-input');
+    const errorAlert = document.getElementById('error-alert');
 
-
-    // --- Navigation Logic ---
-    const navLinks = document.querySelectorAll('.sidebar .nav-link');
-    const sections = document.querySelectorAll('.dashboard-section');
-
-    navLinks.forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetId = link.getAttribute('data-target');
-
-        navLinks.forEach(nav => nav.classList.remove('active'));
-        link.classList.add('active');
-
-        sections.forEach(section => {
-          section.classList.toggle('active', section.id === targetId);
-        });
-      });
-    });
-
-    // --- Reset Logic ---
-    const resetBtn = document.getElementById('reset-data-btn');
-    resetBtn.addEventListener('click', () => {
-      if (confirm("Are you sure you want to reset all of today's data? This cannot be undone.")) {
-        // This button is now inside the #settings section, its logic is handled there.
+    loginBtn.addEventListener('click', () => {
+      if (passwordInput.value === '3753') {
+        loginSection.style.display = 'none';
+        document.body.style.backgroundColor = 'var(--bg-color)'; // Reset body background
+        reportSection.style.display = 'block';
+        errorAlert.style.display = 'none';
+      } else {
+        errorAlert.style.display = 'block';
       }
     });
 
-    // --- Dashboard Logic ---
+    // --- Table Element ---
     const tableBody = document.getElementById("reportTableBody");
-    const submissionToastEl = document.getElementById('submission-toast');
-    const submissionToast = new bootstrap.Toast(submissionToastEl);
 
-    // 1. Listen for Live Submissions
-    const submissionsRef = ref(db, "liveSubmissions");
-    onValue(submissionsRef, (snapshot) => {
+    // --- Real-time Listener ---
+    const resultsRef = ref(db, "quizResults");
+    onValue(resultsRef, (snapshot) => {
       const data = snapshot.val();
       tableBody.innerHTML = "";
 
       if (data) {
-        const records = Object.values(data).sort((a, b) => b.submittedAt - a.submittedAt);
-
-        updateSummary(records);
-        updateAnalytics(records); // Update analytics tab
-
+        // convert to array so we can reverse order (newest first)
+        const records = Object.values(data).reverse();
         records.forEach(record => {
-          const submittedAt = new Date(record.submittedAt).toLocaleTimeString();
-          const timeTaken = `${Math.floor(record.timeTaken / 60)}m ${record.timeTaken % 60}s`;
-
-          // Suspicious attempt indicators
-          let timeTakenDisplay = timeTaken;
-          if (record.timeTaken < 20) timeTakenDisplay += ' <span class="text-danger">🚨</span>';
-          if (record.timeTaken > 900) timeTakenDisplay += ' <span class="text-warning">🕒</span>';
-
           const row = `
-            <tr>
-              <td class="fw-bold text-start">${record.studentName}</td>
-              <td class="fw-bold">${record.score}</td>
-              <td>${record.accuracy}%</td>
-              <td>${timeTakenDisplay}</td>
-              <td>${submittedAt}</td>
+            <tr class="animate-fade-in">
+              <td class="fw-bold text-start">${record.taskId}</td>
+              <td class="fw-bold text-success">${record.correct}</td>
+              <td class="fw-bold text-danger">${record.incorrect}</td>
+              <td class="fw-bold text-warning">${record.missed}</td>
+              <td>${record.wrongQuestions || "-"}</td>
             </tr>`;
           tableBody.insertAdjacentHTML("beforeend", row);
         });
-
-        // Show toast for the latest submission
-        const latestRecord = records[0];
-        if (latestRecord && (Date.now() - latestRecord.submittedAt < 5000)) { // Only show for recent submissions
-            const toastBody = document.getElementById('toast-body-content');
-            toastBody.textContent = `New submission from ${latestRecord.studentName} (${latestRecord.score})`;
-            submissionToast.show();
-        }
-
       } else {
-        tableBody.innerHTML = `<tr><td colspan="5" class="text-center p-4">Waiting for first submission...</td></tr>`;
-        updateSummary([]); // Reset summary
-        updateAnalytics([]); // Reset analytics
+        tableBody.innerHTML = `<tr><td colspan="5" class="text-muted text-center p-4">No results found yet. Waiting for first submission...</td></tr>`;
       }
     }, (error) => {
-      console.error("Firebase read failed: ", error.message);
+      console.error("❌ Firebase read error:", error.message);
     });
-
-    function updateSummary(records) {
-        const totalSubmissions = records.length;
-        document.getElementById('total-submissions').textContent = totalSubmissions;
-
-        if (totalSubmissions === 0) {
-            document.getElementById('avg-score').textContent = '0%';
-            document.getElementById('highest-score').textContent = '0/15';
-            document.getElementById('lowest-score').textContent = '0/15';
-            return;
-        }
-
-        const totalAccuracy = records.reduce((sum, r) => sum + r.accuracy, 0);
-        const avgAccuracy = totalAccuracy / totalSubmissions;
-        document.getElementById('avg-score').textContent = `${avgAccuracy.toFixed(1)}%`;
-
-        const scores = records.map(r => r.correct);
-        const highestScore = Math.max(...scores);
-        const lowestScore = Math.min(...scores);
-        document.getElementById('highest-score').textContent = `${highestScore}/15`;
-        document.getElementById('lowest-score').textContent = `${lowestScore}/15`;
-    }
-
-    function updateAnalytics(records) {
-      const analyticsBody = document.getElementById('analytics-table-body');
-      const totalSubmissions = records.length;
-      if (totalSubmissions === 0) {
-        analyticsBody.innerHTML = `<tr><td colspan="4" class="p-4">No submissions yet to analyze.</td></tr>`;
-        return;
-      }
-
-      const questionStats = Array.from({ length: quizData.questions.length }, () => ({
-        correct: 0, incorrect: 0, missed: 0, wrongAnswerCounts: {}
-      }));
-
-      records.forEach(record => {
-        const answeredQuestions = new Set(Object.keys(record.wrongAnswers || {}));
-        let correctAnswersInRecord = record.correct;
-
-        for (let i = 0; i < quizData.questions.length; i++) {
-          const qNum = i + 1;
-          if (record.wrongAnswers && record.wrongAnswers[qNum]) {
-            // It's an incorrect answer
-            questionStats[i].incorrect++;
-            const wrongOption = record.wrongAnswers[qNum];
-            questionStats[i].wrongAnswerCounts[wrongOption] = (questionStats[i].wrongAnswerCounts[wrongOption] || 0) + 1;
-          } else if (correctAnswersInRecord > 0) {
-            // If it's not wrong, and there are correct answers left to attribute, it's correct
-            questionStats[i].correct++;
-            correctAnswersInRecord--;
-          } else {
-            // Otherwise, it was missed
-            questionStats[i].missed++;
-          }
-        }
-      });
-
-      analyticsBody.innerHTML = '';
-      questionStats.forEach((stats, index) => {
-        const totalAttempts = stats.correct + stats.incorrect + stats.missed;
-        if (totalAttempts === 0) return;
-
-        const correctPercent = (stats.correct / totalAttempts) * 100;
-        const incorrectPercent = (stats.incorrect / totalAttempts) * 100;
-        const missedPercent = (stats.missed / totalAttempts) * 100;
-
-        let colorClass = 'bg-danger text-white';
-        if (correctPercent > 75) colorClass = 'bg-success text-white';
-        else if (correctPercent >= 50) colorClass = 'bg-warning';
-
-        const commonWrong = Object.entries(stats.wrongAnswerCounts).sort((a, b) => b[1] - a[1])[0];
-        const commonWrongText = commonWrong ? `${commonWrong[0]} (${commonWrong[1]} times)` : 'N/A';
-
-        const row = document.createElement('tr');
-        row.style.cursor = 'pointer';
-        row.innerHTML = `
-          <td><strong>Q${index + 1}</strong></td>
-          <td class="${colorClass}">${correctPercent.toFixed(1)}%</td>
-          <td>${incorrectPercent.toFixed(1)}%</td>
-          <td>${missedPercent.toFixed(1)}%</td>
-        `;
-        row.addEventListener('click', () => {
-          document.getElementById('modal-question-text').textContent = `Q${index + 1}: ${quizData.questions[index].q}`;
-          document.getElementById('modal-correct-answer').textContent = quizData.questions[index].a;
-          document.getElementById('modal-common-wrong').textContent = commonWrongText;
-          questionDetailModal.show();
-        });
-        analyticsBody.appendChild(row);
-      });
-    }
-
-    // 2. Listen for Student Status
-    const statusRef = ref(db, 'status');
-    onValue(statusRef, (snapshot) => {
-        const statusBody = document.getElementById('status-table-body');
-        const data = snapshot.val();
-        statusBody.innerHTML = "";
-        if (data) {
-            Object.entries(data).forEach(([name, details]) => {
-                let statusText = details.status;
-                let timeText = details.submittedAt ? new Date(details.submittedAt).toLocaleTimeString() : new Date(details.startTime).toLocaleTimeString();
-
-                if (statusText === 'attempting' && (Date.now() - details.startTime > 120000)) { // 2+ minutes idle
-                    statusText = '<span class="text-warning">idle ⚠️</span>';
-                }
-
-                const row = `<tr><td>${name}</td><td>${statusText}</td><td>${timeText}</td></tr>`;
-                statusBody.insertAdjacentHTML('beforeend', row);
-            });
-        } else {
-            statusBody.innerHTML = `<tr><td colspan="3" class="p-4">No student activity detected.</td></tr>`;
-        }
-    });
-
-    // 3. Listen for Timeline Events
-    const timelineRef = ref(db, `timeline/${today}`);
-    onValue(timelineRef, (snapshot) => {
-        const timelineLog = document.getElementById('timeline-log');
-        const data = snapshot.val();
-        timelineLog.innerHTML = "";
-        if (data) {
-            const events = Object.values(data).sort((a, b) => b.timestamp - a.timestamp);
-            events.forEach(event => {
-                const time = new Date(event.timestamp).toLocaleTimeString();
-                const logItem = `<div class="list-group-item">${time} - ${event.message}</div>`;
-                timelineLog.insertAdjacentHTML('beforeend', logItem);
-            });
-        } else {
-            timelineLog.innerHTML = `<div class="list-group-item">No timeline events for today.</div>`;
-        }
-    });
-
   </script>
 </body>
 </html>
