@@ -3,798 +3,169 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IELTS Guided Writing Task</title>
+  <title>Luxury IELTS Platform</title>
 
-  <!-- Google Fonts: Poppins & Lato -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Inter:wght@400;500&family=Source+Sans+Pro:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text x='0' y='14'>📝</text></svg>" type="image/svg+xml" />
+  <!-- MDBootstrap CSS & JS -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.min.css"
+  />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.min.js"></script>
 
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  
-  <!-- DaisyUI & Tailwind CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Font Awesome for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <!-- Confetti.js -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <!-- Google Fonts for premium typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
   <style>
-    :root {
-      /* New Color Palette */
-      --primary-color: #1A73E8; /* Royal Blue */
-      --secondary-color: #0D1B2A; /* Deep Navy */
-      --accent-green: #00A884; /* Emerald Green */
-      --accent-orange: #FF6B3C; /* Sunset Orange */
-      --accent-gold: #F2C94C; /* Gold */
-      --bg-color: #F7F9FC; /* Cool Grey */
-      --text-color: #303030; /* Charcoal */
-      --card-bg: #FFFFFF;
-      --soft-sky-blue: #E3F0FF;
-    }
-
     body {
-      background: var(--bg-color);
-      min-height: 100vh;
-      font-family: 'Inter', sans-serif;
-      color: var(--text-color);
-      line-height: 1.6;
-      font-size: 18px; /* Base font size for readability */
+      font-family: 'Roboto', sans-serif;
+      background-color: #f9f9f9;
+      color: #111;
     }
-
-    h1, h2, h3, h4, h5, h6 {
-      font-family: 'Poppins', sans-serif;
-      font-weight: 700;
-      color: var(--secondary-color); /* Deep Navy for headings */
-    }
-    h1 { font-size: 42px; } h2 { font-size: 38px; } h4 { font-size: 28px; }
-    p {
-      color: var(--text-color);
-    }
-
-    /* ===== STICKY HEADER ===== */
-    .sticky-header {
-      position: sticky;
-      top: 0;
-      z-index: 1030;
-      background-color: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      padding: 0.75rem 1.5rem;
-    }
-    .logo {
-      font-family: 'Poppins', sans-serif;
-      font-weight: 700;
-      color: var(--secondary-color);
-      font-size: 1.25rem;
-    }
-    .step-indicator {
-      font-family: 'Lato', sans-serif;
-      font-size: 1rem;
-      color: var(--text-color);
-    }
-    .progress-bar-container {
-      width: 100%;
-      background-color: #e9ecef;
-      border-radius: 16px;
-      height: 8px;
-      overflow: hidden;
-    }
-    .progress-fill {
-      height: 100%;
-      background-color: var(--primary-color);
-      border-radius: 16px;
-      transition: width 0.4s ease-in-out;
-    }
-
-    /* ===== LOGIN CARD ===== */
-    #login-section .card {
-      border: none;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(15px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    #login-section .card:hover {
-      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
-    }
-
-    /* ===== WIZARD SECTION ===== */
-    .wizard-step {
-      display: none;
-      animation: fadeIn 0.5s ease forwards;
-      margin-top: 20px;
-    }
-    .wizard-step.active {
-      display: block;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ===== CARD STYLING ===== */
-    .card {
-      border: none;
-      border-radius: 16px;
-      background: var(--card-bg);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.07);
-      transition: all 0.3s ease;
-      padding: 24px;
-    }
-    .card:hover {
-      box-shadow: 0 8px 28px rgba(0,0,0,0.12);
-    }
-
-    /* ===== BUTTONS ===== */
-    .btn {
-      border-radius: 8px;
-      font-weight: 700;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .btn:hover {
-      transform: scale(1.03);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-    }
-    .btn-primary, .next-btn, #login-btn {
-      background-color: var(--primary-color);
-      border-color: var(--primary-color);
+    .hero {
+      height: 80vh;
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3)), url('https://source.unsplash.com/1600x900/?education,book') center/cover no-repeat;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       color: #fff;
+      text-align: center;
     }
-    .btn-primary:hover, .next-btn:hover, #login-btn:hover {
-      background-color: #1465cc; /* Darker Royal Blue */
-      border-color: #1465cc;
-    }
-    .btn-success {
-      background-color: var(--accent-green);
-      border-color: var(--accent-green);
-    }
-    .prev-btn {
-      background-color: #6c757d; /* Standard secondary color */
-      border-color: #6c757d;
-      color: #fff;
-    }
-
-    /* ===== TABLE ===== */
-    .table thead {
-      background-color: var(--primary-color);
-      color: #fff;
-    }
-    .table-hover tbody tr:hover {
-      background-color: var(--soft-sky-blue);
-    }
-    #step-3 .table td {
-      vertical-align: middle;
-      padding: 0.9rem 0.75rem;
-    }
-
-    /* ===== TIMER ===== */
-    .timer-display {
+    .hero h1 {
       font-size: 3rem;
       font-weight: 700;
-      color: var(--secondary-color);
     }
-
-    @keyframes pulse-glow {
-      0%, 100% {
-        box-shadow: 0 0 20px rgba(26, 115, 232, 0.2);
-      }
-      50% {
-        box-shadow: 0 0 35px rgba(26, 115, 232, 0.4);
-      }
+    .hero p {
+      font-size: 1.3rem;
     }
-
-    .timer-container {
-      animation: pulse-glow 3s infinite ease-in-out;
-      border-radius: 50%;
-      padding: 1rem;
+    .premium-card {
+      border-radius: 1rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-
-    /* ===== NAV TABS ===== */
-    .nav-tabs .nav-link.active {
-      background: var(--primary-color);
-      color: #fff;
-      border-color: var(--primary-color);
-    }
-    .nav-tabs .nav-link {
-      font-weight: 700;
-    }
-
-    /* ===== SPECIAL ELEMENTS ===== */
-    .completion-feedback {
-      color: #198754;
-      font-weight: 700;
-      display: none;
-    }
-    .reflection-checklist .form-check {
-      padding: 0.5rem;
-      border-radius: 8px;
-      transition: background-color 0.2s ease;
-    }
-    .reflection-checklist .form-check:hover {
-      background-color: #e9ecef;
-    }
-    .sample-text-card {
-      border-left: 4px solid var(--accent-gold);
-      background-color: #f8f9fa;
-      padding: 1rem;
-      border-radius: 8px;
-      margin-bottom: 1rem;
-    }
-    /* Ensure Bootstrap tabs are visible when active, overriding potential conflicts */
-    .tab-content > .tab-pane.active {
-      display: block !important;
-    }
-    .alert-light {
-      color: var(--text-color);
-      background-color: var(--soft-sky-blue);
-    }
-    /* Ensure media players are visible */
-    .media-player {
-      min-height: 50px; /* Minimum height for audio player */
-      background-color: #e9ecef; /* Light background to show its presence */
-      border: 1px solid #dee2e6; /* Border to define its space */
-    }
-    video.media-player {
-      min-height: 200px; /* More height for video player */
-      display: block; /* Ensure video takes up full width */
-    }
-
-    .focus-overlay {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.85);
-      display: flex; justify-content: center; align-items: center;
-      z-index: 2000;
-      transition: opacity .4s ease;
-    }
-    .focus-center { text-align:center; color:#fff; }
-    #focus-timer-display {
-      font-size: 6rem; font-weight: 700; letter-spacing:2px;
-      color: var(--primary-color);
-      text-shadow: 0 0 30px rgba(26, 115, 232, 0.6);
-      animation: pulseTimer 1.2s ease-in-out infinite alternate;
-    }
-    @keyframes pulseTimer {
-      from { transform: scale(1); opacity: .9; }
-      to   { transform: scale(1.05); opacity: 1; }
-    }
-
-    /* ===== FOOTER ===== */
-    footer {
-      text-align: center;
-      margin-top: 60px;
-      padding: 20px;
-      font-size: 0.9rem;
-      color: var(--text-color);
-      opacity: 0.8;
-    }
-
-    /* Vocabulary Tags */
-    .tag {
-      display: inline-block;
-      padding: 0.2em 0.6em;
-      font-size: 0.75em;
-      font-weight: 700;
-      line-height: 1;
-      color: #fff;
-      text-align: center;
-      white-space: nowrap;
-      vertical-align: baseline;
-      border-radius: 0.25rem;
-      margin-left: 8px;
-    } /* Mapped to new color palette */
-    .tag-noun { background-color: var(--primary-color); } /* Royal Blue */
-    .tag-verb { background-color: var(--accent-green); } /* Emerald Green */
-    .tag-adj { background-color: var(--accent-gold); color: var(--text-color);} /* Gold */
-
-    .pronounce-btn {
-      background: none;
-      border: none;
-      color: var(--primary-color);
-      cursor: pointer;
-      font-size: 1.2rem;
-    }
-
-    /* Vocabulary Card Grid */
-    .vocab-card {
-      background-color: var(--card-bg);
-      border: 1px solid var(--soft-sky-blue);
-      border-radius: 12px;
-      padding: 1.25rem;
-      height: 100%;
-      transition: all 0.3s ease;
-    }
-    .vocab-card:hover {
+    .premium-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(26, 115, 232, 0.1);
-      border-color: var(--primary-color);
-    }
-    .vocab-word {
-      font-family: 'Poppins', sans-serif;
-      font-size: 22px;
-      color: var(--secondary-color);
-    }
-    .vocab-definition {
-      font-family: 'Inter', sans-serif;
-      font-weight: 500;
-      color: var(--primary-color);
-      margin: 0.5rem 0;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.25);
     }
   </style>
 </head>
 <body>
 
-  <!-- LOGIN SECTION -->
-  <div id="login-section">
-    <div class="d-flex align-items-center justify-content-center min-vh-100" style="background: var(--secondary-color);">
-      <div class="card text-center p-4 p-md-5" style="max-width: 450px;">
-        <h1 class="mb-2">IELTS Guided Task</h1>
-        <p class="text-muted mb-4">Enter the classroom password to begin.</p>
-        <div class="form-floating mb-3">
-          <input type="password" class="form-control" id="password-input" placeholder="Password">
-          <label for="password-input">Password</label>
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="container">
+      <h1>Master IELTS with Luxury Experience</h1>
+      <p>Elegant, premium, and professional dashboard for your IELTS journey</p>
+      <a href="#courses" class="btn btn-outline-light btn-lg mt-4">Explore Courses</a>
+    </div>
+  </section>
+
+  <!-- COURSES / CARDS -->
+  <section id="courses" class="py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="fw-bold">Our Premium Courses</h2>
+        <p class="text-muted">Luxury-designed lessons & audio/video content</p>
+      </div>
+
+      <div class="row g-4">
+        <!-- Card 1 -->
+        <div class="col-md-4">
+          <div class="card premium-card">
+            <img src="https://source.unsplash.com/400x300/?ielts,study" class="card-img-top" alt="IELTS Listening">
+            <div class="card-body">
+              <h5 class="card-title">Listening Mastery</h5>
+              <p class="card-text">Polished, step-by-step audio lessons with premium clarity.</p>
+              <a class="btn btn-primary" data-mdb-toggle="collapse" href="#listen1" role="button" aria-expanded="false" aria-controls="listen1">View Audio</a>
+              <div class="collapse mt-3" id="listen1">
+                <audio controls class="w-100">
+                  <source src="audio/listening1.mp3" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio>
+              </div>
+            </div>
+          </div>
         </div>
-        <button id="login-btn" class="btn btn-primary btn-lg w-100">Login</button>
-        <div id="error-alert" class="alert alert-danger mt-3" style="display: none;">
-          <i class="fas fa-exclamation-triangle me-2"></i>
-          Incorrect password. Please try again.
+
+        <!-- Card 2 -->
+        <div class="col-md-4">
+          <div class="card premium-card">
+            <img src="https://source.unsplash.com/400x300/?ielts,reading" class="card-img-top" alt="IELTS Reading">
+            <div class="card-body">
+              <h5 class="card-title">Reading Excellence</h5>
+              <p class="card-text">Structured reading passages with step-by-step guidance.</p>
+              <a class="btn btn-primary" data-mdb-toggle="collapse" href="#reading1" role="button" aria-expanded="false" aria-controls="reading1">View Details</a>
+              <div class="collapse mt-3" id="reading1">
+                <p>Detailed reading explanations and luxury-formatted notes.</p>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <!-- Card 3 -->
+        <div class="col-md-4">
+          <div class="card premium-card">
+            <img src="https://source.unsplash.com/400x300/?ielts,speaking" class="card-img-top" alt="IELTS Speaking">
+            <div class="card-body">
+              <h5 class="card-title">Speaking Perfection</h5>
+              <p class="card-text">High-quality video examples and professional tips.</p>
+              <a class="btn btn-primary" data-mdb-toggle="collapse" href="#speak1" role="button" aria-expanded="false" aria-controls="speak1">View Video</a>
+              <div class="collapse mt-3" id="speak1">
+                <video controls class="w-100">
+                  <source src="video/speaking1.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
-  </div>
-  
-  <!-- MAIN CONTENT -->
-  <main id="wizard-section" style="display:none;">
-    <header class="sticky-header">
-      <div class="d-flex justify-content-between align-items-center mb-2">
-        <span class="logo">IELTS Guided Task</span>
-        <span id="step-indicator" class="step-indicator">Step 1 of 7 | Task Overview</span>
-      </div>
-      <div class="progress-bar-container">
-        <div id="progress-fill" class="progress-fill" style="width: 14%;"></div>
-      </div>
-    </header>
+  </section>
 
-    <div class="container mt-4">
-      <div class="row d-flex justify-content-center">
-        <div class="col-lg-8 col-md-10 col-12">
+  <!-- PREMIUM TABS SECTION -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <h2 class="text-center fw-bold mb-5">Interactive Learning Tabs</h2>
 
-          <!-- Step 1: Task Overview -->
-          
-  <!-- Step 1: Task Overview -->
-  <div id="step-1" class="wizard-step active">
-    <div class="card">
-      <h2 class="mb-3" style="color: var(--primary-color);">Step 1: Task Overview</h2>
-      <p>Welcome! This guided task will walk you through the process of planning and structuring an IELTS Writing Task 1 response.</p>
-      <p>Follow each step carefully to build a strong foundation for your answer. Click 'Next' to begin.</p>
+      <ul class="nav nav-tabs mb-3" id="luxTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="tab1-tab" data-mdb-toggle="tab" data-mdb-target="#tab1" type="button" role="tab">Listening</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="tab2-tab" data-mdb-toggle="tab" data-mdb-target="#tab2" type="button" role="tab">Reading</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="tab3-tab" data-mdb-toggle="tab" data-mdb-target="#tab3" type="button" role="tab">Speaking</button>
+        </li>
+      </ul>
 
-      <div class="mt-4">
-        <h5 class="mb-3">Task Media Overview</h5>
-
-        <!-- Tabs -->
-        <ul class="nav nav-tabs" role="tablist">
-          <li class="nav-item">
-            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#audioOverview">Audio Overview</button>
-          </li>
-          <li class="nav-item">
-            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#videoOverview">Video Overview</button>
-          </li>
-        </ul>
-
-        <!-- Tab Content -->
-        <div class="tab-content border border-top-0 p-3 rounded-bottom">
-          <div class="tab-pane fade show active" id="audioOverview">
-            <audio controls class="w-100" src="materials/random.mp3"></audio>
-          </div>
-
-          <div class="tab-pane fade" id="videoOverview">
-            <video controls class="w-100 mt-3" src="materials/random.mp4"></video>
-          </div>
+      <div class="tab-content" id="luxTabsContent">
+        <div class="tab-pane fade show active" id="tab1" role="tabpanel">
+          <p>Step-by-step luxury listening tutorials with embedded audio.</p>
+          <audio controls class="w-100">
+            <source src="audio/listening2.mp3" type="audio/mpeg">
+          </audio>
         </div>
-      </div>
-
-      <div class="d-flex justify-content-end mt-4">
-        <button class="btn btn-primary next-btn">Next →</button>
-      </div>
-    </div>
-  </div>
-<div id="step-2" class="wizard-step">
-            <div class="card">
-              <h2 class="mb-3" style="color: var(--primary-color);">Step 2: Brainstorm</h2>
-              <div class="row g-4">
-                <div class="col-lg-5">
-                  <div class="p-4 rounded" style="background-color: var(--soft-sky-blue);">
-                    <h5 class="alert-heading">Today's essay topic</h5>
-                    <p class="fs-5" style="font-family: 'Source Sans Pro', sans-serif;">Apart from making money, businesses also have social responsibility.</p>
-                    <p class="mt-3"><strong>To what extent do you agree or disagree?</strong></p>
-                  </div>
-                </div>
-                <div class="col-lg-7 d-flex flex-column justify-content-center align-items-center text-center">
-                  <h4 class="mb-3">6-Minute Focus Timer</h4>
-                  <p>Use the timer to brainstorm ideas and structure your response. This helps practice time management.</p>
-                  <button id="startTimerBtn" class="btn btn-success btn-lg mt-3">Start Timer</button>
-                  <div id="focus-overlay" class="focus-overlay d-none">
-                    <div class="focus-center">
-                      <div id="focus-timer-display">6:00</div>
-                      <div id="focus-message" class="mt-3 fw-bold text-light fs-4"></div>
-                    </div>
-                    <!-- Removed clock-tick audio element -->
-                  </div>
-                </div>
-              </div>
-              <div class="d-flex justify-content-between mt-4">
-                <button class="btn btn-secondary prev-btn">&larr; Previous</button>
-                <button class="btn btn-primary next-btn">Next &rarr;</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Step 3: Vocabulary Table -->
-          <div id="step-3" class="wizard-step">
-            <div class="card">
-              <div class="d-flex justify-content-between align-items-center mb-3">
-                <h2 class="mb-0" style="color: var(--primary-color);">Step 3: Key Vocabulary</h2>
-                <select id="accent-select" class="form-select form-select-sm" style="width:140px;">
-                  <option value="en-GB">UK Accent 🇬🇧</option>
-                  <option value="en-IN">Indian Accent 🇮🇳</option>
-                </select>
-              </div>
-              <p>Review the key vocabulary for this task. Using a range of words is essential for a high score.</p>
-              <div class="row mt-4">
-                <!-- Vocabulary Card Template -->
-                <div class="col-lg-6 mb-4"><div class="vocab-card"><div class="d-flex justify-content-between align-items-center"><h5 class="vocab-word mb-0">Paramount <span class="tag tag-adj">adj</span></h5><button class="pronounce-btn speak-btn">🔊</button></div><p class="vocab-definition">More important than anything else</p><p class="small text-muted" style="font-family: 'Source Sans Pro', sans-serif;"><em>Ensuring public safety should be paramount for any government.</em></p></div></div>
-                <div class="col-lg-6 mb-4"><div class="vocab-card"><div class="d-flex justify-content-between align-items-center"><h5 class="vocab-word mb-0">Perpetuate <span class="tag tag-verb">verb</span></h5><button class="pronounce-btn speak-btn">🔊</button></div><p class="vocab-definition">Cause something to continue, especially something negative</p><p class="small text-muted" style="font-family: 'Source Sans Pro', sans-serif;"><em>Weak educational policies perpetuate cycles of poverty.</em></p></div></div>
-                <div class="col-lg-6 mb-4"><div class="vocab-card"><div class="d-flex justify-content-between align-items-center"><h5 class="vocab-word mb-0">Conducive <span class="tag tag-adj">adj</span></h5><button class="pronounce-btn speak-btn">🔊</button></div><p class="vocab-definition">Making a situation likely or easier</p><p class="small text-muted" style="font-family: 'Source Sans Pro', sans-serif;"><em>A peaceful environment is conducive to effective learning.</em></p></div></div>
-                <div class="col-lg-6 mb-4"><div class="vocab-card"><div class="d-flex justify-content-between align-items-center"><h5 class="vocab-word mb-0">Inadvertently</h5><button class="pronounce-btn speak-btn">🔊</button></div><p class="vocab-definition">Unintentionally</p><p class="small text-muted" style="font-family: 'Source Sans Pro', sans-serif;"><em>Excessive screen time may inadvertently damage children’s social skills.</em></p></div></div>
-                <div class="col-lg-6 mb-4"><div class="vocab-card"><div class="d-flex justify-content-between align-items-center"><h5 class="vocab-word mb-0">Catalyst <span class="tag tag-noun">noun</span></h5><button class="pronounce-btn speak-btn">🔊</button></div><p class="vocab-definition">A force that triggers significant change</p><p class="small text-muted" style="font-family: 'Source Sans Pro', sans-serif;"><em>Technology acts as a catalyst for economic transformation.</em></p></div></div>
-                <div class="col-lg-6 mb-4"><div class="vocab-card"><div class="d-flex justify-content-between align-items-center"><h5 class="vocab-word mb-0">Disproportionate <span class="tag tag-adj">adj</span></h5><button class="pronounce-btn speak-btn">🔊</button></div><p class="vocab-definition">Too large or too small compared to something else</p><p class="small text-muted" style="font-family: 'Source Sans Pro', sans-serif;"><em>Urban areas receive a disproportionate share of government funding.</em></p></div></div>
-                <div class="col-lg-6 mb-4"><div class="vocab-card"><div class="d-flex justify-content-between align-items-center"><h5 class="vocab-word mb-0">Degradation <span class="tag tag-noun">noun</span></h5><button class="pronounce-btn speak-btn">🔊</button></div><p class="vocab-definition">Decline or deterioration</p><p class="small text-muted" style="font-family: 'Source Sans Pro', sans-serif;"><em>Plastic waste contributes to environmental degradation.</em></p></div></div>
-                <div class="col-lg-6 mb-4"><div class="vocab-card"><div class="d-flex justify-content-between align-items-center"><h5 class="vocab-word mb-0">Holistic <span class="tag tag-adj">adj</span></h5><button class="pronounce-btn speak-btn">🔊</button></div><p class="vocab-definition">Considering the whole rather than individual parts</p><p class="small text-muted" style="font-family: 'Source Sans Pro', sans-serif;"><em>A holistic approach to education develops both academic and emotional skills.</em></p></div></div>
-                <div class="col-lg-6 mb-4"><div class="vocab-card"><div class="d-flex justify-content-between align-items-center"><h5 class="vocab-word mb-0">Imminent <span class="tag tag-adj">adj</span></h5><button class="pronounce-btn speak-btn">🔊</button></div><p class="vocab-definition">About to happen</p><p class="small text-muted" style="font-family: 'Source Sans Pro', sans-serif;"><em>Without intervention, a healthcare crisis seems imminent.</em></p></div></div>
-                <div class="col-lg-6 mb-4"><div class="vocab-card"><div class="d-flex justify-content-between align-items-center"><h5 class="vocab-word mb-0">Discrepancy <span class="tag tag-noun">noun</span></h5><button class="pronounce-btn speak-btn">🔊</button></div><p class="vocab-definition">A difference or inconsistency</p><p class="small text-muted" style="font-family: 'Source Sans Pro', sans-serif;"><em>The discrepancy in wages widens social inequality.</em></p></div></div>
-                <div class="col-lg-6 mb-4"><div class="vocab-card"><div class="d-flex justify-content-between align-items-center"><h5 class="vocab-word mb-0">Pragmatic <span class="tag tag-adj">adj</span></h5><button class="pronounce-btn speak-btn">🔊</button></div><p class="vocab-definition">Practical and realistic</p><p class="small text-muted" style="font-family: 'Source Sans Pro', sans-serif;"><em>A pragmatic policy focuses on workable solutions rather than idealistic theories.</em></p></div></div>
-                <div class="col-lg-6 mb-4"><div class="vocab-card"><div class="d-flex justify-content-between align-items-center"><h5 class="vocab-word mb-0">Infringe <span class="tag tag-verb">verb</span></h5><button class="pronounce-btn speak-btn">🔊</button></div><p class="vocab-definition">To violate or break a rule</p><p class="small text-muted" style="font-family: 'Source Sans Pro', sans-serif;"><em>Strict surveillance may infringe on citizens’ privacy rights.</em></p></div></div>
-                <div class="col-lg-6 mb-4"><div class="vocab-card"><div class="d-flex justify-content-between align-items-center"><h5 class="vocab-word mb-0">Viability <span class="tag tag-noun">noun</span></h5><button class="pronounce-btn speak-btn">🔊</button></div><p class="vocab-definition">Ability to work successfully</p><p class="small text-muted" style="font-family: 'Source Sans Pro', sans-serif;"><em>The viability of renewable energy depends on long-term government support.</em></p></div></div>
-                <div class="col-lg-6 mb-4"><div class="vocab-card"><div class="d-flex justify-content-between align-items-center"><h5 class="vocab-word mb-0">Rectification <span class="tag tag-noun">noun</span></h5><button class="pronounce-btn speak-btn">🔊</button></div><p class="vocab-definition">Correcting a mistake</p><p class="small text-muted" style="font-family: 'Source Sans Pro', sans-serif;"><em>Policy rectification is necessary when public welfare is compromised.</em></p></div></div>
-                <div class="col-lg-6 mb-4"><div class="vocab-card"><div class="d-flex justify-content-between align-items-center"><h5 class="vocab-word mb-0">Regressive <span class="tag tag-adj">adj</span></h5><button class="pronounce-btn speak-btn">🔊</button></div><p class="vocab-definition">Moving backward; harmful to progress</p><p class="small text-muted" style="font-family: 'Source Sans Pro', sans-serif;"><em>Reducing education budgets is a regressive step for any nation.</em></p></div></div>
-                <div class="col-lg-6 mb-4">
-                  <div class="vocab-card">
-                    <div class="d-flex justify-content-between align-items-center">
-                      <h5 class="vocab-word mb-0">Brain drain <span class="tag tag-noun">noun</span></h5>
-                      <button class="pronounce-btn speak-btn">🔊</button>
-                    </div>
-                    <p class="vocab-definition">Migration of skilled professionals</p>
-                    <p class="small text-muted" style="font-family: 'Source Sans Pro', sans-serif;"><em>Excessive brain drain can weaken a nation’s developmental progress.</em></p>
-                  </div>
-                </div>
-                <!-- Add more cards as needed -->
-              </div>
-              <div class="d-flex justify-content-between mt-4">
-                <button class="btn btn-secondary prev-btn">&larr; Previous</button>
-                <button class="btn btn-primary next-btn">Next &rarr;</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Step 4: Plan Introduction & Conclusion -->
-          <div id="step-4" class="wizard-step">
-            <div class="card">
-              <h2 class="mb-3" style="color: var(--primary-color);">Step 4: Plan Introduction & Conclusion</h2>
-              <p>Review these sample introductions and conclusions. Notice how they paraphrase the prompt and state the main trends.</p>
-              <div class="row g-4 mt-2">
-                <div class="col-lg-6">
-                  <h5 class="mb-3">Sample Introductions</h5>
-                  <div class="sample-text-card">
-                    <h6>Sample 1</h6>
-                    <p class="small">In an era of heightened social awareness and global interdependence, the role of businesses extends far beyond profit generation. While financial success remains the fundamental objective of any commercial entity, I partial believe that companies also bear significant social responsibilities. This is because ethical practices not only foster sustainable development but also enhance corporate credibility and long-term performance.</p>
-                  </div>
-                  <div class="sample-text-card">
-                    <h6>Sample 2</h6>
-                    <p class="small">In today’s socially conscious world, many argue that businesses should contribute to society instead of focusing solely on profit-making. Although generating revenue is essential for corporate survival, I partial agree that modern businesses must also uphold social responsibility, as doing so benefits both communities and the companies themselves.</p>
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <h5 class="mb-3">Sample Conclusions</h5>
-                  <div class="sample-text-card">
-                    <h6>Sample 1</h6>
-                    <p class="small">To sum up, although some believe that businesses should prioritise profit above all else, the long-term success of any company increasingly depends on its social conduct. By adopting sustainable practices, supporting communities, and ensuring ethical operations, businesses can achieve both economic prosperity and societal progress. Therefore, I agree that modern companies must embrace social responsibility alongside profit-making.</p>
-                  </div>
-                  <div class="sample-text-card">
-                    <h6>Sample 2</h6>
-                    <p class="small">In conclusion, although profit is essential for any business, social responsibility plays an equally vital role in today’s world. By balancing financial goals with ethical and community-focused actions, businesses can secure long-term success and contribute positively to society. Hence, I opine that companies should go beyond earning money and act responsibly toward people and the environment.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="d-flex justify-content-between mt-4">
-                <button class="btn btn-secondary prev-btn">&larr; Previous</button>
-                <button class="btn btn-primary next-btn">Next &rarr;</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Step 5: Plan Body Paragraph 1 -->
-          <div id="step-5" class="wizard-step">
-            <div class="card">
-              <h2 class="mb-3" style="color: var(--primary-color);">Step 5: Plan Body Paragraph 1</h2>
-              <div class="sample-text-card">
-                <h5>Social Responsibilities of Businesses (AGREE)</h5>
-                <ul class="list-unstyled">
-                  <li>
-                    • <strong>(MR 1) Ensuring ethical and sustainable operations</strong><br>
-                    <strong>(SR):</strong> Companies have a duty to minimise environmental damage and adopt sustainable production practices that protect future generations.<br>
-                    <strong>(EX):</strong> For instance, major firms such as Adani and Tata integrate renewable energy and eco-friendly materials to reduce their carbon footprint.
-                  </li>
-                  <li class="mt-3">
-                    • <strong>(MR 2) Contributing to community welfare</strong><br>
-                    <strong>(SR):</strong> Businesses can support local communities through job creation, training programmes, and investments in public infrastructure.<br>
-                    <strong>(EX):</strong> Many multinational corporations run corporate social responsibility (CSR) initiatives that fund education, healthcare, and rural development.
-                  </li>
-                  <li class="mt-3">
-                    • <strong>(MR 3) Promoting fair labour practices</strong><br>
-                    <strong>(SR):</strong> Ethical treatment of workers, including fair wages and safe working conditions, forms a crucial part of social responsibility.<br>
-                    <strong>(EX):</strong> Global brands like IKEA and Unilever have adopted robust labour policies to eliminate exploitation and ensure worker welfare.
-                  </li>
-                  <li class="mt-3">
-                    • <strong>(MR 4) Building trust and enhancing brand reputation</strong><br>
-                    <strong>(SR):</strong> Companies that prioritise social responsibility gain customer loyalty, which ultimately improves their profitability.<br>
-                    <strong>(EX):</strong> A recent Dyatlov report showed that nearly 70% of consumers prefer brands that actively support environmental or social causes.
-                  </li>
-                </ul>
-              </div>
-              <div class="d-flex justify-content-between mt-4">
-                <button class="btn btn-secondary prev-btn">&larr; Previous</button>
-                <button class="btn btn-primary next-btn">Next &rarr;</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Step 6: Plan Body Paragraph 2 -->
-          <div id="step-6" class="wizard-step">
-            <div class="card">
-              <h2 class="mb-3" style="color: var(--primary-color);">Step 6: Plan Body Paragraph 2</h2>
-              <div class="sample-text-card">
-                <h5>Counterargument: Businesses should focus only on profit (DISAGREE POSITION)</h5>
-                <ul class="list-unstyled">
-                  <li>
-                    • <strong>(MR 1) Excessive CSR may increase operational costs</strong><br>
-                    <strong>(SR):</strong> Some argue that social initiatives divert resources from core business activities, potentially reducing competitiveness.<br>
-                    <strong>(EX):</strong> Small enterprises, for example, may struggle to invest in environmental reforms due to budget constraints.
-                  </li>
-                  <li class="mt-3">
-                    • <strong>(MR 2) Primary responsibility is to shareholders</strong><br>
-                    <strong>(SR):</strong> Traditional economic theories assert that businesses must maximise shareholder returns, not engage in social work.<br>
-                    <strong>(EX):</strong> Economist Walter White famously argued that corporate executives are accountable mainly to investors, not society.
-                  </li>
-                  <li class="mt-3">
-                    • <strong>(MR 3) CSR may distract from innovation and efficiency</strong><br>
-                    <strong>(SR):</strong> Critics argue that focusing too much on social responsibility can shift a company’s attention away from innovation, product development, and operational performance.<br>
-                    <strong>(EX):</strong> For instance, a tech company allocating large resources to charity programmes might slow down research efforts that are essential for staying competitive in the market.
-                  </li>
-                  <li class="mt-3">
-                    • <strong>(MR 4) Not all industries are suited to CSR involvement</strong><br>
-                    <strong>(SR):</strong> Some sectors, such as heavy manufacturing or mining, face practical limitations that make extensive CSR activities unrealistic or financially unviable.<br>
-                    <strong>(EX):</strong> A mining company with narrow profit margins may find it difficult to adopt costly environmental solutions without risking closure or mass layoffs.
-                  </li>
-                </ul>
-              </div>
-              <div class="d-flex justify-content-between mt-4">
-                <button class="btn btn-secondary prev-btn">&larr; Previous</button>
-                <button class="btn btn-primary next-btn">Next &rarr;</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Step 7: Download PDF & Quiz -->
-          <div id="step-7" class="wizard-step">
-            <div class="card">
-              <div class="text-center p-lg-5">
-                <i class="fas fa-check-circle fa-5x mb-4" style="color: var(--accent-green);"></i>
-                <h1 class="display-4" style="color: var(--secondary-color);">Task Complete!</h1>
-                <p class="lead text-muted">You have successfully finished the guided writing task.</p>
-                <p>You can now take the quiz or review your work.</p>
-                <div class="d-flex justify-content-center align-items-center gap-4 mt-4">
-                  <a href="quiz.html" class="btn btn-primary btn-lg">Take the Quiz</a>
-                  <a href="teacher-report.html" target="_blank" class="btn btn-info btn-lg text-white">Tutor Report</a>
-                </div>
-                <div class="mt-4">
-                  <p class="small text-muted mb-1">Or scan to take the quiz on your mobile:</p>
-                  <img src="materials/qrcode_todayieltstask.onrender.com.png" alt="QR Code for quiz" class="img-fluid border rounded shadow-sm" style="max-width: 120px;" onerror="this.style.display='none'">
-                </div>
-              </div>
-              <div class="d-flex justify-content-between mt-4">
-                <button class="btn btn-secondary prev-btn">&larr; Previous</button>
-                <button class="btn btn-success" id="finish-btn">Return to Home</button>
-              </div>
-            </div>
-          </div>
-
+        <div class="tab-pane fade" id="tab2" role="tabpanel">
+          <p>Structured reading practice with premium formatting.</p>
+        </div>
+        <div class="tab-pane fade" id="tab3" role="tabpanel">
+          <p>Speaking exercises with high-quality video examples.</p>
+          <video controls class="w-100">
+            <source src="video/speaking2.mp4" type="video/mp4">
+          </video>
         </div>
       </div>
     </div>
-  </main>
+  </section>
 
-  <!-- Hidden Teacher Report Section -->
-  <div class="container mt-5" id="teacher-report-section" style="display: none;">
-    <a href="teacher-report.html" target="_blank" class="btn btn-link">Open Full Report</a>
-    <div class="card">
-      <h4>Teacher Report</h4>
-      <p>Weekly trends and analysis of student performance.</p>
-      <div class="alert alert-primary">Average accuracy this week: <strong>84% (+5% vs last week)</strong></div>
-      <div class="table-responsive">
-        <table class="table table-bordered">
-          <thead class="table-dark">
-            <tr>
-              <th>TASK ID</th>
-              <th>CORRECT ANSWER</th>
-              <th>INCORRECT ANSWER</th>
-              <th>MISSED OPTION</th>
-              <th>Commonly missed questions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>77:77:77:77:01:D</td>
-              <td>15</td>
-              <td>5</td>
-              <td>B</td>
-              <td>Q2 (Concessive Clauses)</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+  <!-- FOOTER -->
+  <footer class="text-center text-lg-start bg-dark text-white py-4">
+    <div class="container">
+      <p class="mb-0">© 2025 Luxury IELTS Platform. All rights reserved.</p>
     </div>
-  </div>
-
-  <footer>
-    <p>© 2025 Today IELTS Task | Made by DAKSH | All Rights Reserved</p>
   </footer>
-
-  <!-- Core JS Files -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- jsPDF for PDF generation -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const loginSection = document.getElementById('login-section');
-      const wizardSection = document.getElementById('wizard-section');
-      const loginBtn = document.getElementById('login-btn');
-      const passwordInput = document.getElementById('password-input');
-      const errorAlert = document.getElementById('error-alert');
-
-      const steps = document.querySelectorAll('.wizard-step');
-      const stepIndicator = document.getElementById('step-indicator');
-      const progressFill = document.getElementById('progress-fill');
-      const nextButtons = document.querySelectorAll('.next-btn');
-      const prevButtons = document.querySelectorAll('.prev-btn'); 
-      const finishBtn = document.getElementById('finish-btn');
-      let currentStep = 0;
-      const totalSteps = steps.length;
-
-      const stepTitles = [
-        "Task Overview",
-        "Brainstorm",
-        "Key Vocabulary",
-        "Plan Introduction & Conclusion",
-        "Plan Body Paragraph 1",
-        "Plan Body Paragraph 2",
-        "Final Review & Download"
-      ];
-
-      loginBtn.addEventListener('click', () => {
-        if (passwordInput.value === 'VII I MMVI') {
-          loginSection.style.display = 'none';
-          wizardSection.style.display = 'block';
-          errorAlert.style.display = 'none';
-          showStep(currentStep);
-        } else {
-          errorAlert.style.display = 'block';
-        }
-      });
-
-      function updateUI() {
-        // Update step indicator text
-        stepIndicator.textContent = `Step ${currentStep + 1} of ${totalSteps} | ${stepTitles[currentStep]}`;
-        // Update progress bar
-        const progressPercentage = ((currentStep + 1) / totalSteps) * 100;
-        progressFill.style.width = `${progressPercentage}%`;
-      }
-
-      function showStep(stepIndex) {
-        steps.forEach((step, index) => {
-          step.classList.toggle('active', index === stepIndex);
-        });
-        currentStep = stepIndex;
-        updateUI();
-        // Trigger confetti on the last step
-        if (currentStep === totalSteps - 1) {
-          confetti({ particleCount: 150, spread: 90, origin: { y: 0.6 } });
-        }
-        window.scrollTo(0, 0);
-      }
-
-      nextButtons.forEach(button => {
-        button.addEventListener('click', () => {
-          if (currentStep < totalSteps - 1) {
-            showStep(currentStep + 1);
-          }
-        });
-      });
-
-      prevButtons.forEach(button => {
-        button.addEventListener('click', () => {
-          if (currentStep > 0) {
-            showStep(currentStep - 1);
-          }
-        });
-      });
-
-      finishBtn?.addEventListener('click', () => {
-        showStep(0);
-      });
-
-      // --- Timer Logic ---
-      const startTimerBtn = document.getElementById('startTimerBtn');
-      const overlay = document.getElementById("focus-overlay");
-      const focusTimer = document.getElementById("focus-timer-display");
-      const focusMsg = document.getElementById("focus-message");
-      const messages = [
-        "Think about trends!",
-        "What comparisons can you make?",
-        "Note high & low points.",
-        "Focus on data contrast!",
-        "Link features logically.",
-        "Finalize your main features!"
-      ];
-
-      function startTimer() {
-        overlay.classList.remove("d-none");
-        
-        let t = 360; // 6 minutes
-        let minuteIndex = 0;
-        
-        const timer = setInterval(() => {
-          const m = Math.floor(t / 60).toString().padStart(2,'0');
-          const s = (t % 60).toString().padStart(2,'0');
-          focusTimer.textContent = `${m}:${s}`;
-          if (t % 60 === 0 && minuteIndex < messages.length) {
-            focusMsg.textContent = messages[minuteIndex++];
-          }
-          if (--t < 0) {
-            clearInterval(timer);
-            focusMsg.textContent = "Time’s up!";
-            setTimeout(()=>overlay.classList.add("d-none"),1500);
-          }
-        }, 1000);
-      }
-      startTimerBtn?.addEventListener('click', startTimer);
-
-      overlay.addEventListener("click", () => {
-        overlay.classList.add("d-none");
-        // Note: This doesn't stop the interval, it just hides the overlay.
-        // For a full stop, you'd need to clear the interval here too.
-      });
-
-      let accent = 'en-GB';
-      document.getElementById('accent-select').addEventListener('change', e => accent = e.target.value);
-
-      document.querySelectorAll('.speak-btn').forEach(button => {
-        button.addEventListener('click', () => {
-          const wordToSpeak = button.parentElement.querySelector('.vocab-word').textContent.split(" ")[0];
-          const utterance = new SpeechSynthesisUtterance(wordToSpeak);
-          utterance.lang = accent;
-          speechSynthesis.speak(utterance);
-        });
-      });
-
-    });
-  </script>
 
 </body>
 </html>
