@@ -365,47 +365,45 @@
         <div class="col-lg-8 col-md-10 col-12">
 
           <!-- Step 1: Task Overview -->
-          <div id="step-1" class="wizard-step active">
-            <div class="card">
-              <h2 class="mb-3" style="color: var(--primary-color);">Step 1: Task Overview</h2>
-              <p>Welcome! This guided task will walk you through the process of planning and structuring an IELTS Writing Task 1 response.</p>
-              <p>Follow each step carefully to build a strong foundation for your answer. Click 'Next' to begin.</p>
-              
-              <!-- Media Overview Section -->
-              <div class="mt-4">
-                <h5 class="mb-3">Task Media Overview</h5>
-                <!-- Nav Tabs -->
-                <ul class="nav nav-tabs" id="mediaTab" role="tablist">
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="audio-tab" data-bs-toggle="tab" data-bs-target="#audio-content" type="button" role="tab" aria-controls="audio-content" aria-selected="true">
-                      <i class="fas fa-headphones me-2"></i>Audio Overview
-                    </button>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="video-tab" data-bs-toggle="tab" data-bs-target="#video-content" type="button" role="tab" aria-controls="video-content" aria-selected="false">
-                      <i class="fas fa-video me-2"></i>Video Overview
-                    </button>
-                  </li>
-                </ul>
-                <!-- Tab Content -->
-                <div class="tab-content border border-top-0 p-3 rounded-bottom" id="mediaTabContent">
-                  <div class="tab-pane fade show active" id="audio-content" role="tabpanel" aria-labelledby="audio-tab">
-                    <audio controls class="w-100 media-player" src="materials/random.mp3">Your browser does not support the audio element.</audio>
-                  </div>
-                  <div class="tab-pane fade" id="video-content" role="tabpanel" aria-labelledby="video-tab">
-                    <video controls class="w-100 media-player" src="materials/random.mp4">Your browser does not support the video tag.</video>
-                  </div>
-                </div>
-              </div>
+          
+  <!-- Step 1: Task Overview -->
+  <div id="step-1" class="wizard-step active">
+    <div class="card">
+      <h2 class="mb-3" style="color: var(--primary-color);">Step 1: Task Overview</h2>
+      <p>Welcome! This guided task will walk you through the process of planning and structuring an IELTS Writing Task 1 response.</p>
+      <p>Follow each step carefully to build a strong foundation for your answer. Click 'Next' to begin.</p>
 
-              <div class="d-flex justify-content-end mt-4">
-                <button class="btn btn-primary next-btn">Next &rarr;</button>
-              </div>
-            </div>
+      <div class="mt-4">
+        <h5 class="mb-3">Task Media Overview</h5>
+
+        <!-- Tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item">
+            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#audioOverview">Audio Overview</button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#videoOverview">Video Overview</button>
+          </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content border border-top-0 p-3 rounded-bottom">
+          <div class="tab-pane fade show active" id="audioOverview">
+            <audio controls class="w-100" src="materials/random.mp3"></audio>
           </div>
 
-          <!-- Step 2: Brainstorm -->
-          <div id="step-2" class="wizard-step">
+          <div class="tab-pane fade" id="videoOverview">
+            <video controls class="w-100 mt-3" src="materials/random.mp4"></video>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end mt-4">
+        <button class="btn btn-primary next-btn">Next →</button>
+      </div>
+    </div>
+  </div>
+<div id="step-2" class="wizard-step">
             <div class="card">
               <h2 class="mb-3" style="color: var(--primary-color);">Step 2: Brainstorm</h2>
               <div class="row g-4">
