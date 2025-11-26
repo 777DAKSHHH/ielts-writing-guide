@@ -1,248 +1,743 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Luxury IELTS Platform</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ultra-Luxury IELTS Wizard</title>
 
   <!-- MDBootstrap -->
-  <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.min.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.min.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.min.js" defer></script>
+
+  <!-- Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js" defer></script>
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
   <style>
+    :root{
+      --gold:#d4af37;
+      --bg:#070708;
+      --card-bg: rgba(255,255,255,0.04);
+      --glass-border: rgba(255,255,255,0.08);
+    }
+    html,body { height:100%; }
     body {
-      font-family: 'Inter', sans-serif;
-      background-color: #0d0d0d;
-      color: #eee;
+      margin:0;
+      font-family:'Inter',sans-serif;
+      background: linear-gradient(180deg,#050506 0%, #0b0b0d 100%);
+      color:#eaeaea;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
 
-    /* -------------------------
-       ULTRA-LUXURY HERO
-    ---------------------------*/
+    /* NAVBAR */
+    .nav-glass {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-bottom:1px solid rgba(255,255,255,0.03);
+      backdrop-filter: blur(6px);
+    }
+
+    /* HERO / LOGIN */
     .hero {
-      height: 88vh;
-      background: 
-        linear-gradient(120deg, rgba(0, 0, 0, 0.75), rgba(10, 10, 10, 0.4)),
-        url("https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1600&q=80")
-        center/cover no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 0 20px;
-      backdrop-filter: blur(4px);
+      min-height:72vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:48px 20px;
+      background: linear-gradient(120deg, rgba(10,10,10,0.9), rgba(15,15,18,0.85)),
+                 url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
     }
-
-    .hero h1 {
-      font-size: 4rem;
-      font-weight: 800;
-      letter-spacing: -1px;
-      color: #ffffff;
-      text-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
-    }
-
-    .hero p {
-      font-size: 1.3rem;
-      max-width: 650px;
-      margin: auto;
-      color: #e5e5e5;
-    }
-
-    .gold-btn {
-      border: 1.5px solid #d4af37;
-      color: #d4af37;
-      padding: 12px 35px;
-      border-radius: 50px;
-      transition: 0.3s;
-      font-weight: 600;
-      font-size: 1.05rem;
-    }
-
-    .gold-btn:hover {
-      background: #d4af37;
-      color: black;
-      box-shadow: 0 0 25px rgba(212, 175, 55, 0.7);
-      transform: translateY(-3px);
-    }
-
-    /* -------------------------
-       GLASSMORPHIC LUXURY CARDS
-    ---------------------------*/
-    .glass-card {
-      background: rgba(255, 255, 255, 0.06);
-      backdrop-filter: blur(12px);
-      border-radius: 18px;
-      padding: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
-      transition: 0.35s ease;
-    }
-
-    .glass-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
-      border-color: #d4af37;
-    }
-
-    .glass-card img {
-      border-radius: 14px;
-    }
-
-    /* -------------------------
-       PREMIUM TABS
-    ---------------------------*/
-    .nav-tabs .nav-link {
-      color: #bbb;
-      font-weight: 600;
-      border-radius: 0;
-      border-bottom: 2px solid transparent;
-      padding: 12px 25px;
-    }
-
-    .nav-tabs .nav-link.active {
-      color: #d4af37;
-      border-bottom: 2px solid #d4af37;
-      background: transparent;
-    }
-
-    .tab-pane {
-      color: #ddd;
-      padding: 20px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 14px;
+    .hero-card{
+      width:100%;
+      max-width:980px;
+      background: var(--card-bg);
+      border-radius:20px;
+      padding:32px;
+      border:1px solid var(--glass-border);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
       backdrop-filter: blur(10px);
     }
+    .hero h1 { font-size:2.6rem; margin:0 0 12px; color:#fff; font-weight:800; letter-spacing:-1px;}
+    .hero p { color:#d8d8d8; margin-bottom:18px; font-size:1.05rem; }
 
-    footer {
-      background-color: #000;
-      color: #aaa;
+    .gold-btn {
+      border:1.5px solid var(--gold);
+      color:var(--gold);
+      background:transparent;
+      padding:10px 26px;
+      border-radius:999px;
+      font-weight:700;
+      transition:all .25s ease;
+      text-decoration:none;
+    }
+    .gold-btn:hover {
+      background:var(--gold);
+      color:#000;
+      box-shadow: 0 10px 30px rgba(212,175,55,0.2);
+      transform:translateY(-3px);
+    }
+
+    /* WIZARD CONTAINER */
+    .wizard {
+      max-width:1100px;
+      margin:30px auto;
+      padding:24px;
+    }
+
+    .glass-card {
+      background: rgba(255,255,255,0.03);
+      border-radius:14px;
+      border:1px solid var(--glass-border);
+      padding:18px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+      transition: transform .35s ease, box-shadow .35s ease;
+    }
+    .glass-card:hover { transform: translateY(-6px); box-shadow: 0 28px 60px rgba(0,0,0,0.7); border-color: var(--gold); }
+
+    .step-title { color:var(--gold); font-weight:700; margin-bottom:8px; }
+
+    .vocab-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(160px,1fr)); gap:12px; }
+    .vocab-item{ background: rgba(255,255,255,0.02); padding:12px; border-radius:10px; display:flex; align-items:center; justify-content:space-between; gap:8px; border:1px solid rgba(255,255,255,0.03); }
+    .vocab-word { font-weight:700; font-size:0.98rem; color:#fff; }
+    .accent-select { min-width:140px; }
+
+    .planner-row { display:flex; gap:12px; flex-wrap:wrap; }
+    .planner-col { flex:1 1 300px; }
+
+    .timer-display{ font-size:1.5rem; font-weight:800; color:var(--gold); letter-spacing:1px; }
+
+    footer { padding:28px; text-align:center; color:#bdbdbd; margin-top:32px; }
+
+    /* Responsive tweaks */
+    @media (max-width:768px){
+      .hero h1{ font-size:2rem; }
+      .hero p{ font-size:1rem; }
     }
   </style>
 </head>
-
 <body>
 
-  <!-- HERO -->
+  <!-- NAVBAR -->
+  <nav class="navbar nav-glass px-4 py-2">
+    <div class="container d-flex justify-content-between align-items-center">
+      <div class="d-flex align-items-center gap-3">
+        <div style="width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--gold),#f5d07a);display:flex;align-items:center;justify-content:center;color:#000;font-weight:800;">IELTS</div>
+        <div>
+          <div style="font-weight:800;color:#fff;">Luxury IELTS</div>
+          <div style="font-size:12px;color:#bdbdbd;">Premium practice & examiner-level feedback</div>
+        </div>
+      </div>
+
+      <div>
+        <button id="logoutBtn" class="btn btn-link text-decoration-none" style="color:#bdbdbd;display:none;">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO + LOGIN -->
   <section class="hero">
-    <div>
-      <h1>IELTS — The Elite Way</h1>
-      <p>Experience a premium, polished, Apple-grade platform designed to elevate your IELTS preparation to professional excellence.</p>
-      <a href="#courses" class="gold-btn mt-4 d-inline-block">Explore Premium Lessons</a>
+    <div class="hero-card">
+      <!-- LOGIN -->
+      <div id="loginScreen">
+        <h1>Welcome — Begin the Elite IELTS Task</h1>
+        <p>Enter the password to access the premium task wizard.<br><strong>Password:</strong> <code>VII I MMVI</code></p>
+
+        <div class="d-flex align-items-center justify-content-center gap-3" style="flex-wrap:wrap;">
+          <input id="pwInput" class="form-control" type="text" placeholder="Enter password" style="max-width:420px;">
+          <button id="pwBtn" class="gold-btn">Enter</button>
+        </div>
+
+        <div id="loginMsg" class="mt-3 text-center" style="color:#ffb5b5; display:none;"></div>
+      </div>
+
+      <!-- WELCOME (hidden until login) -->
+      <div id="welcomeScreen" style="display:none;">
+        <h1 style="font-size:2.2rem;margin-bottom:6px;">Welcome back — start your task</h1>
+        <p style="margin-bottom:18px;">Professional walkthrough — audio overview, focused timer, vocabulary & planning tools to craft a high-scoring response.</p>
+        <div class="d-flex gap-3 justify-content-center" style="flex-wrap:wrap;">
+          <a class="gold-btn" id="startWizardBtn">Start Wizard</a>
+          <a class="btn btn-outline-light" href="#about" target="_blank">About</a>
+        </div>
+      </div>
     </div>
   </section>
 
+  <!-- WIZARD (hidden until start) -->
+  <main class="wizard container" id="wizard" style="display:none;">
+    <div class="d-flex gap-3 mb-3 justify-content-between align-items-center flex-wrap">
+      <div class="d-flex gap-3 align-items-center">
+        <div class="step-title">Wizard</div>
+        <div class="text-muted">Follow steps 1 → 7</div>
+      </div>
 
-  <!-- COURSES / CARDS -->
-  <section id="courses" class="py-5">
-    <div class="container">
-      <h2 class="text-center fw-bold mb-4" style="color:#d4af37;">Premium IELTS Modules</h2>
-
-      <div class="row g-4">
-
-        <!-- Listening -->
-        <div class="col-md-4">
-          <div class="glass-card">
-            <img src="https://images.unsplash.com/photo-1581093448799-76ccb0c8c72d?auto=format&fit=crop&w=800&q=80" class="w-100 mb-3">
-            <h5 class="fw-bold">Listening Masterclass</h5>
-            <p>Crystal-clear audio lessons crafted for elite IELTS scoring.</p>
-
-            <a class="gold-btn btn-sm mt-2" data-mdb-toggle="collapse" href="#listen1">Play Audio</a>
-
-            <div class="collapse mt-3" id="listen1">
-              <audio controls class="w-100">
-                <source src="audio/listening1.mp3" type="audio/mpeg">
-              </audio>
-            </div>
-          </div>
+      <div class="d-flex gap-2 align-items-center">
+        <div class="text-muted">Step <span id="currentStep">1</span>/7</div>
+        <div>
+          <button id="prevBtn" class="btn btn-sm btn-outline-light" disabled>Prev</button>
+          <button id="nextBtn" class="btn btn-sm gold-btn">Next</button>
         </div>
+      </div>
+    </div>
 
-        <!-- Reading -->
-        <div class="col-md-4">
-          <div class="glass-card">
-            <img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=800&q=80" class="w-100 mb-3">
-            <h5 class="fw-bold">Reading Excellence</h5>
-            <p>High-clarity passages with structured guidance for perfect comprehension.</p>
+    <!-- STEP PANELS -->
+    <!-- Step 1 — Task Overview -->
+    <section class="glass-card mb-4" data-step="1">
+      <div class="d-flex gap-4 flex-wrap align-items-start">
+        <div style="flex:1 1 480px;">
+          <h3 class="mb-2">Step 1 — Task Overview</h3>
+          <p class="text-muted">Listen to the audio overview and watch the sample video to understand the IELTS task.</p>
 
-            <a class="gold-btn btn-sm mt-2" data-mdb-toggle="collapse" href="#read1">View Notes</a>
-
-            <div class="collapse mt-3" id="read1">
-              <p>Detailed reading strategies and breakdowns for elite performance.</p>
-            </div>
+          <div class="mb-3">
+            <label class="form-label">Audio Overview</label>
+            <audio controls class="w-100">
+              <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+              Your browser does not support audio.
+            </audio>
           </div>
-        </div>
 
-        <!-- Speaking -->
-        <div class="col-md-4">
-          <div class="glass-card">
-            <img src="https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=800&q=80" class="w-100 mb-3">
-            <h5 class="fw-bold">Speaking Perfection</h5>
-            <p>Professional HD speaking examples for Band 8+ mastery.</p>
-
-            <a class="gold-btn btn-sm mt-2" data-mdb-toggle="collapse" href="#speak1">Watch Video</a>
-
-            <div class="collapse mt-3" id="speak1">
-              <video controls class="w-100">
-                <source src="video/speaking1.mp4" type="video/mp4">
+          <div>
+            <label class="form-label">Video Overview</label>
+            <div class="ratio ratio-16x9">
+              <video controls>
+                <source src="https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4" type="video/mp4">
+                Your browser does not support video.
               </video>
             </div>
           </div>
         </div>
 
-      </div>
-    </div>
-  </section>
-
-
-  <!-- TABS -->
-  <section class="py-5">
-    <div class="container">
-
-      <h2 class="text-center fw-bold mb-4" style="color:#d4af37;">Interactive IELTS Learning</h2>
-
-      <ul class="nav nav-tabs justify-content-center mb-4">
-        <li class="nav-item">
-          <button class="nav-link active" data-mdb-toggle="tab" data-mdb-target="#t1">Listening</button>
-        </li>
-        <li class="nav-item">
-          <button class="nav-link" data-mdb-toggle="tab" data-mdb-target="#t2">Reading</button>
-        </li>
-        <li class="nav-item">
-          <button class="nav-link" data-mdb-toggle="tab" data-mdb-target="#t3">Speaking</button>
-        </li>
-      </ul>
-
-      <div class="tab-content">
-        <div class="tab-pane fade show active" id="t1">
-          <p>Premium step-wise listening tutorials.</p>
-          <audio controls class="w-100">
-            <source src="audio/listening2.mp3" type="audio/mpeg">
-          </audio>
-        </div>
-
-        <div class="tab-pane fade" id="t2">
-          <p>High-clarity reading explanations and annotated samples.</p>
-        </div>
-
-        <div class="tab-pane fade" id="t3">
-          <p>Band 8+ sample answers and speaking cues.</p>
-          <video controls class="w-100">
-            <source src="video/speaking2.mp4" type="video/mp4">
-          </video>
+        <div style="width:320px;">
+          <div style="position:sticky; top:90px;">
+            <div class="glass-card">
+              <h6 class="mb-2">Quick Actions</h6>
+              <p class="mb-2 text-muted">Use these to move forward when ready.</p>
+              <button id="toStep2" class="gold-btn w-100">Proceed to Brainstorm</button>
+            </div>
+          </div>
         </div>
       </div>
+    </section>
 
-    </div>
-  </section>
+    <!-- Step 2 — Brainstorm -->
+    <section class="glass-card mb-4" data-step="2" style="display:none;">
+      <div class="row g-4">
+        <div class="col-lg-7">
+          <h3>Step 2 — Brainstorm</h3>
+          <p class="text-muted mb-3">Study the task image and full prompt. Use the 6-minute focus timer to brainstorm ideas.</p>
 
+          <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=80" class="w-100 rounded mb-3" alt="task image">
 
-  <!-- FOOTER -->
-  <footer class="py-4 text-center">
-    <p class="mb-0">© 2025 Luxury IELTS Platform. Designed with precision & excellence.</p>
-  </footer>
+          <div class="glass-card">
+            <h6 class="mb-2">Task Description</h6>
+            <p id="taskDescription">You will be given a writing/speaking prompt. Brainstorm ideas, consider reasons for/against, and prepare two strong body points with examples.</p>
+          </div>
+        </div>
 
+        <div class="col-lg-5">
+          <div class="glass-card mb-3">
+            <h6 class="mb-2">6-Minute Focus Timer</h6>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div class="timer-display" id="timerDisplay">06:00</div>
+              <div class="text-muted">Focus mode</div>
+            </div>
+
+            <div class="d-flex gap-2">
+              <button id="timerStart" class="btn btn-sm btn-outline-light w-100">Start</button>
+              <button id="timerPause" class="btn btn-sm btn-outline-light w-100">Pause</button>
+              <button id="timerReset" class="btn btn-sm btn-outline-light w-100">Reset</button>
+            </div>
+            <div class="mt-3 text-muted" style="font-size:0.9rem;">Tip: Use this time to write quick bullet points — do not edit heavily.</div>
+          </div>
+
+          <div class="glass-card">
+            <h6 class="mb-2">Brainstorm Notes</h6>
+            <textarea id="brainNotes" class="form-control" rows="7" placeholder="Write your quick ideas here..."></textarea>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step 3 — Key Vocabulary -->
+    <section class="glass-card mb-4" data-step="3" style="display:none;">
+      <h3>Step 3 — Key Vocabulary</h3>
+      <p class="text-muted mb-3">Important words for this task. Click the pronounce button to hear each word in selected accent.</p>
+
+      <div class="d-flex gap-3 mb-3 align-items-center flex-wrap">
+        <div>
+          <label class="form-label mb-1">Accent</label>
+          <select id="accentSelect" class="form-select accent-select">
+            <option value="en-GB">UK English</option>
+            <option value="en-IN">Indian English</option>
+            <option value="en-US">US English</option>
+          </select>
+        </div>
+
+        <div class="ms-auto">
+          <button id="addVocabBtn" class="btn btn-sm btn-outline-light">Add Word</button>
+        </div>
+      </div>
+
+      <div id="vocabGrid" class="vocab-grid mb-3">
+        <!-- example vocab items -->
+      </div>
+
+      <div class="d-flex gap-2">
+        <input id="newVocab" class="form-control" placeholder="New vocabulary word (press Add)"/>
+        <button id="saveVocab" class="gold-btn">Add</button>
+      </div>
+    </section>
+
+    <!-- Step 4 — Plan Introduction & Conclusion -->
+    <section class="glass-card mb-4" data-step="4" style="display:none;">
+      <h3>Step 4 — Plan Introduction & Conclusion</h3>
+      <p class="text-muted mb-3">Use sample intros and conclusions to craft your opening and closing lines quickly.</p>
+
+      <div class="row g-3">
+        <div class="col-md-6">
+          <div class="glass-card">
+            <h6>Sample Introductions</h6>
+            <ul id="introList" class="list-unstyled mb-2">
+              <li>Many people believe that ...</li>
+              <li>There is a growing debate about ...</li>
+              <li>In recent years, the issue of ... has gained attention.</li>
+            </ul>
+            <button id="insertIntro" class="btn btn-sm gold-btn">Use Intro →</button>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="glass-card">
+            <h6>Sample Conclusions</h6>
+            <ul id="conclList" class="list-unstyled mb-2">
+              <li>In conclusion, it is clear that ...</li>
+              <li>Overall, the evidence suggests ...</li>
+              <li>To sum up, I firmly believe that ...</li>
+            </ul>
+            <button id="insertConcl" class="btn btn-sm gold-btn">Use Conclusion →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-3">
+        <label class="form-label">Compose (auto-inserted)</label>
+        <textarea id="introConclCompose" class="form-control" rows="4" placeholder="Your intro & conclusion will appear here..."></textarea>
+      </div>
+    </section>
+
+    <!-- Step 5 — Plan Body Paragraph 1 -->
+    <section class="glass-card mb-4" data-step="5" style="display:none;">
+      <h3>Step 5 — Plan Body Paragraph 1</h3>
+      <p class="text-muted mb-3">Break down: Main Reason (MR) → Supporting Reason (SR) → Example (EX)</p>
+
+      <div class="planner-row">
+        <div class="planner-col glass-card">
+          <label class="form-label">Main Reason (MR)</label>
+          <input id="mr1" class="form-control" placeholder="Main reason for paragraph 1">
+        </div>
+        <div class="planner-col glass-card">
+          <label class="form-label">Supporting Reason (SR)</label>
+          <input id="sr1" class="form-control" placeholder="Supporting detail">
+        </div>
+        <div class="planner-col glass-card">
+          <label class="form-label">Example (EX)</label>
+          <input id="ex1" class="form-control" placeholder="Example or evidence">
+        </div>
+      </div>
+
+      <div class="mt-3 d-flex gap-2">
+        <button id="saveP1" class="gold-btn">Save Paragraph 1</button>
+        <button id="copyP1" class="btn btn-sm btn-outline-light">Copy Combined</button>
+      </div>
+
+      <div class="mt-3">
+        <label class="form-label">Preview</label>
+        <textarea id="previewP1" class="form-control" rows="3" readonly></textarea>
+      </div>
+    </section>
+
+    <!-- Step 6 — Plan Body Paragraph 2 -->
+    <section class="glass-card mb-4" data-step="6" style="display:none;">
+      <h3>Step 6 — Plan Body Paragraph 2</h3>
+      <p class="text-muted mb-3">Second body paragraph: MR → SR → EX (or counter-argument)</p>
+
+      <div class="planner-row">
+        <div class="planner-col glass-card">
+          <label class="form-label">Main Reason (MR)</label>
+          <input id="mr2" class="form-control" placeholder="Main reason for paragraph 2">
+        </div>
+        <div class="planner-col glass-card">
+          <label class="form-label">Supporting Reason (SR)</label>
+          <input id="sr2" class="form-control" placeholder="Supporting detail">
+        </div>
+        <div class="planner-col glass-card">
+          <label class="form-label">Example (EX)</label>
+          <input id="ex2" class="form-control" placeholder="Example or evidence">
+        </div>
+      </div>
+
+      <div class="mt-3 d-flex gap-2">
+        <button id="saveP2" class="gold-btn">Save Paragraph 2</button>
+        <button id="copyP2" class="btn btn-sm btn-outline-light">Copy Combined</button>
+      </div>
+
+      <div class="mt-3">
+        <label class="form-label">Preview</label>
+        <textarea id="previewP2" class="form-control" rows="3" readonly></textarea>
+      </div>
+    </section>
+
+    <!-- Step 7 — Final Review & Completion -->
+    <section class="glass-card mb-4" data-step="7" style="display:none;">
+      <h3>Step 7 — Final Review & Completion</h3>
+      <p class="text-muted mb-3">Review your full response below. When ready — mark task complete.</p>
+
+      <div class="glass-card mb-3">
+        <label class="form-label">Full Response Preview</label>
+        <textarea id="fullPreview" class="form-control" rows="8" readonly></textarea>
+      </div>
+
+      <div class="d-flex gap-2">
+        <button id="completeBtn" class="gold-btn">Task Complete</button>
+        <button id="reviewEdit" class="btn btn-sm btn-outline-light">Edit</button>
+      </div>
+
+      <div id="completeArea" style="display:none;margin-top:16px;">
+        <div class="text-center">
+          <h4 style="color:var(--gold);">Task Complete 🎉</h4>
+          <p class="text-muted">Great work — you can take the quiz or ask for teacher feedback.</p>
+
+          <div class="d-flex gap-2 justify-content-center flex-wrap">
+            <a href="quiz.html" class="gold-btn">Take the Quiz</a>
+            <a href="teacher-report.html" class="btn btn-outline-light">Tutor Report</a>
+            <button id="returnHome" class="btn btn-outline-light">Return to Home</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>© 2025 Luxury IELTS Platform — Crafted for exam excellence</footer>
+
+  <!-- SCRIPT -->
+  <script>
+    // ---------- STATE ----------
+    let currentStep = 1;
+    const totalSteps = 7;
+    const password = "VII I MMVI";
+
+    // DOM refs
+    const loginScreen = document.getElementById('loginScreen');
+    const welcomeScreen = document.getElementById('welcomeScreen');
+    const pwInput = document.getElementById('pwInput');
+    const pwBtn = document.getElementById('pwBtn');
+    const loginMsg = document.getElementById('loginMsg');
+    const startWizardBtn = document.getElementById('startWizardBtn');
+    const wizard = document.getElementById('wizard');
+    const currentStepLabel = document.getElementById('currentStep');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    // Step panels
+    function stepPanel(n){ return document.querySelector('[data-step="'+n+'"]'); }
+
+    // ---------- LOGIN ----------
+    function normalized(s){ return (s||'').trim(); }
+
+    pwBtn.addEventListener('click', ()=> {
+      const val = normalized(pwInput.value);
+      if(val === password){
+        loginMsg.style.display = 'none';
+        loginScreen.style.display = 'none';
+        welcomeScreen.style.display = 'block';
+        logoutBtn.style.display = 'inline-block';
+      } else {
+        loginMsg.style.display = 'block';
+        loginMsg.textContent = 'Incorrect password. Try again.';
+      }
+    });
+
+    // support Enter key
+    pwInput.addEventListener('keyup', (e)=>{ if(e.key === 'Enter') pwBtn.click(); });
+
+    logoutBtn.addEventListener('click', ()=> {
+      // reset UI
+      localStorage.removeItem('ielts_logged');
+      loginScreen.style.display = 'block';
+      welcomeScreen.style.display = 'none';
+      wizard.style.display = 'none';
+      logoutBtn.style.display = 'none';
+      pwInput.value = '';
+    });
+
+    // ---------- START WIZARD ----------
+    startWizardBtn.addEventListener('click', ()=> {
+      welcomeScreen.style.display = 'none';
+      wizard.style.display = 'block';
+      document.getElementById('currentStep').textContent = currentStep;
+      showStep(currentStep);
+      window.scrollTo({top:0,behavior:'smooth'});
+      localStorage.setItem('ielts_logged', '1');
+    });
+
+    // ---------- NAV ----------
+    prevBtn.addEventListener('click', ()=> { if(currentStep>1){ currentStep--; updateNav(); }});
+    nextBtn.addEventListener('click', ()=> { if(currentStep<totalSteps){ currentStep++; updateNav(); }});
+
+    document.getElementById('toStep2').addEventListener('click', ()=> { currentStep = 2; updateNav(); });
+
+    function updateNav(){
+      currentStepLabel.textContent = currentStep;
+      prevBtn.disabled = (currentStep === 1);
+      nextBtn.disabled = (currentStep === totalSteps);
+      showStep(currentStep);
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+
+    function showStep(n){
+      for(let i=1;i<=totalSteps;i++){
+        const el = stepPanel(i);
+        if(el) el.style.display = (i===n ? 'block' : 'none');
+      }
+      currentStepLabel.textContent = n;
+    }
+
+    // ---------- TIMER (6 minutes) ----------
+    let timerSeconds = 6*60;
+    let timerInterval = null;
+    const timerDisplay = document.getElementById('timerDisplay');
+    const timerStart = document.getElementById('timerStart');
+    const timerPause = document.getElementById('timerPause');
+    const timerReset = document.getElementById('timerReset');
+
+    function formatTime(s){
+      const m = String(Math.floor(s/60)).padStart(2,'0');
+      const r = String(s%60).padStart(2,'0');
+      return m+':'+r;
+    }
+    function updateTimerDisplay(){ timerDisplay.textContent = formatTime(timerSeconds); }
+    updateTimerDisplay();
+
+    timerStart.addEventListener('click', ()=>{
+      if(timerInterval) return;
+      timerInterval = setInterval(()=>{
+        if(timerSeconds<=0){ clearInterval(timerInterval); timerInterval=null; return; }
+        timerSeconds--;
+        updateTimerDisplay();
+        if(timerSeconds===0){
+          // optional gentle alert
+          new Audio('https://www.soundjay.com/buttons/sounds/beep-07.mp3').play().catch(()=>{});
+        }
+      },1000);
+    });
+
+    timerPause.addEventListener('click', ()=>{
+      if(timerInterval){ clearInterval(timerInterval); timerInterval=null; }
+    });
+    timerReset.addEventListener('click', ()=>{
+      if(timerInterval){ clearInterval(timerInterval); timerInterval=null; }
+      timerSeconds = 6*60;
+      updateTimerDisplay();
+    });
+
+    // ---------- VOCAB GRID & SPEECH ----------
+    const vocabGrid = document.getElementById('vocabGrid');
+    const newVocab = document.getElementById('newVocab');
+    const saveVocab = document.getElementById('saveVocab');
+    const accentSelect = document.getElementById('accentSelect');
+
+    // Sample initial words
+    const defaultVocab = ['coherent','nuance','perspective','advocate','detrimental','substantial','mitigate','prevalent','compelling','anecdote'];
+
+    function renderVocab(){
+      vocabGrid.innerHTML = '';
+      const saved = JSON.parse(localStorage.getItem('ielts_vocab') || JSON.stringify(defaultVocab));
+      saved.forEach((w, idx)=>{
+        const item = document.createElement('div');
+        item.className = 'vocab-item';
+        item.innerHTML = '<div class="vocab-word">'+escapeHtml(w)+'</div><div class="d-flex gap-2 align-items-center"><button class="btn btn-sm btn-outline-light pronounceBtn" data-word="'+escapeHtml(w)+'">🔊</button><button class="btn btn-sm btn-outline-light removeBtn" data-i="'+idx+'">✖</button></div>';
+        vocabGrid.appendChild(item);
+      });
+
+      // attach events
+      document.querySelectorAll('.pronounceBtn').forEach(btn=>{
+        btn.addEventListener('click', (e)=>{
+          const word = e.currentTarget.dataset.word;
+          speak(word);
+        });
+      });
+      document.querySelectorAll('.removeBtn').forEach(btn=>{
+        btn.addEventListener('click', (e)=>{
+          const i = Number(e.currentTarget.dataset.i);
+          const arr = JSON.parse(localStorage.getItem('ielts_vocab') || JSON.stringify(defaultVocab));
+          arr.splice(i,1);
+          localStorage.setItem('ielts_vocab', JSON.stringify(arr));
+          renderVocab();
+        });
+      });
+    }
+
+    saveVocab.addEventListener('click', ()=>{
+      const v = newVocab.value.trim();
+      if(!v) return;
+      const arr = JSON.parse(localStorage.getItem('ielts_vocab') || JSON.stringify(defaultVocab));
+      arr.unshift(v);
+      localStorage.setItem('ielts_vocab', JSON.stringify(arr.slice(0,50)));
+      newVocab.value = '';
+      renderVocab();
+    });
+
+    function speak(text){
+      if(!('speechSynthesis' in window)){
+        alert('Speech synthesis not supported in this browser.');
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.rate = 0.98;
+      utter.pitch = 1;
+      utter.lang = accentSelect.value || 'en-GB';
+      // map en-IN to a close voice if available
+      const voices = window.speechSynthesis.getVoices();
+      // attempt to set voice by lang
+      const v = voices.find(x => x.lang && x.lang.toLowerCase().startsWith(utter.lang.toLowerCase()));
+      if(v) utter.voice = v;
+      window.speechSynthesis.speak(utter);
+    }
+
+    // helper
+    function escapeHtml(unsafe) {
+      return unsafe.replace(/[&<"'>]/g, function(m) { return ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;' })[m]; });
+    }
+
+    // ---------- INTRO / CONCLUSION ----------
+
+    const insertIntro = document.getElementById('insertIntro');
+    const insertConcl = document.getElementById('insertConcl');
+    const introConclCompose = document.getElementById('introConclCompose');
+
+    insertIntro.addEventListener('click', ()=>{
+      const introSamples = Array.from(document.querySelectorAll('#introList li')).map(x=>x.textContent.trim());
+      introConclCompose.value = (introSamples[0] || '') + '\n\n' + introConclCompose.value;
+    });
+
+    insertConcl.addEventListener('click', ()=>{
+      const conclSamples = Array.from(document.querySelectorAll('#conclList li')).map(x=>x.textContent.trim());
+      introConclCompose.value = (introConclCompose.value? introConclCompose.value + '\n\n' : '') + (conclSamples[0] || '');
+    });
+
+    // ---------- PARAGRAPH PLANNERS ----------
+    const mr1 = document.getElementById('mr1'), sr1 = document.getElementById('sr1'), ex1 = document.getElementById('ex1');
+    const mr2 = document.getElementById('mr2'), sr2 = document.getElementById('sr2'), ex2 = document.getElementById('ex2');
+    const saveP1 = document.getElementById('saveP1'), copyP1 = document.getElementById('copyP1'), previewP1 = document.getElementById('previewP1');
+    const saveP2 = document.getElementById('saveP2'), copyP2 = document.getElementById('copyP2'), previewP2 = document.getElementById('previewP2');
+
+    function buildParagraph(mr,sr,ex){
+      const parts = [];
+      if(mr) parts.push('Main reason: ' + mr + '.');
+      if(sr) parts.push('Supporting point: ' + sr + '.');
+      if(ex) parts.push('Example: ' + ex + '.');
+      return parts.join(' ');
+    }
+
+    saveP1.addEventListener('click', ()=>{
+      const txt = buildParagraph(mr1.value.trim(), sr1.value.trim(), ex1.value.trim());
+      previewP1.value = txt;
+      localStorage.setItem('p1', JSON.stringify({mr:mr1.value, sr:sr1.value, ex:ex1.value}));
+    });
+    copyP1.addEventListener('click', ()=>{ navigator.clipboard.writeText(previewP1.value||''); });
+
+    saveP2.addEventListener('click', ()=>{
+      const txt = buildParagraph(mr2.value.trim(), sr2.value.trim(), ex2.value.trim());
+      previewP2.value = txt;
+      localStorage.setItem('p2', JSON.stringify({mr:mr2.value, sr:sr2.value, ex:ex2.value}));
+    });
+    copyP2.addEventListener('click', ()=>{ navigator.clipboard.writeText(previewP2.value||''); });
+
+    // ---------- FINAL PREVIEW & COMPLETE ----------
+    const fullPreview = document.getElementById('fullPreview');
+    const completeBtn = document.getElementById('completeBtn');
+    const completeArea = document.getElementById('completeArea');
+    const returnHome = document.getElementById('returnHome');
+
+    function buildFullResponse(){
+      const intro = introConclCompose.value.trim();
+      const p1 = previewP1.value.trim();
+      const p2 = previewP2.value.trim();
+      const full = [intro, p1, p2].filter(Boolean).join('\n\n');
+      fullPreview.value = full;
+    }
+
+    // rebuild preview whenever content changes
+    [introConclCompose, previewP1, previewP2].forEach(el=>{
+      el.addEventListener('input', buildFullResponse);
+    });
+
+    completeBtn.addEventListener('click', ()=>{
+      buildFullResponse();
+      completeArea.style.display = 'block';
+      // confetti burst
+      setTimeout(()=>{ confetti({ particleCount: 180, spread: 70, origin: { y: 0.4 } }); }, 200);
+      // also small repeating bursts
+      let i=0, int = setInterval(()=>{ confetti({ particleCount: 30, spread: 50, origin: { x: Math.random(), y: Math.random()-0.2 } }); i++; if(i>6) clearInterval(int); }, 400);
+    });
+
+    returnHome.addEventListener('click', ()=>{
+      // Reset everything and go to step1
+      currentStep = 1; updateNav();
+      completeArea.style.display = 'none';
+      // clear planner & notes (optional)
+      // localStorage.clear();
+    });
+
+    // ---------- COPY FULL PREVIEW ON REVIEW EDIT ----------
+    document.getElementById('reviewEdit').addEventListener('click', ()=> {
+      // go to step 4 (intro) to edit
+      currentStep = 4; updateNav();
+      // fill compose area with full preview content
+      introConclCompose.value = fullPreview.value;
+    });
+
+    // ---------- INITIALIZE ----------
+    (function init(){
+      // render vocab
+      renderVocab();
+
+      // restore plannners if any
+      const sp1 = JSON.parse(localStorage.getItem('p1')||'{}');
+      if(sp1){ mr1.value = sp1.mr||''; sr1.value = sp1.sr||''; ex1.value = sp1.ex||''; previewP1.value = buildParagraph(mr1.value,sr1.value,ex1.value); }
+      const sp2 = JSON.parse(localStorage.getItem('p2')||'{}');
+      if(sp2){ mr2.value = sp2.mr||''; sr2.value = sp2.sr||''; ex2.value = sp2.ex||''; previewP2.value = buildParagraph(mr2.value,sr2.value,ex2.value); }
+
+      // if logged previously show welcome
+      if(localStorage.getItem('ielts_logged') === '1'){
+        loginScreen.style.display = 'none';
+        welcomeScreen.style.display = 'block';
+        logoutBtn.style.display = 'inline-block';
+      }
+
+      // auto-voice population (voices may load async)
+      window.speechSynthesis.onvoiceschanged = ()=>{};
+    })();
+
+    // ---------- UTILITY: prevent accidental navigation when wizard active ----------
+    window.addEventListener('beforeunload', (e)=>{
+      if(wizard.style.display === 'block'){
+        e.preventDefault();
+        e.returnValue = '';
+      }
+    });
+
+    // ---------- keyboard navigation ----------
+    document.addEventListener('keydown', (e)=>{
+      if(wizard.style.display === 'block'){
+        if(e.key === 'ArrowLeft') prevBtn.click();
+        if(e.key === 'ArrowRight') nextBtn.click();
+      }
+    });
+  </script>
 </body>
 </html>
