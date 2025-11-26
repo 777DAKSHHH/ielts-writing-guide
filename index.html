@@ -5,116 +5,189 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Luxury IELTS Platform</title>
 
-  <!-- MDBootstrap CSS & JS -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.min.css"
-  />
+  <!-- MDBootstrap -->
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.min.js"></script>
 
-  <!-- Google Fonts for premium typography -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     body {
-      font-family: 'Roboto', sans-serif;
-      background-color: #f9f9f9;
-      color: #111;
+      font-family: 'Inter', sans-serif;
+      background-color: #0d0d0d;
+      color: #eee;
     }
+
+    /* -------------------------
+       ULTRA-LUXURY HERO
+    ---------------------------*/
     .hero {
-      height: 80vh;
-      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3)), url('https://source.unsplash.com/1600x900/?education,book') center/cover no-repeat;
+      height: 88vh;
+      background: 
+        linear-gradient(120deg, rgba(0, 0, 0, 0.75), rgba(10, 10, 10, 0.4)),
+        url("https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1600&q=80")
+        center/cover no-repeat;
       display: flex;
-      justify-content: center;
       align-items: center;
-      color: #fff;
+      justify-content: center;
       text-align: center;
+      padding: 0 20px;
+      backdrop-filter: blur(4px);
     }
+
     .hero h1 {
-      font-size: 3rem;
-      font-weight: 700;
+      font-size: 4rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: #ffffff;
+      text-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
     }
+
     .hero p {
       font-size: 1.3rem;
+      max-width: 650px;
+      margin: auto;
+      color: #e5e5e5;
     }
-    .premium-card {
-      border-radius: 1rem;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    .gold-btn {
+      border: 1.5px solid #d4af37;
+      color: #d4af37;
+      padding: 12px 35px;
+      border-radius: 50px;
+      transition: 0.3s;
+      font-weight: 600;
+      font-size: 1.05rem;
     }
-    .premium-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+
+    .gold-btn:hover {
+      background: #d4af37;
+      color: black;
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.7);
+      transform: translateY(-3px);
+    }
+
+    /* -------------------------
+       GLASSMORPHIC LUXURY CARDS
+    ---------------------------*/
+    .glass-card {
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(12px);
+      border-radius: 18px;
+      padding: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
+      transition: 0.35s ease;
+    }
+
+    .glass-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+      border-color: #d4af37;
+    }
+
+    .glass-card img {
+      border-radius: 14px;
+    }
+
+    /* -------------------------
+       PREMIUM TABS
+    ---------------------------*/
+    .nav-tabs .nav-link {
+      color: #bbb;
+      font-weight: 600;
+      border-radius: 0;
+      border-bottom: 2px solid transparent;
+      padding: 12px 25px;
+    }
+
+    .nav-tabs .nav-link.active {
+      color: #d4af37;
+      border-bottom: 2px solid #d4af37;
+      background: transparent;
+    }
+
+    .tab-pane {
+      color: #ddd;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 14px;
+      backdrop-filter: blur(10px);
+    }
+
+    footer {
+      background-color: #000;
+      color: #aaa;
     }
   </style>
 </head>
+
 <body>
 
-  <!-- HERO SECTION -->
+  <!-- HERO -->
   <section class="hero">
-    <div class="container">
-      <h1>Master IELTS with Luxury Experience</h1>
-      <p>Elegant, premium, and professional dashboard for your IELTS journey</p>
-      <a href="#courses" class="btn btn-outline-light btn-lg mt-4">Explore Courses</a>
+    <div>
+      <h1>IELTS — The Elite Way</h1>
+      <p>Experience a premium, polished, Apple-grade platform designed to elevate your IELTS preparation to professional excellence.</p>
+      <a href="#courses" class="gold-btn mt-4 d-inline-block">Explore Premium Lessons</a>
     </div>
   </section>
+
 
   <!-- COURSES / CARDS -->
   <section id="courses" class="py-5">
     <div class="container">
-      <div class="text-center mb-5">
-        <h2 class="fw-bold">Our Premium Courses</h2>
-        <p class="text-muted">Luxury-designed lessons & audio/video content</p>
-      </div>
+      <h2 class="text-center fw-bold mb-4" style="color:#d4af37;">Premium IELTS Modules</h2>
 
       <div class="row g-4">
-        <!-- Card 1 -->
+
+        <!-- Listening -->
         <div class="col-md-4">
-          <div class="card premium-card">
-            <img src="https://source.unsplash.com/400x300/?ielts,study" class="card-img-top" alt="IELTS Listening">
-            <div class="card-body">
-              <h5 class="card-title">Listening Mastery</h5>
-              <p class="card-text">Polished, step-by-step audio lessons with premium clarity.</p>
-              <a class="btn btn-primary" data-mdb-toggle="collapse" href="#listen1" role="button" aria-expanded="false" aria-controls="listen1">View Audio</a>
-              <div class="collapse mt-3" id="listen1">
-                <audio controls class="w-100">
-                  <source src="audio/listening1.mp3" type="audio/mpeg">
-                  Your browser does not support the audio element.
-                </audio>
-              </div>
+          <div class="glass-card">
+            <img src="https://images.unsplash.com/photo-1581093448799-76ccb0c8c72d?auto=format&fit=crop&w=800&q=80" class="w-100 mb-3">
+            <h5 class="fw-bold">Listening Masterclass</h5>
+            <p>Crystal-clear audio lessons crafted for elite IELTS scoring.</p>
+
+            <a class="gold-btn btn-sm mt-2" data-mdb-toggle="collapse" href="#listen1">Play Audio</a>
+
+            <div class="collapse mt-3" id="listen1">
+              <audio controls class="w-100">
+                <source src="audio/listening1.mp3" type="audio/mpeg">
+              </audio>
             </div>
           </div>
         </div>
 
-        <!-- Card 2 -->
+        <!-- Reading -->
         <div class="col-md-4">
-          <div class="card premium-card">
-            <img src="https://source.unsplash.com/400x300/?ielts,reading" class="card-img-top" alt="IELTS Reading">
-            <div class="card-body">
-              <h5 class="card-title">Reading Excellence</h5>
-              <p class="card-text">Structured reading passages with step-by-step guidance.</p>
-              <a class="btn btn-primary" data-mdb-toggle="collapse" href="#reading1" role="button" aria-expanded="false" aria-controls="reading1">View Details</a>
-              <div class="collapse mt-3" id="reading1">
-                <p>Detailed reading explanations and luxury-formatted notes.</p>
-              </div>
+          <div class="glass-card">
+            <img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=800&q=80" class="w-100 mb-3">
+            <h5 class="fw-bold">Reading Excellence</h5>
+            <p>High-clarity passages with structured guidance for perfect comprehension.</p>
+
+            <a class="gold-btn btn-sm mt-2" data-mdb-toggle="collapse" href="#read1">View Notes</a>
+
+            <div class="collapse mt-3" id="read1">
+              <p>Detailed reading strategies and breakdowns for elite performance.</p>
             </div>
           </div>
         </div>
 
-        <!-- Card 3 -->
+        <!-- Speaking -->
         <div class="col-md-4">
-          <div class="card premium-card">
-            <img src="https://source.unsplash.com/400x300/?ielts,speaking" class="card-img-top" alt="IELTS Speaking">
-            <div class="card-body">
-              <h5 class="card-title">Speaking Perfection</h5>
-              <p class="card-text">High-quality video examples and professional tips.</p>
-              <a class="btn btn-primary" data-mdb-toggle="collapse" href="#speak1" role="button" aria-expanded="false" aria-controls="speak1">View Video</a>
-              <div class="collapse mt-3" id="speak1">
-                <video controls class="w-100">
-                  <source src="video/speaking1.mp4" type="video/mp4">
-                  Your browser does not support the video tag.
-                </video>
-              </div>
+          <div class="glass-card">
+            <img src="https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=800&q=80" class="w-100 mb-3">
+            <h5 class="fw-bold">Speaking Perfection</h5>
+            <p>Professional HD speaking examples for Band 8+ mastery.</p>
+
+            <a class="gold-btn btn-sm mt-2" data-mdb-toggle="collapse" href="#speak1">Watch Video</a>
+
+            <div class="collapse mt-3" id="speak1">
+              <video controls class="w-100">
+                <source src="video/speaking1.mp4" type="video/mp4">
+              </video>
             </div>
           </div>
         </div>
@@ -123,48 +196,52 @@
     </div>
   </section>
 
-  <!-- PREMIUM TABS SECTION -->
-  <section class="py-5 bg-light">
-    <div class="container">
-      <h2 class="text-center fw-bold mb-5">Interactive Learning Tabs</h2>
 
-      <ul class="nav nav-tabs mb-3" id="luxTabs" role="tablist">
-        <li class="nav-item" role="presentation">
-          <button class="nav-link active" id="tab1-tab" data-mdb-toggle="tab" data-mdb-target="#tab1" type="button" role="tab">Listening</button>
+  <!-- TABS -->
+  <section class="py-5">
+    <div class="container">
+
+      <h2 class="text-center fw-bold mb-4" style="color:#d4af37;">Interactive IELTS Learning</h2>
+
+      <ul class="nav nav-tabs justify-content-center mb-4">
+        <li class="nav-item">
+          <button class="nav-link active" data-mdb-toggle="tab" data-mdb-target="#t1">Listening</button>
         </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="tab2-tab" data-mdb-toggle="tab" data-mdb-target="#tab2" type="button" role="tab">Reading</button>
+        <li class="nav-item">
+          <button class="nav-link" data-mdb-toggle="tab" data-mdb-target="#t2">Reading</button>
         </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="tab3-tab" data-mdb-toggle="tab" data-mdb-target="#tab3" type="button" role="tab">Speaking</button>
+        <li class="nav-item">
+          <button class="nav-link" data-mdb-toggle="tab" data-mdb-target="#t3">Speaking</button>
         </li>
       </ul>
 
-      <div class="tab-content" id="luxTabsContent">
-        <div class="tab-pane fade show active" id="tab1" role="tabpanel">
-          <p>Step-by-step luxury listening tutorials with embedded audio.</p>
+      <div class="tab-content">
+        <div class="tab-pane fade show active" id="t1">
+          <p>Premium step-wise listening tutorials.</p>
           <audio controls class="w-100">
             <source src="audio/listening2.mp3" type="audio/mpeg">
           </audio>
         </div>
-        <div class="tab-pane fade" id="tab2" role="tabpanel">
-          <p>Structured reading practice with premium formatting.</p>
+
+        <div class="tab-pane fade" id="t2">
+          <p>High-clarity reading explanations and annotated samples.</p>
         </div>
-        <div class="tab-pane fade" id="tab3" role="tabpanel">
-          <p>Speaking exercises with high-quality video examples.</p>
+
+        <div class="tab-pane fade" id="t3">
+          <p>Band 8+ sample answers and speaking cues.</p>
           <video controls class="w-100">
             <source src="video/speaking2.mp4" type="video/mp4">
           </video>
         </div>
       </div>
+
     </div>
   </section>
 
+
   <!-- FOOTER -->
-  <footer class="text-center text-lg-start bg-dark text-white py-4">
-    <div class="container">
-      <p class="mb-0">© 2025 Luxury IELTS Platform. All rights reserved.</p>
-    </div>
+  <footer class="py-4 text-center">
+    <p class="mb-0">© 2025 Luxury IELTS Platform. Designed with precision & excellence.</p>
   </footer>
 
 </body>
