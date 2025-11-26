@@ -1,0 +1,76 @@
+/* Import a font similar to Aptos from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,700&display=swap');
+
+/* 
+  Note: Aptos is a proprietary Microsoft font. 
+  To use it, you would need to host the font files yourself and use @font-face.
+  'Nunito Sans' is a clean, modern alternative that is freely available.
+*/
+
+body {
+    font-family: 'Nunito Sans', sans-serif;
+    background-color: #fdfdfd;
+    scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4, h5, h6, .navbar-brand, .hero-title {
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 700;
+}
+
+/* Hero Section */
+.hero-section {
+    padding: 6rem 0;
+    background-color: #ffffff;
+}
+
+.hero-title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    color: #6c757d;
+}
+
+/* Lessons Section */
+.lessons-section {
+    padding: 4rem 0;
+}
+
+.lesson-card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden; /* Ensures image corners are rounded */
+}
+
+.lesson-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.lesson-card .card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Footer */
+.footer {
+    padding: 2rem 0;
+}
+
+/* Lesson Detail Page */
+.lesson-banner {
+    width: 100%;
+    height: 40vh;
+    object-fit: cover;
+    margin-bottom: 2rem;
+}
+
+.lesson-content {
+    padding: 2rem 0;
+    line-height: 1.8;
+}
