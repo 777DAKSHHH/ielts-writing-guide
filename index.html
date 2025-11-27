@@ -1,793 +1,446 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>IELTS — WIX Studio Elegant (Spacious)</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IELTS Classroom — Steps</title>
 
-  <!-- MDB UI Kit (for subtle components & animations) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.min.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.min.js" defer></script>
-
-  <!-- Confetti -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js" defer></script>
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-
-  <style>
-    :root{
-      --sky: #82C3FF;
-      --royal: #1565FF;
-      --grad: linear-gradient(135deg, var(--sky), var(--royal));
-      --muted: #6b7280;
-      --accent: rgba(21,101,255,0.12);
-    }
-
-    html,body { height:100%; }
+<style>
     body {
-      margin: 0;
-      font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: #ffffff;
-      color: #0b1a2b;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.45;
+        margin: 0;
+        font-family: "Inter", sans-serif;
+        background: #ffffff;
+        color: #1a1a1a;
     }
 
-    /* Page layout */
-    .site {
-      max-width: 1200px;
-      margin: 36px auto;
-      padding: 28px;
+    /* Layout */
+    .container {
+        display: flex;
+        padding: 40px;
+        gap: 40px;
     }
 
-    /* Header */
-    .header {
-      display:flex;
-      align-items:center;
-      gap:18px;
-      margin-bottom:18px;
-    }
-    .badge {
-      width:64px;height:64px;border-radius:14px;
-      background:var(--grad);display:flex;align-items:center;justify-content:center;
-      color:white;font-weight:800;font-size:18px;box-shadow: 0 16px 40px rgba(21,101,255,0.14);
-    }
-    .brand {
-      display:flex;flex-direction:column;
-    }
-    .brand h1 { font-size:20px;margin:0; font-weight:800; color:#07204a; }
-    .brand p { margin:0;color:var(--muted); font-size:13px; }
-
-    /* Card / glass */
-    .glass {
-      background: linear-gradient(180deg, rgba(255,255,255,1), rgba(255,255,255,0.98));
-      border-radius:16px;
-      padding:28px;
-      border: 1px solid rgba(21,101,255,0.06);
-      box-shadow: 0 18px 50px rgba(12,34,60,0.06);
-      transition: transform .32s ease, box-shadow .32s ease;
-    }
-    .glass:hover { transform: translateY(-6px); box-shadow: 0 28px 60px rgba(12,34,60,0.08); }
-
-    /* Login area */
-    .login-wrap { max-width:720px; margin: 20px auto; }
-    .login-grid { display:flex; gap:20px; align-items:center; flex-wrap:wrap; }
-    .pw-input {
-      flex:1; min-width:260px; padding:14px; border-radius:12px;border:1px solid #e6eefc;font-size:16px;
-      box-shadow:none;
-    }
-    .btn-primary {
-      background: var(--grad); color:#fff; border:none; padding:12px 22px; border-radius:12px;
-      font-weight:700; box-shadow: 0 12px 30px rgba(21,101,255,0.12);
-    }
-    .btn-ghost { background:transparent;border:1px solid #e8f1ff;padding:12px 18px;border-radius:12px;color:#094; }
-
-    .muted { color:var(--muted); font-size:14px; }
-
-    /* Wizard & progress */
-    .wizard { margin-top:26px; display:flex; gap:26px; align-items:flex-start; flex-wrap:wrap; }
+    /* Steps Sidebar */
     .sidebar {
-      width:260px; min-width:220px;
-      position:sticky; top:36px;
-      align-self:flex-start;
+        width: 240px;
+        background: rgba(255, 255, 255, 0.6);
+        border-radius: 16px;
+        box-shadow: 0 6px 22px rgba(0,0,0,0.08);
+        padding: 20px;
+        height: fit-content;
     }
 
-    .steps-list {
-      display:flex; flex-direction:column; gap:12px;
-    }
-    .step-item {
-      display:flex; align-items:center; gap:12px; padding:12px 14px; border-radius:12px; cursor:pointer;
-      border:1px solid transparent; transition: all .22s ease;
-      background: linear-gradient(180deg, rgba(250,252,255,1), rgba(246,250,255,1));
-    }
-    .step-item.active {
-      background: var(--grad); color:white; box-shadow: 0 12px 32px rgba(21,101,255,0.12);
-    }
-    .step-num { width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:700; background:rgba(6,30,72,0.03); color:#07204a; }
-    .step-item.active .step-num { background: rgba(255,255,255,0.18); color:white; }
-
-    .progress-bar {
-      height:10px;border-radius:999px;background: #eef6ff; overflow:hidden;margin-top:12px;
-    }
-    .progress-bar > i { display:block;height:100%; background:var(--grad); width:0%; transition:width .4s ease; }
-
-    /* main panel */
-    .main {
-      flex:1; min-width:540px;
+    .step-btn {
+        width: 100%;
+        padding: 14px;
+        margin-bottom: 10px;
+        border-radius: 12px;
+        background: #eef3ff;
+        border: none;
+        cursor: pointer;
+        font-size: 15px;
+        transition: 0.25s;
     }
 
-    .panel-title { font-size:22px; margin:0 0 8px; font-weight:800; color:#07204a; }
-    .panel-sub { color:var(--muted); margin-bottom:16px; }
-
-    .section { margin-bottom:20px; }
-
-    /* media frames */
-    .media-frame {
-      border-radius:12px; padding:8px; border: 1px solid rgba(21,101,255,0.08);
-      background: linear-gradient(180deg, rgba(250,252,255,1), rgba(247,249,255,1));
-    }
-    .player-wrap { border-radius:12px; overflow:hidden; border: 1px solid #e9f3ff; box-shadow: 0 8px 22px rgba(21,101,255,0.04); }
-
-    /* timer */
-    .timer {
-      display:flex; gap:14px; align-items:center; justify-content:flex-start; flex-wrap:wrap;
-    }
-    .timer-display {
-      font-size:28px; font-weight:900; color:var(--royal);
-      background: linear-gradient(180deg, rgba(21,101,255,0.04), rgba(21,101,255,0.02));
-      padding:12px 18px; border-radius:12px; min-width:120px; text-align:center;
+    .step-btn.active {
+        background: linear-gradient(135deg, #82C3FF, #1565FF);
+        color: white;
+        font-weight: 600;
     }
 
-    /* vocab */
+    /* Step Content Card */
+    .card {
+        flex: 1;
+        background: rgba(255,255,255,0.8);
+        border-radius: 22px;
+        padding: 40px;
+        box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+        backdrop-filter: blur(6px);
+        min-height: 600px;
+        animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+        margin-top: 0;
+        font-size: 32px;
+        font-weight: 700;
+    }
+
+    .next-prev {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 40px;
+    }
+
+    .btn {
+        padding: 12px 26px;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: 600;
+        background: linear-gradient(135deg, #82C3FF, #1565FF);
+        color: white;
+        transition: 0.25s;
+    }
+
+    .btn:active {
+        transform: scale(0.96);
+    }
+
+    /* Audio/Video Toggle */
+    .toggle-box {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 25px;
+    }
+
+    .toggle-btn {
+        padding: 10px 20px;
+        border-radius: 8px;
+        border: 2px solid #1565FF;
+        background: white;
+        cursor: pointer;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+    .toggle-btn.active {
+        background: #1565FF;
+        color: white;
+    }
+
+    /* Vocabulary Grid */
     .vocab-grid {
-      display:grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap:12px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+        margin-top: 25px;
     }
-    .vocab-card {
-      border-radius:12px; padding:12px; display:flex; align-items:center; justify-content:space-between;
-      border: 1px solid rgba(21,101,255,0.06); background: #fff;
+
+    .vocab-item {
+        padding: 18px;
+        border-radius: 14px;
+        background: #f7faff;
+        border-left: 5px solid #1565FF;
+        cursor: pointer;
+        transition: 0.25s;
     }
-    .vocab-word { font-weight:700; color:#07204a; }
 
-    /* planners */
-    .planner-grid { display:grid; grid-template-columns: 1fr 1fr 1fr; gap:12px; }
-    .planner-card { padding:12px;border-radius:12px;border:1px solid #eef6ff;background:#fff; }
-    input[type="text"], textarea { width:100%; padding:12px; border-radius:10px; border:1px solid #e6eefc; font-size:15px; }
-
-    /* bottom controls */
-    .controls { display:flex; gap:12px; justify-content:flex-end; margin-top:12px; }
-    .controls .btn { border-radius:12px; padding:10px 18px; font-weight:700; }
-
-    /* confetti area center */
-    .complete-area { text-align:center; padding:18px; }
-
-    /* responsive */
-    @media(max-width:980px){
-      .sidebar{display:none;}
-      .main{min-width:unset;}
-      .wizard{padding:0;}
+    .vocab-item:hover {
+        background: #eaf3ff;
     }
-  </style>
+
+    /* Footer */
+    .footer {
+        margin-top: 40px;
+        text-align: center;
+        padding: 20px 0;
+        opacity: 0.7;
+        font-size: 14px;
+    }
+
+    .footer img {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        vertical-align: middle;
+        margin-right: 10px;
+        object-fit: cover;
+    }
+</style>
 </head>
+
 <body>
-  <div class="site">
 
-    <!-- header -->
-    <header class="header">
-      <div class="badge">IELTS</div>
-      <div class="brand">
-        <h1>IELTS Classroom — WIX Studio Elegant</h1>
-        <p>Spacious & Airy • Smart-board friendly • Blue gradient theme</p>
-      </div>
-    </header>
+<!-- MAIN LAYOUT -->
+<div class="container">
 
-    <!-- LOGIN CARD -->
-    <div class="glass login-wrap" id="loginCard" role="region" aria-labelledby="loginTitle">
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;">
-        <div>
-          <h2 id="loginTitle" style="margin:0 0 6px 0;font-size:20px;color:#07204a;">Enter Access Code</h2>
-          <div class="muted">The access code is managed by your teacher. Type the code and open the lesson. (Masked input)</div>
-        </div>
-
-        <div style="min-width:380px;display:flex;gap:12px;align-items:center;">
-          <input id="passwordInput" class="pw-input" type="password" placeholder="Enter access code" aria-label="Access code">
-          <button id="passwordBtn" class="btn-primary">Open Lesson</button>
-        </div>
-      </div>
-
-      <div id="pwErr" style="color:#d03b3b;margin-top:12px;display:none;">Incorrect code — try again</div>
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <button class="step-btn active" onclick="showStep(1)">Step 1</button>
+        <button class="step-btn" onclick="showStep(2)">Step 2</button>
+        <button class="step-btn" onclick="showStep(3)">Step 3</button>
+        <button class="step-btn" onclick="showStep(4)">Step 4</button>
+        <button class="step-btn" onclick="showStep(5)">Step 5</button>
+        <button class="step-btn" onclick="showStep(6)">Step 6</button>
+        <button class="step-btn" onclick="showStep(7)">Step 7</button>
     </div>
 
-    <!-- WIZARD -->
-    <div class="wizard" id="wizard" style="display:none;">
-      <!-- sidebar -->
-      <aside class="sidebar">
-        <div class="glass" style="padding:18px;">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-            <div style="font-weight:800;color:#07204a;">Steps</div>
-            <div style="color:var(--muted);font-weight:700;">1 / 7</div>
-          </div>
+    <!-- STEP CONTENT -->
+    <div class="card" id="step-content">
 
-          <div class="steps-list" id="stepsList" aria-hidden="false">
-            <!-- step items injected -->
-          </div>
+        <!-- Default loaded step -->
+        <h2>Step 1 — Task Overview</h2>
 
-          <div class="progress-bar" aria-hidden="false" style="margin-top:14px;">
-            <i id="progressFill" style="width:0%"></i>
-          </div>
-
-          <div style="margin-top:14px;text-align:center;">
-            <button id="resetBtn" class="btn-ghost" style="width:100%;">Restart Lesson</button>
-          </div>
+        <div class="toggle-box">
+            <button id="audioBtn" class="toggle-btn active" onclick="toggleMedia('audio')">Audio</button>
+            <button id="videoBtn" class="toggle-btn" onclick="toggleMedia('video')">Video</button>
         </div>
-      </aside>
 
-      <!-- main -->
-      <main class="main">
-        <div class="glass" id="mainPanel">
-          <!-- Panel header -->
-          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap;">
-            <div>
-              <div id="panelTitle" class="panel-title">Step 1 — Task Overview</div>
-              <div id="panelSub" class="panel-sub">Listen to the audio overview and watch the task video.</div>
-            </div>
-            <div style="display:flex;gap:10px;align-items:center;">
-              <div style="font-size:13px;color:var(--muted);">Progress</div>
-            </div>
-          </div>
-
-          <!-- dynamic content area -->
-          <div id="panelContent">
-            <!-- step content injected via JS -->
-          </div>
-
-          <!-- bottom controls -->
-          <div class="controls">
-            <button id="prevBtn" class="btn" style="background:#f6fbff;border:1px solid #e8f2ff;color:var(--royal);" disabled>Prev</button>
-            <button id="nextBtn" class="btn btn-primary">Next</button>
-          </div>
+        <div id="audioBox">
+            <h3>Audio Overview</h3>
+            <audio controls style="width:100%; margin-top:10px;">
+                <source src="materials/random.mp3" type="audio/mpeg">
+            </audio>
         </div>
-      </main>
+
+        <div id="videoBox" style="display:none;">
+            <h3>Video Overview</h3>
+            <video controls style="width:100%; border-radius:14px; margin-top:10px;">
+                <source src="materials/random.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="next-prev">
+            <div></div>
+            <button class="btn" onclick="nextStep()">Next</button>
+        </div>
     </div>
+</div>
 
-    <div style="height:28px;"></div>
-    <footer style="text-align:center;color:var(--muted);font-size:13px;">© 2025 IELTS Classroom • WIX Studio Elegant • Spacious Mode</footer>
-  </div>
+<!-- FOOTER -->
+<div class="footer">
+    <img src="materials/eagle-face-crop.jpg" alt="Logo">
+    © TODAY'S IELTS TASK | MADE BY DAKSH
+</div>
 
-  <!-- SCRIPT: behavior -->
-  <script>
-    // ---------- state ----------
-    const PASS = "VII I MMVI";
-    let step = 1, totalSteps = 7;
+<script>
+let currentStep = 1;
 
-    // DOM refs
-    const passwordInput = document.getElementById('passwordInput');
-    const passwordBtn = document.getElementById('passwordBtn');
-    const pwErr = document.getElementById('pwErr');
-    const loginCard = document.getElementById('loginCard');
-    const wizard = document.getElementById('wizard');
-    const stepsList = document.getElementById('stepsList');
-    const progressFill = document.getElementById('progressFill');
-    const panelTitle = document.getElementById('panelTitle');
-    const panelSub = document.getElementById('panelSub');
-    const panelContent = document.getElementById('panelContent');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const resetBtn = document.getElementById('resetBtn');
+function showStep(step) {
+    currentStep = step;
+    document.querySelectorAll('.step-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.step-btn')[step - 1].classList.add('active');
+    renderStep();
+}
 
-    // ---------- helper utilities ----------
-    function sanitize(s){ return String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c])); }
-    function animateProgress() {
-      const perc = Math.round(((step-1) / (totalSteps-1)) * 100);
-      progressFill.style.width = perc + '%';
+function nextStep() {
+    if (currentStep < 7) {
+        currentStep++;
+        showStep(currentStep);
     }
+}
 
-    // ---------- step nav render ----------
-    function renderSteps() {
-      stepsList.innerHTML = '';
-      for(let i=1;i<=totalSteps;i++){
-        const item = document.createElement('div');
-        item.className = 'step-item' + (i===step ? ' active' : '');
-        item.setAttribute('data-step', i);
-        item.innerHTML = `<div style="display:flex;align-items:center;gap:12px;"><div class="step-num">${i}</div><div style="font-weight:700;">Step ${i}</div></div>`;
-        item.addEventListener('click', ()=>{ goToStep(i); });
-        stepsList.appendChild(item);
-      }
-      animateProgress();
+function toggleMedia(type) {
+    if (type === "audio") {
+        audioBtn.classList.add("active");
+        videoBtn.classList.remove("active");
+        audioBox.style.display = "block";
+        videoBox.style.display = "none";
+    } else {
+        videoBtn.classList.add("active");
+        audioBtn.classList.remove("active");
+        audioBox.style.display = "none";
+        videoBox.style.display = "block";
     }
+}
 
-    // ---------- login ----------
-    passwordBtn.addEventListener('click', ()=> {
-      const v = passwordInput.value.trim();
-      if(v === PASS) {
-        loginCard.style.display = 'none';
-        wizard.style.display = 'flex';
-        renderSteps();
-        loadStep(step);
-      } else {
-        pwErr.style.display = 'block';
-        setTimeout(()=> pwErr.style.display = 'none', 2200);
-      }
-    });
-    passwordInput.addEventListener('keydown', (e)=> { if(e.key === 'Enter') passwordBtn.click(); });
+function speakWord(word) {
+    let utter = new SpeechSynthesisUtterance(word);
+    utter.lang = "en-GB";
+    speechSynthesis.speak(utter);
+}
 
-    // ---------- navigation ----------
-    function goToStep(n) {
-      if(n < 1) n = 1;
-      if(n > totalSteps) n = totalSteps;
-      step = n;
-      renderSteps();
-      loadStep(step);
-    }
-    prevBtn.addEventListener('click', ()=> goToStep(step-1));
-    nextBtn.addEventListener('click', ()=> {
-      if(step < totalSteps) goToStep(step+1);
-      else goToStep(totalSteps);
-    });
-    resetBtn.addEventListener('click', ()=> location.reload());
+function renderStep() {
+    const content = document.getElementById("step-content");
 
-    // ---------- DATA STORAGE ----------
-    const DEFAULT_VOCAB = ['coherent','nuance','perspective','advocate','detrimental','substantial','mitigate','prevalent','compelling','anecdote'];
-    if(!localStorage.getItem('ielts_voc')) localStorage.setItem('ielts_voc', JSON.stringify(DEFAULT_VOCAB));
+    switch (currentStep) {
 
-    // ---------- Step loaders ----------
-    // Audio and video files in materials folder per your instruction
-    const AUDIO_SRC = 'materials/random.mp3';
-    const VIDEO_SRC = 'materials/random.mp4';
+        case 1:
+            content.innerHTML = `
+                <h2>Step 1 — Task Overview</h2>
 
-    // Timer for Step 2
-    let timerSeconds = 6 * 60;
-    let timerInterval = null;
-    function formatTime(s){ const m = String(Math.floor(s/60)).padStart(2,'0'); const r = String(s%60).padStart(2,'0'); return m + ':' + r; }
-
-    function loadStep(n) {
-      // panel header
-      panelTitle.textContent = `Step ${n} — ${stepTitles[n]}`;
-      panelSub.textContent = stepSubs[n];
-      prevBtn.disabled = (n === 1);
-      nextBtn.textContent = (n === totalSteps ? 'Finish' : 'Next');
-
-      // clear content
-      panelContent.innerHTML = '';
-
-      // mount step content
-      switch(n) {
-        case 1: loadStep1(); break;
-        case 2: loadStep2(); break;
-        case 3: loadStep3(); break;
-        case 4: loadStep4(); break;
-        case 5: loadStep5(); break;
-        case 6: loadStep6(); break;
-        case 7: loadStep7(); break;
-      }
-      // scroll main panel top (for smartboard)
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    const stepTitles = {
-      1: 'Task Overview',
-      2: 'Brainstorm',
-      3: 'Key Vocabulary',
-      4: 'Plan Intro & Conclusion',
-      5: 'Plan Body Paragraph 1',
-      6: 'Plan Body Paragraph 2',
-      7: 'Final Review & Completion'
-    };
-    const stepSubs = {
-      1: 'Audio + Video overview for the IELTS task',
-      2: 'Task image, full description & focus timer (6 minutes)',
-      3: 'Vocabulary list with pronunciation & accent selector',
-      4: 'Sample introductions & conclusions',
-      5: 'Structure MR → SR → EX for paragraph 1',
-      6: 'Structure MR → SR → EX for paragraph 2 / counter',
-      7: 'Review, confetti & final actions'
-    };
-
-    /* ---------------- STEP 1 ---------------- */
-    function loadStep1(){
-      const content = document.createElement('div');
-      content.className = 'section';
-      content.innerHTML = `
-        <div class="media-frame player-wrap section" style="margin-bottom:16px;">
-          <div style="padding:12px; display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-            <div style="flex:1;min-width:280px;">
-              <div style="font-weight:700;color:#07204a;margin-bottom:8px;">Audio Overview</div>
-              <audio controls preload="none" style="width:100%;">
-                <source src="${AUDIO_SRC}" type="audio/mpeg">
-                Your browser does not support audio.
-              </audio>
-            </div>
-            <div style="flex:1;min-width:280px;">
-              <div style="font-weight:700;color:#07204a;margin-bottom:8px;">Video Overview</div>
-              <div class="ratio ratio-16x9" style="border-radius:10px;overflow:hidden;">
-                <video controls preload="metadata" style="width:100%;height:100%;object-fit:cover;">
-                  <source src="${VIDEO_SRC}" type="video/mp4">
-                </video>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;">
-          <button id="toStep2" class="btn btn-primary">Proceed to Brainstorm</button>
-          <div class="muted">Tip: Play both the audio & video to understand the task before brainstorming.</div>
-        </div>
-      `;
-      panelContent.appendChild(content);
-
-      // wire next action
-      document.getElementById('toStep2').addEventListener('click', ()=> goToStep(2));
-    }
-
-    /* ---------------- STEP 2: Brainstorm + Timer ---------------- */
-    function loadStep2(){
-      const content = document.createElement('div');
-      content.className = 'section';
-      content.innerHTML = `
-        <div style="display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap;">
-          <div style="flex:1;min-width:320px;">
-            <div style="font-weight:800;color:#07204a;margin-bottom:8px;">Task Image</div>
-            <div style="border-radius:12px;overflow:hidden;border:1px solid #eef6ff;">
-              <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=80" alt="task" style="width:100%;height:320px;object-fit:cover;">
-            </div>
-
-            <div style="margin-top:14px" class="planner-card">
-              <div style="font-weight:700;margin-bottom:6px;">Full Task Description</div>
-              <div id="taskDesc" style="color:var(--muted);line-height:1.45;">
-                You will be given a writing/speaking prompt. Brainstorm ideas, plan body paragraph reasons and examples. Use the focus timer to generate quick notes.
-              </div>
-            </div>
-          </div>
-
-          <div style="width:360px;min-width:280px;">
-            <div class="planner-card">
-              <div style="font-weight:800;color:#07204a;margin-bottom:10px;">6-minute Focus Timer</div>
-              <div class="timer" style="margin-bottom:10px;">
-                <div class="timer-display" id="timerDisplay">${formatTime(timerSeconds)}</div>
-                <div style="flex:1;">
-                  <div style="display:flex;gap:10px;">
-                    <button id="timerStart" class="btn btn-primary">Start</button>
-                    <button id="timerPause" class="btn" style="background:#f6fbff;border:1px solid #e8f2ff;color:var(--royal);">Pause</button>
-                    <button id="timerReset" class="btn" style="background:#fff;border:1px solid #eef6ff;color:var(--muted);">Reset</button>
-                  </div>
-                  <div style="margin-top:10px;color:var(--muted);font-size:13px;">Tip: Focus only on idea generation; don’t edit during the timer.</div>
+                <div class="toggle-box">
+                    <button id="audioBtn" class="toggle-btn active" onclick="toggleMedia('audio')">Audio</button>
+                    <button id="videoBtn" class="toggle-btn" onclick="toggleMedia('video')">Video</button>
                 </div>
-              </div>
 
-              <div style="margin-top:14px;">
-                <div style="font-weight:700;margin-bottom:6px;">Brainstorm Notes</div>
-                <textarea id="brainNotes" rows="8" placeholder="Quick bullets — write freely..." style="border-radius:10px;border:1px solid #eef6ff;padding:12px;"></textarea>
-              </div>
-            </div>
-          </div>
-        </div>
-      `;
-      panelContent.appendChild(content);
+                <div id="audioBox">
+                    <h3>Audio Overview</h3>
+                    <audio controls style="width:100%;">
+                        <source src="materials/random.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
 
-      // timer wiring
-      const disp = document.getElementById('timerDisplay');
-      document.getElementById('timerStart').onclick = () => {
-        if(timerInterval) return;
-        timerInterval = setInterval(()=> {
-          if(timerSeconds <= 0) { clearInterval(timerInterval); timerInterval = null; return; }
-          timerSeconds--;
-          disp.textContent = formatTime(timerSeconds);
-          if(timerSeconds === 0) {
-            try { new Audio('https://www.soundjay.com/buttons/sounds/beep-07.mp3').play(); } catch(e){}
-          }
-        }, 1000);
-      };
-      document.getElementById('timerPause').onclick = ()=> { if(timerInterval){ clearInterval(timerInterval); timerInterval = null; } };
-      document.getElementById('timerReset').onclick = ()=> { if(timerInterval){ clearInterval(timerInterval); timerInterval = null; } timerSeconds = 6*60; disp.textContent = formatTime(timerSeconds); };
+                <div id="videoBox" style="display:none;">
+                    <h3>Video Overview</h3>
+                    <video controls style="width:100%; border-radius:14px;">
+                        <source src="materials/random.mp4" type="video/mp4">
+                    </video>
+                </div>
+
+                <div class="next-prev">
+                    <div></div>
+                    <button class="btn" onclick="nextStep()">Next</button>
+                </div>
+            `;
+            break;
+
+        case 2:
+            content.innerHTML = `
+                <h2>Step 2 — Brainstorm</h2>
+
+                <img src="materials/random-task.jpg" style="width:100%; border-radius:14px; margin-bottom:20px;">
+
+                <p style="font-size:17px; line-height:1.6;">
+                    <b>The charts below show information about the age profile of members at Little Chalfont Library, the percentage of total loans by category in 2016, and the total number of loans made between 2007 and 2016.</b><br><br>
+                    Summarise the information by selecting and reporting the main features, and make comparisons where relevant.
+                </p>
+
+                <div class="next-prev">
+                    <button class="btn" onclick="showStep(1)">Prev</button>
+                    <button class="btn" onclick="nextStep()">Next</button>
+                </div>
+            `;
+            break;
+
+        case 3:
+            content.innerHTML = `
+                <h2>Step 3 — Key Vocabulary</h2>
+
+                <div class="vocab-grid">
+
+                    <div class="vocab-item" onclick="speakWord('Depict')">
+                        <b>Depict / Illustrate</b><br>
+                        Show visually<br>
+                        <i>The bar chart illustrates yearly loan figures.</i>
+                    </div>
+
+                    <div class="vocab-item" onclick="speakWord('Proportion')">
+                        <b>Proportion</b><br>
+                        Percentage / share<br>
+                        <i>Adults formed the largest proportion.</i>
+                    </div>
+
+                    <div class="vocab-item" onclick="speakWord('Account for')">
+                        <b>Account for</b><br>
+                        Represent part of whole<br>
+                        <i>Fiction accounted for 38% of loans.</i>
+                    </div>
+
+                    <div class="vocab-item" onclick="speakWord('Peak')">
+                        <b>Peak</b><br>
+                        Reach highest point<br>
+                        <i>Loans peaked in 2011.</i>
+                    </div>
+
+                    <div class="vocab-item" onclick="speakWord('Fluctuate')">
+                        <b>Fluctuate</b><br>
+                        Rise and fall<br>
+                        <i>Numbers fluctuated slightly after 2011.</i>
+                    </div>
+
+                    <div class="vocab-item" onclick="speakWord('Gradual rise')">
+                        <b>Gradual rise</b><br>
+                        Slow increase<br>
+                        <i>There was a gradual rise from 2007 to 2011.</i>
+                    </div>
+
+                    <div class="vocab-item" onclick="speakWord('Remain stable')">
+                        <b>Remain stable</b><br>
+                        Little change<br>
+                        <i>Figures remained stable towards the end.</i>
+                    </div>
+
+                </div>
+
+                <div class="next-prev">
+                    <button class="btn" onclick="showStep(2)">Prev</button>
+                    <button class="btn" onclick="nextStep()">Next</button>
+                </div>
+            `;
+            break;
+
+        case 4:
+            content.innerHTML = `
+                <h2>Step 4 — Plan Intro & Overview</h2>
+
+                <p style="line-height:1.7; font-size:17px;">
+                    <b>📌 Introduction</b><br><br>
+                    The charts show information about the age distribution of members at the Little Chalfont Library and the percentage of loans by category in 2016, while the bar graph illustrates the total number of loans from 2007 to 2016.
+                </p>
+
+                <p style="line-height:1.7; font-size:17px;">
+                    <b>📌 Overview</b><br><br>
+                    Overall, adults aged 18–64 were the largest membership group, and fiction books were the most borrowed materials. Additionally, the total number of loans generally increased over the ten-year period.
+                </p>
+
+                <div class="next-prev">
+                    <button class="btn" onclick="showStep(3)">Prev</button>
+                    <button class="btn" onclick="nextStep()">Next</button>
+                </div>
+            `;
+            break;
+
+        case 5:
+            content.innerHTML = `
+                <h2>Step 5 — Body Paragraph 1</h2>
+
+                <p style="font-size:17px; line-height:1.7;">
+                    <b>📌 Body Paragraph 1 (Key Points)</b><br><br>
+
+                    <b>Age Groups</b><br>
+                    Adults 18–64: 51%<br>
+                    Children: 22%<br>
+                    Young adults 13–17: 15%<br>
+                    Adults 65+: 12%<br><br>
+
+                    <b>Loan Categories</b><br>
+                    Children’s & Adult fiction: 38% each<br>
+                    Adult non-fiction: 13%<br>
+                    Children’s non-fiction: 6%<br>
+                    Young adults & Adult audiobooks: 2% each<br>
+                    Children’s DVDs: 1%
+                </p>
+
+                <div class="next-prev">
+                    <button class="btn" onclick="showStep(4)">Prev</button>
+                    <button class="btn" onclick="nextStep()">Next</button>
+                </div>
+            `;
+            break;
+
+        case 6:
+            content.innerHTML = `
+                <h2>Step 6 — Body Paragraph 2</h2>
+
+                <p style="font-size:17px; line-height:1.7;">
+                    <b>📌 Body Paragraph 2 (Key Points – Bar Chart Trends)</b><br><br>
+
+                    2007 began at about 15,000 loans.<br>
+                    Gradual rise to peak in 2011 (~21,000).<br>
+                    Slight dip in 2013, then recovered.<br>
+                    2016 reached the highest level at around 22,000 loans.
+                </p>
+
+                <div class="next-prev">
+                    <button class="btn" onclick="showStep(5)">Prev</button>
+                    <button class="btn" onclick="nextStep()">Next</button>
+                </div>
+            `;
+            break;
+
+        case 7:
+            content.innerHTML = `
+                <h2>Step 7 — Completion</h2>
+
+                <p style="font-size:18px; margin-top:20px;">🎉 Task Complete!</p>
+
+                <div class="next-prev">
+                    <button class="btn" onclick="showStep(6)">Prev</button>
+                    <button class="btn" onclick="showStep(1)">Restart</button>
+                </div>
+            `;
+            break;
     }
+}
+</script>
 
-    /* ---------------- STEP 3: Vocabulary ---------------- */
-    function loadStep3(){
-      const content = document.createElement('div');
-      content.className = 'section';
-      content.innerHTML = `
-        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px;">
-          <div style="font-weight:800;color:#07204a;">Key Vocabulary</div>
-          <div style="display:flex;gap:8px;align-items:center;">
-            <label class="muted" style="margin-right:6px;">Accent</label>
-            <select id="accentSelect" style="padding:8px;border-radius:8px;border:1px solid #eef6ff;">
-              <option value="en-GB">UK English</option>
-              <option value="en-IN">Indian English</option>
-              <option value="en-US">US English</option>
-            </select>
-          </div>
-        </div>
-
-        <div style="margin-bottom:12px;display:flex;gap:8px;flex-wrap:wrap;">
-          <input id="newVocabInput" placeholder="Add new vocabulary word" style="flex:1;padding:12px;border-radius:10px;border:1px solid #eef6ff;">
-          <button id="addVocabBtn" class="btn btn-primary">Add</button>
-        </div>
-
-        <div class="vocab-grid" id="vocabGrid"></div>
-      `;
-      panelContent.appendChild(content);
-
-      // load grid
-      renderVocabGrid();
-
-      // add vocab
-      document.getElementById('addVocabBtn').onclick = () => {
-        const val = document.getElementById('newVocabInput').value.trim();
-        if(!val) return;
-        const arr = JSON.parse(localStorage.getItem('ielts_voc') || '[]');
-        arr.unshift(val);
-        localStorage.setItem('ielts_voc', JSON.stringify(arr.slice(0,80)));
-        document.getElementById('newVocabInput').value = '';
-        renderVocabGrid();
-      };
-    }
-
-    function renderVocabGrid(){
-      const grid = document.getElementById('vocabGrid');
-      grid.innerHTML = '';
-      const arr = JSON.parse(localStorage.getItem('ielts_voc') || '[]');
-      arr.forEach((w, idx) => {
-        const card = document.createElement('div');
-        card.className = 'vocab-card';
-        card.innerHTML = `<div style="display:flex;flex-direction:column;">
-            <div class="vocab-word">${sanitize(w)}</div>
-            <div style="color:var(--muted);font-size:13px;">example: —</div>
-        </div>
-        <div style="display:flex;gap:8px;align-items:center;">
-          <button class="btn" style="background:var(--accent);border:1px solid rgba(21,101,255,0.06);padding:8px;border-radius:10px;" data-word="${sanitize(w)}">🔊</button>
-          <button class="btn" style="background:#fff;border:1px solid #f2dede;color:#d04b4b;padding:8px;border-radius:10px;" data-remove="${idx}">✖</button>
-        </div>`;
-        grid.appendChild(card);
-      });
-
-      // attach events
-      grid.querySelectorAll('button[data-word]').forEach(btn=>{
-        btn.addEventListener('click', ()=> speakWord(btn.dataset.word) );
-      });
-      grid.querySelectorAll('button[data-remove]').forEach(btn=>{
-        btn.addEventListener('click', ()=> {
-          const i = Number(btn.dataset.remove);
-          const arr = JSON.parse(localStorage.getItem('ielts_voc') || '[]');
-          arr.splice(i,1);
-          localStorage.setItem('ielts_voc', JSON.stringify(arr));
-          renderVocabGrid();
-        });
-      });
-    }
-
-    function speakWord(word){
-      const accent = document.getElementById('accentSelect') ? document.getElementById('accentSelect').value : 'en-GB';
-      if(!('speechSynthesis' in window)){ alert('Speech synthesis not supported'); return; }
-      window.speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(word);
-      u.lang = accent;
-      u.rate = 0.98;
-      const voices = window.speechSynthesis.getVoices();
-      const v = voices.find(x => x.lang && x.lang.toLowerCase().startsWith(accent.toLowerCase()));
-      if(v) u.voice = v;
-      window.speechSynthesis.speak(u);
-    }
-
-    /* ---------------- STEP 4: Intro & Conclusion ---------------- */
-    function loadStep4(){
-      const content = document.createElement('div');
-      content.className = 'section';
-      content.innerHTML = `
-        <div style="display:flex;gap:14px;flex-wrap:wrap;">
-          <div style="flex:1;min-width:280px;" class="planner-card">
-            <div style="font-weight:800;margin-bottom:8px;">Sample Introductions</div>
-            <ul style="color:var(--muted);padding-left:18px;">
-              <li>Many people argue that ...</li>
-              <li>In recent years, the issue of ... has been widely discussed.</li>
-              <li>There is a growing debate about whether ...</li>
-            </ul>
-            <button id="useIntro" class="btn btn-primary" style="margin-top:10px;">Use Intro</button>
-          </div>
-
-          <div style="flex:1;min-width:280px;" class="planner-card">
-            <div style="font-weight:800;margin-bottom:8px;">Sample Conclusions</div>
-            <ul style="color:var(--muted);padding-left:18px;">
-              <li>In conclusion, it is clear that ...</li>
-              <li>Overall, the available evidence suggests ...</li>
-              <li>To sum up, I firmly believe that ...</li>
-            </ul>
-            <button id="useConcl" class="btn btn-primary" style="margin-top:10px;">Use Conclusion</button>
-          </div>
-        </div>
-
-        <div style="margin-top:14px;">
-          <div style="font-weight:700;margin-bottom:8px;">Compose Intro & Conclusion</div>
-          <textarea id="introConcl" rows="6" style="border-radius:12px;border:1px solid #eef6ff;padding:12px;"></textarea>
-        </div>
-      `;
-      panelContent.appendChild(content);
-
-      document.getElementById('useIntro').onclick = ()=> {
-        const t = "In recent years, the issue has gained attention and many have argued that ...";
-        const el = document.getElementById('introConcl');
-        el.value = t + (el.value ? ("\n\n" + el.value) : "");
-      };
-      document.getElementById('useConcl').onclick = ()=> {
-        const t = "In conclusion, considering the evidence, I believe that ...";
-        const el = document.getElementById('introConcl');
-        el.value = (el.value ? el.value + "\n\n" : "") + t;
-      };
-    }
-
-    /* ---------------- STEP 5: Body Paragraph 1 ---------------- */
-    function loadStep5(){
-      const content = document.createElement('div');
-      content.className = 'section';
-      content.innerHTML = `
-        <div style="font-weight:800;color:#07204a;margin-bottom:8px;">Paragraph 1 — Structure</div>
-        <div class="planner-grid">
-          <div class="planner-card">
-            <div style="font-weight:700;margin-bottom:6px;">Main Reason (MR)</div>
-            <input id="mr1" type="text" placeholder="Main reason...">
-          </div>
-          <div class="planner-card">
-            <div style="font-weight:700;margin-bottom:6px;">Supporting Reason (SR)</div>
-            <input id="sr1" type="text" placeholder="Supporting idea...">
-          </div>
-          <div class="planner-card">
-            <div style="font-weight:700;margin-bottom:6px;">Example (EX)</div>
-            <input id="ex1" type="text" placeholder="Example / evidence...">
-          </div>
-        </div>
-
-        <div style="margin-top:12px;display:flex;gap:12px;justify-content:flex-end;">
-          <button id="saveP1" class="btn btn-primary">Save Paragraph 1</button>
-          <button id="copyP1" class="btn" style="background:#fff;border:1px solid #eef6ff;">Copy Combined</button>
-        </div>
-
-        <div style="margin-top:12px;">
-          <div style="font-weight:700;margin-bottom:6px;">Preview</div>
-          <textarea id="preview1" rows="3" readonly style="border-radius:10px;border:1px solid #eef6ff;padding:12px;"></textarea>
-        </div>
-      `;
-      panelContent.appendChild(content);
-
-      document.getElementById('saveP1').onclick = ()=> {
-        const p = { mr: document.getElementById('mr1').value.trim(), sr: document.getElementById('sr1').value.trim(), ex: document.getElementById('ex1').value.trim() };
-        localStorage.setItem('p1', JSON.stringify(p));
-        document.getElementById('preview1').value = buildParagraphPreview(p);
-      };
-      document.getElementById('copyP1').onclick = ()=> {
-        navigator.clipboard.writeText(document.getElementById('preview1').value || '');
-      };
-
-      // restore if exists
-      const saved = JSON.parse(localStorage.getItem('p1') || 'null');
-      if(saved) {
-        document.getElementById('mr1').value = saved.mr || '';
-        document.getElementById('sr1').value = saved.sr || '';
-        document.getElementById('ex1').value = saved.ex || '';
-        document.getElementById('preview1').value = buildParagraphPreview(saved);
-      }
-    }
-
-    function buildParagraphPreview(p){
-      const parts = [];
-      if(p.mr) parts.push(p.mr + ".");
-      if(p.sr) parts.push(p.sr + ".");
-      if(p.ex) parts.push("Example: " + p.ex + ".");
-      return parts.join(' ');
-    }
-
-    /* ---------------- STEP 6: Body Paragraph 2 ---------------- */
-    function loadStep6(){
-      const content = document.createElement('div');
-      content.className = 'section';
-      content.innerHTML = `
-        <div style="font-weight:800;color:#07204a;margin-bottom:8px;">Paragraph 2 — Structure</div>
-        <div class="planner-grid">
-          <div class="planner-card">
-            <div style="font-weight:700;margin-bottom:6px;">Main Reason (MR)</div>
-            <input id="mr2" type="text" placeholder="Main reason...">
-          </div>
-          <div class="planner-card">
-            <div style="font-weight:700;margin-bottom:6px;">Supporting Reason (SR)</div>
-            <input id="sr2" type="text" placeholder="Supporting idea...">
-          </div>
-          <div class="planner-card">
-            <div style="font-weight:700;margin-bottom:6px;">Example (EX)</div>
-            <input id="ex2" type="text" placeholder="Example / evidence...">
-          </div>
-        </div>
-
-        <div style="margin-top:12px;display:flex;gap:12px;justify-content:flex-end;">
-          <button id="saveP2" class="btn btn-primary">Save Paragraph 2</button>
-          <button id="copyP2" class="btn" style="background:#fff;border:1px solid #eef6ff;">Copy Combined</button>
-        </div>
-
-        <div style="margin-top:12px;">
-          <div style="font-weight:700;margin-bottom:6px;">Preview</div>
-          <textarea id="preview2" rows="3" readonly style="border-radius:10px;border:1px solid #eef6ff;padding:12px;"></textarea>
-        </div>
-      `;
-      panelContent.appendChild(content);
-
-      document.getElementById('saveP2').onclick = ()=> {
-        const p = { mr: document.getElementById('mr2').value.trim(), sr: document.getElementById('sr2').value.trim(), ex: document.getElementById('ex2').value.trim() };
-        localStorage.setItem('p2', JSON.stringify(p));
-        document.getElementById('preview2').value = buildParagraphPreview(p);
-      };
-      document.getElementById('copyP2').onclick = ()=> {
-        navigator.clipboard.writeText(document.getElementById('preview2').value || '');
-      };
-
-      // restore if exists
-      const saved = JSON.parse(localStorage.getItem('p2') || 'null');
-      if(saved) {
-        document.getElementById('mr2').value = saved.mr || '';
-        document.getElementById('sr2').value = saved.sr || '';
-        document.getElementById('ex2').value = saved.ex || '';
-        document.getElementById('preview2').value = buildParagraphPreview(saved);
-      }
-    }
-
-    /* ---------------- STEP 7: Final Review & Completion ---------------- */
-    function loadStep7(){
-      const p1 = localStorage.getItem('p1') ? JSON.parse(localStorage.getItem('p1')) : {};
-      const p2 = localStorage.getItem('p2') ? JSON.parse(localStorage.getItem('p2')) : {};
-      const intro = document.getElementById('introConcl') ? document.getElementById('introConcl').value : '';
-
-      const full = [intro.trim(), buildParagraphPreview(p1), buildParagraphPreview(p2)].filter(Boolean).join("\n\n");
-
-      const content = document.createElement('div');
-      content.className = 'section';
-      content.innerHTML = `
-        <div style="font-weight:800;color:#07204a;margin-bottom:8px;">Final Review</div>
-        <div style="margin-bottom:12px;">
-          <textarea id="finalPreview" rows="10" readonly style="border-radius:12px;border:1px solid #eef6ff;padding:16px;">${sanitize(full)}</textarea>
-        </div>
-
-        <div style="display:flex;gap:12px;justify-content:flex-end;">
-          <button id="completeBtn" class="btn btn-primary">Task Complete</button>
-          <button id="editBtn" class="btn" style="background:#fff;border:1px solid #eef6ff;color:var(--muted);">Edit</button>
-        </div>
-
-        <div id="completedArea" style="display:none;margin-top:18px;" class="complete-area">
-          <h3 style="color:var(--royal);margin-bottom:8px;">Task Complete 🎉</h3>
-          <div class="muted" style="margin-bottom:14px;">You can now take the quiz or open the tutor report.</div>
-          <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-            <a href="quiz.html" class="btn btn-primary">Take the Quiz</a>
-            <a href="teacher-report.html" class="btn btn-primary">Tutor Report</a>
-            <button id="returnHome" class="btn" style="background:#fff;border:1px solid #eef6ff;color:var(--muted);">Return to Home</button>
-          </div>
-        </div>
-      `;
-      panelContent.appendChild(content);
-
-      document.getElementById('completeBtn').onclick = ()=> {
-        document.getElementById('completedArea').style.display = 'block';
-        confetti({ particleCount: 220, spread: 90, origin: { y: 0.45 } });
-      };
-      document.getElementById('editBtn').onclick = ()=> { goToStep(4); };
-      document.getElementById('returnHome').onclick = ()=> { location.reload(); };
-    }
-
-    // initialize
-    renderSteps();
-    loadStep(1);
-
-    // run initial timer display (ensure display shows original value)
-    document.addEventListener('DOMContentLoaded', ()=> {
-      animateProgress();
-    });
-
-    // keyboard navigation for convenience
-    document.addEventListener('keydown', (e)=> {
-      if(wizard.style.display !== 'none') {
-        if(e.key === 'ArrowLeft') goToStep(step-1);
-        if(e.key === 'ArrowRight') goToStep(step+1);
-      }
-    });
-
-    // ----- helper: ensure voices loaded for TTS -----
-    window.speechSynthesis.onvoiceschanged = () => { /* voices available */ };
-
-  </script>
 </body>
 </html>
