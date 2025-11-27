@@ -1,335 +1,319 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>IELTS Task Flow</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Classroom – Premium Wizard</title>
 
-    <!-- Apple-like font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.cdnfonts.com/css/sf-pro-display" rel="stylesheet">
+
+    <!-- MDBootstrap -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.min.css" />
 
     <style>
         body {
             margin: 0;
             padding: 0;
-            background: linear-gradient(145deg, #d8e9ff, #b6ceff, #7fb3ff);
-            font-family: "Inter", sans-serif;
-            overflow-x: hidden;
+            background: linear-gradient(135deg, #9ecbff, #1f4eb8);
+            font-family: 'SF Pro Display', sans-serif;
+            min-height: 100vh;
         }
 
-        /* Center container */
-        .main-wrapper {
+        .main-container {
             max-width: 900px;
             margin: 40px auto;
-            background: #ffffff;
-            border-radius: 22px;
-            padding: 40px 55px;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.12);
-            animation: fadeIn 0.9s ease;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Logo + Title Bar */
         .title-bar {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 15px;
+            gap: 15px;
+            margin-bottom: 25px;
         }
+
         .title-bar img {
-            width: 48px;
-            height: 48px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             object-fit: cover;
         }
-        .title-bar h1 {
-            font-size: 26px;
-            font-weight: 600;
-            margin: 0;
-            letter-spacing: -0.5px;
-        }
 
-        /* Step Timeline */
-        .steps {
+        .progress-dots {
             text-align: center;
-            margin-bottom: 35px;
-            font-size: 18px;
-        }
-        .steps span {
-            margin: 0 4px;
-            opacity: 0.3;
-        }
-        .steps .active {
-            opacity: 1;
+            margin-bottom: 20px;
             font-size: 22px;
+            letter-spacing: 4px;
         }
 
-        /* Step Title */
-        .step-title {
-            font-size: 22px;
-            font-weight: 600;
-            margin-top: 30px;
-            margin-bottom: 12px;
+        .step-section {
+            display: none;
         }
 
-        /* Media Toggle Buttons */
-        .media-toggle {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-        .media-toggle button {
-            padding: 8px 16px;
-            border-radius: 8px;
-            border: none;
-            background: #e8f0ff;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            transition: 0.25s;
-        }
-        .media-toggle button.active {
-            background: #1976ff;
-            color: #fff;
+        .active-step {
+            display: block;
         }
 
-        /* Media Card */
         .media-card {
-            background: rgba(255,255,255,0.55);
-            border-radius: 16px;
+            background: rgba(240, 247, 255, 0.6);
+            border-radius: 18px;
+            border: 2px solid rgba(0, 102, 255, 0.4);
             padding: 20px;
-            border: 2px solid rgba(0,102,255,0.3);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.07);
-            backdrop-filter: blur(10px);
-            transition: 0.3s;
-        }
-        .media-card:hover {
-            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
-            border-color: rgba(0,102,255,0.55);
+            margin-bottom: 25px;
         }
 
-        /* Apple-style vocab blocks */
-        .vocab-block {
-            background: rgba(255,255,255,0.65);
-            border-radius: 14px;
-            padding: 16px 18px;
+        .glass-card {
+            background: rgba(255,255,255,0.6);
+            border-radius: 15px;
+            padding: 15px 20px;
             margin-bottom: 12px;
-            border: 1px solid rgba(0,0,0,0.05);
-            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-            transition: 0.25s;
+            border: 1px solid rgba(255,255,255,0.4);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-        .vocab-block:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 18px rgba(0,0,0,0.10);
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
         }
-        .vocab-word {
-            font-weight: 600;
+
+        button.step-btn {
+            padding: 8px 22px;
+            font-size: 22px;
+            background: white;
+            border-radius: 10px;
+            border: none;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
             cursor: pointer;
         }
-        .vocab-meaning {
-            margin-top: 4px;
-            opacity: 0.8;
-        }
-        .vocab-example {
-            margin-top: 4px;
-            font-size: 14px;
-            opacity: 0.75;
-        }
 
-        /* Footer */
-        .footer {
-            margin-top: 50px;
-            text-align: center;
-            font-size: 13px;
-            opacity: 0.7;
-        }
-        .footer img {
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
-            margin-right: 6px;
-            vertical-align: middle;
+        button.step-btn:hover {
+            background: #e9f0ff;
         }
     </style>
 </head>
 
 <body>
 
-<div class="main-wrapper">
+    <div class="main-container">
 
-    <!-- Logo + Title -->
-    <div class="title-bar">
-        <img src="materials/eagle-face-crop.jpg" alt="logo">
-        <h1>IELTS Task Flow</h1>
+        <!-- HEADER WITH EAGLE LOGO -->
+        <div class="title-bar">
+            <img src="eagle-face-crop.jpg" alt="Logo">
+            <h3 style="margin:0; font-weight:600;">IELTS Task Flow</h3>
+        </div>
+
+        <!-- PROGRESS DOTS -->
+        <div id="progressDots" class="progress-dots">● ○ ○ ○ ○ ○ ○</div>
+
+        <!-- STEP 1 – TASK OVERVIEW -->
+        <div class="step-section active-step" id="step1">
+
+            <h4><b>Step 1 — Task Overview</b></h4>
+
+            <!-- AUDIO / VIDEO TOGGLE -->
+            <div class="media-card">
+                <button onclick="showMedia('audio')" class="btn btn-primary btn-sm">Audio</button>
+                <button onclick="showMedia('video')" class="btn btn-primary btn-sm">Video</button>
+
+                <div id="audioBox" style="margin-top:20px; display:block;">
+                    <audio controls style="width:100%;">
+                        <source src="materials/random.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+
+                <div id="videoBox" style="margin-top:20px; display:none;">
+                    <video controls style="width:100%; border-radius:12px;">
+                        <source src="materials/random.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <div></div>
+                <button class="step-btn" onclick="gotoStep(2)">→</button>
+            </div>
+        </div>
+
+        <!-- STEP 2 — BRAINSTORM -->
+        <div class="step-section" id="step2">
+
+            <h4><b>Step 2 — Brainstorm</b></h4>
+
+            <div class="media-card">
+                <img src="materials/random-task.jpg" style="width:100%; border-radius:12px;">
+            </div>
+
+            <div class="glass-card">
+                <b>Question:</b><br>
+                The charts below show information about the age profile of members at Little Chalfont Library, 
+                the percentage of total loans by category in 2016, and the total number of loans made between 2007 and 2016.
+                <br><br>
+                Summarise the information by selecting and reporting the main features, 
+                and make comparisons where relevant.
+            </div>
+
+            <div class="nav-buttons">
+                <button class="step-btn" onclick="gotoStep(1)">←</button>
+                <button class="step-btn" onclick="gotoStep(3)">→</button>
+            </div>
+        </div>
+
+        <!-- STEP 3 — KEY VOCABULARY -->
+        <div class="step-section" id="step3">
+
+            <h4><b>Step 3 — Key Vocabulary</b></h4>
+
+            <!-- VOCAB LIST -->
+            <div class="glass-card" onclick="speak('Depict')">
+                <b>Depict / Illustrate</b><br>
+                Show visually — “The bar chart illustrates yearly loan figures.”
+            </div>
+
+            <div class="glass-card" onclick="speak('Proportion')">
+                <b>Proportion</b><br>
+                Percentage / share — “Adults formed the largest proportion.”
+            </div>
+
+            <div class="glass-card" onclick="speak('Account for')">
+                <b>Account for</b><br>
+                Represent part of whole — “Fiction accounted for 38% of loans.”
+            </div>
+
+            <div class="glass-card" onclick="speak('Peak')">
+                <b>Peak</b><br>
+                Reach highest point — “Loans peaked in 2011.”
+            </div>
+
+            <div class="glass-card" onclick="speak('Fluctuate')">
+                <b>Fluctuate</b><br>
+                Rise and fall — “Numbers fluctuated slightly after 2011.”
+            </div>
+
+            <div class="glass-card" onclick="speak('Gradual rise')">
+                <b>Gradual rise</b><br>
+                Slow increase — “There was a gradual rise from 2007 to 2011.”
+            </div>
+
+            <div class="glass-card" onclick="speak('Remain stable')">
+                <b>Remain stable</b><br>
+                Little change — “Figures remained stable towards the end.”
+            </div>
+
+            <div class="nav-buttons">
+                <button class="step-btn" onclick="gotoStep(2)">←</button>
+                <button class="step-btn" onclick="gotoStep(4)">→</button>
+            </div>
+        </div>
+
+        <!-- STEP 4 — INTRO & CONCLUSION -->
+        <div class="step-section" id="step4">
+            <h4><b>Step 4 — Plan Introduction & Conclusion</b></h4>
+
+            <div class="glass-card">
+                <b>📌 Introduction</b><br>
+                The charts show information about the age distribution of members at the Little Chalfont Library...
+            </div>
+
+            <div class="glass-card">
+                <b>📌 Overview</b><br>
+                Overall, adults aged 18–64 were the largest membership group...
+            </div>
+
+            <div class="nav-buttons">
+                <button class="step-btn" onclick="gotoStep(3)">←</button>
+                <button class="step-btn" onclick="gotoStep(5)">→</button>
+            </div>
+        </div>
+
+        <!-- STEP 5 — BODY PARAGRAPH 1 -->
+        <div class="step-section" id="step5">
+
+            <h4><b>Step 5 — Plan Body Paragraph 1</b></h4>
+
+            <div class="glass-card">
+                <b>📌 Body Paragraph 1</b><br><br>
+                <b>Age Groups</b><br>
+                Adults 18–64: 51%<br>
+                Children: 22%<br>
+                Young adults 13–17: 15%<br>
+                Adults 65+: 12%<br><br>
+
+                <b>Loan Categories</b><br>
+                Children’s & Adult fiction: 38% each<br>
+                Adult non-fiction: 13%<br>
+                Children’s non-fiction: 6%<br>
+                Young adults & Adult audiobooks: 2% each<br>
+                Children’s DVDs: 1%
+            </div>
+
+            <div class="nav-buttons">
+                <button class="step-btn" onclick="gotoStep(4)">←</button>
+                <button class="step-btn" onclick="gotoStep(6)">→</button>
+            </div>
+        </div>
+
+        <!-- STEP 6 — BODY PARAGRAPH 2 -->
+        <div class="step-section" id="step6">
+
+            <h4><b>Step 6 — Plan Body Paragraph 2</b></h4>
+
+            <div class="glass-card">
+                <b>📌 Bar Chart Trends</b><br><br>
+                2007 began at ~15,000 loans.<br>
+                Gradual rise to peak in 2011 (~21,000).<br>
+                Slight dip in 2013, then recovered.<br>
+                2016 reached ~22,000 loans.
+            </div>
+
+            <div class="nav-buttons">
+                <button class="step-btn" onclick="gotoStep(5)">←</button>
+                <button class="step-btn" onclick="gotoStep(7)">→</button>
+            </div>
+        </div>
+
+        <!-- STEP 7 — FINAL -->
+        <div class="step-section" id="step7">
+
+            <h4><b>Step 7 — Final Review</b></h4>
+
+            <div class="glass-card">
+                🎉 Task Complete!  
+                <br><br>
+                You may proceed to Quiz or Teacher Report.
+            </div>
+
+            <div class="nav-buttons">
+                <button class="step-btn" onclick="gotoStep(6)">←</button>
+                <div></div>
+            </div>
+        </div>
+
     </div>
-
-    <!-- Step Timeline -->
-    <div class="steps">
-        <span class="active">●</span>
-        <span>○</span><span>○</span><span>○</span><span>○</span><span>○</span><span>○</span>
-    </div>
-
-    <!-- STEP 1 -->
-    <div class="step-title">Step 1 — Task Overview</div>
-
-    <!-- Audio / Video Toggle -->
-    <div class="media-toggle">
-        <button id="audioBtn" class="active">Audio</button>
-        <button id="videoBtn">Video</button>
-    </div>
-
-    <!-- Media Card -->
-    <div class="media-card" id="audioSection">
-        <audio controls style="width:100%;">
-            <source src="materials/random.mp3" type="audio/mpeg">
-        </audio>
-    </div>
-
-    <div class="media-card" id="videoSection" style="display:none;">
-        <video controls style="width:100%; border-radius:12px;">
-            <source src="materials/random.mp4" type="video/mp4">
-        </video>
-    </div>
-
-    <!-- STEP 2 -->
-    <div class="step-title">Step 2 — Brainstorm</div>
-
-    <img src="materials/random-task.jpg" style="width:100%; border-radius:16px; margin-bottom:15px;">
-
-    <p>
-        <b>Task Question:</b><br>
-        The charts below show information about the age profile of members at Little Chalfont Library, 
-        the percentage of total loans by category in 2016, and the total number of loans made between 2007 and 2016.
-        <br><br>
-        Summarise the information by selecting and reporting the main features, and make comparisons where relevant.
-    </p>
-
-    <!-- STEP 3 -->
-    <div class="step-title">Step 3 — Key Vocabulary</div>
-
-    <!-- Apple style vocab blocks -->
-    <div class="vocab-block">
-        <div class="vocab-word" onclick="speak('Depict')">Depict / Illustrate</div>
-        <div class="vocab-meaning">Show visually</div>
-        <div class="vocab-example">The bar chart illustrates yearly loan figures.</div>
-    </div>
-
-    <div class="vocab-block">
-        <div class="vocab-word" onclick="speak('Proportion')">Proportion</div>
-        <div class="vocab-meaning">Percentage / share</div>
-        <div class="vocab-example">Adults formed the largest proportion.</div>
-    </div>
-
-    <div class="vocab-block">
-        <div class="vocab-word" onclick="speak('Account for')">Account for</div>
-        <div class="vocab-meaning">Represent part of whole</div>
-        <div class="vocab-example">Fiction accounted for 38% of loans.</div>
-    </div>
-
-    <div class="vocab-block">
-        <div class="vocab-word" onclick="speak('Peak')">Peak</div>
-        <div class="vocab-meaning">Reach highest point</div>
-        <div class="vocab-example">Loans peaked in 2011.</div>
-    </div>
-
-    <div class="vocab-block">
-        <div class="vocab-word" onclick="speak('Fluctuate')">Fluctuate</div>
-        <div class="vocab-meaning">Rise and fall</div>
-        <div class="vocab-example">Numbers fluctuated slightly after 2011.</div>
-    </div>
-
-    <div class="vocab-block">
-        <div class="vocab-word" onclick="speak('Gradual rise')">Gradual rise</div>
-        <div class="vocab-meaning">Slow increase</div>
-        <div class="vocab-example">There was a gradual rise from 2007 to 2011.</div>
-    </div>
-
-    <div class="vocab-block">
-        <div class="vocab-word" onclick="speak('Remain stable')">Remain stable</div>
-        <div class="vocab-meaning">Little change</div>
-        <div class="vocab-example">Figures remained stable towards the end.</div>
-    </div>
-
-    <!-- STEP 4 -->
-    <div class="step-title">Step 4 — Plan Intro & Overview</div>
-
-    <p><b>📌 Introduction</b><br>
-        The charts show information about the age distribution of members at the Little Chalfont Library and the 
-        percentage of loans by category in 2016, while the bar graph illustrates the total number of loans from 2007 to 2016.
-    </p>
-
-    <p><b>📌 Overview</b><br>
-        Overall, adults aged 18–64 were the largest membership group, and fiction books were the most borrowed materials. 
-        Additionally, the total number of loans generally increased over the ten-year period.
-    </p>
-
-    <!-- STEP 5 -->
-    <div class="step-title">Step 5 — Plan Body Paragraph 1</div>
-
-    <p><b>📌 Body Paragraph 1 (Key Points)</b></p>
-    <ul>
-        <li><b>Age Groups</b></li>
-        <li>Adults 18–64: 51%</li>
-        <li>Children: 22%</li>
-        <li>Young adults 13–17: 15%</li>
-        <li>Adults 65+: 12%</li>
-        <br>
-        <li><b>Loan Categories</b></li>
-        <li>Children’s & Adult fiction: 38% each</li>
-        <li>Adult non-fiction: 13%</li>
-        <li>Children’s non-fiction: 6%</li>
-        <li>Young adults & Adult audiobooks: 2% each</li>
-        <li>Children’s DVDs: 1%</li>
-    </ul>
-
-    <!-- STEP 6 -->
-    <div class="step-title">Step 6 — Plan Body Paragraph 2</div>
-
-    <p><b>📌 Body Paragraph 2 (Key Points – Bar Chart Trends)</b></p>
-    <ul>
-        <li>2007 began at about 15,000 loans.</li>
-        <li>Gradual rise to peak in 2011 (~21,000).</li>
-        <li>Slight dip in 2013, then recovered.</li>
-        <li>2016 reached the highest level at around 22,000 loans.</li>
-    </ul>
-
-    <!-- Footer -->
-    <div class="footer">
-        <img src="materials/eagle-face-crop.jpg"> TODAY'S IELTS TASK • MADE BY DAKSH
-    </div>
-
-</div>
 
 <script>
-    // Toggle Audio/Video
-    const audioBtn = document.getElementById("audioBtn");
-    const videoBtn = document.getElementById("videoBtn");
-    const audioSection = document.getElementById("audioSection");
-    const videoSection = document.getElementById("videoSection");
+    function gotoStep(n) {
+        document.querySelectorAll('.step-section').forEach(s => s.classList.remove('active-step'));
+        document.getElementById('step' + n).classList.add('active-step');
 
-    audioBtn.onclick = () => {
-        audioBtn.classList.add("active");
-        videoBtn.classList.remove("active");
-        audioSection.style.display = "block";
-        videoSection.style.display = "none";
-    };
+        let dots = ["○","○","○","○","○","○","○"];
+        dots[n-1] = "●";
+        document.getElementById("progressDots").innerHTML = dots.join(" ");
+    }
 
-    videoBtn.onclick = () => {
-        videoBtn.classList.add("active");
-        audioBtn.classList.remove("active");
-        videoSection.style.display = "block";
-        audioSection.style.display = "none";
-    };
+    function showMedia(type) {
+        document.getElementById("audioBox").style.display = (type === "audio") ? "block" : "none";
+        document.getElementById("videoBox").style.display = (type === "video") ? "block" : "none";
+    }
 
-    // Speak word on click
     function speak(word) {
-        const msg = new SpeechSynthesisUtterance(word);
-        msg.rate = 1;
-        msg.pitch = 1;
+        let msg = new SpeechSynthesisUtterance(word);
+        msg.lang = "en-GB";
         speechSynthesis.speak(msg);
     }
 </script>
