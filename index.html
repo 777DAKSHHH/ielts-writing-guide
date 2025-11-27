@@ -1,322 +1,268 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IELTS Classroom – Premium Wizard</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>IELTS — Dashflow-style Wizard (SPA)</title>
 
-    <!-- Fonts -->
-    <link href="https://fonts.cdnfonts.com/css/sf-pro-display" rel="stylesheet">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-    <!-- MDBootstrap -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.0/mdb.min.css" />
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css">
 
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #9ecbff, #1f4eb8);
-            font-family: 'SF Pro Display', sans-serif;
-            min-height: 100vh;
-        }
-
-        .main-container {
-            max-width: 900px;
-            margin: 40px auto;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(8px);
-            border-radius: 30px;
-            padding: 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-        }
-
-        .title-bar {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .title-bar img {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .progress-dots {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 22px;
-            letter-spacing: 4px;
-        }
-
-        .step-section {
-            display: none;
-        }
-
-        .active-step {
-            display: block;
-        }
-
-        .media-card {
-            background: rgba(240, 247, 255, 0.6);
-            border-radius: 18px;
-            border: 2px solid rgba(0, 102, 255, 0.4);
-            padding: 20px;
-            margin-bottom: 25px;
-        }
-
-        .glass-card {
-            background: rgba(255,255,255,0.6);
-            border-radius: 15px;
-            padding: 15px 20px;
-            margin-bottom: 12px;
-            border: 1px solid rgba(255,255,255,0.4);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        .nav-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 30px;
-        }
-
-        button.step-btn {
-            padding: 8px 22px;
-            font-size: 22px;
-            background: white;
-            border-radius: 10px;
-            border: none;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-            cursor: pointer;
-        }
-
-        button.step-btn:hover {
-            background: #e9f0ff;
-        }
-    </style>
+  <!-- Confetti will be loaded dynamically by script.js -->
 </head>
-
 <body>
+  <div id="app" class="app">
 
-    <div class="main-container">
-
-        <!-- HEADER WITH EAGLE LOGO -->
-        <div class="title-bar">
-            <img src="eagle-face-crop.jpg" alt="Logo">
-            <h3 style="margin:0; font-weight:600;">IELTS Task Flow</h3>
+    <!-- SIDEBAR (Dashflow-style) -->
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <img src="materials/eagle-face-crop.jpg" alt="logo" class="logo">
+        <div class="brand">
+          <div class="brand-name">IELTS Taskflow</div>
+          <div class="brand-sub">Classroom Mode</div>
         </div>
+      </div>
 
-        <!-- PROGRESS DOTS -->
-        <div id="progressDots" class="progress-dots">● ○ ○ ○ ○ ○ ○</div>
+      <nav class="nav">
+        <button class="nav-link nav-active" data-step="1">Overview</button>
+        <button class="nav-link" data-step="2">Brainstorm</button>
+        <button class="nav-link" data-step="3">Vocabulary</button>
+        <button class="nav-link" data-step="4">Intro & Overview</button>
+        <button class="nav-link" data-step="5">Body 1</button>
+        <button class="nav-link" data-step="6">Body 2</button>
+        <button class="nav-link" data-step="7">Final</button>
+      </nav>
 
-        <!-- STEP 1 – TASK OVERVIEW -->
-        <div class="step-section active-step" id="step1">
+      <div class="sidebar-bottom">
+        <div class="progress-line" id="progressLine">● ○ ○ ○ ○ ○ ○</div>
+        <div class="copy">TODAY'S IELTS TASK — DAKSH</div>
+      </div>
+    </aside>
 
-            <h4><b>Step 1 — Task Overview</b></h4>
+    <!-- MAIN PANEL -->
+    <main class="main">
+      <div class="container">
 
-            <!-- AUDIO / VIDEO TOGGLE -->
-            <div class="media-card">
-                <button onclick="showMedia('audio')" class="btn btn-primary btn-sm">Audio</button>
-                <button onclick="showMedia('video')" class="btn btn-primary btn-sm">Video</button>
+        <!-- Header (compact) -->
+        <header class="header">
+          <div class="header-left">
+            <h1 class="title">IELTS — Task Wizard</h1>
+            <div class="subtitle">Use ← / → or the sidebar to navigate steps</div>
+          </div>
+          <div class="header-right">
+            <div class="empty"></div>
+          </div>
+        </header>
 
-                <div id="audioBox" style="margin-top:20px; display:block;">
-                    <audio controls style="width:100%;">
-                        <source src="materials/random.mp3" type="audio/mpeg">
-                    </audio>
+        <!-- STEPS WRAPPER -->
+        <section id="steps">
+
+          <!-- STEP 1 -->
+          <article class="step step-active" data-step="1" id="step-1">
+            <h2>Step 1 — Task Overview</h2>
+
+            <div class="media-toggle">
+              <button class="media-btn media-active" data-media="audio">Audio</button>
+              <button class="media-btn" data-media="video">Video</button>
+            </div>
+
+            <div class="media-card" id="audio-card">
+              <div class="media-title">Audio Overview</div>
+              <audio id="audioEl" controls preload="none" style="width:100%;">
+                <source src="materials/random.mp3" type="audio/mpeg">
+                Your browser doesn't support audio.
+              </audio>
+            </div>
+
+            <div class="media-card" id="video-card" style="display:none;">
+              <div class="media-title">Video Overview</div>
+              <div class="video-wrap">
+                <video id="videoEl" controls preload="metadata" style="width:100%; height:100%; object-fit:cover;">
+                  <source src="materials/random.mp4" type="video/mp4">
+                  Your browser doesn't support video.
+                </video>
+              </div>
+            </div>
+          </article>
+
+          <!-- STEP 2 -->
+          <article class="step" data-step="2" id="step-2">
+            <h2>Step 2 — Brainstorm</h2>
+
+            <div class="grid-two">
+              <div class="card">
+                <img src="materials/random-task.jpg" alt="task image" class="task-img">
+              </div>
+
+              <div class="card">
+                <div class="card-title">Question</div>
+                <p class="muted">
+                  <strong>The charts below show information about the age profile of members at Little Chalfont Library, the percentage of total loans by category in 2016, and the total number of loans made between 2007 and 2016.</strong>
+                  <br><br>
+                  Summarise the information by selecting and reporting the main features, and make comparisons where relevant.
+                </p>
+
+                <div class="timer">
+                  <div class="timer-display" id="timerDisplay">06:00</div>
+                  <div class="timer-controls">
+                    <button id="timerStart" class="btn-outline">Start</button>
+                    <button id="timerPause" class="btn-outline">Pause</button>
+                    <button id="timerReset" class="btn-outline">Reset</button>
+                  </div>
                 </div>
+              </div>
+            </div>
+          </article>
 
-                <div id="videoBox" style="margin-top:20px; display:none;">
-                    <video controls style="width:100%; border-radius:12px;">
-                        <source src="materials/random.mp4" type="video/mp4">
-                    </video>
-                </div>
+          <!-- STEP 3 -->
+          <article class="step" data-step="3" id="step-3">
+            <h2>Step 3 — Key Vocabulary</h2>
+
+            <div class="card glass" id="vocab-list">
+              <!-- vocab items — click to pronounce -->
+              <div class="vocab-item" data-word="Depict or Illustrate">
+                <div class="vocab-word">Depict / Illustrate</div>
+                <div class="vocab-meaning">Show visually</div>
+                <div class="vocab-example">The bar chart illustrates yearly loan figures.</div>
+              </div>
+
+              <div class="vocab-item" data-word="Proportion">
+                <div class="vocab-word">Proportion</div>
+                <div class="vocab-meaning">Percentage / share</div>
+                <div class="vocab-example">Adults formed the largest proportion.</div>
+              </div>
+
+              <div class="vocab-item" data-word="Account for">
+                <div class="vocab-word">Account for</div>
+                <div class="vocab-meaning">Represent part of whole</div>
+                <div class="vocab-example">Fiction accounted for 38% of loans.</div>
+              </div>
+
+              <div class="vocab-item" data-word="Peak">
+                <div class="vocab-word">Peak</div>
+                <div class="vocab-meaning">Reach highest point</div>
+                <div class="vocab-example">Loans peaked in 2011.</div>
+              </div>
+
+              <div class="vocab-item" data-word="Fluctuate">
+                <div class="vocab-word">Fluctuate</div>
+                <div class="vocab-meaning">Rise and fall</div>
+                <div class="vocab-example">Numbers fluctuated slightly after 2011.</div>
+              </div>
+
+              <div class="vocab-item" data-word="Gradual rise">
+                <div class="vocab-word">Gradual rise</div>
+                <div class="vocab-meaning">Slow increase</div>
+                <div class="vocab-example">There was a gradual rise from 2007 to 2011.</div>
+              </div>
+
+              <div class="vocab-item" data-word="Remain stable">
+                <div class="vocab-word">Remain stable</div>
+                <div class="vocab-meaning">Little change</div>
+                <div class="vocab-example">Figures remained stable towards the end.</div>
+              </div>
             </div>
 
-            <div class="nav-buttons">
-                <div></div>
-                <button class="step-btn" onclick="gotoStep(2)">→</button>
+            <div class="accent-row">
+              <label for="accentSelect">Accent:</label>
+              <select id="accentSelect">
+                <option value="en-GB">UK English</option>
+                <option value="en-IN">Indian English</option>
+                <option value="en-US">US English</option>
+              </select>
             </div>
-        </div>
+          </article>
 
-        <!-- STEP 2 — BRAINSTORM -->
-        <div class="step-section" id="step2">
+          <!-- STEP 4 -->
+          <article class="step" data-step="4" id="step-4">
+            <h2>Step 4 — Plan Intro & Conclusion</h2>
 
-            <h4><b>Step 2 — Brainstorm</b></h4>
-
-            <div class="media-card">
-                <img src="materials/random-task.jpg" style="width:100%; border-radius:12px;">
-            </div>
-
-            <div class="glass-card">
-                <b>Question:</b><br>
-                The charts below show information about the age profile of members at Little Chalfont Library, 
-                the percentage of total loans by category in 2016, and the total number of loans made between 2007 and 2016.
-                <br><br>
-                Summarise the information by selecting and reporting the main features, 
-                and make comparisons where relevant.
+            <div class="card glass">
+              <div class="card-title">📌 Introduction</div>
+              <p>
+                The charts show information about the age distribution of members at the Little Chalfont Library and the percentage of loans by category in 2016, while the bar graph illustrates the total number of loans from 2007 to 2016.
+              </p>
             </div>
 
-            <div class="nav-buttons">
-                <button class="step-btn" onclick="gotoStep(1)">←</button>
-                <button class="step-btn" onclick="gotoStep(3)">→</button>
+            <div class="card glass">
+              <div class="card-title">📌 Overview</div>
+              <p>
+                Overall, adults aged 18–64 were the largest membership group, and fiction books were the most borrowed materials. Additionally, the total number of loans generally increased over the ten-year period.
+              </p>
             </div>
-        </div>
+          </article>
 
-        <!-- STEP 3 — KEY VOCABULARY -->
-        <div class="step-section" id="step3">
+          <!-- STEP 5 -->
+          <article class="step" data-step="5" id="step-5">
+            <h2>Step 5 — Plan Body Paragraph 1</h2>
 
-            <h4><b>Step 3 — Key Vocabulary</b></h4>
-
-            <!-- VOCAB LIST -->
-            <div class="glass-card" onclick="speak('Depict')">
-                <b>Depict / Illustrate</b><br>
-                Show visually — “The bar chart illustrates yearly loan figures.”
-            </div>
-
-            <div class="glass-card" onclick="speak('Proportion')">
-                <b>Proportion</b><br>
-                Percentage / share — “Adults formed the largest proportion.”
-            </div>
-
-            <div class="glass-card" onclick="speak('Account for')">
-                <b>Account for</b><br>
-                Represent part of whole — “Fiction accounted for 38% of loans.”
-            </div>
-
-            <div class="glass-card" onclick="speak('Peak')">
-                <b>Peak</b><br>
-                Reach highest point — “Loans peaked in 2011.”
-            </div>
-
-            <div class="glass-card" onclick="speak('Fluctuate')">
-                <b>Fluctuate</b><br>
-                Rise and fall — “Numbers fluctuated slightly after 2011.”
-            </div>
-
-            <div class="glass-card" onclick="speak('Gradual rise')">
-                <b>Gradual rise</b><br>
-                Slow increase — “There was a gradual rise from 2007 to 2011.”
-            </div>
-
-            <div class="glass-card" onclick="speak('Remain stable')">
-                <b>Remain stable</b><br>
-                Little change — “Figures remained stable towards the end.”
-            </div>
-
-            <div class="nav-buttons">
-                <button class="step-btn" onclick="gotoStep(2)">←</button>
-                <button class="step-btn" onclick="gotoStep(4)">→</button>
-            </div>
-        </div>
-
-        <!-- STEP 4 — INTRO & CONCLUSION -->
-        <div class="step-section" id="step4">
-            <h4><b>Step 4 — Plan Introduction & Conclusion</b></h4>
-
-            <div class="glass-card">
-                <b>📌 Introduction</b><br>
-                The charts show information about the age distribution of members at the Little Chalfont Library...
-            </div>
-
-            <div class="glass-card">
-                <b>📌 Overview</b><br>
-                Overall, adults aged 18–64 were the largest membership group...
-            </div>
-
-            <div class="nav-buttons">
-                <button class="step-btn" onclick="gotoStep(3)">←</button>
-                <button class="step-btn" onclick="gotoStep(5)">→</button>
-            </div>
-        </div>
-
-        <!-- STEP 5 — BODY PARAGRAPH 1 -->
-        <div class="step-section" id="step5">
-
-            <h4><b>Step 5 — Plan Body Paragraph 1</b></h4>
-
-            <div class="glass-card">
-                <b>📌 Body Paragraph 1</b><br><br>
-                <b>Age Groups</b><br>
+            <div class="card glass">
+              <div class="card-title">📌 Body Paragraph 1 (Key Points)</div>
+              <div class="muted">
+                <strong>Age Groups</strong><br>
                 Adults 18–64: 51%<br>
                 Children: 22%<br>
                 Young adults 13–17: 15%<br>
                 Adults 65+: 12%<br><br>
 
-                <b>Loan Categories</b><br>
+                <strong>Loan Categories</strong><br>
                 Children’s & Adult fiction: 38% each<br>
                 Adult non-fiction: 13%<br>
                 Children’s non-fiction: 6%<br>
                 Young adults & Adult audiobooks: 2% each<br>
                 Children’s DVDs: 1%
+              </div>
             </div>
+          </article>
 
-            <div class="nav-buttons">
-                <button class="step-btn" onclick="gotoStep(4)">←</button>
-                <button class="step-btn" onclick="gotoStep(6)">→</button>
-            </div>
-        </div>
+          <!-- STEP 6 -->
+          <article class="step" data-step="6" id="step-6">
+            <h2>Step 6 — Plan Body Paragraph 2</h2>
 
-        <!-- STEP 6 — BODY PARAGRAPH 2 -->
-        <div class="step-section" id="step6">
-
-            <h4><b>Step 6 — Plan Body Paragraph 2</b></h4>
-
-            <div class="glass-card">
-                <b>📌 Bar Chart Trends</b><br><br>
-                2007 began at ~15,000 loans.<br>
+            <div class="card glass">
+              <div class="card-title">📌 Body Paragraph 2 (Key Points – Bar Chart Trends)</div>
+              <div class="muted">
+                2007 began at about 15,000 loans.<br>
                 Gradual rise to peak in 2011 (~21,000).<br>
                 Slight dip in 2013, then recovered.<br>
-                2016 reached ~22,000 loans.
+                2016 reached the highest level at around 22,000 loans.
+              </div>
+            </div>
+          </article>
+
+          <!-- STEP 7 -->
+          <article class="step" data-step="7" id="step-7">
+            <h2>Step 7 — Final Review & Completion</h2>
+
+            <div class="card glass">
+              <div class="card-title">Task Complete</div>
+              <div id="final-essay" class="muted" style="white-space:pre-wrap;"></div>
             </div>
 
-            <div class="nav-buttons">
-                <button class="step-btn" onclick="gotoStep(5)">←</button>
-                <button class="step-btn" onclick="gotoStep(7)">→</button>
+            <div class="action-row">
+              <button id="quizBtn" class="btn-outline">Take Quiz</button>
+              <button id="reportBtn" class="btn-outline">Teacher Report</button>
+              <button id="completeBtn" class="btn-primary" data-complete>Finish & Celebrate</button>
             </div>
-        </div>
+          </article>
 
-        <!-- STEP 7 — FINAL -->
-        <div class="step-section" id="step7">
+        </section>
 
-            <h4><b>Step 7 — Final Review</b></h4>
+        <!-- NAV CONTROLS -->
+        <footer class="nav-controls">
+          <button id="prevBtn" class="arrow-btn">←</button>
+          <button id="nextBtn" class="arrow-btn">→</button>
+        </footer>
 
-            <div class="glass-card">
-                🎉 Task Complete!  
-                <br><br>
-                You may proceed to Quiz or Teacher Report.
-            </div>
+      </div>
+    </main>
 
-            <div class="nav-buttons">
-                <button class="step-btn" onclick="gotoStep(6)">←</button>
-                <div></div>
-            </div>
-        </div>
+  </div>
 
-    </div>
-
-<script>
-    function gotoStep(n) {
-        document.querySelectorAll('.step-section').forEach(s => s.classList.remove('active-step'));
-        document.getElementById('step' + n).classList.add('active-step');
-
-        let dots = ["○","○","○","○","○","○","○"];
-        dots[n-1] = "●";
-        document.getElementById("progressDots").innerHTML = dots.join(" ");
-    }
-
-    function showMedia(type) {
-        document.getElementById("audioBox").style.display = (type === "audio") ? "block" : "none";
-        document.getElementById("videoBox").style.display = (type === "video") ? "block" : "none";
-    }
-
-    function speak(word) {
-        let msg = new SpeechSynthesisUtterance(word);
-        msg.lang = "en-GB";
-        speechSynthesis.speak(msg);
-    }
-</script>
-
+  <!-- Script -->
+  <script src="script.js"></script>
 </body>
 </html>
