@@ -2,15 +2,14 @@
 
 // CONFIG
 const TOTAL_STEPS = 7;
-const TIMER_START = 6 * 60; // 6 minutes in seconds
+const TIMER_START = 6 * 60; // seconds
 
 // STATE
 let currentStep = 1;
 let timerSeconds = TIMER_START;
 let timerInterval = null;
-let accent = 'en-GB';
 
-// DOM
+// DOM SELECTORS
 const steps = Array.from(document.querySelectorAll('.step'));
 const navLinks = Array.from(document.querySelectorAll('.nav-link'));
 const progressLine = document.getElementById('progressLine');
@@ -35,77 +34,69 @@ const accentSelect = document.getElementById('accentSelect');
 const finalEssayEl = document.getElementById('final-essay');
 const completeBtn = document.getElementById('completeBtn');
 
-// UTIL: update visibility of steps
+// HELPER: show a specific step
 function showStep(n) {
   if (n < 1) n = 1;
   if (n > TOTAL_STEPS) n = TOTAL_STEPS;
   currentStep = n;
+
   steps.forEach(s => {
     const stepNum = Number(s.getAttribute('data-step'));
-    if (stepNum === n) {
-      s.classList.add('step-active');
-    } else {
-      s.classList.remove('step-active');
-    }
+    s.classList.toggle('step-active', stepNum === n);
   });
 
-  // highlight nav link
   navLinks.forEach(btn => {
     btn.classList.toggle('nav-active', Number(btn.getAttribute('data-step')) === n);
   });
 
-  // update progress
-  const dots = Array.from({length: TOTAL_STEPS}, (_, i) => (i+1) === n ? '●' : '○');
+  // update progress dots
+  const dots = Array.from({ length: TOTAL_STEPS }, (_, i) => (i+1) === n ? '●' : '○');
   if (progressLine) progressLine.textContent = dots.join(' ');
 
-  // Pause audio/video when switching
+  // pause media when moving
   try { if (audioEl) audioEl.pause(); } catch(e){}
   try { if (videoEl) videoEl.pause(); } catch(e){}
 
-  // update prev/next button states (optional)
-  prevBtn.disabled = (n === 1);
-  nextBtn.disabled = (n === TOTAL_STEPS);
+  // disable prev/next edges
+  if (prevBtn) prevBtn.disabled = (n === 1);
+  if (nextBtn) nextBtn.disabled = (n === TOTAL_STEPS);
 
-  // save progress
   saveState();
 }
 
-// NAV events
+// NAV listeners
 navLinks.forEach(btn => btn.addEventListener('click', () => {
   const step = Number(btn.getAttribute('data-step'));
   showStep(step);
 }));
-
-if (prevBtn) prevBtn.addEventListener('click', ()=> showStep(currentStep - 1));
-if (nextBtn) nextBtn.addEventListener('click', ()=> showStep(currentStep + 1));
+if (prevBtn) prevBtn.addEventListener('click', () => showStep(currentStep - 1));
+if (nextBtn) nextBtn.addEventListener('click', () => showStep(currentStep + 1));
 
 // media toggle
-mediaBtns.forEach(b => {
-  b.addEventListener('click', () => {
-    const m = b.getAttribute('data-media');
-    mediaBtns.forEach(x => x.classList.remove('media-active'));
-    b.classList.add('media-active');
-    if (m === 'audio') {
-      audioCard.style.display = 'block';
-      videoCard.style.display = 'none';
-    } else {
-      audioCard.style.display = 'none';
-      videoCard.style.display = 'block';
-    }
-  });
-});
+mediaBtns.forEach(b => b.addEventListener('click', () => {
+  const m = b.getAttribute('data-media');
+  mediaBtns.forEach(x => x.classList.remove('media-active'));
+  b.classList.add('media-active');
+  if (m === 'audio') {
+    audioCard.style.display = 'block';
+    videoCard.style.display = 'none';
+  } else {
+    audioCard.style.display = 'none';
+    videoCard.style.display = 'block';
+  }
+}));
 
-// TIMER functions (step 2)
+// Timer functions
 function formatTime(s) {
   const mm = String(Math.floor(s/60)).padStart(2,'0');
-  const ss = String(s % 60).padStart(2,'0');
+  const ss = String(s%60).padStart(2,'0');
   return `${mm}:${ss}`;
 }
 function startTimer(){
   if (timerInterval) return;
   timerInterval = setInterval(()=> {
     timerSeconds--;
-    timerDisplay.textContent = formatTime(timerSeconds);
+    if (timerDisplay) timerDisplay.textContent = formatTime(timerSeconds);
     if (timerSeconds <= 0) {
       clearInterval(timerInterval);
       timerInterval = null;
@@ -114,15 +105,15 @@ function startTimer(){
   }, 1000);
 }
 function pauseTimer(){ if(timerInterval){ clearInterval(timerInterval); timerInterval = null; } }
-function resetTimer(){ pauseTimer(); timerSeconds = TIMER_START; timerDisplay.textContent = formatTime(timerSeconds); }
+function resetTimer(){ pauseTimer(); timerSeconds = TIMER_START; if (timerDisplay) timerDisplay.textContent = formatTime(timerSeconds); }
 
 if (timerStart) timerStart.addEventListener('click', startTimer);
 if (timerPause) timerPause.addEventListener('click', pauseTimer);
 if (timerReset) timerReset.addEventListener('click', resetTimer);
 
-// VOCAB click-to-speak
+// Vocabulary: click to speak
 function speak(text) {
-  if (!('speechSynthesis' in window)) return;
+  if (!('speechSynthesis' in window)) return alert('Speech synthesis not supported');
   window.speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text);
   const lang = accentSelect ? accentSelect.value : 'en-GB';
@@ -134,27 +125,21 @@ function speak(text) {
   window.speechSynthesis.speak(u);
 }
 vocabItems.forEach(item => {
-  item.addEventListener('click', () => {
-    const w = item.dataset.word;
-    speak(w);
-  });
+  item.addEventListener('click', () => speak(item.dataset.word));
 });
 
-// accent selector
-if (accentSelect) accentSelect.addEventListener('change', (e) => accent = e.target.value);
-
-// FINAL assembly — pulls text from relevant cards (static content)
+// Build final essay (from step content)
 function assembleFinal() {
   const intro = document.querySelector('#step-4 .card:first-of-type') ? document.querySelector('#step-4 .card:first-of-type').innerText.trim() : '';
-  const overview = document.querySelector('#step-4 .card:nth-child(2)') ? document.querySelector('#step-4 .card:nth-child(2)').innerText.trim() : '';
+  const overview = document.querySelector('#step-4 .card:nth-of-type(2)') ? document.querySelector('#step-4 .card:nth-of-type(2)').innerText.trim() : '';
   const p1 = document.querySelector('#step-5 .card') ? document.querySelector('#step-5 .card').innerText.trim() : '';
   const p2 = document.querySelector('#step-6 .card') ? document.querySelector('#step-6 .card').innerText.trim() : '';
   const assembled = [intro, overview, p1, p2].filter(Boolean).join('\n\n');
-  finalEssayEl.textContent = assembled;
+  if (finalEssayEl) finalEssayEl.textContent = assembled;
   return assembled;
 }
 
-// CONFETTI on complete
+// confetti and completion
 function loadConfettiAndFire() {
   if (window.confetti) {
     confetti({ particleCount: 160, spread: 70, origin: { y: 0.4 } });
@@ -162,12 +147,9 @@ function loadConfettiAndFire() {
   }
   const s = document.createElement('script');
   s.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js';
-  s.onload = () => {
-    confetti({ particleCount: 160, spread: 70, origin: { y: 0.4 } });
-  };
+  s.onload = () => confetti({ particleCount: 160, spread: 70, origin: { y: 0.4 } });
   document.head.appendChild(s);
 }
-
 if (completeBtn) {
   completeBtn.addEventListener('click', () => {
     assembleFinal();
@@ -176,13 +158,13 @@ if (completeBtn) {
   });
 }
 
-// QUIZ / REPORT placeholders
+// simple placeholders
 const quizBtn = document.getElementById('quizBtn');
 const reportBtn = document.getElementById('reportBtn');
-if (quizBtn) quizBtn.addEventListener('click', ()=> alert('Quiz page placeholder — build quiz.html or inline quiz'));
-if (reportBtn) reportBtn.addEventListener('click', ()=> alert('Teacher report placeholder — build teacher-report.html'));
+if (quizBtn) quizBtn.addEventListener('click', ()=> alert('Quiz placeholder — implement or link quiz page.'));
+if (reportBtn) reportBtn.addEventListener('click', ()=> alert('Tutor report placeholder — implement or link report page.'));
 
-// LOCAL STORAGE save/load
+// local storage state
 const STATE_KEY = 'ielts_dashflow_state_v1';
 function saveState() {
   const state = { step: currentStep, timer: timerSeconds };
@@ -191,18 +173,16 @@ function saveState() {
 function loadState() {
   try {
     const s = JSON.parse(localStorage.getItem(STATE_KEY) || '{}');
-    if (s && s.step) showStep(s.step);
-    if (s && typeof s.timer === 'number') { timerSeconds = s.timer; timerDisplay.textContent = formatTime(timerSeconds); }
+    if (s && typeof s.step === 'number') showStep(s.step);
+    if (s && typeof s.timer === 'number') { timerSeconds = s.timer; if (timerDisplay) timerDisplay.textContent = formatTime(timerSeconds); }
   } catch(e){}
 }
 
-// INIT
+// init
 document.addEventListener('DOMContentLoaded', ()=> {
-  // initial display
   showStep(1);
-  timerDisplay.textContent = formatTime(timerSeconds);
+  if (timerDisplay) timerDisplay.textContent = formatTime(timerSeconds);
   loadState();
-  // keyboard navigation: left/right arrows
   document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowLeft') showStep(currentStep - 1);
     if (e.key === 'ArrowRight') showStep(currentStep + 1);

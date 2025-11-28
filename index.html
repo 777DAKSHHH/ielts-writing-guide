@@ -10,23 +10,21 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="style.css">
-
-  <!-- Confetti will be loaded dynamically by script.js -->
 </head>
 <body>
-  <div id="app" class="app">
+  <div class="app">
 
-    <!-- SIDEBAR (Dashflow-style) -->
-    <aside class="sidebar">
+    <!-- SIDEBAR -->
+    <aside class="sidebar" aria-label="Sidebar">
       <div class="sidebar-top">
         <img src="materials/eagle-face-crop.jpg" alt="logo" class="logo">
         <div class="brand">
           <div class="brand-name">IELTS Taskflow</div>
-          <div class="brand-sub">Classroom Mode</div>
+          <div class="brand-sub">Classroom • Dashflow-style</div>
         </div>
       </div>
 
-      <nav class="nav">
+      <nav class="nav" aria-label="Steps navigation">
         <button class="nav-link nav-active" data-step="1">Overview</button>
         <button class="nav-link" data-step="2">Brainstorm</button>
         <button class="nav-link" data-step="3">Vocabulary</button>
@@ -37,53 +35,55 @@
       </nav>
 
       <div class="sidebar-bottom">
-        <div class="progress-line" id="progressLine">● ○ ○ ○ ○ ○ ○</div>
+        <div id="progressLine" class="progress-line">● ○ ○ ○ ○ ○ ○</div>
         <div class="copy">TODAY'S IELTS TASK — DAKSH</div>
       </div>
     </aside>
 
-    <!-- MAIN PANEL -->
+    <!-- MAIN -->
     <main class="main">
       <div class="container">
 
-        <!-- Header (compact) -->
+        <!-- Header -->
         <header class="header">
-          <div class="header-left">
-            <h1 class="title">IELTS — Task Wizard</h1>
-            <div class="subtitle">Use ← / → or the sidebar to navigate steps</div>
-          </div>
-          <div class="header-right">
-            <div class="empty"></div>
+          <div>
+            <h1 class="title">IELTS Writing — Task Wizard</h1>
+            <p class="subtitle">Follow the 7-step flow. Use the sidebar or arrows to navigate.</p>
           </div>
         </header>
 
-        <!-- STEPS WRAPPER -->
-        <section id="steps">
+        <!-- Steps -->
+        <section id="steps" class="steps">
 
           <!-- STEP 1 -->
           <article class="step step-active" data-step="1" id="step-1">
-            <h2>Step 1 — Task Overview</h2>
+            <div class="card media-card">
+              <div class="card-head">
+                <h2>Step 1 — Task Overview</h2>
+                <div class="step-meta">Audio / Video overview</div>
+              </div>
 
-            <div class="media-toggle">
-              <button class="media-btn media-active" data-media="audio">Audio</button>
-              <button class="media-btn" data-media="video">Video</button>
-            </div>
+              <div class="media-toggle">
+                <button class="media-btn media-active" data-media="audio">Audio</button>
+                <button class="media-btn" data-media="video">Video</button>
+              </div>
 
-            <div class="media-card" id="audio-card">
-              <div class="media-title">Audio Overview</div>
-              <audio id="audioEl" controls preload="none" style="width:100%;">
-                <source src="materials/random.mp3" type="audio/mpeg">
-                Your browser doesn't support audio.
-              </audio>
-            </div>
+              <div id="audio-card" class="media-inner">
+                <div class="media-title">Audio Overview</div>
+                <audio id="audioEl" controls preload="none" style="width:100%;">
+                  <source src="materials/random.mp3" type="audio/mpeg">
+                </audio>
+                <p class="hint">Tip: play the audio before brainstorming.</p>
+              </div>
 
-            <div class="media-card" id="video-card" style="display:none;">
-              <div class="media-title">Video Overview</div>
-              <div class="video-wrap">
-                <video id="videoEl" controls preload="metadata" style="width:100%; height:100%; object-fit:cover;">
-                  <source src="materials/random.mp4" type="video/mp4">
-                  Your browser doesn't support video.
-                </video>
+              <div id="video-card" class="media-inner" style="display:none;">
+                <div class="media-title">Video Overview</div>
+                <div class="video-wrap">
+                  <video id="videoEl" controls preload="metadata" style="width:100%; border-radius:8px;">
+                    <source src="materials/random.mp4" type="video/mp4">
+                  </video>
+                </div>
+                <p class="hint">Tip: watch the video for a visual walkthrough.</p>
               </div>
             </div>
           </article>
@@ -91,10 +91,9 @@
           <!-- STEP 2 -->
           <article class="step" data-step="2" id="step-2">
             <h2>Step 2 — Brainstorm</h2>
-
             <div class="grid-two">
               <div class="card">
-                <img src="materials/random-task.jpg" alt="task image" class="task-img">
+                <img src="materials/random-task.jpg" alt="task" class="task-img">
               </div>
 
               <div class="card">
@@ -122,7 +121,6 @@
             <h2>Step 3 — Key Vocabulary</h2>
 
             <div class="card glass" id="vocab-list">
-              <!-- vocab items — click to pronounce -->
               <div class="vocab-item" data-word="Depict or Illustrate">
                 <div class="vocab-word">Depict / Illustrate</div>
                 <div class="vocab-meaning">Show visually</div>
@@ -253,8 +251,8 @@
 
         <!-- NAV CONTROLS -->
         <footer class="nav-controls">
-          <button id="prevBtn" class="arrow-btn">←</button>
-          <button id="nextBtn" class="arrow-btn">→</button>
+          <button id="prevBtn" class="arrow-btn" title="Previous step">←</button>
+          <button id="nextBtn" class="arrow-btn" title="Next step">→</button>
         </footer>
 
       </div>
