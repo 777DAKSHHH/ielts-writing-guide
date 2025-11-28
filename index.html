@@ -1,266 +1,226 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>IELTS — Dashflow-style Wizard (SPA)</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IELTS Task Wizard</title>
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind + DaisyUI CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css"
+    rel="stylesheet"
+    type="text/css"/>
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="style.css">
+  <!-- Tailwind Typography Plugin -->
+  <script>
+    tailwind.config = {
+      plugins: [window.tailwindcss.typography],
+    };
+  </script>
 </head>
-<body>
-  <div class="app">
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar" aria-label="Sidebar">
-      <div class="sidebar-top">
-        <img src="materials/eagle-face-crop.jpg" alt="logo" class="logo">
-        <div class="brand">
-          <div class="brand-name">IELTS Taskflow</div>
-          <div class="brand-sub">Classroom • Dashflow-style</div>
+<body class="bg-base-200">
+
+  <!-- 🌟 Navbar -->
+  <div class="navbar bg-base-100 shadow-md">
+    <div class="flex-1">
+      <a class="btn btn-ghost text-xl">IELTS WRITING GUIDE</a>
+    </div>
+  </div>
+
+  <br />
+
+  <!-- 🟦 Steps Progress Indicator -->
+  <div class="container mx-auto max-w-4xl">
+    <ul class="steps steps-horizontal w-full mb-8">
+      <li class="step step-primary">Login</li>
+      <li class="step">Brainstorm</li>
+      <li class="step">Vocabulary</li>
+      <li class="step">Intro</li>
+      <li class="step">BP1</li>
+      <li class="step">BP2</li>
+      <li class="step">Review</li>
+    </ul>
+  </div>
+
+  <!-- ================ STEP SCREENS ================ -->
+
+  <!-- 🧩 STEP 1: LOGIN + AUDIO/VIDEO OVERVIEW -->
+  <div id="step1" class="container mx-auto max-w-4xl">
+
+    <div class="card bg-base-100 shadow-xl p-8 mb-6">
+      <h2 class="text-xl font-semibold mb-2">Enter Password to Proceed</h2>
+
+      <input type="password" placeholder="Enter Password"
+        class="input input-bordered w-full mb-4"/>
+
+      <button class="btn btn-primary w-full mb-6">Unlock →</button>
+    </div>
+
+    <div class="card glass shadow-xl p-6">
+      <h2 class="card-title">Audio / Video Task Overview</h2>
+
+      <audio controls class="w-full mt-3">
+        <source src="materials/random.mp3" type="audio/mp3"/>
+      </audio>
+
+      <video controls class="w-full rounded-xl mt-3">
+        <source src="materials/random.mp4" type="video/mp4"/>
+      </video>
+
+      <div class="alert alert-info mt-4">
+        Your browser may not support audio/video playback.
+      </div>
+
+      <div class="flex justify-end">
+        <button class="btn btn-primary btn-wide mt-6">Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🟦 STEP 2: BRAINSTORM + TIMER + IMAGE -->
+  <div id="step2" class="container mx-auto max-w-4xl hidden">
+    <div class="card bg-base-100 shadow-xl p-6">
+      <h2 class="text-xl font-semibold mb-4">6-Minute Brainstorm</h2>
+
+      <div class="text-center text-5xl font-bold">
+        <span class="countdown">
+          <span style="--value:06;"></span>:
+          <span style="--value:00;"></span>
+        </span>
+      </div>
+
+      <div class="card glass p-6 my-5">
+        <img src="materials/random-task.jpg" class="rounded-xl shadow-xl mb-4" />
+        <p class="prose">
+          The charts below show information about the age profile of members at Little Chalfont Library, the percentage of total loans by category in 2016, and the total number of loans made between 2007 and 2016.
+
+Summarise the information by selecting and reporting the main features, and make comparisons where relevant.
+        </p>
+      </div>
+
+      <div class="flex justify-between mt-8">
+        <button class="btn btn-outline">← Prev</button>
+        <button class="btn btn-primary">Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🟦 STEP 3: VOCABULARY TABLE -->
+  <div id="step3" class="container mx-auto max-w-4xl hidden">
+    <div class="card bg-base-100 shadow-xl p-6">
+      <h2 class="text-xl font-semibold mb-4">Vocabulary Enhancement</h2>
+
+      <table class="table table-zebra">
+        <thead>
+          <tr>
+            <th>Word</th>
+            <th>Meaning</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Significantly</td>
+            <td>By a large amount</td>
+            <td>Water usage increased significantly in Country X.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="flex justify-between mt-6">
+        <button class="btn btn-outline">← Prev</button>
+        <button class="btn btn-primary">Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🟦 STEP 4: INTRODUCTION & OVERVIEW -->
+  <div id="step4" class="container mx-auto max-w-4xl hidden">
+    <div class="card bg-base-100 shadow-xl p-6">
+
+      <h2 class="text-xl font-bold mb-3">Sample Introductions & Overviews</h2>
+
+      <div class="tabs tabs-boxed mb-4">
+        <a class="tab tab-active">Sample 1</a>
+        <a class="tab">Sample 2</a>
+      </div>
+
+      <article class="prose">
+        <p>The chart compares the use of water for three different purposes
+        in countries X, Y and Z. Overall, agricultural demand is the highest
+        in two nations...</p>
+      </article>
+
+      <div class="flex justify-between mt-6">
+        <button class="btn btn-outline">← Prev</button>
+        <button class="btn btn-primary">Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🟦 STEP 5: BODY PARAGRAPH 1 PLANNER -->
+  <div id="step5" class="container mx-auto max-w-4xl hidden">
+    <div class="card bg-base-100 glass shadow p-6">
+      <h2 class="text-xl font-bold mb-4">Body Paragraph 1 Planner</h2>
+
+      <div class="alert alert-primary mb-4">Focus on the highest values first</div>
+
+      <ul class="list-disc prose pl-6">
+        <li>Agriculture consumes 80% in Country X...</li>
+        <li>Compare with Country Y domestic use</li>
+      </ul>
+
+      <div class="flex justify-between mt-8">
+        <button class="btn btn-outline">← Prev</button>
+        <button class="btn btn-primary">Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🟦 STEP 6: BODY PARAGRAPH 2 PLANNER -->
+  <div id="step6" class="container mx-auto max-w-4xl hidden">
+    <div class="card bg-base-100 glass shadow p-6">
+      <h2 class="text-xl font-bold mb-4">Body Paragraph 2 Planner</h2>
+
+      <ul class="list-disc prose pl-6">
+        <li>Industrial usage varies slightly</li>
+        <li>Clear contrast between Country X and Z</li>
+      </ul>
+
+      <div class="flex justify-between mt-8">
+        <button class="btn btn-outline">← Prev</button>
+        <button class="btn btn-primary">Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🟦 STEP 7: REVIEW + QR + DOWNLOAD -->
+  <div id="step7" class="container mx-auto max-w-4xl hidden">
+    <div class="card bg-base-100 shadow-xl p-6">
+      <h2 class="text-xl font-bold mb-4">Final Review & Report</h2>
+
+      <div class="stats shadow mb-6">
+        <div class="stat">
+          <div class="stat-title">Accuracy</div>
+          <div class="stat-value">92%</div>
+        </div>
+        <div class="stat">
+          <div class="stat-title">Mistakes</div>
+          <div class="stat-value text-red-500">3</div>
         </div>
       </div>
 
-      <nav class="nav" aria-label="Steps navigation">
-        <button class="nav-link nav-active" data-step="1">Overview</button>
-        <button class="nav-link" data-step="2">Brainstorm</button>
-        <button class="nav-link" data-step="3">Vocabulary</button>
-        <button class="nav-link" data-step="4">Intro & Overview</button>
-        <button class="nav-link" data-step="5">Body 1</button>
-        <button class="nav-link" data-step="6">Body 2</button>
-        <button class="nav-link" data-step="7">Final</button>
-      </nav>
-
-      <div class="sidebar-bottom">
-        <div id="progressLine" class="progress-line">● ○ ○ ○ ○ ○ ○</div>
-        <div class="copy">TODAY'S IELTS TASK — DAKSH</div>
+      <div class="card p-6 mb-4">
+        <h3 class="font-bold mb-2">QR Code Access</h3>
+        <img src="materials/qrcode_todayieltstask.onrender.com.png" class="rounded-xl w-48 mx-auto"/>
       </div>
-    </aside>
 
-    <!-- MAIN -->
-    <main class="main">
-      <div class="container">
-
-        <!-- Header -->
-        <header class="header">
-          <div>
-            <h1 class="title">IELTS Writing — Task Wizard</h1>
-            <p class="subtitle">Follow the 7-step flow. Use the sidebar or arrows to navigate.</p>
-          </div>
-        </header>
-
-        <!-- Steps -->
-        <section id="steps" class="steps">
-
-          <!-- STEP 1 -->
-          <article class="step step-active" data-step="1" id="step-1">
-            <div class="card media-card">
-              <div class="card-head">
-                <h2>Step 1 — Task Overview</h2>
-                <div class="step-meta">Audio / Video overview</div>
-              </div>
-
-              <div class="media-toggle">
-                <button class="media-btn media-active" data-media="audio">Audio</button>
-                <button class="media-btn" data-media="video">Video</button>
-              </div>
-
-              <div id="audio-card" class="media-inner">
-                <div class="media-title">Audio Overview</div>
-                <audio id="audioEl" controls preload="none" style="width:100%;">
-                  <source src="materials/random.mp3" type="audio/mpeg">
-                </audio>
-                <p class="hint">Tip: play the audio before brainstorming.</p>
-              </div>
-
-              <div id="video-card" class="media-inner" style="display:none;">
-                <div class="media-title">Video Overview</div>
-                <div class="video-wrap">
-                  <video id="videoEl" controls preload="metadata" style="width:100%; border-radius:8px;">
-                    <source src="materials/random.mp4" type="video/mp4">
-                  </video>
-                </div>
-                <p class="hint">Tip: watch the video for a visual walkthrough.</p>
-              </div>
-            </div>
-          </article>
-
-          <!-- STEP 2 -->
-          <article class="step" data-step="2" id="step-2">
-            <h2>Step 2 — Brainstorm</h2>
-            <div class="grid-two">
-              <div class="card">
-                <img src="materials/random-task.jpg" alt="task" class="task-img">
-              </div>
-
-              <div class="card">
-                <div class="card-title">Question</div>
-                <p class="muted">
-                  <strong>The charts below show information about the age profile of members at Little Chalfont Library, the percentage of total loans by category in 2016, and the total number of loans made between 2007 and 2016.</strong>
-                  <br><br>
-                  Summarise the information by selecting and reporting the main features, and make comparisons where relevant.
-                </p>
-
-                <div class="timer">
-                  <div class="timer-display" id="timerDisplay">06:00</div>
-                  <div class="timer-controls">
-                    <button id="timerStart" class="btn-outline">Start</button>
-                    <button id="timerPause" class="btn-outline">Pause</button>
-                    <button id="timerReset" class="btn-outline">Reset</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <!-- STEP 3 -->
-          <article class="step" data-step="3" id="step-3">
-            <h2>Step 3 — Key Vocabulary</h2>
-
-            <div class="card glass" id="vocab-list">
-              <div class="vocab-item" data-word="Depict or Illustrate">
-                <div class="vocab-word">Depict / Illustrate</div>
-                <div class="vocab-meaning">Show visually</div>
-                <div class="vocab-example">The bar chart illustrates yearly loan figures.</div>
-              </div>
-
-              <div class="vocab-item" data-word="Proportion">
-                <div class="vocab-word">Proportion</div>
-                <div class="vocab-meaning">Percentage / share</div>
-                <div class="vocab-example">Adults formed the largest proportion.</div>
-              </div>
-
-              <div class="vocab-item" data-word="Account for">
-                <div class="vocab-word">Account for</div>
-                <div class="vocab-meaning">Represent part of whole</div>
-                <div class="vocab-example">Fiction accounted for 38% of loans.</div>
-              </div>
-
-              <div class="vocab-item" data-word="Peak">
-                <div class="vocab-word">Peak</div>
-                <div class="vocab-meaning">Reach highest point</div>
-                <div class="vocab-example">Loans peaked in 2011.</div>
-              </div>
-
-              <div class="vocab-item" data-word="Fluctuate">
-                <div class="vocab-word">Fluctuate</div>
-                <div class="vocab-meaning">Rise and fall</div>
-                <div class="vocab-example">Numbers fluctuated slightly after 2011.</div>
-              </div>
-
-              <div class="vocab-item" data-word="Gradual rise">
-                <div class="vocab-word">Gradual rise</div>
-                <div class="vocab-meaning">Slow increase</div>
-                <div class="vocab-example">There was a gradual rise from 2007 to 2011.</div>
-              </div>
-
-              <div class="vocab-item" data-word="Remain stable">
-                <div class="vocab-word">Remain stable</div>
-                <div class="vocab-meaning">Little change</div>
-                <div class="vocab-example">Figures remained stable towards the end.</div>
-              </div>
-            </div>
-
-            <div class="accent-row">
-              <label for="accentSelect">Accent:</label>
-              <select id="accentSelect">
-                <option value="en-GB">UK English</option>
-                <option value="en-IN">Indian English</option>
-                <option value="en-US">US English</option>
-              </select>
-            </div>
-          </article>
-
-          <!-- STEP 4 -->
-          <article class="step" data-step="4" id="step-4">
-            <h2>Step 4 — Plan Intro & Conclusion</h2>
-
-            <div class="card glass">
-              <div class="card-title">📌 Introduction</div>
-              <p>
-                The charts show information about the age distribution of members at the Little Chalfont Library and the percentage of loans by category in 2016, while the bar graph illustrates the total number of loans from 2007 to 2016.
-              </p>
-            </div>
-
-            <div class="card glass">
-              <div class="card-title">📌 Overview</div>
-              <p>
-                Overall, adults aged 18–64 were the largest membership group, and fiction books were the most borrowed materials. Additionally, the total number of loans generally increased over the ten-year period.
-              </p>
-            </div>
-          </article>
-
-          <!-- STEP 5 -->
-          <article class="step" data-step="5" id="step-5">
-            <h2>Step 5 — Plan Body Paragraph 1</h2>
-
-            <div class="card glass">
-              <div class="card-title">📌 Body Paragraph 1 (Key Points)</div>
-              <div class="muted">
-                <strong>Age Groups</strong><br>
-                Adults 18–64: 51%<br>
-                Children: 22%<br>
-                Young adults 13–17: 15%<br>
-                Adults 65+: 12%<br><br>
-
-                <strong>Loan Categories</strong><br>
-                Children’s & Adult fiction: 38% each<br>
-                Adult non-fiction: 13%<br>
-                Children’s non-fiction: 6%<br>
-                Young adults & Adult audiobooks: 2% each<br>
-                Children’s DVDs: 1%
-              </div>
-            </div>
-          </article>
-
-          <!-- STEP 6 -->
-          <article class="step" data-step="6" id="step-6">
-            <h2>Step 6 — Plan Body Paragraph 2</h2>
-
-            <div class="card glass">
-              <div class="card-title">📌 Body Paragraph 2 (Key Points – Bar Chart Trends)</div>
-              <div class="muted">
-                2007 began at about 15,000 loans.<br>
-                Gradual rise to peak in 2011 (~21,000).<br>
-                Slight dip in 2013, then recovered.<br>
-                2016 reached the highest level at around 22,000 loans.
-              </div>
-            </div>
-          </article>
-
-          <!-- STEP 7 -->
-          <article class="step" data-step="7" id="step-7">
-            <h2>Step 7 — Final Review & Completion</h2>
-
-            <div class="card glass">
-              <div class="card-title">Task Complete</div>
-              <div id="final-essay" class="muted" style="white-space:pre-wrap;"></div>
-            </div>
-
-            <div class="action-row">
-              <button id="quizBtn" class="btn-outline">Take Quiz</button>
-              <button id="reportBtn" class="btn-outline">Teacher Report</button>
-              <button id="completeBtn" class="btn-primary" data-complete>Finish & Celebrate</button>
-            </div>
-          </article>
-
-        </section>
-
-        <!-- NAV CONTROLS -->
-        <footer class="nav-controls">
-          <button id="prevBtn" class="arrow-btn" title="Previous step">←</button>
-          <button id="nextBtn" class="arrow-btn" title="Next step">→</button>
-        </footer>
-
-      </div>
-    </main>
-
+      <button class="btn btn-success btn-wide mt-4">Download Report</button>
+      <button class="btn btn-outline btn-wide mt-3">Return Home</button>
+    </div>
   </div>
 
-  <!-- Script -->
-  <script src="script.js"></script>
 </body>
 </html>
