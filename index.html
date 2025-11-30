@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="night">
+<html lang="en" data-theme="cupcake">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -40,10 +40,10 @@
   </style>
 </head>
 
-<body class="bg-base-100 font-sans">
+<body class="bg-base-100 font-sans antialiased">
 
   <!-- 🌟 Navbar -->
-  <div class="navbar bg-base-100 shadow-md">
+  <div class="navbar bg-base-100 border-b border-base-200 sticky top-0 z-50">
     <div class="flex-1">
       <a class="btn btn-ghost text-xl">IELTS WRITING GUIDE</a>
     </div>
@@ -53,7 +53,7 @@
 
   <!-- 🟦 Steps Progress Indicator -->
   <div class="container mx-auto max-w-3xl px-4">
-    <ul class="steps steps-horizontal w-full mb-12">
+    <ul id="steps-indicator" class="steps steps-horizontal w-full mb-12">
       <li class="step step-primary">Login</li>
       <li class="step">Brainstorm</li>
       <li class="step">Vocabulary</li>
@@ -74,13 +74,13 @@
       <p class="text-lg text-base-content/70">Enter the password and get an overview of the task.</p>
     </div>
 
-    <div class="card bg-base-200 shadow-xl p-8 mb-8">
+    <div class="card bg-base-200 shadow-lg p-8 mb-8">
       <h2 class="text-2xl font-bold mb-4 text-center">Unlock Your Lesson</h2>
 
       <input type="password" placeholder="Enter Password"
         class="input input-bordered w-full max-w-md mx-auto mb-4"/>
 
-      <button class="btn btn-primary btn-wide mx-auto">Unlock →</button>
+      <button class="btn btn-primary btn-wide mx-auto btn-next">Unlock →</button>
     </div>
 
     <div class="card bg-base-200 shadow-xl p-8">
@@ -97,7 +97,7 @@
       </video>
 
       <div class="flex justify-end">
-        <button class="btn btn-primary btn-wide mt-6">Next →</button>
+        <button class="btn btn-primary btn-wide mt-6 btn-next">Next →</button>
       </div>
     </div>
   </div>
@@ -109,7 +109,7 @@
       <p class="text-lg text-base-content/70">You have 6 minutes. Analyze the prompt and plan your response.</p>
     </div>
 
-    <div class="card bg-base-200 shadow-xl p-8">
+    <div class="card bg-base-200 shadow-lg p-8">
       <div class="text-center mb-6">
         <span class="countdown font-mono text-6xl">
           <span style="--value:06;"></span>:
@@ -117,7 +117,7 @@
         </span>
       </div>
 
-      <div class="card bg-base-100 p-6 my-5">
+      <div class="card bg-base-100 p-6 my-5 border border-base-300">
         <img src="materials/random-task.jpg" class="rounded-xl shadow-xl mb-4" />
         <div class="divider"></div>
         <p class="prose max-w-none">
@@ -128,8 +128,8 @@ Summarise the information by selecting and reporting the main features, and make
       </div>
 
       <div class="flex justify-between mt-8">
-        <button class="btn btn-outline">← Prev</button>
-        <button class="btn btn-primary">Next →</button>
+        <button class="btn btn-outline btn-prev">← Prev</button>
+        <button class="btn btn-primary btn-next">Next →</button>
       </div>
     </div>
   </div>
@@ -141,7 +141,7 @@ Summarise the information by selecting and reporting the main features, and make
       <p class="text-lg text-base-content/70">Enhance your writing with these key terms and phrases.</p>
     </div>
 
-    <div class="card bg-base-200 shadow-xl p-8">
+    <div class="card bg-base-200 shadow-lg p-8">
       <h2 class="text-2xl font-bold mb-6">Vocabulary Enhancement</h2>
 
       <div class="overflow-x-auto">
@@ -164,8 +164,8 @@ Summarise the information by selecting and reporting the main features, and make
       </div>
 
       <div class="flex justify-between mt-6">
-        <button class="btn btn-outline">← Prev</button>
-        <button class="btn btn-primary">Next →</button>
+        <button class="btn btn-outline btn-prev">← Prev</button>
+        <button class="btn btn-primary btn-next">Next →</button>
       </div>
     </div>
   </div>
@@ -177,7 +177,7 @@ Summarise the information by selecting and reporting the main features, and make
       <p class="text-lg text-base-content/70">Learn how to paraphrase the prompt and write a clear overview.</p>
     </div>
 
-    <div class="card bg-base-200 shadow-xl p-8">
+    <div class="card bg-base-200 shadow-lg p-8">
       <h2 class="text-2xl font-bold mb-4">Sample Introductions & Overviews</h2>
 
       <div class="tabs tabs-boxed mb-4">
@@ -192,8 +192,8 @@ Summarise the information by selecting and reporting the main features, and make
       </article>
 
       <div class="flex justify-between mt-6">
-        <button class="btn btn-outline">← Prev</button>
-        <button class="btn btn-primary">Next →</button>
+        <button class="btn btn-outline btn-prev">← Prev</button>
+        <button class="btn btn-primary btn-next">Next →</button>
       </div>
     </div>
   </div>
@@ -205,7 +205,7 @@ Summarise the information by selecting and reporting the main features, and make
       <p class="text-lg text-base-content/70">Focus on the main features and make relevant comparisons.</p>
     </div>
 
-    <div class="card bg-base-200 shadow-xl p-8">
+    <div class="card bg-base-200 shadow-lg p-8">
       <h2 class="text-2xl font-bold mb-4">Body Paragraph 1 Planner</h2>
 
       <div class="alert alert-primary mb-4">Focus on the highest values first</div>
@@ -216,8 +216,8 @@ Summarise the information by selecting and reporting the main features, and make
       </ul>
 
       <div class="flex justify-between mt-8">
-        <button class="btn btn-outline">← Prev</button>
-        <button class="btn btn-primary">Next →</button>
+        <button class="btn btn-outline btn-prev">← Prev</button>
+        <button class="btn btn-primary btn-next">Next →</button>
       </div>
     </div>
   </div>
@@ -229,7 +229,7 @@ Summarise the information by selecting and reporting the main features, and make
       <p class="text-lg text-base-content/70">Cover the remaining details and contrasts.</p>
     </div>
 
-    <div class="card bg-base-200 shadow-xl p-8">
+    <div class="card bg-base-200 shadow-lg p-8">
       <h2 class="text-2xl font-bold mb-4">Body Paragraph 2 Planner</h2>
 
       <ul class="list-disc prose max-w-none pl-6 space-y-2">
@@ -238,8 +238,8 @@ Summarise the information by selecting and reporting the main features, and make
       </ul>
 
       <div class="flex justify-between mt-8">
-        <button class="btn btn-outline">← Prev</button>
-        <button class="btn btn-primary">Next →</button>
+        <button class="btn btn-outline btn-prev">← Prev</button>
+        <button class="btn btn-primary btn-next">Next →</button>
       </div>
     </div>
   </div>
@@ -251,7 +251,7 @@ Summarise the information by selecting and reporting the main features, and make
       <p class="text-lg text-base-content/70">Review your plan, check your report, and download your materials.</p>
     </div>
 
-    <div class="card bg-base-200 shadow-xl p-8">
+    <div class="card bg-base-200 shadow-lg p-8">
       <h2 class="text-2xl font-bold mb-4">Final Review & Report</h2>
 
       <div class="stats stats-vertical lg:stats-horizontal shadow mb-6 bg-base-100">
@@ -271,9 +271,60 @@ Summarise the information by selecting and reporting the main features, and make
       </div>
 
       <button class="btn btn-accent btn-wide mt-4">Download Report</button>
-      <button class="btn btn-outline btn-wide mt-3">Return Home</button>
+      <button class="btn btn-outline btn-wide mt-3" id="return-home-btn">Return Home</button>
     </div>
   </div>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const steps = document.querySelectorAll('div[id^="step"]');
+      const stepIndicators = document.querySelectorAll('#steps-indicator .step');
+      const nextButtons = document.querySelectorAll('.btn-next');
+      const prevButtons = document.querySelectorAll('.btn-prev');
+      const returnHomeButton = document.getElementById('return-home-btn');
+
+      let currentStep = 1;
+      const totalSteps = steps.length;
+
+      const showStep = (stepNumber) => {
+        // Hide all steps
+        steps.forEach(step => step.classList.add('hidden'));
+        // Show the correct step
+        document.getElementById(`step${stepNumber}`).classList.remove('hidden');
+
+        // Update progress bar
+        stepIndicators.forEach((indicator, index) => {
+          if (index < stepNumber) {
+            indicator.classList.add('step-primary');
+          } else {
+            indicator.classList.remove('step-primary');
+          }
+        });
+        window.scrollTo(0, 0);
+      };
+
+      nextButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          if (currentStep < totalSteps) currentStep++;
+          showStep(currentStep);
+        });
+      });
+
+      prevButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          if (currentStep > 1) currentStep--;
+          showStep(currentStep);
+        });
+      });
+
+      returnHomeButton.addEventListener('click', () => {
+        currentStep = 1;
+        showStep(currentStep);
+      });
+
+      // Initially show the first step
+      showStep(currentStep);
+    });
+  </script>
 </body>
 </html>
