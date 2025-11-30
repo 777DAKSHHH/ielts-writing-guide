@@ -1,26 +1,46 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="night">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IELTS Task Wizard</title>
+  <title>IELTS Writing Guide</title>
 
   <!-- Tailwind + DaisyUI CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
   <link
     href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css"
     rel="stylesheet"
     type="text/css"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Tailwind Typography Plugin -->
   <script>
     tailwind.config = {
-      plugins: [window.tailwindcss.typography],
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+        },
+      },
+      plugins: [
+        require('@tailwindcss/typography'),
+      ],
     };
   </script>
+
+  <style type="text/tailwindcss">
+    .prose {
+      color: theme('colors.base-content');
+    }
+  </style>
 </head>
 
-<body class="bg-base-200">
+<body class="bg-base-100 font-sans">
 
   <!-- 🌟 Navbar -->
   <div class="navbar bg-base-100 shadow-md">
@@ -32,8 +52,8 @@
   <br />
 
   <!-- 🟦 Steps Progress Indicator -->
-  <div class="container mx-auto max-w-4xl">
-    <ul class="steps steps-horizontal w-full mb-8">
+  <div class="container mx-auto max-w-3xl px-4">
+    <ul class="steps steps-horizontal w-full mb-12">
       <li class="step step-primary">Login</li>
       <li class="step">Brainstorm</li>
       <li class="step">Vocabulary</li>
@@ -47,31 +67,34 @@
   <!-- ================ STEP SCREENS ================ -->
 
   <!-- 🧩 STEP 1: LOGIN + AUDIO/VIDEO OVERVIEW -->
-  <div id="step1" class="container mx-auto max-w-4xl">
+  <div id="step1" class="container mx-auto max-w-3xl px-4">
 
-    <div class="card bg-base-100 shadow-xl p-8 mb-6">
-      <h2 class="text-xl font-semibold mb-2">Enter Password to Proceed</h2>
-
-      <input type="password" placeholder="Enter Password"
-        class="input input-bordered w-full mb-4"/>
-
-      <button class="btn btn-primary w-full mb-6">Unlock →</button>
+    <div class="text-center mb-12">
+      <h1 class="text-5xl font-extrabold mb-4">Step 1: Task Overview</h1>
+      <p class="text-lg text-base-content/70">Enter the password and get an overview of the task.</p>
     </div>
 
-    <div class="card glass shadow-xl p-6">
-      <h2 class="card-title">Audio / Video Task Overview</h2>
+    <div class="card bg-base-200 shadow-xl p-8 mb-8">
+      <h2 class="text-2xl font-bold mb-4 text-center">Unlock Your Lesson</h2>
+
+      <input type="password" placeholder="Enter Password"
+        class="input input-bordered w-full max-w-md mx-auto mb-4"/>
+
+      <button class="btn btn-primary btn-wide mx-auto">Unlock →</button>
+    </div>
+
+    <div class="card bg-base-200 shadow-xl p-8">
+      <h2 class="card-title text-2xl font-bold mb-4">Audio / Video Task Overview</h2>
 
       <audio controls class="w-full mt-3">
         <source src="materials/random.mp3" type="audio/mp3"/>
+        Your browser does not support the audio element.
       </audio>
 
       <video controls class="w-full rounded-xl mt-3">
         <source src="materials/random.mp4" type="video/mp4"/>
+        Your browser does not support the video tag.
       </video>
-
-      <div class="alert alert-info mt-4">
-        Your browser may not support audio/video playback.
-      </div>
 
       <div class="flex justify-end">
         <button class="btn btn-primary btn-wide mt-6">Next →</button>
@@ -80,20 +103,24 @@
   </div>
 
   <!-- 🟦 STEP 2: BRAINSTORM + TIMER + IMAGE -->
-  <div id="step2" class="container mx-auto max-w-4xl hidden">
-    <div class="card bg-base-100 shadow-xl p-6">
-      <h2 class="text-xl font-semibold mb-4">6-Minute Brainstorm</h2>
+  <div id="step2" class="container mx-auto max-w-3xl px-4 hidden">
+    <div class="text-center mb-12">
+      <h1 class="text-5xl font-extrabold mb-4">Step 2: Brainstorm</h1>
+      <p class="text-lg text-base-content/70">You have 6 minutes. Analyze the prompt and plan your response.</p>
+    </div>
 
-      <div class="text-center text-5xl font-bold">
-        <span class="countdown">
+    <div class="card bg-base-200 shadow-xl p-8">
+      <div class="text-center mb-6">
+        <span class="countdown font-mono text-6xl">
           <span style="--value:06;"></span>:
           <span style="--value:00;"></span>
         </span>
       </div>
 
-      <div class="card glass p-6 my-5">
+      <div class="card bg-base-100 p-6 my-5">
         <img src="materials/random-task.jpg" class="rounded-xl shadow-xl mb-4" />
-        <p class="prose">
+        <div class="divider"></div>
+        <p class="prose max-w-none">
           The charts below show information about the age profile of members at Little Chalfont Library, the percentage of total loans by category in 2016, and the total number of loans made between 2007 and 2016.
 
 Summarise the information by selecting and reporting the main features, and make comparisons where relevant.
@@ -108,11 +135,17 @@ Summarise the information by selecting and reporting the main features, and make
   </div>
 
   <!-- 🟦 STEP 3: VOCABULARY TABLE -->
-  <div id="step3" class="container mx-auto max-w-4xl hidden">
-    <div class="card bg-base-100 shadow-xl p-6">
-      <h2 class="text-xl font-semibold mb-4">Vocabulary Enhancement</h2>
+  <div id="step3" class="container mx-auto max-w-4xl px-4 hidden">
+    <div class="text-center mb-12">
+      <h1 class="text-5xl font-extrabold mb-4">Step 3: Vocabulary</h1>
+      <p class="text-lg text-base-content/70">Enhance your writing with these key terms and phrases.</p>
+    </div>
 
-      <table class="table table-zebra">
+    <div class="card bg-base-200 shadow-xl p-8">
+      <h2 class="text-2xl font-bold mb-6">Vocabulary Enhancement</h2>
+
+      <div class="overflow-x-auto">
+        <table class="table table-zebra">
         <thead>
           <tr>
             <th>Word</th>
@@ -127,7 +160,8 @@ Summarise the information by selecting and reporting the main features, and make
             <td>Water usage increased significantly in Country X.</td>
           </tr>
         </tbody>
-      </table>
+        </table>
+      </div>
 
       <div class="flex justify-between mt-6">
         <button class="btn btn-outline">← Prev</button>
@@ -137,17 +171,21 @@ Summarise the information by selecting and reporting the main features, and make
   </div>
 
   <!-- 🟦 STEP 4: INTRODUCTION & OVERVIEW -->
-  <div id="step4" class="container mx-auto max-w-4xl hidden">
-    <div class="card bg-base-100 shadow-xl p-6">
+  <div id="step4" class="container mx-auto max-w-3xl px-4 hidden">
+    <div class="text-center mb-12">
+      <h1 class="text-5xl font-extrabold mb-4">Step 4: Introduction</h1>
+      <p class="text-lg text-base-content/70">Learn how to paraphrase the prompt and write a clear overview.</p>
+    </div>
 
-      <h2 class="text-xl font-bold mb-3">Sample Introductions & Overviews</h2>
+    <div class="card bg-base-200 shadow-xl p-8">
+      <h2 class="text-2xl font-bold mb-4">Sample Introductions & Overviews</h2>
 
       <div class="tabs tabs-boxed mb-4">
         <a class="tab tab-active">Sample 1</a>
         <a class="tab">Sample 2</a>
       </div>
 
-      <article class="prose">
+      <article class="prose max-w-none bg-base-100 p-6 rounded-box">
         <p>The chart compares the use of water for three different purposes
         in countries X, Y and Z. Overall, agricultural demand is the highest
         in two nations...</p>
@@ -161,13 +199,18 @@ Summarise the information by selecting and reporting the main features, and make
   </div>
 
   <!-- 🟦 STEP 5: BODY PARAGRAPH 1 PLANNER -->
-  <div id="step5" class="container mx-auto max-w-4xl hidden">
-    <div class="card bg-base-100 glass shadow p-6">
-      <h2 class="text-xl font-bold mb-4">Body Paragraph 1 Planner</h2>
+  <div id="step5" class="container mx-auto max-w-3xl px-4 hidden">
+    <div class="text-center mb-12">
+      <h1 class="text-5xl font-extrabold mb-4">Step 5: Body Paragraph 1</h1>
+      <p class="text-lg text-base-content/70">Focus on the main features and make relevant comparisons.</p>
+    </div>
+
+    <div class="card bg-base-200 shadow-xl p-8">
+      <h2 class="text-2xl font-bold mb-4">Body Paragraph 1 Planner</h2>
 
       <div class="alert alert-primary mb-4">Focus on the highest values first</div>
 
-      <ul class="list-disc prose pl-6">
+      <ul class="list-disc prose max-w-none pl-6 space-y-2">
         <li>Agriculture consumes 80% in Country X...</li>
         <li>Compare with Country Y domestic use</li>
       </ul>
@@ -180,11 +223,16 @@ Summarise the information by selecting and reporting the main features, and make
   </div>
 
   <!-- 🟦 STEP 6: BODY PARAGRAPH 2 PLANNER -->
-  <div id="step6" class="container mx-auto max-w-4xl hidden">
-    <div class="card bg-base-100 glass shadow p-6">
-      <h2 class="text-xl font-bold mb-4">Body Paragraph 2 Planner</h2>
+  <div id="step6" class="container mx-auto max-w-3xl px-4 hidden">
+    <div class="text-center mb-12">
+      <h1 class="text-5xl font-extrabold mb-4">Step 6: Body Paragraph 2</h1>
+      <p class="text-lg text-base-content/70">Cover the remaining details and contrasts.</p>
+    </div>
 
-      <ul class="list-disc prose pl-6">
+    <div class="card bg-base-200 shadow-xl p-8">
+      <h2 class="text-2xl font-bold mb-4">Body Paragraph 2 Planner</h2>
+
+      <ul class="list-disc prose max-w-none pl-6 space-y-2">
         <li>Industrial usage varies slightly</li>
         <li>Clear contrast between Country X and Z</li>
       </ul>
@@ -197,27 +245,32 @@ Summarise the information by selecting and reporting the main features, and make
   </div>
 
   <!-- 🟦 STEP 7: REVIEW + QR + DOWNLOAD -->
-  <div id="step7" class="container mx-auto max-w-4xl hidden">
-    <div class="card bg-base-100 shadow-xl p-6">
-      <h2 class="text-xl font-bold mb-4">Final Review & Report</h2>
+  <div id="step7" class="container mx-auto max-w-3xl px-4 hidden">
+    <div class="text-center mb-12">
+      <h1 class="text-5xl font-extrabold mb-4">Step 7: Final Review</h1>
+      <p class="text-lg text-base-content/70">Review your plan, check your report, and download your materials.</p>
+    </div>
 
-      <div class="stats shadow mb-6">
+    <div class="card bg-base-200 shadow-xl p-8">
+      <h2 class="text-2xl font-bold mb-4">Final Review & Report</h2>
+
+      <div class="stats stats-vertical lg:stats-horizontal shadow mb-6 bg-base-100">
         <div class="stat">
           <div class="stat-title">Accuracy</div>
-          <div class="stat-value">92%</div>
+          <div class="stat-value text-success">92%</div>
         </div>
         <div class="stat">
           <div class="stat-title">Mistakes</div>
-          <div class="stat-value text-red-500">3</div>
+          <div class="stat-value text-error">3</div>
         </div>
       </div>
 
-      <div class="card p-6 mb-4">
+      <div class="card bg-base-100 p-6 mb-4 text-center">
         <h3 class="font-bold mb-2">QR Code Access</h3>
         <img src="materials/qrcode_todayieltstask.onrender.com.png" class="rounded-xl w-48 mx-auto"/>
       </div>
 
-      <button class="btn btn-success btn-wide mt-4">Download Report</button>
+      <button class="btn btn-accent btn-wide mt-4">Download Report</button>
       <button class="btn btn-outline btn-wide mt-3">Return Home</button>
     </div>
   </div>
