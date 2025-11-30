@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="cupcake">
+<html lang="en" data-theme="night">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,6 +11,9 @@
     rel="stylesheet"
     type="text/css"/>
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Heroicons CDN for icons -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 
   <!-- Google Fonts: Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,296 +38,162 @@
 
   <style type="text/tailwindcss">
     .prose {
-      color: theme('colors.base-content');
+        color: theme('colors.base-content');
+    }
+    body {
+        background-image: url('https://www.sajavatkala.in/ieltstoday/bg-grid.svg');
+        background-repeat: repeat;
     }
   </style>
 </head>
 
-<body class="bg-base-100 font-sans antialiased">
+<body class="bg-base-100 font-sans antialiased text-base-content/80">
 
-  <!-- 🌟 Navbar -->
-  <div class="navbar bg-base-100 border-b border-base-200 sticky top-0 z-50">
-    <div class="flex-1">
-      <a class="btn btn-ghost text-xl">IELTS WRITING GUIDE</a>
-    </div>
-  </div>
+    <div class="container mx-auto px-6">
+        <!-- Header -->
+        <header class="flex justify-between items-center py-6">
+            <div class="text-2xl font-bold text-white">IELTS TODAY</div>
+            <a href="#" class="btn btn-outline btn-accent">Login</a>
+        </header>
 
-  <br />
+        <!-- Hero Section -->
+        <section class="text-center py-20 lg:py-32">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight">
+                Master IELTS Writing <br> with <span class="text-accent">Guided Practice</span>
+            </h1>
+            <p class="mt-6 max-w-2xl mx-auto text-lg">
+                Step-by-step guidance from brainstorming to final review. Perfect for Task 1 and Task 2 preparation.
+            </p>
+            <a href="#lessons" class="btn btn-accent btn-wide mt-10">Start Your Lesson</a>
+        </section>
 
-  <!-- 🟦 Steps Progress Indicator -->
-  <div class="container mx-auto max-w-3xl px-4">
-    <ul id="steps-indicator" class="steps steps-horizontal w-full mb-12">
-      <li class="step step-primary">Login</li>
-      <li class="step">Brainstorm</li>
-      <li class="step">Vocabulary</li>
-      <li class="step">Intro</li>
-      <li class="step">BP1</li>
-      <li class="step">BP2</li>
-      <li class="step">Review</li>
-    </ul>
-  </div>
+        <!-- How It Works Section -->
+        <section class="py-20">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-white">How It Works</h2>
+                <p class="mt-4 text-lg">A 7-step journey to perfect your writing skills.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Step 1 -->
+                <div class="card bg-base-200/50 p-8 border border-base-300/50">
+                    <div class="flex items-start gap-4">
+                        <div class="text-accent text-3xl font-bold">01</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">Task Overview</h3>
+                            <p>Get a clear audio/video summary of the task requirements.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Step 2 -->
+                <div class="card bg-base-200/50 p-8 border border-base-300/50">
+                    <div class="flex items-start gap-4">
+                        <div class="text-accent text-3xl font-bold">02</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">Brainstorm</h3>
+                            <p>Use a 6-minute timer to analyze the prompt and structure your ideas.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Step 3 -->
+                <div class="card bg-base-200/50 p-8 border border-base-300/50">
+                    <div class="flex items-start gap-4">
+                        <div class="text-accent text-3xl font-bold">03</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">Vocabulary</h3>
+                            <p>Access a curated list of high-level words and phrases.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Step 4 -->
+                <div class="card bg-base-200/50 p-8 border border-base-300/50">
+                    <div class="flex items-start gap-4">
+                        <div class="text-accent text-3xl font-bold">04</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">Plan Introduction</h3>
+                            <p>Learn to paraphrase the prompt and write a perfect overview.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Step 5 & 6 -->
+                <div class="card bg-base-200/50 p-8 border border-base-300/50 md:col-span-2 lg:col-span-1">
+                    <div class="flex items-start gap-4">
+                        <div class="text-accent text-3xl font-bold">05-06</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">Plan Body Paragraphs</h3>
+                            <p>Structure your main points, evidence, and comparisons logically.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Step 7 -->
+                <div class="card bg-base-200/50 p-8 border border-base-300/50">
+                    <div class="flex items-start gap-4">
+                        <div class="text-accent text-3xl font-bold">07</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">Final Review</h3>
+                            <p>Download your worksheet and check the tutor's report.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-  <!-- ================ STEP SCREENS ================ -->
+        <!-- Choose Your Lesson Section -->
+        <section id="lessons" class="py-20">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-white">Choose Your Lesson</h2>
+                <p class="mt-4 text-lg">Select a task to begin your guided practice session.</p>
+            </div>
+            <div id="lessons-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+                <!-- Lesson cards will be injected here by JavaScript -->
+            </div>
+        </section>
 
-  <!-- 🧩 STEP 1: LOGIN + AUDIO/VIDEO OVERVIEW -->
-  <div id="step1" class="container mx-auto max-w-3xl px-4">
-
-    <div class="text-center mb-12">
-      <h1 class="text-5xl font-extrabold mb-4">Step 1: Task Overview</h1>
-      <p class="text-lg text-base-content/70">Enter the password and get an overview of the task.</p>
-    </div>
-
-    <div class="card bg-base-200 shadow-lg p-8 mb-8">
-      <h2 class="text-2xl font-bold mb-4 text-center">Unlock Your Lesson</h2>
-
-      <input type="password" placeholder="Enter Password"
-        class="input input-bordered w-full max-w-md mx-auto mb-4"/>
-
-      <button class="btn btn-primary btn-wide mx-auto btn-next">Unlock →</button>
-    </div>
-
-    <div class="card bg-base-200 shadow-xl p-8">
-      <h2 class="card-title text-2xl font-bold mb-4">Audio / Video Task Overview</h2>
-
-      <audio controls class="w-full mt-3">
-        <source src="materials/random.mp3" type="audio/mp3"/>
-        Your browser does not support the audio element.
-      </audio>
-
-      <video controls class="w-full rounded-xl mt-3">
-        <source src="materials/random.mp4" type="video/mp4"/>
-        Your browser does not support the video tag.
-      </video>
-
-      <div class="flex justify-end">
-        <button class="btn btn-primary btn-wide mt-6 btn-next">Next →</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 🟦 STEP 2: BRAINSTORM + TIMER + IMAGE -->
-  <div id="step2" class="container mx-auto max-w-3xl px-4 hidden">
-    <div class="text-center mb-12">
-      <h1 class="text-5xl font-extrabold mb-4">Step 2: Brainstorm</h1>
-      <p class="text-lg text-base-content/70">You have 6 minutes. Analyze the prompt and plan your response.</p>
-    </div>
-
-    <div class="card bg-base-200 shadow-lg p-8">
-      <div class="text-center mb-6">
-        <span class="countdown font-mono text-6xl">
-          <span style="--value:06;"></span>:
-          <span style="--value:00;"></span>
-        </span>
-      </div>
-
-      <div class="card bg-base-100 p-6 my-5 border border-base-300">
-        <img src="materials/random-task.jpg" class="rounded-xl shadow-xl mb-4" />
-        <div class="divider"></div>
-        <p class="prose max-w-none">
-          The charts below show information about the age profile of members at Little Chalfont Library, the percentage of total loans by category in 2016, and the total number of loans made between 2007 and 2016.
-
-Summarise the information by selecting and reporting the main features, and make comparisons where relevant.
-        </p>
-      </div>
-
-      <div class="flex justify-between mt-8">
-        <button class="btn btn-outline btn-prev">← Prev</button>
-        <button class="btn btn-primary btn-next">Next →</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 🟦 STEP 3: VOCABULARY TABLE -->
-  <div id="step3" class="container mx-auto max-w-4xl px-4 hidden">
-    <div class="text-center mb-12">
-      <h1 class="text-5xl font-extrabold mb-4">Step 3: Vocabulary</h1>
-      <p class="text-lg text-base-content/70">Enhance your writing with these key terms and phrases.</p>
-    </div>
-
-    <div class="card bg-base-200 shadow-lg p-8">
-      <h2 class="text-2xl font-bold mb-6">Vocabulary Enhancement</h2>
-
-      <div class="overflow-x-auto">
-        <table class="table table-zebra">
-        <thead>
-          <tr>
-            <th>Word</th>
-            <th>Meaning</th>
-            <th>Example</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Significantly</td>
-            <td>By a large amount</td>
-            <td>Water usage increased significantly in Country X.</td>
-          </tr>
-        </tbody>
-        </table>
-      </div>
-
-      <div class="flex justify-between mt-6">
-        <button class="btn btn-outline btn-prev">← Prev</button>
-        <button class="btn btn-primary btn-next">Next →</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 🟦 STEP 4: INTRODUCTION & OVERVIEW -->
-  <div id="step4" class="container mx-auto max-w-3xl px-4 hidden">
-    <div class="text-center mb-12">
-      <h1 class="text-5xl font-extrabold mb-4">Step 4: Introduction</h1>
-      <p class="text-lg text-base-content/70">Learn how to paraphrase the prompt and write a clear overview.</p>
     </div>
 
-    <div class="card bg-base-200 shadow-lg p-8">
-      <h2 class="text-2xl font-bold mb-4">Sample Introductions & Overviews</h2>
-
-      <div class="tabs tabs-boxed mb-4">
-        <a class="tab tab-active">Sample 1</a>
-        <a class="tab">Sample 2</a>
-      </div>
-
-      <article class="prose max-w-none bg-base-100 p-6 rounded-box">
-        <p>The chart compares the use of water for three different purposes
-        in countries X, Y and Z. Overall, agricultural demand is the highest
-        in two nations...</p>
-      </article>
-
-      <div class="flex justify-between mt-6">
-        <button class="btn btn-outline btn-prev">← Prev</button>
-        <button class="btn btn-primary btn-next">Next →</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 🟦 STEP 5: BODY PARAGRAPH 1 PLANNER -->
-  <div id="step5" class="container mx-auto max-w-3xl px-4 hidden">
-    <div class="text-center mb-12">
-      <h1 class="text-5xl font-extrabold mb-4">Step 5: Body Paragraph 1</h1>
-      <p class="text-lg text-base-content/70">Focus on the main features and make relevant comparisons.</p>
-    </div>
-
-    <div class="card bg-base-200 shadow-lg p-8">
-      <h2 class="text-2xl font-bold mb-4">Body Paragraph 1 Planner</h2>
-
-      <div class="alert alert-primary mb-4">Focus on the highest values first</div>
-
-      <ul class="list-disc prose max-w-none pl-6 space-y-2">
-        <li>Agriculture consumes 80% in Country X...</li>
-        <li>Compare with Country Y domestic use</li>
-      </ul>
-
-      <div class="flex justify-between mt-8">
-        <button class="btn btn-outline btn-prev">← Prev</button>
-        <button class="btn btn-primary btn-next">Next →</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 🟦 STEP 6: BODY PARAGRAPH 2 PLANNER -->
-  <div id="step6" class="container mx-auto max-w-3xl px-4 hidden">
-    <div class="text-center mb-12">
-      <h1 class="text-5xl font-extrabold mb-4">Step 6: Body Paragraph 2</h1>
-      <p class="text-lg text-base-content/70">Cover the remaining details and contrasts.</p>
-    </div>
-
-    <div class="card bg-base-200 shadow-lg p-8">
-      <h2 class="text-2xl font-bold mb-4">Body Paragraph 2 Planner</h2>
-
-      <ul class="list-disc prose max-w-none pl-6 space-y-2">
-        <li>Industrial usage varies slightly</li>
-        <li>Clear contrast between Country X and Z</li>
-      </ul>
-
-      <div class="flex justify-between mt-8">
-        <button class="btn btn-outline btn-prev">← Prev</button>
-        <button class="btn btn-primary btn-next">Next →</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 🟦 STEP 7: REVIEW + QR + DOWNLOAD -->
-  <div id="step7" class="container mx-auto max-w-3xl px-4 hidden">
-    <div class="text-center mb-12">
-      <h1 class="text-5xl font-extrabold mb-4">Step 7: Final Review</h1>
-      <p class="text-lg text-base-content/70">Review your plan, check your report, and download your materials.</p>
-    </div>
-
-    <div class="card bg-base-200 shadow-lg p-8">
-      <h2 class="text-2xl font-bold mb-4">Final Review & Report</h2>
-
-      <div class="stats stats-vertical lg:stats-horizontal shadow mb-6 bg-base-100">
-        <div class="stat">
-          <div class="stat-title">Accuracy</div>
-          <div class="stat-value text-success">92%</div>
+    <!-- Footer -->
+    <footer class="border-t border-base-300/50 mt-20">
+        <div class="container mx-auto px-6 py-8 flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+            <p class="text-base-content/60 mb-4 md:mb-0">© 2024 IELTS Today. All Rights Reserved.</p>
+            <div class="flex gap-4">
+                <a href="#" class="text-base-content/60 hover:text-accent"><ion-icon name="logo-facebook" class="text-2xl"></ion-icon></a>
+                <a href="#" class="text-base-content/60 hover:text-accent"><ion-icon name="logo-twitter" class="text-2xl"></ion-icon></a>
+                <a href="#" class="text-base-content/60 hover:text-accent"><ion-icon name="logo-instagram" class="text-2xl"></ion-icon></a>
+            </div>
         </div>
-        <div class="stat">
-          <div class="stat-title">Mistakes</div>
-          <div class="stat-value text-error">3</div>
-        </div>
-      </div>
+    </footer>
 
-      <div class="card bg-base-100 p-6 mb-4 text-center">
-        <h3 class="font-bold mb-2">QR Code Access</h3>
-        <img src="materials/qrcode_todayieltstask.onrender.com.png" class="rounded-xl w-48 mx-auto"/>
-      </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const lessonsGrid = document.getElementById('lessons-grid');
 
-      <button class="btn btn-accent btn-wide mt-4">Download Report</button>
-      <button class="btn btn-outline btn-wide mt-3" id="return-home-btn">Return Home</button>
-    </div>
-  </div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const steps = document.querySelectorAll('div[id^="step"]');
-      const stepIndicators = document.querySelectorAll('#steps-indicator .step');
-      const nextButtons = document.querySelectorAll('.btn-next');
-      const prevButtons = document.querySelectorAll('.btn-prev');
-      const returnHomeButton = document.getElementById('return-home-btn');
-
-      let currentStep = 1;
-      const totalSteps = steps.length;
-
-      const showStep = (stepNumber) => {
-        // Hide all steps
-        steps.forEach(step => step.classList.add('hidden'));
-        // Show the correct step
-        document.getElementById(`step${stepNumber}`).classList.remove('hidden');
-
-        // Update progress bar
-        stepIndicators.forEach((indicator, index) => {
-          if (index < stepNumber) {
-            indicator.classList.add('step-primary');
-          } else {
-            indicator.classList.remove('step-primary');
-          }
+            // Fetch lesson data from lessons.json
+            fetch('lessons.json')
+                .then(response => response.json())
+                .then(lessons => {
+                    lessons.forEach(lesson => {
+                        const card = `
+                            <a href="${lesson.page}" class="card group overflow-hidden border border-base-300/50 hover:border-accent/50 transition-all duration-300">
+                                <figure class="h-64">
+                                    <img src="${lesson.image}" alt="${lesson.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                                </figure>
+                                <div class="card-body bg-base-200/50">
+                                    <h3 class="card-title text-2xl font-bold text-white">${lesson.title}</h3>
+                                    <p>${lesson.description}</p>
+                                    <div class="card-actions justify-end mt-4">
+                                        <span class="font-semibold text-accent">Start Now →</span>
+                                    </div>
+                                </div>
+                            </a>
+                        `;
+                        lessonsGrid.innerHTML += card;
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching lessons:', error);
+                    lessonsGrid.innerHTML = '<p class="text-center text-error col-span-full">Could not load lessons. Please try again later.</p>';
+                });
         });
-        window.scrollTo(0, 0);
-      };
+    </script>
 
-      nextButtons.forEach(button => {
-        button.addEventListener('click', () => {
-          if (currentStep < totalSteps) currentStep++;
-          showStep(currentStep);
-        });
-      });
-
-      prevButtons.forEach(button => {
-        button.addEventListener('click', () => {
-          if (currentStep > 1) currentStep--;
-          showStep(currentStep);
-        });
-      });
-
-      returnHomeButton.addEventListener('click', () => {
-        currentStep = 1;
-        showStep(currentStep);
-      });
-
-      // Initially show the first step
-      showStep(currentStep);
-    });
-  </script>
 </body>
 </html>
