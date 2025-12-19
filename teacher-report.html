@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Lato:wght@400&display=swap" rel="stylesheet">
   <!-- Firebase SDKs (Modular v9+ syntax) -->
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <style>
     :root {
       --primary-color: #1A73E8; /* Royal Blue */
@@ -77,18 +78,57 @@
     <header class="text-center mb-5">
       <h2>📊 Live Teacher Dashboard</h2>
       <p class="text-muted">Real-time results from student quiz submissions</p>
+      <small id="lastUpdated" class="text-muted"></small>
     </header>
+
+    <!-- KPI CARDS -->
+    <div class="row g-4 mb-5" id="kpi-cards">
+      <div class="col-md-4">
+        <div class="kpi-card card h-100">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="card-title">Total Submissions</h5>
+              <i class="bi bi-people-fill kpi-icon"></i>
+            </div>
+            <p id="totalSubmissions" class="kpi-value">0</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="kpi-card card h-100">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="card-title">Average Score</h5>
+              <i class="bi bi-check2-circle kpi-icon"></i>
+            </div>
+            <p id="averageScore" class="kpi-value">0%</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="kpi-card card h-100">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="card-title">Most Common Error</h5>
+              <i class="bi bi-exclamation-triangle-fill kpi-icon"></i>
+            </div>
+            <p id="mostCommonError" class="kpi-value">-</p>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="table-container">
       <div class="table-responsive">
         <table class="table table-hover text-center">
           <thead>
             <tr>
-              <th class="text-start">TASK ID</th>
-              <th>CORRECT</th>
-              <th>INCORRECT</th>
-              <th>MISSED</th>
-              <th>COMMONLY MISSED</th>
+              <th class="text-start sortable" data-sort="taskId">NAME <i class="bi bi-arrow-down-up"></i></th>
+              <th class="sortable" data-sort="correct">CORRECT <i class="bi bi-arrow-down-up"></i></th>
+              <th class="sortable" data-sort="incorrect">INCORRECT <i class="bi bi-arrow-down-up"></i></th>
+              <th class="sortable" data-sort="missed">MISSED <i class="bi bi-arrow-down-up"></i></th>
+              <th>INCORRECT QUESTIONS</th>
+              <th>MISSED QUESTIONS</th>
             </tr>
           </thead>
           <tbody id="reportTableBody"></tbody>
@@ -97,9 +137,124 @@
     </div>
   </div>
 
+  <style>
+    .kpi-card {
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .kpi-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    }
+    .kpi-card .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+    .kpi-icon {
+      font-size: 1.5rem;
+      color: var(--primary-color);
+      opacity: 0.7;
+    }
+    .kpi-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-top: 0.5rem;
+      margin-bottom: 0;
+    }
+    .sortable { cursor: pointer; }
+    .sortable:hover { background-color: rgba(255,255,255,0.1); }
+  </style>
+  </div>
+
+  <!-- ACTION BUTTONS & MODAL -->
+  <div id="action-buttons" class="container mt-4 d-flex justify-content-center flex-wrap gap-3" style="display: none;">
+    <button id="questionAnalysisBtn" class="btn btn-primary"><i class="bi bi-bar-chart-line me-2"></i>Question Analysis</button>
+    <button id="findCommonErrorBtn" class="btn btn-info text-white"><i class="bi bi-search me-2"></i>Find Common Error</button>
+    <button id="clearAllBtn" class="btn btn-danger"><i class="bi bi-trash me-2"></i>Clear All Results</button>
+  </div>
+
+  <!-- Modal for Common Error -->
+  <div class="modal fade" id="commonErrorModal" tabindex="-1" aria-labelledby="commonErrorModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="commonErrorModalLabel">Most Common Error</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="commonErrorBody">
+          <!-- Content will be injected by JS -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Student Details -->
+  <div class="modal fade" id="studentDetailModal" tabindex="-1" aria-labelledby="studentDetailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="studentDetailModalLabel">Student Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="studentDetailBody">
+          <!-- Detailed results will be injected here -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Question Analysis -->
+  <div class="modal fade" id="questionAnalysisModal" tabindex="-1" aria-labelledby="questionAnalysisModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="questionAnalysisModalLabel">Question Performance Analysis</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="questionAnalysisBody">
+          <!-- Question analysis will be injected here -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Answer Distribution -->
+  <div class="modal fade" id="answerDistributionModal" tabindex="-1" aria-labelledby="answerDistributionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="answerDistributionModalLabel">Answer Distribution</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="answerDistributionBody">
+          <!-- Distribution chart will be injected here -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS (needed for Modal) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+    import { getDatabase, ref, onValue, remove } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
 
     // --- Firebase Config ---
     const firebaseConfig = {
@@ -120,6 +275,7 @@
     // --- Login Logic ---
     const loginSection = document.getElementById('login-section');
     const reportSection = document.getElementById('report-section');
+    const actionButtons = document.getElementById('action-buttons');
     const loginBtn = document.getElementById('login-btn');
     const passwordInput = document.getElementById('password-input');
     const errorAlert = document.getElementById('error-alert');
@@ -128,6 +284,7 @@
       if (passwordInput.value === '3753') {
         loginSection.style.display = 'none';
         document.body.style.backgroundColor = 'var(--bg-color)'; // Reset body background
+        actionButtons.style.display = 'block';
         reportSection.style.display = 'block';
         errorAlert.style.display = 'none';
       } else {
@@ -135,35 +292,339 @@
       }
     });
 
+    // --- Data Store ---
+    let allRecords = []; // To store all records for analysis
+    const QUESTIONS = [ // Mirroring quiz.html to get question text
+      { q:"1. Which of the following is a simple sentence?", options:["A. Although inflation decreased, consumer confidence remained low.","B. Inflation decreased, and spending patterns shifted.","C. Inflation decreased significantly in 2023.","D. Inflation decreased because government policies tightened."], correct:"C" },
+      { q:"2. Which sentence is a compound sentence?", options:["A. The course was challenging although it improved my writing skills.","B. The course improved my writing skills because the tasks were rigorous.","C. The course improved my writing skills, but the workload was demanding.","D. The course improving my writing skills during the semester."], correct:"C" },
+      { q:"3. Which sentence is a complex sentence?", options:["A. The library expanded its digital section last year.","B. The library expanded its digital section, and students benefited.","C. The library expanded its digital section because demand increased.","D. The library expanded its digital section and introduced new services."], correct:"C" },
+      { q:"4. Choose the correct complex transformation of the simple sentence: “Many students dropped out.”", options:["A. Many students dropped out, and the school faced criticism.","B. Many students dropped out although support was available.","C. Because fees increased sharply, many students dropped out.","D. Many students dropped out and struggled academically."], correct:"C" },
+      { q:"5. Pick the compound version of the simple sentence: “Technology is advancing rapidly.”", options:["A. As technology is advancing rapidly, industries must adapt.","B. Technology is advancing rapidly, which has transformed industries.","C. Technology is advancing rapidly, and industries must adapt.","D. Technology is advancing rapidly although industries must adapt."], correct:"C" },
+      { q:"6. A line graph shows electricity consumption rising steadily from 2000 to 2020. Which is the most accurate summary?", options:["A. Electricity use fluctuated dramatically.","B. Electricity use followed a consistent upward trend.","C. Electricity use remained largely unchanged.","D. Electricity use declined steadily."], correct:"B" },
+      { q:"7. A chart shows that Country A produced twice as much steel as Country B in 2021. Which interpretation is correct?", options:["A. Country A had marginally higher steel output.","B. Country A and B produced roughly equal amounts of steel.","C. Country A’s steel production was significantly greater than Country B’s.","D. Country B produced more steel than Country A."], correct:"C" },
+      { q:"8. Data shows that public transport usage fell from 65% to 40% over a decade. What is the most accurate observation?", options:["A. Public transport usage nearly halved.","B. Public transport usage remained stable.","C. Public transport usage peaked at 90%.","D. Public transport usage increased sharply."], correct:"A" },
+      { q:"9. A graph shows water consumption rising sharply in 2015 but stabilising from 2016–2020. Which interpretation is accurate?", options:["A. Consumption surged initially before plateauing.","B. Consumption fluctuated continuously.","C. Consumption fell dramatically after 2015.","D. Consumption remained consistently low."], correct:"A" },
+      { q:"10. A table shows unemployment rates: 8% (2018), 6% (2019), 7% (2020). What is the best description?", options:["A. Unemployment declined steadily.","B. Unemployment fluctuated mildly.","C. Unemployment increased dramatically.","D. Unemployment remained unchanged."], correct:"B" },
+      { q:"11. What does “prerequisite” mean?", options:["A. A minor inconvenience","B. A requirement that must be fulfilled beforehand","C. A suggestion with no obligation","D. A sudden change in results"], correct:"B" },
+      { q:"12. What does “colloquially” mean?", options:["A. Spoken in everyday informal language","B. Spoken in formal academic style","C. Spoken in a foreign language","D. Spoken using technical terminology"], correct:"A" },
+      { q:"13. What is the closest meaning of “systemic”?", options:["A. Related to random events","B. Affecting only individuals","C. Deeply rooted within an entire system","D. Temporary and superficial"], correct:"C" },
+      { q:"14. What does “exacerbate” mean?", options:["A. To make a problem worse","B. To measure something accurately","C. To hide the real cause of a problem","D. To introduce a new policy"], correct:"A" },
+      { q:"15. What is the meaning of “paradigm”?", options:["A. A sudden failure","B. A model or framework for understanding something","C. A minor detail","D. A large financial cost"], correct:"B" }
+    ];
+
     // --- Table Element ---
     const tableBody = document.getElementById("reportTableBody");
+
+    // --- KPI Elements ---
+    const totalSubmissionsEl = document.getElementById('totalSubmissions');
+    const averageScoreEl = document.getElementById('averageScore');
+    const mostCommonErrorEl = document.getElementById('mostCommonError');
+    const lastUpdatedEl = document.getElementById('lastUpdated');
 
     // --- Real-time Listener ---
     const resultsRef = ref(db, "quizResults");
     onValue(resultsRef, (snapshot) => {
-      const data = snapshot.val();
-      tableBody.innerHTML = "";
+      const data = snapshot.val() || {};
+      allRecords = Object.values(data); // Store for analysis
+      renderTable(allRecords);
+      updateKpis(allRecords);
+      lastUpdatedEl.textContent = `Last updated: ${new Date().toLocaleTimeString()}`;
+    }, (error) => {
+      console.error("❌ Firebase read error:", error.message);
+    });
 
-      if (data) {
+    function renderTable(records) {
+      tableBody.innerHTML = "";
+      if (records.length > 0) {
         // convert to array so we can reverse order (newest first)
-        const records = Object.values(data).reverse();
         records.forEach(record => {
           const row = `
-            <tr class="animate-fade-in">
+            <tr class="animate-fade-in student-row" data-student-key="${record.taskId}" style="cursor: pointer;">
               <td class="fw-bold text-start">${record.taskId}</td>
               <td class="fw-bold text-success">${record.correct}</td>
               <td class="fw-bold text-danger">${record.incorrect}</td>
               <td class="fw-bold text-warning">${record.missed}</td>
-              <td>${record.wrongQuestions || "-"}</td>
+              <td>${record.incorrectQuestions || "-"}</td>
+              <td>${record.missedQuestions || "-"}</td>
             </tr>`;
           tableBody.insertAdjacentHTML("beforeend", row);
         });
       } else {
-        tableBody.innerHTML = `<tr><td colspan="5" class="text-muted text-center p-4">No results found yet. Waiting for first submission...</td></tr>`;
+        // Updated colspan to 6
+        tableBody.innerHTML = `<tr><td colspan="6" class="text-muted text-center p-4">No results found yet. Waiting for first submission...</td></tr>`;
       }
-    }, (error) => {
-      console.error("❌ Firebase read error:", error.message);
+
+      // Add click listeners for the new rows
+      document.querySelectorAll('.student-row').forEach(row => {
+        row.addEventListener('click', () => {
+          showStudentDetails(row.dataset.studentKey);
+        });
+      });
+    }
+
+    function updateKpis(records) {
+      totalSubmissionsEl.textContent = records.length;
+
+      if (records.length === 0) {
+        averageScoreEl.textContent = '0%';
+        mostCommonErrorEl.textContent = '-';
+        return;
+      }
+
+      // Calculate Average Score
+      const totalCorrect = records.reduce((sum, record) => sum + (parseFloat(record.correct) || 0), 0);
+      const avgScore = (totalCorrect / records.length).toFixed(1);
+      averageScoreEl.textContent = `${avgScore}%`;
+
+      // Find Most Common Error
+      const wrongCounts = {};
+      records.forEach(record => {
+        if (record.rawAnswers && record.rawAnswers.length === QUESTIONS.length) {
+          record.rawAnswers.forEach((answer, index) => {
+            if (answer !== null && answer !== QUESTIONS[index].correct) {
+              const questionNumber = index + 1;
+              wrongCounts[questionNumber] = (wrongCounts[questionNumber] || 0) + 1;
+            }
+          });
+        }
+      });
+
+      if (Object.keys(wrongCounts).length > 0) {
+        const mostCommon = Object.entries(wrongCounts).sort((a, b) => b[1] - a[1])[0];
+        mostCommonErrorEl.textContent = `Question ${mostCommon[0]}`;
+      } else {
+        mostCommonErrorEl.textContent = 'None';
+      }
+    }
+
+    // --- Sorting Logic ---
+    let sortColumn = 'timestamp';
+    let sortDirection = 'desc';
+
+    document.querySelectorAll('.sortable').forEach(header => {
+      header.addEventListener('click', () => {
+        const column = header.dataset.sort;
+        if (sortColumn === column) {
+          sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+          sortColumn = column;
+          sortDirection = 'asc';
+        }
+        
+        const sortedRecords = [...allRecords].sort((a, b) => {
+          let valA = a[column];
+          let valB = b[column];
+          if (column !== 'taskId') { // For percentages, parse them as numbers
+            valA = parseFloat(valA) || 0;
+            valB = parseFloat(valB) || 0;
+          }
+          return (valA > valB ? 1 : -1) * (sortDirection === 'asc' ? 1 : -1);
+        });
+        renderTable(sortedRecords);
+      });
     });
+
+    // --- Action Button Logic ---
+    const findCommonErrorBtn = document.getElementById('findCommonErrorBtn');
+    const clearAllBtn = document.getElementById('clearAllBtn');
+    const commonErrorModal = new bootstrap.Modal(document.getElementById('commonErrorModal'));
+    const answerDistributionModal = new bootstrap.Modal(document.getElementById('answerDistributionModal'));
+    const questionAnalysisModal = new bootstrap.Modal(document.getElementById('questionAnalysisModal'));
+    const studentDetailModal = new bootstrap.Modal(document.getElementById('studentDetailModal'));
+    const questionAnalysisBtn = document.getElementById('questionAnalysisBtn');
+    const commonErrorBody = document.getElementById('commonErrorBody');
+
+    findCommonErrorBtn.addEventListener('click', () => {
+      if (allRecords.length === 0) {
+        commonErrorBody.innerHTML = `<p class="text-muted">No student data available to analyze.</p>`;
+        commonErrorModal.show();
+        return;
+      }
+
+      const wrongCounts = {}; // e.g., { 3: 2, 5: 4 } -> Q#3 wrong twice, Q#5 wrong four times
+
+      allRecords.forEach(record => {
+        if (record.rawAnswers && record.rawAnswers.length === QUESTIONS.length) {
+          record.rawAnswers.forEach((answer, index) => {
+            if (answer !== null && answer !== QUESTIONS[index].correct) {
+              const questionNumber = index + 1;
+              wrongCounts[questionNumber] = (wrongCounts[questionNumber] || 0) + 1;
+            }
+          });
+        }
+      });
+
+      if (Object.keys(wrongCounts).length === 0) {
+        commonErrorBody.innerHTML = `<div class="alert alert-success">Great job! No incorrect answers have been recorded across all students.</div>`;
+      } else {
+        // Find the most common error
+        const mostCommon = Object.entries(wrongCounts).sort((a, b) => b[1] - a[1])[0];
+        const qNum = mostCommon[0];
+        const qCount = mostCommon[1];
+        const qText = QUESTIONS[qNum - 1].q;
+
+        commonErrorBody.innerHTML = `
+          <p>The most frequently incorrect question is:</p>
+          <div class="alert alert-danger">
+            <h5 class="alert-heading">Question ${qNum}</h5>
+            <p>${qText}</p>
+            <hr>
+            <p class="mb-0">It was answered incorrectly <strong>${qCount}</strong> time(s).</p>
+          </div>
+        `;
+      }
+      commonErrorModal.show();
+    });
+
+    clearAllBtn.addEventListener('click', async () => {
+      const pass = prompt("To clear all data, please enter the admin passcode:");
+      if (pass === '3753') {
+        if (confirm("Are you sure you want to permanently delete ALL quiz results? This cannot be undone.")) {
+          await remove(resultsRef);
+          alert("All quiz results have been cleared.");
+        }
+      } else if (pass !== null) { // User entered something but it was wrong
+        alert("Incorrect passcode. Action cancelled.");
+      }
+    });
+
+    questionAnalysisBtn.addEventListener('click', () => {
+      const questionAnalysisBody = document.getElementById('questionAnalysisBody');
+      if (allRecords.length === 0) {
+        questionAnalysisBody.innerHTML = `<p class="text-muted">No student data available to analyze.</p>`;
+        questionAnalysisModal.show();
+        return;
+      }
+
+      let analysisHtml = '<ul class="list-group">';
+      QUESTIONS.forEach((q, index) => {
+        let correctCount = 0;
+        let attemptedCount = 0;
+        allRecords.forEach(record => {
+          if (record.rawAnswers && record.rawAnswers[index] !== null) {
+            attemptedCount++;
+            if (record.rawAnswers[index] === q.correct) {
+              correctCount++;
+            }
+          }
+        });
+
+        const successRate = attemptedCount > 0 ? (correctCount / attemptedCount) * 100 : 0;
+        let progressBarClass = 'bg-success';
+        if (successRate < 75) progressBarClass = 'bg-warning';
+        if (successRate < 50) progressBarClass = 'bg-danger';
+
+        analysisHtml += `
+          <li class="list-group-item list-group-item-action" style="cursor: pointer;" data-question-index="${index}">
+            <div class="fw-bold">Q${index + 1}: ${q.q.substring(0, 80)}...</div>
+            <div class="d-flex align-items-center mt-2">
+              <div class="progress" style="height: 20px; flex-grow: 1;">
+                <div class="progress-bar ${progressBarClass}" role="progressbar" style="width: ${successRate.toFixed(1)}%;" aria-valuenow="${successRate.toFixed(1)}" aria-valuemin="0" aria-valuemax="100">
+                  ${successRate.toFixed(1)}%
+                </div>
+              </div>
+              <small class="ms-3 text-muted" style="min-width: 120px;">(${correctCount}/${attemptedCount} correct)</small>
+            </div>
+          </li>`;
+      });
+      analysisHtml += '</ul>';
+      questionAnalysisBody.innerHTML = analysisHtml;
+
+      // Add click listeners for the new analysis items
+      questionAnalysisBody.querySelectorAll('.list-group-item-action').forEach(item => {
+        item.addEventListener('click', () => {
+          showAnswerDistribution(item.dataset.questionIndex);
+        });
+      });
+      questionAnalysisModal.show();
+    });
+
+    function showStudentDetails(studentKey) {
+      const record = allRecords.find(r => r.taskId === studentKey);
+      if (!record) return;
+
+      const modalTitle = document.getElementById('studentDetailModalLabel');
+      const modalBody = document.getElementById('studentDetailBody');
+      modalTitle.textContent = `Details for ${record.taskId}`;
+
+      let detailsHtml = '<div class="list-group">';
+      QUESTIONS.forEach((q, index) => {
+        const studentAnswer = record.rawAnswers ? record.rawAnswers[index] : null;
+        const correctAnswer = q.correct;
+        let statusIcon = '';
+        let itemClass = '';
+
+        if (studentAnswer === null) {
+          statusIcon = '<i class="bi bi-skip-circle-fill text-warning"></i>';
+          itemClass = 'list-group-item-warning';
+        } else if (studentAnswer === correctAnswer) {
+          statusIcon = '<i class="bi bi-check-circle-fill text-success"></i>';
+          itemClass = 'list-group-item-success';
+        } else {
+          statusIcon = '<i class="bi bi-x-circle-fill text-danger"></i>';
+          itemClass = 'list-group-item-danger';
+        }
+
+        detailsHtml += `
+          <div class="list-group-item ${itemClass}">
+            <div class="d-flex w-100 justify-content-between">
+              <h6 class="mb-1">${q.q}</h6>
+              ${statusIcon}
+            </div>
+            <p class="mb-1 small">Your answer: <strong>${studentAnswer || 'N/A'}</strong> | Correct answer: <strong>${correctAnswer}</strong></p>
+          </div>`;
+      });
+      detailsHtml += '</div>';
+      modalBody.innerHTML = detailsHtml;
+      studentDetailModal.show();
+    }
+
+    function showAnswerDistribution(questionIndex) {
+      const qIndex = parseInt(questionIndex);
+      const question = QUESTIONS[qIndex];
+      const totalStudents = allRecords.length;
+
+      const answerCounts = {};
+      question.options.forEach((opt, i) => {
+        const letter = String.fromCharCode(65 + i);
+        answerCounts[letter] = 0;
+      });
+
+      allRecords.forEach(record => {
+        if (record.rawAnswers && record.rawAnswers[qIndex] !== null) {
+          const studentAnswer = record.rawAnswers[qIndex];
+          if (answerCounts.hasOwnProperty(studentAnswer)) {
+            answerCounts[studentAnswer]++;
+          }
+        }
+      });
+
+      const modalTitle = document.getElementById('answerDistributionModalLabel');
+      const modalBody = document.getElementById('answerDistributionBody');
+      modalTitle.textContent = `Answer Distribution for Question ${qIndex + 1}`;
+
+      let distributionHtml = `<h5 class="mb-4">${question.q}</h5>`;
+      question.options.forEach((opt, i) => {
+        const letter = String.fromCharCode(65 + i);
+        const count = answerCounts[letter];
+        const percentage = totalStudents > 0 ? (count / totalStudents) * 100 : 0;
+        const isCorrect = letter === question.correct;
+        const barClass = isCorrect ? 'bg-success' : 'bg-secondary';
+
+        distributionHtml += `
+          <div class="mb-3">
+            <div class="d-flex justify-content-between">
+              <strong>${letter}. ${opt.replace(/^([A-D]\.\s*)/,'')}</strong>
+              <span>${count} vote(s)</span>
+            </div>
+            <div class="progress" style="height: 25px;">
+              <div class="progress-bar ${barClass}" role="progressbar" style="width: ${percentage.toFixed(1)}%;" aria-valuenow="${percentage.toFixed(1)}">${percentage.toFixed(1)}%</div>
+            </div>
+          </div>`;
+      });
+      modalBody.innerHTML = distributionHtml;
+      answerDistributionModal.show();
+    }
   </script>
 </body>
 </html>

@@ -1,322 +1,690 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IELTS Grammar Quiz</title>
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IELTS Quiz</title>
 
-  <!-- Firebase SDKs (Modular v9+ syntax) -->
-  <script type="module">
-    // Import the Firebase SDK functions
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+  <!-- Google fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
-    // Firebase Config
-    const firebaseConfig = {
-      apiKey: "AIzaSy***Q",
-      authDomain: "ielts-live-dashboard.firebaseapp.com",
-      databaseURL: "https://ielts-live-dashboard-default-rtdb.firebaseio.com",
-      projectId: "ielts-live-dashboard",
-      storageBucket: "ielts-live-dashboard.firebasestorage.app",
-      messagingSenderId: "1044694021318",
-      appId: "1:1044694021318:web:70f1ac1ba0787d37da93c7",
-      measurementId: "G-R9G2YGSBM9"
-    };
-
-    // Initialize Firebase App + DB
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
-    // Make db and functions available globally for quiz.js
-    window.db = db;
-    window.firebaseSet = set;
-    window.firebaseRef = ref;
-  </script>
   <style>
-    :root {
-      --primary-blue: #2563eb;
-      --highlight-blue: #1d4ed8;
-      --correct-green: #16a34a;
-      --incorrect-red: #dc2626;
-      --bg-white: #ffffff;
-      --bg-light-card: #f8fafc;
-      --text-dark: #0f172a;
-      --text-muted: #64748b;
+    :root{
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --accent: #0f95ff;
+      --accent-600: #0d86e6;
+      --muted: #6b7280;
+      --shadow: 0 18px 40px rgba(12,16,40,0.06);
+      --radius: 18px;
+      --glass: rgba(255,255,255,0.7);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,#eef4ff 0%, #f5f7fb 30%);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:100vh;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
 
-    body {
-      font-family: 'Inter', 'Lato', sans-serif;
-      background-color: var(--bg-white);
-      color: var(--text-dark);
-      line-height: 1.6;
-      max-width: 420px;
-      margin: auto;
-      padding: 2rem 1rem;
+    /* Outer card (centered) */
+    .card {
+      width:100%;
+      max-width:820px;
+      background: var(--card);
+      border-radius: 20px;
+      padding: 36px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
     }
 
-    h1, h2, h3 {
-      font-family: 'Inter', 'Plus Jakarta Sans', sans-serif;
-      font-weight: 700;
-      color: var(--text-dark);
-    }
-    h1 { font-size: 2rem; }
-    h2 { font-size: 1.5rem; margin-top: 2.5rem; }
-
-    /* ======= HEADER / TITLE SECTION ======= */
-    header {
-      text-align: center;
-      margin-bottom: 2.5rem;
-    }
-    header p {
-      color: var(--text-muted);
-      margin-bottom: 0;
-    }
-
-    /* ======= QUESTION CARDS ======= */
-    .question {
-      background: var(--bg-light-card);
-      border: 1px solid #e2e8f0;
-      border-radius: 16px;
-      padding: 1.25rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .question p {
-      font-weight: 500;
-      font-size: 16px;
-      margin-top: 0;
-      color: var(--text-dark);
-    }
-
-    /* ======= OPTIONS ======= */
-    .options label {
-      display: block;
-      padding: 0.75rem;
-      border-radius: 12px;
-      margin-bottom: 0.5rem;
-      cursor: pointer;
-      transition: background-color 0.2s ease;
-      min-height: 44px;
+    /* Welcome hero (W2) styles */
+    .welcome {
       display: flex;
+      gap: 32px;
       align-items: center;
-    }
-    .options label:hover {
-      background-color: #eef2ff;
-    }
-    .options input {
-      margin-right: 10px;
-      accent-color: var(--primary-blue);
+      min-height: 260px;
+      padding: 16px 0;
     }
 
-    /* ======= BUTTONS ======= */
-    .btn-submit {
-      padding: 0.8rem 1.25rem;
-      background-color: var(--primary-blue);
-      color: #fff;
-      border: none;
-      border-radius: 12px;
-      font-size: 1rem;
-      cursor: pointer;
+    .welcome-left {
+      flex: 1;
+      padding-left: 12px;
+    }
+
+    .eyebrow {
+      display:inline-block;
+      background: linear-gradient(90deg, rgba(15,149,255,0.12), rgba(13,134,230,0.08));
+      color: var(--accent);
+      padding:6px 12px;
+      border-radius: 999px;
+      font-weight:600;
+      font-size:13px;
+      margin-bottom: 18px;
+    }
+
+    .hero-title {
+      font-size: 32px;
+      margin: 0 0 8px 0;
+      font-weight: 800;
+      color: #0b2a4a;
+      letter-spacing: -0.6px;
+    }
+
+    .hero-sub {
+      color: var(--muted);
+      margin: 0 0 24px 0;
+      font-size: 15px;
+    }
+
+    /* Input line */
+    .name-input-wrap {
       width: 100%;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      transition: background-color 0.2s ease;
-      margin-top: 1rem;
-    }
-    .btn-submit:hover {
-      background-color: var(--highlight-blue);
-    }
-
-    .btn-download {
-      display: none;
-      text-decoration: none;
-      text-align: center;
-      margin-top: 1.5rem;
-      padding: 0.8rem 1.25rem;
-      border: 2px solid var(--primary-blue);
-      background-color: var(--bg-white);
-      color: var(--primary-blue);
+      max-width: 520px;
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      background: var(--glass);
       border-radius: 12px;
-      font-weight: 700;
-      transition: all 0.2s ease;
+      padding: 14px 18px;
+      border: 1px solid rgba(15,149,255,0.06);
+      transition: box-shadow .18s ease, transform .12s ease;
     }
-    .btn-download:hover {
-      background-color: var(--primary-blue);
-      color: var(--bg-white);
+    .name-input-wrap.focused {
+      box-shadow: 0 6px 28px rgba(15,149,255,0.12);
+      transform: translateY(-2px);
+      border-color: rgba(15,149,255,0.18);
     }
 
-    /* ======= RESULT BOX ======= */
-    #resultBox {
-      margin-top: 2.5rem;
-      padding: 1.5rem;
-      background-color: var(--bg-light-card);
-      border-radius: 16px;
-      text-align: center;
+    .name-input {
+      border: none;
+      outline: none;
+      font-size: 20px;
+      font-weight: 600;
+      background: transparent;
+      width: 100%;
+      color: #0b2a4a;
+    }
+
+    .placeholder-anim {
+      color: #9aa4b2;
+      font-weight: 500;
+    }
+
+    .hint {
+      display:flex;
+      gap:8px;
+      align-items:center;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .enter-key {
+      border: 1px solid #e6eefb;
+      background: #fff;
+      padding: 5px 9px;
+      border-radius:6px;
+      font-weight:700;
+      color: var(--accent-600);
+      box-shadow: 0 2px 6px rgba(11,42,74,0.04);
+    }
+
+    /* Quiz area */
+    .quiz {
       display: none;
-      animation: slideInUp 0.5s ease forwards;
+      padding-top: 6px;
+      min-height: 320px;
     }
 
-    /* ======= CORRECT/WRONG ANSWERS ======= */
-    .correct {
-      background-color: #dcfce7;
-      border: 1px solid var(--correct-green);
-      font-weight: bold;
-    }
-    .wrong {
-      background-color: #fee2e2;
-      border: 1px solid var(--incorrect-red);
+    .q-head {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      margin-bottom: 18px;
     }
 
-    /* ======= FOOTER ======= */
-    footer {
-      text-align: center;
-      margin-top: 3rem;
+    .q-number {
+      color: var(--muted);
+      font-weight: 600;
     }
-    .back-link {
-      color: var(--primary-blue);
-      text-decoration: none;
+
+    .progress {
+      height:8px;
+      background:#edf2ff;
+      border-radius: 999px;
+      flex: 1;
+      overflow: hidden;
+      margin-left: 12px;
+    }
+
+    .progress > i {
+      display:block;
+      height:100%;
+      width:0%;
+      background: linear-gradient(90deg,var(--accent),var(--accent-600));
+      transition: width .35s ease;
+    }
+
+    .question-area {
+      margin-top: 18px;
+    }
+
+    .question-text {
+      font-size: 22px;
       font-weight: 700;
-    }
-    .back-link:hover {
-      text-decoration: underline;
+      color: #072038;
+      margin-bottom: 20px;
+      line-height: 1.4;
     }
 
-    @keyframes slideInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .options {
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      margin-top: 6px;
     }
-  </style>
-  <!-- Add a specific style for the Task ID -->
-  <style>
-    #taskIdDisplay {
-      text-align: center;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-bottom: 1.5rem;
-      font-family: monospace;
-      letter-spacing: 1px;
+
+    .opt {
+      background:#fbfdff;
+      padding: 16px 18px;
+      border-radius: 12px;
+      border: 1px solid rgba(11,42,74,0.04);
+      cursor: pointer;
+      font-weight: 600;
+      color:#072038;
+      box-shadow: 0 8px 24px rgba(12,16,40,0.04);
+      transition: transform .12s ease, box-shadow .12s ease, background .12s;
+      display:flex;
+      align-items:center;
+      gap:12px;
     }
+
+    .opt:hover { transform: translateY(-3px); }
+    .opt.selected {
+      background: linear-gradient(90deg, rgba(15,149,255,0.12), rgba(13,134,230,0.06));
+      border-color: rgba(15,149,255,0.18);
+      box-shadow: 0 12px 32px rgba(15,149,255,0.06);
+    }
+
+    .opt .label {
+      min-width: 34px;
+      height: 34px;
+      display:inline-grid;
+      place-items:center;
+      background: #fff;
+      border-radius: 8px;
+      font-weight:800;
+      color: var(--accent-600);
+      border: 1px solid rgba(15,149,255,0.08);
+    }
+
+    .navigation {
+      margin-top: 26px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap: 12px;
+    }
+
+    .btn {
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-weight:700;
+      border:none;
+      cursor:pointer;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid rgba(12,16,40,0.06);
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg,var(--accent),var(--accent-600));
+      color: white;
+      box-shadow: 0 8px 30px rgba(15,149,255,0.14);
+    }
+
+    .final-screen {
+      display:none;
+      padding:36px;
+      text-align:center;
+    }
+
+    .final-screen h2 {
+      margin: 0 0 8px 0;
+      font-size: 26px;
+      color: #073a6b;
+    }
+    .final-screen p { color: var(--muted) }
+
+    /* small screens */
+    @media (max-width:720px){
+      .card { padding: 24px; border-radius: 14px }
+      .welcome { flex-direction: column; align-items:flex-start; gap:10px }
+      .hero-title { font-size: 26px }
+      .hero-sub { font-size: 14px }
+      .name-input { font-size: 18px }
+      .question-text { font-size: 20px }
+    }
+
+    /* subtle transitions for views */
+    .view { opacity:0; transform: translateY(14px); transition: all .36s ease; }
+    .view.show { opacity:1; transform: translateY(0); }
   </style>
 </head>
-
 <body>
-  <header>
-    <h1>IELTS Task 2 Grammar Quiz</h1>
-    <p>15 Questions • Auto-scored • Instant feedback</p>
-    <p class="small">Start the quiz immediately after scanning the QR code.</p>
-  </header>
 
-  <!-- QUIZ FORM -->
-  <div id="taskIdDisplay"></div>
+  <div class="card" role="application" aria-labelledby="quiz-heading">
+    <!-- WELCOME HERO -->
+    <div id="welcomeView" class="view show">
+      <div class="welcome">
+        <div class="welcome-left">
+          <div class="eyebrow">Welcome</div>
+          <h1 class="hero-title">Enter your name</h1>
 
-  <form id="quizForm">
+          <div id="nameWrap" class="name-input-wrap" aria-hidden="false">
+            <input id="studentName" class="name-input" type="text" inputmode="text" autocomplete="name" autocapitalize="words" placeholder="Type your name here..." aria-label="Student name" />
+          </div>
 
-    <div class="question"><p>Q1. If the government ______ stricter laws earlier, pollution would not have increased so rapidly.</p><div class="options">
-        <label><input type="radio" name="q1" value="a"> a) had implemented</label>
-        <label><input type="radio" name="q1" value="b"> b) implemented</label>
-        <label><input type="radio" name="q1" value="c"> c) would implement</label>
-    </div></div>
+          <div class="hint">
+            <span class="enter-key">↵</span>
+            <span style="color:var(--muted)">Press Enter to start the quiz</span>
+          </div>
+        </div>
 
-    <div class="question"><p>Q2. The number of people applying for online courses ______ risen dramatically.</p><div class="options">
-        <label><input type="radio" name="q2" value="a"> a) have</label>
-        <label><input type="radio" name="q2" value="b"> b) has</label>
-        <label><input type="radio" name="q2" value="c"> c) having</label>
-    </div></div>
-
-    <div class="question"><p>Q3. Many experts argue that remote work, ______ offers flexibility, also reduces team bonding.</p><div class="options">
-        <label><input type="radio" name="q3" value="a"> a) who</label>
-        <label><input type="radio" name="q3" value="b"> b) which</label>
-        <label><input type="radio" name="q3" value="c"> c) that</label>
-    </div></div>
-
-    <div class="question"><p>Q4. Public transport systems in major cities ______ upgraded to reduce traffic congestion.</p><div class="options">
-        <label><input type="radio" name="q4" value="a"> a) is being</label>
-        <label><input type="radio" name="q4" value="b"> b) are being</label>
-        <label><input type="radio" name="q4" value="c"> c) were</label>
-    </div></div>
-
-    <div class="question"><p>Q5. If young people exercised more regularly, they ______ better mental health.</p><div class="options">
-        <label><input type="radio" name="q5" value="a"> a) would have</label>
-        <label><input type="radio" name="q5" value="b"> b) have</label>
-        <label><input type="radio" name="q5" value="c"> c) will have</label>
-    </div></div>
-
-    <div class="question"><p>Q6. Hardly ______ the manager finished speaking when the staff began asking questions.</p><div class="options">
-        <label><input type="radio" name="q6" value="a"> a) had</label>
-        <label><input type="radio" name="q6" value="b"> b) have</label>
-        <label><input type="radio" name="q6" value="c"> c) did</label>
-    </div></div>
-
-    <div class="question"><p>Q7. Digital privacy is becoming ______ important for modern citizens.</p><div class="options">
-        <label><input type="radio" name="q7" value="a"> a) more</label>
-        <label><input type="radio" name="q7" value="b"> b) most</label>
-        <label><input type="radio" name="q7" value="c"> c) increasingly</label>
-    </div></div>
-
-    <div class="question"><p>Q8. Despite several warnings, he refused ______ the rules.</p><div class="options">
-        <label><input type="radio" name="q8" value="a"> a) to follow</label>
-        <label><input type="radio" name="q8" value="b"> b) follow</label>
-        <label><input type="radio" name="q8" value="c"> c) following</label>
-    </div></div>
-
-    <div class="question"><p>Q9. By the time the conference starts, all participants ______ the required documents.</p><div class="options">
-        <label><input type="radio" name="q9" value="a"> a) will submit</label>
-        <label><input type="radio" name="q9" value="b"> b) will have submitted</label>
-        <label><input type="radio" name="q9" value="c"> c) have been submitting</label>
-    </div></div>
-
-    <div class="question"><p>Q10. The proposal was rejected because it was not clearly explained, ______?</p><div class="options">
-        <label><input type="radio" name="q10" value="a"> a) wasn't it</label>
-        <label><input type="radio" name="q10" value="b"> b) was it</label>
-        <label><input type="radio" name="q10" value="c"> c) is it</label>
-    </div></div>
-
-    <div class="question"><p>Q11. "Pragmatic" most nearly means:</p><div class="options">
-        <label><input type="radio" name="q11" value="a"> a) based on practical considerations</label>
-        <label><input type="radio" name="q11" value="b"> b) extremely difficult to understand</label>
-        <label><input type="radio" name="q11" value="c"> c) related to emotions rather than logic</label>
-    </div></div>
-
-    <div class="question"><p>Q12. "Inevitable" is best used in which sentence?</p><div class="options">
-        <label><input type="radio" name="q12" value="a"> a) Pollution is inevitable prevented by technology.</label>
-        <label><input type="radio" name="q12" value="b"> b) Some degree of technological change is inevitable in modern society.</label>
-        <label><input type="radio" name="q12" value="c"> c) People are inevitable to work hard.</label>
-    </div></div>
-
-    <div class="question"><p>Q13. "Substantial" means:</p><div class="options">
-        <label><input type="radio" name="q13" value="a"> a) very small</label>
-        <label><input type="radio" name="q13" value="b"> b) large or significant</label>
-        <label><input type="radio" name="q13" value="c"> c) temporary</label>
-    </div></div>
-
-    <div class="question"><p>Q14. Choose the sentence that correctly uses "contemplate":</p><div class="options">
-        <label><input type="radio" name="q14" value="a"> a) He contemplated to join the team yesterday.</label>
-        <label><input type="radio" name="q14" value="b"> b) She is contemplating moving to another country for better opportunities.</label>
-        <label><input type="radio" name="q14" value="c"> c) They contemplate quickly the presentation.</label>
-    </div></div>
-
-    <div class="question"><p>Q15. "Impartial" refers to someone who is:</p><div class="options">
-        <label><input type="radio" name="q15" value="a"> a) unfair and biased</label>
-        <label><input type="radio" name="q15" value="b"> b) neutral and objective</label>
-        <label><input type="radio" name="q15" value="c"> c) confused and uncertain</label>
+        <!-- Right side illustration / decorative -->
+        <div style="width:40%; min-width:220px; display:flex; justify-content:center; align-items:center;">
+          <img src="materials/svg-logo.webp" alt="Quiz Logo" style="width:180px; height:auto;">
+        </div>
       </div>
     </div>
 
-    <button type="button" class="btn-submit" onclick="checkQuiz()">Submit Quiz</button>
-  </form>
 
-  <div id="resultBox">
-    <!-- Score will be injected here by JS -->
+    <!-- QUIZ VIEW -->
+    <div id="quizView" class="quiz view" aria-hidden="true" role="region" aria-label="Quiz area">
+      <div class="q-head">
+        <div style="display:flex; align-items:center;">
+          <div class="q-number" id="qNumber">Question 1 / 15</div>
+          <div class="progress" aria-hidden="true"><i id="progressFill"></i></div>
+        </div>
+        <div style="display:flex; align-items:center; gap: 16px;">
+          <div id="timerDisplay" style="font-weight: 700; color: var(--accent-600); font-size: 18px; display:flex; align-items:center; gap: 6px;">
+              <i class="bi bi-clock"></i>
+              <span id="timerText">05:00</span>
+          </div>
+          <div style="min-width:110px; text-align:right; color:var(--muted); font-weight:700;" id="studentLabel">—</div>
+        </div>
+      </div>
+
+      <div class="question-area">
+        <div class="question-text" id="questionText"></div>
+
+        <div class="options" id="optionsList" role="listbox" aria-labelledby="questionText"></div>
+
+        <div class="navigation">
+          <button id="backBtn" class="btn btn-secondary">← Previous</button>
+          <button id="nextBtn" class="btn btn-primary">Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FINAL SCREEN -->
+    <div id="finalView" class="final-screen view" aria-hidden="true">
+      <h2>All done — nice work!</h2>
+      <p id="finalMsg">You answered <span id="correctAnswersCount">0</span> questions correctly. Your teacher will see your name on the live dashboard.</p>
+      <div style="margin-top:24px;" class="d-flex justify-content-center gap-3">
+        <button id="doneBtn" class="btn btn-primary">Done</button>
+        <a href="materials/week-25-fri-wt1.pdf" download="week-25-fri-wt1.pdf" class="btn btn-secondary">Download PDF</a>
+      </div>
+    </div>
   </div>
 
-  <a href="materials/week21-wt2pdf.pdf" id="downloadBtn" class="btn-download" download="week21-wt2pdf.pdf">Download Grammar PDF Guide</a>
+<script type="module">
+  // -------------------------
+  // Typeform-style Quiz (Clone)
+  // Firebase (v11 modular)
+  // -------------------------
 
-  <footer>
-    <a href="https://todayieltstask.onrender.com/" class="back-link">&larr; Back to Main IELTS Guided Task</a>
-  </footer>
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+  import { getDatabase, ref, set, push } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
 
-  <script src="quiz.js"></script>
+  // === Firebase config - REPLACE with your project's config ===
+  const firebaseConfig = {
+    apiKey: "AIzaSy***Q",
+    authDomain: "ielts-live-dashboard.firebaseapp.com",
+    databaseURL: "https://ielts-live-dashboard-default-rtdb.firebaseio.com",
+    projectId: "ielts-live-dashboard",
+    storageBucket: "ielts-live-dashboard.firebasestorage.app",
+    messagingSenderId: "1044694021318",
+    appId: "1:1044694021318:web:70f1ac1ba0787d37da93c7"
+  };
+  // ============================================================
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  // === Quiz data (15 questions) ===
+  const QUESTIONS = [
+    { q:"1. Which of the following is a simple sentence?", options:["A. Although inflation decreased, consumer confidence remained low.","B. Inflation decreased, and spending patterns shifted.","C. Inflation decreased significantly in 2023.","D. Inflation decreased because government policies tightened."], correct:"C" },
+    { q:"2. Which sentence is a compound sentence?", options:["A. The course was challenging although it improved my writing skills.","B. The course improved my writing skills because the tasks were rigorous.","C. The course improved my writing skills, but the workload was demanding.","D. The course improving my writing skills during the semester."], correct:"C" },
+    { q:"3. Which sentence is a complex sentence?", options:["A. The library expanded its digital section last year.","B. The library expanded its digital section, and students benefited.","C. The library expanded its digital section because demand increased.","D. The library expanded its digital section and introduced new services."], correct:"C" },
+    { q:"4. Choose the correct complex transformation of the simple sentence: “Many students dropped out.”", options:["A. Many students dropped out, and the school faced criticism.","B. Many students dropped out although support was available.","C. Because fees increased sharply, many students dropped out.","D. Many students dropped out and struggled academically."], correct:"C" },
+    { q:"5. Pick the compound version of the simple sentence: “Technology is advancing rapidly.”", options:["A. As technology is advancing rapidly, industries must adapt.","B. Technology is advancing rapidly, which has transformed industries.","C. Technology is advancing rapidly, and industries must adapt.","D. Technology is advancing rapidly although industries must adapt."], correct:"C" },
+    { q:"6. A line graph shows electricity consumption rising steadily from 2000 to 2020. Which is the most accurate summary?", options:["A. Electricity use fluctuated dramatically.","B. Electricity use followed a consistent upward trend.","C. Electricity use remained largely unchanged.","D. Electricity use declined steadily."], correct:"B" },
+    { q:"7. A chart shows that Country A produced twice as much steel as Country B in 2021. Which interpretation is correct?", options:["A. Country A had marginally higher steel output.","B. Country A and B produced roughly equal amounts of steel.","C. Country A’s steel production was significantly greater than Country B’s.","D. Country B produced more steel than Country A."], correct:"C" },
+    { q:"8. Data shows that public transport usage fell from 65% to 40% over a decade. What is the most accurate observation?", options:["A. Public transport usage nearly halved.","B. Public transport usage remained stable.","C. Public transport usage peaked at 90%.","D. Public transport usage increased sharply."], correct:"A" },
+    { q:"9. A graph shows water consumption rising sharply in 2015 but stabilising from 2016–2020. Which interpretation is accurate?", options:["A. Consumption surged initially before plateauing.","B. Consumption fluctuated continuously.","C. Consumption fell dramatically after 2015.","D. Consumption remained consistently low."], correct:"A" },
+    { q:"10. A table shows unemployment rates: 8% (2018), 6% (2019), 7% (2020). What is the best description?", options:["A. Unemployment declined steadily.","B. Unemployment fluctuated mildly.","C. Unemployment increased dramatically.","D. Unemployment remained unchanged."], correct:"B" },
+    { q:"11. What does “prerequisite” mean?", options:["A. A minor inconvenience","B. A requirement that must be fulfilled beforehand","C. A suggestion with no obligation","D. A sudden change in results"], correct:"B" },
+    { q:"12. What does “colloquially” mean?", options:["A. Spoken in everyday informal language","B. Spoken in formal academic style","C. Spoken in a foreign language","D. Spoken using technical terminology"], correct:"A" },
+    { q:"13. What is the closest meaning of “systemic”?", options:["A. Related to random events","B. Affecting only individuals","C. Deeply rooted within an entire system","D. Temporary and superficial"], correct:"C" },
+    { q:"14. What does “exacerbate” mean?", options:["A. To make a problem worse","B. To measure something accurately","C. To hide the real cause of a problem","D. To introduce a new policy"], correct:"A" },
+    { q:"15. What is the meaning of “paradigm”?", options:["A. A sudden failure","B. A model or framework for understanding something","C. A minor detail","D. A large financial cost"], correct:"B" }
+  ];
+
+  // State
+  let studentName = "";
+  let idx = 0;
+  const answers = Array(QUESTIONS.length).fill(null); // store selected letter "A"/"B"/...
+  const studentLabelEl = document.getElementById("studentLabel");
+  let quizTimerInterval = null;
+  let timeRemaining = 300; // 5 minutes
+  let isQuizActive = false;
+
+  // Elements
+  const welcomeView = document.getElementById("welcomeView");
+  const quizView = document.getElementById("quizView");
+  const finalView = document.getElementById("finalView");
+  const nameInput = document.getElementById("studentName");
+  const nameWrap = document.getElementById("nameWrap");
+  const qNumber = document.getElementById("qNumber");
+  const progressFill = document.getElementById("progressFill");
+  const questionText = document.getElementById("questionText");
+  const optionsList = document.getElementById("optionsList");
+  const nextBtn = document.getElementById("nextBtn");
+  const backBtn = document.getElementById("backBtn");
+  const doneBtn = document.getElementById("doneBtn");
+  const correctAnswersCountEl = document.getElementById("correctAnswersCount");
+  const timerTextEl = document.getElementById("timerText");
+
+  // Helper: uppercase and sanitize student name for key
+  function sanitizeName(n){
+    if(!n) return "";
+    return n.trim().toUpperCase().replace(/\s+/g,' ');
+  }
+
+  // Welcome behavior
+  nameInput.addEventListener("focus", ()=> nameWrap.classList.add("focused"));
+  nameInput.addEventListener("blur", ()=> nameWrap.classList.remove("focused"));
+
+  nameInput.addEventListener("keydown", (e)=>{
+    if(e.key === "Enter"){
+      e.preventDefault();
+      startQuizFlow();
+    }
+  });
+
+  // Start quiz: validate name & transition
+  function startQuizFlow(){
+    const raw = nameInput.value || "";
+    const cleaned = sanitizeName(raw);
+    if(!cleaned){
+      // slight shake
+      nameWrap.animate([{transform:"translateX(0)"},{transform:"translateX(-8px)"},{transform:"translateX(8px)"},{transform:"translateX(0)"}], {duration:220});
+      return;
+    }
+    studentName = cleaned;
+    studentLabelEl.textContent = studentName;
+    // animate transition
+    welcomeView.classList.remove("show");
+    setTimeout(()=>{
+      welcomeView.style.display = "none";
+      quizView.style.display = "block";
+      setTimeout(()=> quizView.classList.add("show"), 10);
+      loadQuestion(idx);
+      startTimer();
+    }, 200);
+  }
+
+  // Timer Logic
+  function startTimer() {
+    isQuizActive = true;
+    timeRemaining = 300; // 5 minutes
+    updateTimerDisplay();
+
+    quizTimerInterval = setInterval(() => {
+      timeRemaining--;
+      updateTimerDisplay();
+
+      if (timeRemaining <= 0) {
+        clearInterval(quizTimerInterval);
+        isQuizActive = false;
+        alert("Time's up! Your quiz will be submitted automatically.");
+        disableQuizControls();
+        submitQuiz();
+      }
+    }, 1000);
+  }
+
+  function updateTimerDisplay() {
+    const min = Math.floor(timeRemaining / 60).toString().padStart(2, '0');
+    const sec = (timeRemaining % 60).toString().padStart(2, '0');
+    timerTextEl.textContent = `${min}:${sec}`;
+  }
+
+  function disableQuizControls() {
+    optionsList.querySelectorAll('.opt').forEach(opt => opt.disabled = true);
+    nextBtn.disabled = true;
+    backBtn.disabled = true;
+  }
+
+  // Load question
+  function loadQuestion(i){
+    idx = i;
+    // update head
+    qNumber.textContent = `Question ${idx+1} / ${QUESTIONS.length}`;
+    const pct = Math.round(((idx) / QUESTIONS.length) * 100);
+    progressFill.style.width = pct + "%";
+
+    // fill question and options
+    const q = QUESTIONS[idx];
+    questionText.textContent = q.q;
+    optionsList.innerHTML = "";
+    q.options.forEach((optText, j)=>{
+      const letter = String.fromCharCode(65 + j); // A,B,C...
+      const opt = document.createElement("button");
+      opt.type = "button";
+      opt.className = "opt";
+      opt.setAttribute("role","option");
+      opt.innerHTML = `<span class="label">${letter}</span><span style="flex:1">${optText.replace(/^([A-D]\.\s*)/,'')}</span>`;
+      // mark if previously selected
+      if(answers[idx] === letter) opt.classList.add("selected");
+      
+      opt.addEventListener("click", ()=>{
+        // clear selection siblings
+        optionsList.querySelectorAll(".opt").forEach(o=>o.classList.remove("selected"));
+        opt.classList.add("selected");
+        answers[idx] = letter;
+        // show next button if present
+      });
+      optionsList.appendChild(opt);
+    });
+
+    // update buttons visibility
+    backBtn.style.visibility = (idx === 0) ? "hidden" : "visible";
+    nextBtn.textContent = (idx === QUESTIONS.length - 1) ? "Submit" : "Next →";
+  }
+
+  // Navigation
+  backBtn.addEventListener("click", ()=>{
+    if(idx > 0){
+      // small transition
+      quizView.classList.remove("show");
+      setTimeout(()=> { loadQuestion(idx-1); quizView.classList.add("show"); }, 160);
+    }
+  });
+
+  nextBtn.addEventListener("click", ()=>{
+    if(answers[idx] === null){
+      // if unanswered, treat as missed but still allow moving forward after a subtle nudge
+      // nudge animation
+      optionsList.animate([{transform:"translateX(0)"},{transform:"translateX(-8px)"},{transform:"translateX(8px)"},{transform:"translateX(0)"}], {duration:220});
+      return;
+    }
+
+    if(idx < QUESTIONS.length - 1){
+      quizView.classList.remove("show");
+      setTimeout(()=> { loadQuestion(idx+1); quizView.classList.add("show"); }, 160);
+    } else {
+      // final submit
+      submitQuiz();
+    }
+  });
+
+  // keyboard shortcuts: number or letter to choose, enter to next
+  document.addEventListener("keydown", (e)=>{
+    if(!isQuizActive || welcomeView.style.display !== "none") return; // only during active quiz
+    if(["1","2","3","4","5","6","7","8","9"].includes(e.key) && (parseInt(e.key) <= QUESTIONS[idx].options.length)){
+      const choiceIndex = parseInt(e.key)-1;
+      const optButtons = optionsList.querySelectorAll(".opt");
+      if(optButtons[choiceIndex]) optButtons[choiceIndex].click();
+    }
+    if(e.key.toLowerCase() >= 'a' && e.key.toLowerCase() <= 'd'){
+      const ch = e.key.toUpperCase();
+      const letterIndex = ch.charCodeAt(0)-65;
+      if(letterIndex >=0 && letterIndex < QUESTIONS[idx].options.length){
+        const optButtons = optionsList.querySelectorAll(".opt");
+        if(optButtons[letterIndex]) optButtons[letterIndex].click();
+      }
+    }
+    if(e.key === "Enter"){
+      // if focus is inside name input, handled earlier
+      if(document.activeElement && document.activeElement === nameInput) return;
+      e.preventDefault();
+      // mimic next button click
+      nextBtn.click();
+    }
+  });
+
+  // Submit => compute score and push to Firebase under student's NAME (uppercase)
+  async function submitQuiz(){
+    if (quizTimerInterval) clearInterval(quizTimerInterval); // Stop timer on manual submit
+    isQuizActive = false;
+
+    // compute correct count, incorrect, missed
+    let correctCount = 0;
+    let missedCount = 0;
+    const incorrectList = [];
+    const missedList = [];
+
+    QUESTIONS.forEach((Q, i)=>{
+      const ans = answers[i];
+      if(ans === null){
+        missedCount++;
+        missedList.push(`Q${i+1}`);
+      } else {
+        if(ans === Q.correct) correctCount++;
+        else {
+          incorrectList.push(`Q${i+1}`);
+        }
+      }
+    });
+
+    const total = QUESTIONS.length;
+    const incorrectCount = total - correctCount - missedCount;
+    const correctPct = ((correctCount / total) * 100).toFixed(1) + "%";
+    const incorrectPct = ((incorrectCount / total) * 100).toFixed(1) + "%";
+    const missedPct = ((missedCount / total) * 100).toFixed(1) + "%";
+    const incorrectQuestionsStr = incorrectList.length ? incorrectList.join(", ") : "-";
+    const missedQuestionsStr = missedList.length ? missedList.join(", ") : "-";
+
+    // Create a result payload matching teacher-report expected fields
+    const studentKey = sanitizeName(studentName) || ("ANON_" + Date.now());
+    const payload = {
+      taskId: studentKey,        // teacher-report expects taskId; now this will be the student's name in UPPERCASE
+      correct: correctPct,
+      rawCorrectCount: correctCount, // Added raw correct count
+      incorrect: incorrectPct,
+      missed: missedPct,
+      incorrectQuestions: incorrectQuestionsStr, // New field
+      missedQuestions: missedQuestionsStr,     // New field
+      rawAnswers: answers,       // optional — useful for debugging / analysis
+      timestamp: Date.now()
+    };
+
+    try {
+      // Write to /quizResults/<studentKey>
+      // We use set(...) to overwrite existing student name entry so the latest attempt replaces the earlier one
+      const targetRef = ref(db, `quizResults/${studentKey}`);
+      await set(targetRef, payload);
+
+      // show final view
+      quizView.classList.remove("show");
+      setTimeout(()=>{
+        correctAnswersCountEl.textContent = correctCount; // Update the display
+        quizView.style.display = "none";
+        finalView.style.display = "block";
+        finalView.classList.add("show");
+      }, 180);
+    } catch(err){
+      console.error("Firebase write error:", err);
+      alert("Could not save your result right now. Check network or Firebase config.");
+    }
+  }
+
+  // When Done clicked => optionally reset or redirect
+  doneBtn.addEventListener("click", ()=>{
+    // simple reset to welcome screen (keeps name for convenience)
+    finalView.classList.remove("show");
+    setTimeout(()=>{
+      finalView.style.display = "none";
+      welcomeView.style.display = "block";
+      setTimeout(()=> {
+        welcomeView.classList.add("show");
+        // reset state
+        idx = 0;
+        for(let i=0;i<answers.length;i++) answers[i] = null;
+        nameInput.value = "";
+        studentName = "";
+        studentLabelEl.textContent = "—";
+        quizView.style.display = "none";
+        // Re-enable buttons for next attempt
+        nextBtn.disabled = false;
+        backBtn.disabled = false;
+        isQuizActive = false;
+        timeRemaining = 300;
+      }, 10);
+    }, 160);
+  });
+
+  // Initialize: hide quiz/final views until start
+  quizView.style.display = "none";
+  finalView.style.display = "none";
+
+  // Auto-focus the name input
+  nameInput.focus();
+
+  // Make Next button enabled only when an option is selected (handled by click)
+  // Small accessibility: allow click on the entire card to focus name input
+  document.querySelector('.card').addEventListener('click', (e)=>{
+    if(welcomeView.style.display !== "none"){
+      nameInput.focus();
+    }
+  });
+
+  // END module
+</script>
 </body>
 </html>
-    
